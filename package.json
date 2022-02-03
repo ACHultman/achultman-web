@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "hultman-tech",
   "scripts": {
     "dev": "next",
     "build": "next build",
