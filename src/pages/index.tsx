@@ -3,8 +3,6 @@ import Head from "next/head";
 import { Code, Text } from "@chakra-ui/react";
 
 import { Container } from "../components/Container";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { Footer } from "../components/Footer";
 import { Hero } from "../components/Hero";
 import { Main } from "../components/Main";
 
