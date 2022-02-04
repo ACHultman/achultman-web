@@ -5,6 +5,7 @@ import { Box, useColorMode } from "@chakra-ui/react";
 const Logo = () => {
   const { colorMode } = useColorMode();
   const router = useRouter();
+
   return (
     <Box className="logo" onClick={() => router.push("/")}>
       <svg

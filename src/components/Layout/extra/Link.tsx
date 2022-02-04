@@ -5,6 +5,7 @@ import { Link as ChakraLink, useColorModeValue } from "@chakra-ui/react";
 
 const Link = ({ children, href, ...props }) => {
   const { asPath } = useRouter();
+
   return (
     <NextLink href={href} passHref>
       <ChakraLink
