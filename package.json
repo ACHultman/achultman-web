@@ -12,11 +12,15 @@
     "@chakra-ui/theme-tools": "1.1.2",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
-    "framer-motion": "^4.0.3",
+    "@hookform/resolvers": "^2.8.8",
+    "framer-motion": "latest",
     "next": "latest",
+    "next-seo": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1"
+    "react-hook-form": "^7.26.0",
+    "react-icons": "^4.3.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^14.6.0",

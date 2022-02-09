@@ -1,7 +1,15 @@
 import { useRouter } from "next/router";
 
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Container, Flex, HStack, IconButton, Stack, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  HStack,
+  IconButton,
+  Stack,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import Logo from "../Logo";
@@ -36,9 +44,6 @@ const extraLinks = [
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  let router = useRouter();
-  let { asPath } = router;
 
   const navigationItem = (
     <>

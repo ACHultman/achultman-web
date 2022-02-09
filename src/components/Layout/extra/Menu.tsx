@@ -1,12 +1,20 @@
 import { useRouter } from "next/router";
 import { FaAngleDown } from "react-icons/fa";
 
-import { Button, Menu, MenuButton, MenuItem, MenuList, useColorModeValue } from "@chakra-ui/react";
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 import Link from "./Link";
 
 const DropdownMenu = ({ extraLinks }) => {
   const { asPath } = useRouter();
+
   return (
     <Menu autoSelect={false}>
       <MenuButton

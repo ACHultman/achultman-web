@@ -1,37 +1,17 @@
+import { Container } from "@chakra-ui/react";
 import Head from "next/head";
-
-import { Code, Text } from "@chakra-ui/react";
-
-import { Container } from "../components/Container";
-import { Hero } from "../components/Hero";
-import { Main } from "../components/Main";
+import Home from "../components/Home";
 
 const Index = () => (
   <>
     <Head>
-      <title>Adam Hultman</title>
-      <meta
-        name="description"
-        content="Adam Hultman | Full-stack developer, UI/UX Designer"
-      />
-      <meta property="og:type" content="website" />
-      <meta name="robots" content="follow, index" />
-      <meta property="og:url" content="https://hultman.tech/" />
-      <meta
-        property="og:title"
-        content="Adam Hultman | Full-stack developer, UI/UX Designer"
-      />
-      <meta property="og:image" content="/meta-image.jpg" />
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <Container height="100vh">
-      <Hero />
-      <Main>
-        <Text>
-          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{" "}
-          <Code>TypeScript</Code>.
-        </Text>
-      </Main>
-    </Container>
+    <main>
+      <Container maxW="container.lg" mt={["5", "10"]}>
+        <Home />
+      </Container>
+    </main>
   </>
 );
 

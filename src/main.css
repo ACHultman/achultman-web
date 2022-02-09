@@ -1,0 +1,82 @@
+body::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #1a202c;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #38a169;
+  outline: 1px solid slategrey;
+}
+
+.logo {
+  position: relative;
+  cursor: pointer;
+  transition: transform 200ms;
+}
+
+.logo:hover {
+  transform: scale(0.9);
+}
+
+/* Inner cricle  */
+
+.logo::before {
+  content: "";
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  opacity: 0;
+  background: linear-gradient(#38a1692a, #38a16904);
+  border-radius: 50%;
+  transition: all 250ms;
+}
+
+.logo:hover::before {
+  height: 60px;
+  width: 60px;
+  opacity: 1;
+  transition: all 250ms;
+}
+
+/* Outter cricle  */
+
+.logo::after {
+  content: "";
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  opacity: 0;
+  border-width: thin;
+  border: 1px #38a169d7;
+  border-style: dashed;
+  border-radius: 50%;
+  transition: all 250ms;
+}
+
+.logo:hover::after {
+  height: 80px;
+  width: 80px;
+  opacity: 1;
+  transition: 250ms;
+  animation: spin 10s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
