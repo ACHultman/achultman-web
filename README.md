@@ -1,6 +1,6 @@
 # My personal webiste
 
-This is my personal website. It was generated using the tools below. Have a look :)
+This is my personal website. It was bootstrapped using the tools below. Have a look :)
 
 ## Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui) and TypeScript
 
