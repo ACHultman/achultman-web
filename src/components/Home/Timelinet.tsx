@@ -5,40 +5,99 @@ import {
   ListItem,
   ListIcon,
   Box,
+  VStack,
+  Text,
+  Link,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { MdCheckCircle } from "react-icons/md";
+import Paragraph from "../Paragraph";
 
 export const MotionHeading = motion(Heading);
 export const MotionListItem = motion(ListItem);
 
+const titles = {
+  assembly: {
+    title: "Assembly Digital Media",
+    href: "https://assmb.ly",
+    description:
+      "Assembly Digital Media is a tech leader, disrupting the digital publishing industry with an innovative stack of technology that has turned traditional and digital media on its head.",
+  },
+  se: {
+    title: "Schneider Electric",
+    href: "https://www.se.com",
+    description: "Schneider Electric is a global leader in the power industry.",
+  },
+  itc: {
+    title: "Island Temperature Controls",
+    href: "https://islandtemp.com",
+    description:
+      "ITC specializes in HVAC and DDC systems for commercial, industrial, marine and institutional properties.",
+  },
+  uvic: {
+    title: "University of Victoria",
+    href: "https://www.uvic.ca",
+    description:
+      "The University of Victoria is a public research university located in Victoria, British Columbia.",
+  },
+};
+
 const timeline = {
+  "2022": [
+    {
+      icon: MdCheckCircle,
+      title: titles.assembly,
+      subtitle: "Software Developer",
+      dateRange: "May 2022 - Present",
+    },
+  ],
+
+  "2021": [
+    {
+      icon: MdCheckCircle,
+      title: titles.assembly,
+      subtitle: "Full-stack Software Developer Co-op",
+      dateRange: "September 2021 - December 2021",
+    },
+    {
+      icon: MdCheckCircle,
+      title: titles.se,
+      subtitle: "Software Designer - Co-op",
+      dateRange: "January 2021 - September 2021",
+    },
+  ],
+
   "2019": [
     {
       icon: MdCheckCircle,
-      text: "Created a new website for a local business",
+      title: titles.itc,
+      subtitle: "Full-stack Software Developer - Co-op",
+      dateRange: "May 2019 - December 2019",
     },
   ],
 
   "2018": [
     {
       icon: MdCheckCircle,
-      text: "Started the Software Engineering program specialization at the University of Victoria",
+      title: titles.uvic,
+      subtitle: "Began Software Engineering (B.S.Eng.) degree",
+      dateRange: "September 2018",
     },
   ],
+
   "2017": [
     {
       icon: MdCheckCircle,
-      text: "Started my degree in Engineering at the University of Victoria",
-    },
-    {
-      icon: MdCheckCircle,
-      text: "Formally introduced to the world of programming",
+      title: titles.uvic,
+      subtitle: "Began Bachelor of Engineering degree",
+      dateRange: "September 2017",
     },
   ],
 };
 
 const Timeline = () => {
+  const dateRangeColor = useColorModeValue("gray.600", "gray.400");
   return (
     <SlideFade in={true} offsetY={80} delay={0.2}>
       <Heading
@@ -48,38 +107,56 @@ const Timeline = () => {
       >
         Timeline
       </Heading>
-      {Object.keys(timeline).map((year) => {
-        return (
-          <Box key={year}>
-            <MotionHeading
-              mt={10}
-              mb={5}
-              as="h2"
-              size="md"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              {year}
-            </MotionHeading>
-            <List spacing={18} fontSize="18">
-              {timeline[year].map((item, i) => (
-                <MotionListItem
-                  key={`timeline-${year}-item-${i}`}
+      {Object.keys(timeline)
+        .reverse()
+        .map((year) => {
+          return (
+            <Box key={year}>
+              <VStack>
+                <MotionHeading
+                  mt={10}
+                  mb={5}
+                  as="h2"
+                  size="md"
+                  borderBottom="2px"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
                 >
-                  <ListIcon as={item.icon} color="green.500" />
-                  {item.text}
-                </MotionListItem>
-              ))}
-            </List>
-          </Box>
-        );
-      })}
+                  {year}
+                </MotionHeading>
+                <List spacing={18} fontSize="18">
+                  {timeline[year].map((item, i) => (
+                    <MotionListItem
+                      key={`timeline-${year}-item-${i}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      viewport={{ once: true }}
+                    >
+                      {/* <ListIcon as={item.icon} color="green.500" /> */}
+                      <VStack>
+                        <Link href={item.title.href}>
+                          <Text
+                            title={item.title.description}
+                            borderBottom={"0.5px dotted grey"}
+                          >
+                            {item.title.title}
+                          </Text>
+                        </Link>
+                        <Paragraph>{item.subtitle}</Paragraph>
+                        <Text fontSize="sm" color={dateRangeColor}>
+                          {item.dateRange}
+                        </Text>
+                      </VStack>
+                    </MotionListItem>
+                  ))}
+                </List>
+              </VStack>
+            </Box>
+          );
+        })}
     </SlideFade>
   );
 };
