@@ -32,7 +32,7 @@ const DropdownMenu = ({ extraLinks }) => {
         as={Button}
         rightIcon={<FaAngleDown />}
       >
-        Links
+        Extras
       </MenuButton>
       <MenuList bg={useColorModeValue("gray.50", "gray.800")}>
         {extraLinks &&
