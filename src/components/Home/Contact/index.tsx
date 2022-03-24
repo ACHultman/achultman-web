@@ -1,19 +1,29 @@
 import { Box, LightMode } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FaArrowAltCircleUp, FaEnvelope } from "react-icons/fa";
+import {
+  FaArrowAltCircleUp,
+  FaCheck,
+  FaEnvelope,
+  FaExclamation,
+} from "react-icons/fa";
 import { MotionButton } from "../Hero";
 import ContactForm from "./contact-form";
+import { useFormManager } from "./use-form-manager";
 
 const MotionBox = motion(Box);
 
-const variants = {
-  open: { width: "100%", height: "100%" },
-  closed: { width: "unset", height: "auto" },
-};
-
 const Contact = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { formState, isOpen, setIsOpen, onSubmit } = useFormManager();
+
+  const contactButtonState =
+    formState === "success"
+      ? { icon: <FaCheck />, text: "Message sent!" }
+      : formState == "error"
+      ? {
+          icon: <FaExclamation />,
+          text: "Error! Please contact me through LinkedIn.",
+        }
+      : { icon: <FaEnvelope />, text: "Contact" };
 
   return (
     <>
@@ -22,9 +32,7 @@ const Contact = () => {
         p={2}
         borderRadius={5}
         borderTopRightRadius={isOpen ? 100 : 5}
-        bg="green.500"
         animate={isOpen ? "open" : "closed"}
-        variants={variants}
       >
         {/* TODO: fix colors, closed state sizing */}
         <LightMode>
@@ -34,11 +42,11 @@ const Contact = () => {
             colorScheme="green"
             bg="green.500"
             borderRadius={5}
-            leftIcon={isOpen ? <FaArrowAltCircleUp /> : <FaEnvelope />}
+            leftIcon={isOpen ? <FaArrowAltCircleUp /> : contactButtonState.icon}
           >
-            {isOpen ? "Close" : "Contact"}
+            {isOpen ? "Close" : contactButtonState.text}
           </MotionButton>
-          <ContactForm isOpen={isOpen} />
+          <ContactForm isOpen={isOpen} onSubmit={onSubmit} />
         </LightMode>
       </MotionBox>
     </>

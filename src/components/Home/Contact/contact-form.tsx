@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,8 +8,8 @@ import * as yup from "yup";
 import ContactFormField from "./contact-form-field";
 
 const variants = {
-  open: { opacity: "1", width: "100%", height: "auto" },
-  closed: { opacity: "0", width: "0", height: "0" },
+  open: { opacity: 1, width: "100%", height: "auto", display: "block" },
+  closed: { opacity: 0, height: "0", display: "none" },
 };
 
 export interface IFormInput {
@@ -31,7 +31,7 @@ const schema = yup
 
 const MotionBox = motion<BoxProps>(Box);
 
-const ContactForm = ({ isOpen }) => {
+const ContactForm = ({ isOpen, onSubmit }) => {
   const {
     control,
     handleSubmit,
@@ -40,59 +40,62 @@ const ContactForm = ({ isOpen }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
-  };
+  // dynamic margin top for root
+  const mt = isOpen ? "5" : "0";
 
   return (
-    <>
-      <MotionBox animate={isOpen ? "open" : "closed"} variants={variants}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Flex direction={"column"} gap={1}>
-            <Controller
-              name="name"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <ContactFormField
-                  field={field}
-                  error={errors.name}
-                  placeholder={"Name"}
-                />
-              )}
-            />
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <ContactFormField
-                  field={field}
-                  error={errors.email}
-                  placeholder={"Email"}
-                />
-              )}
-            />
+    <MotionBox
+      animate={isOpen ? "open" : "closed"}
+      variants={variants}
+      mt={mt}
+      opacity={0}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Flex direction={"column"} gap={2}>
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <ContactFormField
+                field={field}
+                error={errors.name}
+                placeholder={"Name"}
+              />
+            )}
+          />
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <ContactFormField
+                field={field}
+                error={errors.email}
+                placeholder={"Email"}
+              />
+            )}
+          />
 
-            <Controller
-              name="message"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <ContactFormField
-                  field={field}
-                  error={errors.message}
-                  placeholder={"Message"}
-                />
-              )}
-            />
-            <Button mt={4} colorScheme="green" type="submit">
-              Submit
-            </Button>
-          </Flex>
-        </form>
-      </MotionBox>
-    </>
+          <Controller
+            name="message"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <ContactFormField
+                field={field}
+                error={errors.message}
+                placeholder={"Message"}
+                isTextArea={true}
+              />
+            )}
+          />
+          <Button mt={4} colorScheme="green" type="submit">
+            Submit
+          </Button>
+        </Flex>
+      </form>
+    </MotionBox>
   );
 };
 

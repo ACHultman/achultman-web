@@ -5,7 +5,6 @@ import {
   ListItem,
   ListIcon,
   Box,
-  transition,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { MdCheckCircle } from "react-icons/md";

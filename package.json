@@ -13,13 +13,16 @@
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
     "@hookform/resolvers": "^2.8.8",
+    "@sendgrid/mail": "^7.6.1",
+    "axios": "^0.26.0",
     "framer-motion": "latest",
-    "next": "latest",
+    "next": "^12.1.0",
     "next-seo": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.26.0",
     "react-icons": "^4.3.1",
+    "react-spinners": "^0.11.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
