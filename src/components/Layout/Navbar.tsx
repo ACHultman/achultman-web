@@ -25,13 +25,13 @@ const Links = [
     name: "About Me",
     route: "/about",
   },
+];
+
+const extraLinks = [
   {
     name: "Bookmarks",
     route: "/bookmarks",
   },
-];
-
-const extraLinks = [
   {
     name: "Books",
     route: "/books",
@@ -52,7 +52,7 @@ const Navbar = () => {
           {link.name}
         </Link>
       ))}
-      <DropdownMenu extraLinks={extraLinks} />
+      {extraLinks?.length > 0 && <DropdownMenu extraLinks={extraLinks} />}
     </>
   );
 
