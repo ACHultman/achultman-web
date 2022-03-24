@@ -81,7 +81,7 @@ const Tools = () => {
       >
         <Paragraph fontSize="xl" lineHeight={1.6}>
           As a Full-stack Web Developer there are many tools at one's disposal;
-          these are among my favourite.
+          these are among my favourites.
         </Paragraph>
       </SlideFade>
       <SlideFade
