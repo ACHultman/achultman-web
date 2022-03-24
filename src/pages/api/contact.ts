@@ -22,26 +22,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     Adam Hultman
   `;
 
-  // try {
-  //   await mail.send({
-  //     to: "adam@hultman.tech",
-  //     from: "adam@hultman.tech",
-  //     subject: "New Contact Request",
-  //     text: contactEmailText,
-  //     html: contactEmailText.replace(/\r\n/g, "<br>"),
-  //   });
+  try {
+    await mail.send({
+      to: "adam@hultman.tech",
+      from: "adam@hultman.tech",
+      subject: "New Contact Request",
+      text: contactEmailText,
+      html: contactEmailText.replace(/\r\n/g, "<br>"),
+    });
 
-  //   await mail.send({
-  //     to: email,
-  //     from: "adam@hultman.tech",
-  //     subject: "Adam Hultman - Contact Request",
-  //     text: receiptConfirmationText,
-  //     html: receiptConfirmationText.replace(/\r\n/g, "<br>"),
-  //   });
-  // } catch (e) {
-  //   console.error(e);
-  //   res.status(500);
-  // }
+    await mail.send({
+      to: email,
+      from: "adam@hultman.tech",
+      subject: "Adam Hultman - Contact Request",
+      text: receiptConfirmationText,
+      html: receiptConfirmationText.replace(/\r\n/g, "<br>"),
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500);
+  }
 
   res.status(200).json({ status: "OK" });
 };
