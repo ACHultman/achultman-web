@@ -25,7 +25,8 @@ const Hero = () => {
           Hey, I’m Adam
         </Heading>
         <Paragraph fontSize="2xl" lineHeight={1.6}>
-          Full stack developer - UI/UX Designer. I love using{" "}
+          Full-stack Developer, Designer, ML Engineer, Cybersecurity Enthusiast.
+          I love using{" "}
           <Link
             color="green.500"
             href="https://www.nodejs.org"
