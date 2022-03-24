@@ -126,7 +126,7 @@ export async function getStaticProps() {
       domain: "GITHUB.COM",
       description:
         "Completely free for everyone. Its build-in Flutter Dart. - GitHub - mitesh77/Best-Flutter-UI-Templates: completely free for everyone. Its build-in Flutter Dart.",
-      url: "https://reactjs.org/docs/testing-recipes.html",
+      url: "https://github.com/mitesh77/Best-Flutter-UI-Templates",
       image:
         "https://repository-images.githubusercontent.com/205812745/0de8a400-d662-11e9-8b88-ba362adb1830",
       tags: ["flutter", "UI", "dart"],
@@ -136,7 +136,7 @@ export async function getStaticProps() {
       domain: "PROJECTS-RASPBERRY.COM",
       description:
         "Get started with TensorFlow object detection in your home automation projects using Home-Assistant. Introduction WARNING: there are currently issues with the Tensorflow integration in Home Assist",
-      url: "https://reactjs.org/docs/testing-recipes.html",
+      url: "https://projects-raspberry.com/tensorflow-object-detection-with-home-assistant/",
       image:
         "https://projects-raspberry.com/wp-content/uploads/2020/05/TensorFlow-Object-Detection-with-Home-Assistant.jpg",
       tags: [
@@ -149,10 +149,10 @@ export async function getStaticProps() {
     {
       title:
         "Building a board game app with TensorFlow: a new TensorFlow Lite reference app",
-      domain: "LOG.TENSORFLOW.ORG",
+      domain: "BLOG.TENSORFLOW.ORG",
       description:
         "In this blog post, we will show you how to train a game agent using reinforcement learning using TensorFlow and TensorFlow Agents, and deploy it.",
-      url: "https://reactjs.org/docs/testing-recipes.html",
+      url: "https://blog.tensorflow.org/2021/10/building-board-game-app-with-tensorflow.html",
       image:
         "https://blogger.googleusercontent.com/img/a/AVvXsEj7K9sQBJ8GVQcgPNGxsMGJmgCkoPaOxvbTJttSqn0kRxpRDhVSW7gPzr93vcDWOhZDY73YKOSG0_ERiJHwcw9T08EuwUvUXUAt7bFC8giFOu-Shl6FWnWmILajHGZ2K41XSzCtKNoiEpMCc2WnxGavNPac2Ua8T2iGemtud1NQ_pVfRutYVlzv6HZt=w1200-h630-p-k-no-nu",
       tags: ["tensorflow", "machine learning", "reinforcement learning"],
