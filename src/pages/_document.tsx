@@ -8,7 +8,11 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
           <link
             rel="icon"
             type="image/png"
@@ -21,12 +25,10 @@ export default class Document extends NextDocument {
             sizes="16x16"
             href="/favicon-16x16.png"
           />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-          />
           <link rel="manifest" href="/site.webmanifest" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <meta name="msapplication-TileColor" content="#2b5797" />
+          <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
           <ColorModeScript />
