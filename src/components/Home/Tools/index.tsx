@@ -44,7 +44,7 @@ const tools = [
     description:
       "The most used VCS of our time. Can't start a project without it.",
     icon: <FaGitAlt fontSize="20px" />,
-    url: "https://medium.com/swlh/things-about-git-and-github-you-need-to-know-as-developer-907baa0bed79",
+    url: "https://git-scm.com/",
   },
   {
     name: "Figma",
