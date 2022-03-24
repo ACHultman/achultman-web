@@ -1,4 +1,3 @@
-import ToolCard, { ToolCardProps } from "./ToolCard";
 import { Heading, SlideFade, Grid, GridProps } from "@chakra-ui/react";
 import {
   FaNodeJs,
@@ -8,9 +7,10 @@ import {
   FaGitAlt,
   FaFigma,
 } from "react-icons/fa";
-
-import Paragraph from "../../Paragraph";
 import { motion } from "framer-motion";
+
+import ToolCard from "./ToolCard";
+import Paragraph from "../../Paragraph";
 
 const tools = [
   {
@@ -20,33 +20,35 @@ const tools = [
     url: "https://www.nodejs.org",
   },
   {
-    name: "Javascript",
-    description: "These days you can't build an amazing product without JS.",
+    name: "NextJS",
+    description:
+      "I would argue that it is one of the best frameworks for React.",
     icon: <FaJs fontSize="20px" />,
-    url: "https://www.javascript.info",
+    url: "https://nextjs.org/",
   },
   {
     name: "React.js",
-    description: "A JavaScript library for building user interfaces.",
+    description:
+      "My favourite library for building Single Page Applications with JS.",
     icon: <FaReact fontSize="20px" />,
     url: "https://www.reactjs.org",
   },
   {
-    name: "SQL & MongoDb",
-    description: "Both database are great, and they have their use cases.",
+    name: "MongoDB",
+    description: "It has its use cases. I'm a fan of noSQL databases.",
     icon: <FaDatabase fontSize="20px" />,
     url: "https://www.mongodb.com/",
   },
   {
-    name: "GIT & Github",
+    name: "GIT",
     description:
-      "A version control system that gives you a lot of flexibility.",
+      "The most used VCS of our time. Can't start a project without it.",
     icon: <FaGitAlt fontSize="20px" />,
     url: "https://medium.com/swlh/things-about-git-and-github-you-need-to-know-as-developer-907baa0bed79",
   },
   {
     name: "Figma",
-    description: "Figma is powerfull & easy to use software for UI/UX design.",
+    description: "Figma is my favourite tool for UI/UX design.",
     icon: <FaFigma fontSize="20px" />,
     url: "https://www.figma.com/",
   },
@@ -78,8 +80,8 @@ const Tools = () => {
         transition={{ enter: { duration: 1 } }}
       >
         <Paragraph fontSize="xl" lineHeight={1.6}>
-          As a full-stack web developer there are alot of tools you use in your
-          daily bases, these are primary tools that i use & like.
+          As a Full-stack Web Developer there are many tools at one's disposal;
+          these are among my favourite.
         </Paragraph>
       </SlideFade>
       <SlideFade
