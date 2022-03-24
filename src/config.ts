@@ -11,4 +11,5 @@ const getEnvironmentVariable = (environmentVariable: string): string => {
 
 export const config = {
   sendGridApiKey: getEnvironmentVariable("SENDGRID_API_KEY"),
+  domainEmail: getEnvironmentVariable("DOMAIN_EMAIL"),
 };

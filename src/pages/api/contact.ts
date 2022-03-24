@@ -4,6 +4,8 @@ import { config } from "../../config";
 
 mail.setApiKey(config.sendGridApiKey);
 
+const contactName = "Adam Hultman";
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, email, message } = req.body;
 
@@ -19,13 +21,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     Thank you for writing to me.\r\n
     I confirm the receipt of your request and will be in touch with you soon.\r\n
     \r\n
-    Adam Hultman
+    ${contactName}
   `;
 
   try {
     await mail.send({
-      to: "adam@hultman.tech",
-      from: "adam@hultman.tech",
+      to: config.domainEmail,
+      from: config.domainEmail,
       subject: "New Contact Request",
       text: contactEmailText,
       html: contactEmailText.replace(/\r\n/g, "<br>"),
@@ -33,8 +35,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     await mail.send({
       to: email,
-      from: "adam@hultman.tech",
-      subject: "Adam Hultman - Contact Request",
+      from: config.domainEmail,
+      subject: `${contactName} - Contact Request`,
       text: receiptConfirmationText,
       html: receiptConfirmationText.replace(/\r\n/g, "<br>"),
     });
