@@ -23,8 +23,7 @@ const BookCard = ({ book }: BookCardProps) => {
 
   // calculate total required width for the book card
   // use the cover image width as a base and add 2 rem
-  const baseWidth = parseInt(cover.dimensions.width, 10);
-  const totalWidth = `${baseWidth + 32}px`;
+  const totalWidth = `${cover.dimensions.width + 32}px`;
 
   return (
     <motion.div

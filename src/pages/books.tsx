@@ -15,8 +15,8 @@ export interface Book {
     src: string;
     alt: string;
     dimensions: {
-      width: string;
-      height: string;
+      width: number;
+      height: number;
     };
   };
   name: string;
@@ -86,24 +86,11 @@ export async function getStaticProps() {
         src: "https://media.wiley.com/product_data/coverImage300/89/11197190/1119719089.jpg",
         alt: "Kali Linux Penetration Testing Bible",
         dimensions: {
-          width: "300",
-          height: "376",
+          width: 300,
+          height: 376,
         },
       },
       name: "Kali Linux Penetration Testing Bible",
-      note: "Your ultimate guide to pentesting with Kali Linux",
-      link: "https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076",
-    },
-    {
-      cover: {
-        src: "https://media.wiley.com/product_data/coverImage300/89/11197190/1119719089.jpg",
-        alt: "Kali Linux Penetration Testing Bible",
-        dimensions: {
-          width: "300",
-          height: "376",
-        },
-      },
-      name: "Kali Linux Penetration Testing Bible2",
       note: "Your ultimate guide to pentesting with Kali Linux",
       link: "https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076",
     },
