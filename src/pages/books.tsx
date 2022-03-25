@@ -1,6 +1,5 @@
 import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
 import Paragraph from "../components/Paragraph";
-import Head from "next/head";
 import BookCard from "../components/BookCard";
 import Message from "../components/Message";
 import { NextSeo } from "next-seo";
@@ -14,7 +13,7 @@ const Books = ({ books }) => {
         openGraph={{
           title: "Adam Hultman | Books",
           description: "A list of my favorite tech books.",
-          url: "https://hultman.tech/books",
+          url: "https://hultman.dev/books",
         }}
       />
       <Container maxW="container.lg" mt={10}>

@@ -2,10 +2,10 @@ export default {
   title: "Adam Hultman",
   description:
     "Adam Hultman | Full-stack developer, UI/UX Designer, security enthusiast.",
-  canonical: "https://www.hultman.tech/",
-  image: "https://www.hultman.tech/images/hultman-og.png",
+  canonical: "https://www.hultman.dev/",
+  image: "https://www.hultman.dev/images/hultman-og.png",
   openGraph: {
-    url: "https://www.hultman.tech/",
+    url: "https://www.hultman.dev/",
     title: "Adam Hultman",
     description:
       "Adam Hultman | Full-stack developer, UI/UX Designer, security enthusiast.",

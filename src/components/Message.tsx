@@ -8,7 +8,7 @@ interface MessageProps {
 }
 
 const Message = ({
-  message = "Ohh! Such an empty place 😫",
+  message = "Such an empty place!",
   type = "empty",
 }: MessageProps) => {
   const Icon = type === "empty" ? FaClock : FaInfo;
