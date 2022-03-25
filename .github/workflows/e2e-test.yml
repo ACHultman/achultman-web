@@ -1,0 +1,30 @@
+name: E2E Test
+
+on:
+  push:
+
+env:
+  NODE_ENV: "test"
+
+jobs:
+  tests:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - run: npm install --no-progress --non-interactive --frozen-lockfile
+      - run: npx playwright install --with-deps
+
+      - run: npm test:e2e
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: test-results
+          path: ./test-results
