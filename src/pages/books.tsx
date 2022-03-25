@@ -1,4 +1,11 @@
-import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Heading,
+  Divider,
+  SlideFade,
+  Flex,
+} from "@chakra-ui/react";
 import Paragraph from "../components/Paragraph";
 import BookCard from "../components/BookCard";
 import Message from "../components/Message";
@@ -14,7 +21,6 @@ export interface Book {
   };
   name: string;
   note: string;
-  rating: number;
   link: string;
 }
 
@@ -54,16 +60,17 @@ const Books = ({ books }: BooksProps) => {
           {!books || books.length === 0 ? (
             <Message />
           ) : (
-            <Box
+            <Flex
               w="100%"
               mt={10}
               mx="auto"
               sx={{ columnCount: [1, 2, 3], columnGap: "20px" }}
+              wrap={"wrap"}
             >
               {books.map((book) => (
                 <BookCard book={book} key={`book-${book.name}`} />
               ))}
-            </Box>
+            </Flex>
           )}
         </SlideFade>
       </Container>
@@ -85,7 +92,19 @@ export async function getStaticProps() {
       },
       name: "Kali Linux Penetration Testing Bible",
       note: "Your ultimate guide to pentesting with Kali Linux",
-      rating: 5,
+      link: "https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076",
+    },
+    {
+      cover: {
+        src: "https://media.wiley.com/product_data/coverImage300/89/11197190/1119719089.jpg",
+        alt: "Kali Linux Penetration Testing Bible",
+        dimensions: {
+          width: "300",
+          height: "376",
+        },
+      },
+      name: "Kali Linux Penetration Testing Bible2",
+      note: "Your ultimate guide to pentesting with Kali Linux",
       link: "https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076",
     },
   ];

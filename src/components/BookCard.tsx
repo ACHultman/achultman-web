@@ -4,10 +4,7 @@ import {
   LinkOverlay,
   LinkBox,
   useColorModeValue,
-  Tag,
-  Text,
 } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
 import Paragraph from "./Paragraph";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -22,13 +19,19 @@ const BookCard = ({ book }: BookCardProps) => {
     return null;
   }
 
-  const { cover, name, note, link, rating } = book;
+  const { cover, name, note, link } = book;
+
+  // calculate total required width for the book card
+  // use the cover image width as a base and add 2 rem
+  const baseWidth = parseInt(cover.dimensions.width, 10);
+  const totalWidth = `${baseWidth + 32}px`;
 
   return (
     <motion.div
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4 }}
+      style={{ width: totalWidth }}
     >
       <LinkBox as="article">
         <Box
@@ -59,8 +62,7 @@ const BookCard = ({ book }: BookCardProps) => {
                 objectFit="cover"
                 quality={100}
                 alt={cover.alt}
-                width={cover.dimensions.width}
-                height={cover.dimensions.height}
+                priority={true}
               />
             </Box>
             <LinkOverlay href={link} isExternal>
@@ -71,19 +73,6 @@ const BookCard = ({ book }: BookCardProps) => {
                 {note}
               </Paragraph>
             </LinkOverlay>
-            <Tag mt={5} textTransform="uppercase" bg="transparent">
-              {Array(5)
-                .fill("")
-                .map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    color={i < rating ? "teal.500" : "gray.300"}
-                  />
-                ))}
-              <Text ml={2} color="gray.500">
-                {rating}
-              </Text>
-            </Tag>
           </Box>
         </Box>
       </LinkBox>
