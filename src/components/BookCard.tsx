@@ -11,11 +11,18 @@ import { StarIcon } from "@chakra-ui/icons";
 import Paragraph from "./Paragraph";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Book } from "../pages/books";
 
-const BookCard = ({ book }) => {
+interface BookCardProps {
+  book: Book;
+}
+
+const BookCard = ({ book }: BookCardProps) => {
   if (!book) {
     return null;
   }
+
+  const { cover, name, note, link, rating } = book;
 
   return (
     <motion.div
@@ -47,19 +54,21 @@ const BookCard = ({ book }) => {
           >
             <Box position="relative" width="100%" height="400px" mb={4}>
               <Image
-                src={book.cover}
+                src={cover.src}
                 layout="fill"
                 objectFit="cover"
                 quality={100}
-                alt={book.name}
+                alt={cover.alt}
+                width={cover.dimensions.width}
+                height={cover.dimensions.height}
               />
             </Box>
-            <LinkOverlay href={book.url} isExternal>
+            <LinkOverlay href={link} isExternal>
               <Heading as="h6" size="md">
-                {book.name}
+                {name}
               </Heading>
               <Paragraph mt={1} fontSize="sm">
-                {book.note}
+                {note}
               </Paragraph>
             </LinkOverlay>
             <Tag mt={5} textTransform="uppercase" bg="transparent">
@@ -68,11 +77,11 @@ const BookCard = ({ book }) => {
                 .map((_, i) => (
                   <StarIcon
                     key={i}
-                    color={i < book.rating ? "teal.500" : "gray.300"}
+                    color={i < rating ? "teal.500" : "gray.300"}
                   />
                 ))}
               <Text ml={2} color="gray.500">
-                {book.rating}
+                {rating}
               </Text>
             </Tag>
           </Box>

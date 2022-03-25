@@ -3,8 +3,26 @@ import Paragraph from "../components/Paragraph";
 import BookCard from "../components/BookCard";
 import Message from "../components/Message";
 import { NextSeo } from "next-seo";
+export interface Book {
+  cover: {
+    src: string;
+    alt: string;
+    dimensions: {
+      width: string;
+      height: string;
+    };
+  };
+  name: string;
+  note: string;
+  rating: number;
+  link: string;
+}
 
-const Books = ({ books }) => {
+interface BooksProps {
+  books: Book[];
+}
+
+const Books = ({ books }: BooksProps) => {
   return (
     <div>
       <NextSeo
@@ -33,7 +51,7 @@ const Books = ({ books }) => {
           <Divider my={10} />
         </SlideFade>
         <SlideFade in={true} offsetY={80} delay={0.2}>
-          {books?.length === 0 ? (
+          {!books || books.length === 0 ? (
             <Message />
           ) : (
             <Box
@@ -42,8 +60,8 @@ const Books = ({ books }) => {
               mx="auto"
               sx={{ columnCount: [1, 2, 3], columnGap: "20px" }}
             >
-              {books?.map((book) => (
-                <BookCard book={book} key={book.name} />
+              {books.map((book) => (
+                <BookCard book={book} key={`book-${book.name}`} />
               ))}
             </Box>
           )}
@@ -54,30 +72,17 @@ const Books = ({ books }) => {
 };
 
 export async function getStaticProps() {
-  // let sortQuery = "sort[0][field]=order&sort[0][direction]=asc";
-
-  // let res = await fetch(
-  //   `${process.env.API_ENPOINT}${process.env.WEBSITE_BASE}/books?${sortQuery}`,
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.AIRETABLE_AUTH}`,
-  //     },
-  //   }
-  // );
-
-  // let data = await res.json();
-
-  // if (data.error) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-
   // list of books
-  const books = [
+  const books: Book[] = [
     {
-      cover:
-        "https://media.wiley.com/product_data/coverImage300/89/11197190/1119719089.jpg",
+      cover: {
+        src: "https://media.wiley.com/product_data/coverImage300/89/11197190/1119719089.jpg",
+        alt: "Kali Linux Penetration Testing Bible",
+        dimensions: {
+          width: "300",
+          height: "376",
+        },
+      },
       name: "Kali Linux Penetration Testing Bible",
       note: "Your ultimate guide to pentesting with Kali Linux",
       rating: 5,
