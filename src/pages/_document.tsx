@@ -5,7 +5,7 @@ import { ColorModeScript } from "@chakra-ui/react";
 export default class Document extends NextDocument {
   render() {
     return (
-      <Html>
+      <Html lang="en-US">
         <Head>
           <meta charSet="utf-8" />
           <link
