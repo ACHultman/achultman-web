@@ -77,7 +77,7 @@ const Navbar = () => {
                 spacing={4}
                 display={{ base: "none", md: "flex" }}
               >
-                {navigationItem}
+                {!isOpen && navigationItem}
               </HStack>
             </HStack>
             <DarkModeSwitch />
