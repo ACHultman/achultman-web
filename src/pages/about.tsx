@@ -101,7 +101,7 @@ const About = () => {
           </SlideFade>
           <SlideFade in={true} offsetY={80} delay={0.2}>
             <Heading
-              as="h1"
+              as="h2"
               fontSize={{ base: "24px", md: "30px", lg: "36px" }}
               mb={3}
             >
