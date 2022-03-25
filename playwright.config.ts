@@ -37,7 +37,7 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: "Desktop Chrome",
-      testMatch: /e2e\\.*\.desktop\.(test|spec)\.(js|ts|mjs)/,
+      testMatch: /e2e(\\|\/).*\.desktop\.(test|spec)\.(js|ts|mjs)/,
       use: {
         ...devices["Desktop Chrome"],
       },
@@ -57,14 +57,14 @@ const config: PlaywrightTestConfig = {
     // Test against mobile viewports.
     {
       name: "Mobile Chrome",
-      testMatch: /e2e\\.*\.mobile\.(test|spec)\.(js|ts|mjs)/,
+      testMatch: /e2e(\\|\/).*\.mobile\.(test|spec)\.(js|ts|mjs)/,
       use: {
         ...devices["Pixel 5"],
       },
     },
     {
       name: "Mobile Safari",
-      testMatch: /e2e\\.*\.mobile\.(test|spec)\.(js|ts|mjs)/,
+      testMatch: /e2e(\\|\/).*\.mobile\.(test|spec)\.(js|ts|mjs)/,
       use: devices["iPhone 12"],
     },
   ],
