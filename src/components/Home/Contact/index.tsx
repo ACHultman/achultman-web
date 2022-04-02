@@ -28,13 +28,11 @@ const Contact = () => {
   return (
     <>
       <MotionBox
-        mt={10}
-        p={2}
+        mt={7}
         borderRadius={5}
         borderTopRightRadius={isOpen ? 100 : 5}
         animate={isOpen ? "open" : "closed"}
       >
-        {/* TODO: fix colors, closed state sizing */}
         <LightMode>
           <MotionButton
             onClick={() => setIsOpen(!isOpen)}
