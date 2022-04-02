@@ -1,7 +1,7 @@
 import { Divider } from "@chakra-ui/react";
 
 import Hero from "./Hero";
-import Timeline from "./Timelinet";
+import Timeline from "./Timeline";
 import Tools from "./Tools";
 
 const Home = () => (

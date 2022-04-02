@@ -3,11 +3,11 @@ import {
   SlideFade,
   List,
   ListItem,
-  ListIcon,
   Box,
   VStack,
   Text,
   Link,
+  Tooltip,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
@@ -135,15 +135,17 @@ const Timeline = () => {
                       transition={{ duration: 0.5 }}
                       viewport={{ once: true }}
                     >
-                      {/* <ListIcon as={item.icon} color="green.500" /> */}
                       <VStack>
                         <Link href={item.title.href}>
-                          <Text
-                            title={item.title.description}
-                            borderBottom={"0.5px dotted grey"}
+                          <Tooltip
+                            label={item.title.description}
+                            aria-label={item.title.description}
+                            placement="right-start"
                           >
-                            {item.title.title}
-                          </Text>
+                            <Text borderBottom={"0.5px dotted grey"}>
+                              {item.title.title}
+                            </Text>
+                          </Tooltip>
                         </Link>
                         <Paragraph>{item.subtitle}</Paragraph>
                         <Text fontSize="sm" color={dateRangeColor}>
