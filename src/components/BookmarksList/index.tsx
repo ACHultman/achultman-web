@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
-import { Bookmark } from "../../pages/bookmarks";
 
 import Message from "../Message";
 import BookmarkCard from "./BookmarkCard";
+import { Bookmark } from "./types";
 
 const BookmarksList = ({ bookmarks }: { bookmarks: Bookmark[] }) => {
   // render Message component if bookmarks is empty, defaults to empty message

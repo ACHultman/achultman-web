@@ -1,4 +1,5 @@
 export type Tag = string;
+
 export interface Bookmark {
   id?: number;
   title: string;

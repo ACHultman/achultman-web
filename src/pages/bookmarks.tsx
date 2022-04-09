@@ -1,24 +1,17 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
 import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
 
 import Paragraph from "../components/Paragraph";
 import BookmarksList from "../components/BookmarksList";
 import BookmarkTags from "../components/BookmarksList/BookmarkTags";
 import { Bookmark, Tag } from "../components/BookmarksList/types";
+import { useBookmarkTagFilter } from "../components/BookmarksList/useTagFilter";
 
 const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-  const [activeTag, setActiveTag] = useState<Tag>();
+  const { bookmarks, activeTag, onTagClick } =
+    useBookmarkTagFilter(bookmarksData);
 
-  useEffect(() => {
-    let filteredBookmark = bookmarksData.filter(
-      (bookmark) => !activeTag || bookmark.tags.includes(activeTag)
-    );
-    setBookmarks(filteredBookmark);
-  }, [activeTag]);
-
-  // create list of all unique tags of bookmarksData
+  // dynamically create list of all unique tags
   const tags: Tag[] = bookmarksData.reduce((acc, bookmark) => {
     bookmark.tags.forEach((tag) => {
       if (!acc.includes(tag)) {
@@ -27,9 +20,6 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
     });
     return acc;
   }, []);
-
-  const onTagClick = (tag: Tag) =>
-    activeTag === tag ? setActiveTag(null) : setActiveTag(tag);
 
   return (
     <div>
