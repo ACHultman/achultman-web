@@ -39,34 +39,41 @@ const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
           }}
         >
           <VStack h="100%">
-            <Image src={bookmark.image} alt="" h="auto" borderTopRadius={10} />
-            <Flex
-              flexDirection="column"
-              alignItems="start"
-              justifyContent="space-between"
+            <Image
+              src={bookmark.image}
+              alt={`Image for ${bookmark.title} link`}
               h="auto"
-              p={4}
-              gap={3}
-            >
-              <LinkOverlay href={bookmark.url} isExternal>
-                <Heading as="h6" size="md" mb={2}>
-                  {bookmark?.title}
-                </Heading>
-                <Paragraph fontSize="sm">{bookmark.description}</Paragraph>
-              </LinkOverlay>
-              <Flex wrap={"wrap"} gap={2}>
-                {bookmark.tags.length > 0 &&
-                  bookmark.tags.map((tag) => (
-                    <Tag
-                      key={`${bookmark.id}-${tag}`}
-                      textTransform="capitalize"
-                      p={2}
-                    >
-                      {tag}
-                    </Tag>
-                  ))}
+              borderTopRadius={10}
+            />
+            <Box w={"100%"} h={"100%"}>
+              <Flex
+                flexDirection="column"
+                alignItems="start"
+                justifyContent="space-between"
+                h="100%"
+                p={4}
+                gap={3}
+              >
+                <LinkOverlay href={bookmark.url} isExternal>
+                  <Heading as="h6" size="md" mb={2}>
+                    {bookmark?.title}
+                  </Heading>
+                  <Paragraph fontSize="sm">{bookmark.description}</Paragraph>
+                </LinkOverlay>
+                <Flex wrap={"wrap"} gap={2}>
+                  {bookmark.tags.length > 0 &&
+                    bookmark.tags.map((tag) => (
+                      <Tag
+                        key={`${bookmark.id}-${tag}`}
+                        textTransform="capitalize"
+                        p={2}
+                      >
+                        {tag}
+                      </Tag>
+                    ))}
+                </Flex>
               </Flex>
-            </Flex>
+            </Box>
           </VStack>
         </Box>
       </LinkBox>
