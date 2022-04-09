@@ -5,10 +5,12 @@ import {
   LinkBox,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Paragraph from "./Paragraph";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Book } from "../pages/books";
+
+import Paragraph from "../Paragraph";
+
+import { Book } from "./types";
 
 interface BookCardProps {
   book: Book;

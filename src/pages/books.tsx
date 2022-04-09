@@ -1,28 +1,10 @@
-import {
-  Box,
-  Container,
-  Heading,
-  Divider,
-  SlideFade,
-  Flex,
-} from "@chakra-ui/react";
-import Paragraph from "../components/Paragraph";
-import BookCard from "../components/BookCard";
-import Message from "../components/Message";
+import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
 import { NextSeo } from "next-seo";
-export interface Book {
-  cover: {
-    src: string;
-    alt: string;
-    dimensions: {
-      width: number;
-      height: number;
-    };
-  };
-  name: string;
-  note: string;
-  link: string;
-}
+
+import Paragraph from "../components/Paragraph";
+import Message from "../components/Message";
+import { Book } from "../components/BookList/types";
+import BookList from "../components/BookList";
 
 interface BooksProps {
   books: Book[];
@@ -60,17 +42,7 @@ const Books = ({ books }: BooksProps) => {
           {!books || books.length === 0 ? (
             <Message />
           ) : (
-            <Flex
-              w="100%"
-              mt={10}
-              mx="auto"
-              sx={{ columnCount: [1, 2, 3], columnGap: "20px" }}
-              wrap={"wrap"}
-            >
-              {books.map((book) => (
-                <BookCard book={book} key={`book-${book.name}`} />
-              ))}
-            </Flex>
+            <BookList books={books} />
           )}
         </SlideFade>
       </Container>
