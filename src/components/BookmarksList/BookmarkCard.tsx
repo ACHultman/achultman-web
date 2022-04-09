@@ -10,9 +10,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Bookmark } from "../../pages/bookmarks";
 
 import Paragraph from "../Paragraph";
+import { Bookmark } from "./types";
 
 // TODO: Fix first bookmark render bug
 

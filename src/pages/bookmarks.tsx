@@ -1,32 +1,15 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import {
-  Box,
-  Container,
-  Heading,
-  Divider,
-  SlideFade,
-  Button,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
 
 import Paragraph from "../components/Paragraph";
 import BookmarksList from "../components/BookmarksList";
-
-export interface Bookmark {
-  id?: number;
-  title: string;
-  domain: string;
-  description: string;
-  url: string;
-  image: string;
-  tags: string[];
-}
+import BookmarkTags from "../components/BookmarksList/BookmarkTags";
+import { Bookmark, Tag } from "../components/BookmarksList/types";
 
 const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-
-  const [activeTag, setActiveTag] = useState<string>();
+  const [activeTag, setActiveTag] = useState<Tag>();
 
   useEffect(() => {
     let filteredBookmark = bookmarksData.filter(
@@ -36,7 +19,7 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
   }, [activeTag]);
 
   // create list of all unique tags of bookmarksData
-  const tags: string[] = bookmarksData.reduce((acc, bookmark) => {
+  const tags: Tag[] = bookmarksData.reduce((acc, bookmark) => {
     bookmark.tags.forEach((tag) => {
       if (!acc.includes(tag)) {
         acc.push(tag);
@@ -44,6 +27,9 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
     });
     return acc;
   }, []);
+
+  const onTagClick = (tag: Tag) =>
+    activeTag === tag ? setActiveTag(null) : setActiveTag(tag);
 
   return (
     <div>
@@ -71,28 +57,11 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
             <Divider my={10} />
           </SlideFade>
           <SlideFade in={true} offsetY={80} delay={0.2}>
-            <Stack
-              direction={["column", "row"]}
-              gap={3}
-              align="left"
-              wrap={"wrap"}
-            >
-              {tags.map((tag) => (
-                <Button
-                  key={tag}
-                  textTransform="capitalize"
-                  isActive={activeTag === tag}
-                  onClick={(e) =>
-                    activeTag === tag ? setActiveTag(null) : setActiveTag(tag)
-                  }
-                  _active={{
-                    bg: "green.500",
-                  }}
-                >
-                  {tag}
-                </Button>
-              ))}
-            </Stack>
+            <BookmarkTags
+              tags={tags}
+              activeTag={activeTag}
+              onClick={onTagClick}
+            />
             <BookmarksList bookmarks={bookmarks} />
           </SlideFade>
         </Container>
