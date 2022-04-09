@@ -1,5 +1,3 @@
-import { useRouter } from "next/router";
-
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
