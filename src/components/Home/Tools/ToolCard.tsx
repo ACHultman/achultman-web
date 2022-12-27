@@ -5,25 +5,25 @@ import {
   LinkOverlay,
   LinkBox,
   useColorModeValue,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
+} from "@chakra-ui/react"
+import { motion } from "framer-motion"
 
-import Paragraph from "../../Paragraph";
+import Paragraph from "../../Paragraph"
 
 export interface ToolCardProps {
   tool: {
-    name: string;
-    description: string;
-    url: string;
-    icon: JSX.Element;
-  };
+    name: string
+    description: string
+    url: string
+    icon: JSX.Element
+  }
 }
 
-const MotionIconButton = motion(IconButton);
+const MotionIconButton = motion(IconButton)
 
 const ToolCard = ({ tool }: ToolCardProps) => {
   if (!tool) {
-    return;
+    return
   }
 
   return (
@@ -36,7 +36,7 @@ const ToolCard = ({ tool }: ToolCardProps) => {
         borderWidth="1px"
         transition=".5s"
         cursor="pointer"
-        d="flex"
+        display="flex"
         role="group"
         _hover={{
           borderColor: "green.500",
@@ -65,7 +65,7 @@ const ToolCard = ({ tool }: ToolCardProps) => {
         </Box>
       </Box>
     </LinkBox>
-  );
-};
+  )
+}
 
-export default ToolCard;
+export default ToolCard

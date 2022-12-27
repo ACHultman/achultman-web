@@ -1,4 +1,7 @@
 module.exports = {
+  experimental: {
+    serverComponentsExternalPackages: ["next-seo"],
+  },
   images: {
     domains: [
       "media.wiley.com",
@@ -7,4 +10,4 @@ module.exports = {
       "images.wiley.com.au.s3.amazonaws.com",
     ],
   },
-};
+}

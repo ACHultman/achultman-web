@@ -4,28 +4,28 @@ import {
   LinkOverlay,
   LinkBox,
   useColorModeValue,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+} from "@chakra-ui/react"
+import { motion } from "framer-motion"
+import Image from "next/image"
 
-import Paragraph from "../Paragraph";
+import Paragraph from "../Paragraph"
 
-import { Book } from "./types";
+import { Book } from "./types"
 
 interface BookCardProps {
-  book: Book;
+  book: Book
 }
 
 const BookCard = ({ book }: BookCardProps) => {
   if (!book) {
-    return null;
+    return null
   }
 
-  const { cover, name, note, link } = book;
+  const { cover, name, note, link } = book
 
   // calculate total required width for the book card
   // use the cover image width as a base and add 2 rem
-  const totalWidth = `${cover.dimensions.width + 32}px`;
+  const totalWidth = `${cover.dimensions.width + 32}px`
 
   return (
     <motion.div
@@ -39,7 +39,7 @@ const BookCard = ({ book }: BookCardProps) => {
           w="100%"
           p={4}
           mb={5}
-          d="inline-block"
+          display="inline-block"
           borderColor={useColorModeValue("gray.200", "gray.700")}
           borderRadius={5}
           borderWidth="1px"
@@ -51,7 +51,7 @@ const BookCard = ({ book }: BookCardProps) => {
           }}
         >
           <Box
-            d="flex"
+            display="flex"
             flexDirection="column"
             alignItems="start"
             justifyContent="space-between"
@@ -78,7 +78,7 @@ const BookCard = ({ book }: BookCardProps) => {
         </Box>
       </LinkBox>
     </motion.div>
-  );
-};
+  )
+}
 
-export default BookCard;
+export default BookCard

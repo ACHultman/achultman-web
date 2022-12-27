@@ -9,15 +9,16 @@ import {
   Link,
   Tooltip,
   useColorModeValue,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { MdCheckCircle } from "react-icons/md";
-import Paragraph from "../Paragraph";
+} from "@chakra-ui/react"
+import { motion } from "framer-motion"
+import { MdCheckCircle } from "react-icons/md"
+import Paragraph from "../Paragraph"
+import { useRouter } from "next/router"
 
-export const MotionHeading = motion(Heading);
-export const MotionListItem = motion(ListItem);
+export const MotionHeading = motion(Heading)
+export const MotionListItem = motion(ListItem)
 
-const titles = {
+const ORG_TITLES = {
   assembly: {
     title: "Assembly Digital Media",
     href: "https://assmb.ly",
@@ -41,13 +42,13 @@ const titles = {
     description:
       "The University of Victoria is a public research university located in Victoria, British Columbia.",
   },
-};
+}
 
-const timeline = {
+const TIMELINE = {
   "2022": [
     {
       icon: MdCheckCircle,
-      title: titles.assembly,
+      title: ORG_TITLES.assembly,
       subtitle: "Software Developer",
       dateRange: "May 2022 - Present",
     },
@@ -56,13 +57,13 @@ const timeline = {
   "2021": [
     {
       icon: MdCheckCircle,
-      title: titles.assembly,
+      title: ORG_TITLES.assembly,
       subtitle: "Full-stack Software Developer Co-op",
       dateRange: "September 2021 - December 2021",
     },
     {
       icon: MdCheckCircle,
-      title: titles.se,
+      title: ORG_TITLES.se,
       subtitle: "Software Designer - Co-op",
       dateRange: "January 2021 - September 2021",
     },
@@ -71,7 +72,7 @@ const timeline = {
   "2019": [
     {
       icon: MdCheckCircle,
-      title: titles.itc,
+      title: ORG_TITLES.itc,
       subtitle: "Full-stack Software Developer - Co-op",
       dateRange: "May 2019 - December 2019",
     },
@@ -80,7 +81,7 @@ const timeline = {
   "2018": [
     {
       icon: MdCheckCircle,
-      title: titles.uvic,
+      title: ORG_TITLES.uvic,
       subtitle: "Began Software Engineering (B.S.Eng.) degree",
       dateRange: "September 2018",
     },
@@ -89,15 +90,15 @@ const timeline = {
   "2017": [
     {
       icon: MdCheckCircle,
-      title: titles.uvic,
+      title: ORG_TITLES.uvic,
       subtitle: "Began Bachelor of Engineering degree",
       dateRange: "September 2017",
     },
   ],
-};
+}
 
 const Timeline = () => {
-  const dateRangeColor = useColorModeValue("gray.600", "gray.400");
+  const dateRangeColor = useColorModeValue("gray.600", "gray.400")
   return (
     <SlideFade in={true} offsetY={80} delay={0.2}>
       <Heading
@@ -107,7 +108,7 @@ const Timeline = () => {
       >
         Timeline
       </Heading>
-      {Object.keys(timeline)
+      {Object.keys(TIMELINE)
         .reverse()
         .map((year) => {
           return (
@@ -127,7 +128,7 @@ const Timeline = () => {
                   {year}
                 </MotionHeading>
                 <List spacing={18} fontSize="18">
-                  {timeline[year].map((item, i) => (
+                  {TIMELINE[year].map((item, i) => (
                     <MotionListItem
                       key={`timeline-${year}-item-${i}`}
                       initial={{ opacity: 0, y: 20 }}
@@ -157,10 +158,10 @@ const Timeline = () => {
                 </List>
               </VStack>
             </Box>
-          );
+          )
         })}
     </SlideFade>
-  );
-};
+  )
+}
 
-export default Timeline;
+export default Timeline

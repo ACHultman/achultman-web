@@ -1,15 +1,15 @@
-import "../main.css";
+import "../main.css"
 
-import { AppProps } from "next/app";
-import { DefaultSeo } from "next-seo";
+import { AppProps } from "next/app"
+import { DefaultSeo } from "next-seo"
 
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react"
 
-import { MotionConfig } from "framer-motion";
+import { MotionConfig } from "framer-motion"
 
-import Layout from "../components/Layout";
-import theme from "../theme";
-import SEO from "../next-seo.config";
+import Layout from "../components/Layout"
+import theme from "../theme"
+import SEO from "../next-seo.config"
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
@@ -22,6 +22,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       </ChakraProvider>
     </MotionConfig>
   </>
-);
+)
 
-export default MyApp;
+export default MyApp
