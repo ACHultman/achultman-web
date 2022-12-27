@@ -13,7 +13,6 @@ import {
 import { motion } from "framer-motion"
 import { MdCheckCircle } from "react-icons/md"
 import Paragraph from "../Paragraph"
-import { useRouter } from "next/router"
 
 export const MotionHeading = motion(Heading)
 export const MotionListItem = motion(ListItem)
