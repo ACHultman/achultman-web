@@ -15,40 +15,43 @@ import Paragraph from "../../Paragraph"
 const tools = [
   {
     name: "Node.js",
-    description: "Chrome's V8 JavaScript engine for server-side javascript.",
+    description:
+      "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine that allows you to execute JavaScript on the server side.",
     icon: <FaNodeJs fontSize="20px" />,
     url: "https://www.nodejs.org",
   },
   {
     name: "NextJS",
     description:
-      "I would argue that it is one of the best frameworks for React.",
+      "Next.js is a JavaScript framework for building web applications using React. It offers server-side rendering, automatic code splitting, static export, and routing.",
     icon: <FaJs fontSize="20px" />,
     url: "https://nextjs.org/",
   },
   {
     name: "React.js",
     description:
-      "My favourite library for building Single Page Applications with JS.",
+      "React is a JavaScript library for building user interfaces, allowing for the creation of reusable components and efficient updates to the view of web applications.",
     icon: <FaReact fontSize="20px" />,
     url: "https://www.reactjs.org",
   },
   {
     name: "MongoDB",
-    description: "It has its use cases. I'm a fan of noSQL databases.",
+    description:
+      "MongoDB is a cross-platform, document-oriented database that stores data in JSON-like documents with optional schemas.",
     icon: <FaDatabase fontSize="20px" />,
     url: "https://www.mongodb.com/",
   },
   {
-    name: "GIT",
+    name: "Git",
     description:
-      "The most used VCS of our time. Can't start a project without it.",
+      "Git is a version control system that allows developers to track changes to their code and collaborate with other developers on projects.",
     icon: <FaGitAlt fontSize="20px" />,
     url: "https://git-scm.com/",
   },
   {
     name: "Figma",
-    description: "Figma is my favourite tool for UI/UX design.",
+    description:
+      "Figma is a cloud-based design and prototyping tool for creating user interfaces and visual designs. ",
     icon: <FaFigma fontSize="20px" />,
     url: "https://www.figma.com/",
   },
@@ -70,7 +73,7 @@ const Tools = () => {
           fontSize={{ base: "24px", md: "30px", lg: "36px" }}
           mb={3}
         >
-          Primary Technologies
+          Favourite Tools
         </Heading>
       </SlideFade>
 
