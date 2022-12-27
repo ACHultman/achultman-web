@@ -1,18 +1,18 @@
-import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
-import { NextSeo } from "next-seo";
+import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react"
+import { NextSeo } from "next-seo"
 
-import Paragraph from "../components/Paragraph";
-import Message from "../components/Message";
-import { Book } from "../components/BookList/types";
-import BookList from "../components/BookList";
+import Paragraph from "../components/Paragraph"
+import Message from "../components/Message"
+import { Book } from "../components/BookList/types"
+import BookList from "../components/BookList"
 
 interface BooksProps {
-  books: Book[];
+  books: Book[]
 }
 
 const Books = ({ books }: BooksProps) => {
   return (
-    <div>
+    <>
       <NextSeo
         title="Adam Hultman | Books"
         description="A list of my favorite tech books."
@@ -46,9 +46,9 @@ const Books = ({ books }: BooksProps) => {
           )}
         </SlideFade>
       </Container>
-    </div>
-  );
-};
+    </>
+  )
+}
 
 export async function getStaticProps() {
   // list of books
@@ -66,14 +66,14 @@ export async function getStaticProps() {
       note: "Your ultimate guide to pentesting with Kali Linux",
       link: "https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076",
     },
-  ];
+  ]
 
   return {
     props: {
       books,
     },
     revalidate: 3600,
-  };
+  }
 }
 
-export default Books;
+export default Books

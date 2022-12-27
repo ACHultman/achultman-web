@@ -1,64 +1,62 @@
-import Head from "next/head";
-import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react";
+import Head from "next/head"
+import { Box, Container, Heading, Divider, SlideFade } from "@chakra-ui/react"
 
-import Paragraph from "../components/Paragraph";
-import BookmarksList from "../components/BookmarksList";
-import BookmarkTags from "../components/BookmarksList/BookmarkTags";
-import { Bookmark, Tag } from "../components/BookmarksList/types";
-import { useBookmarkTagFilter } from "../components/BookmarksList/useTagFilter";
+import Paragraph from "../components/Paragraph"
+import BookmarksList from "../components/BookmarksList"
+import BookmarkTags from "../components/BookmarksList/BookmarkTags"
+import { Bookmark, Tag } from "../components/BookmarksList/types"
+import { useBookmarkTagFilter } from "../components/BookmarksList/useTagFilter"
 
 const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
   const { bookmarks, activeTag, onTagClick } =
-    useBookmarkTagFilter(bookmarksData);
+    useBookmarkTagFilter(bookmarksData)
 
   // dynamically create list of all unique tags
   const tags: Tag[] = bookmarksData.reduce((acc, bookmark) => {
     bookmark.tags.forEach((tag) => {
       if (!acc.includes(tag)) {
-        acc.push(tag);
+        acc.push(tag)
       }
-    });
-    return acc;
-  }, []);
+    })
+    return acc
+  }, [])
 
   return (
-    <div>
+    <>
       <Head>
         <title>Adam Hultman | Bookmarks</title>
       </Head>
-      <main>
-        <Container maxW="container.lg" mt={10}>
-          <SlideFade in={true} offsetY={80}>
-            <Box>
-              <Heading
-                as="h1"
-                fontSize={{ base: "24px", md: "30px", lg: "36px" }}
-                mb={4}
-              >
-                Bookmarks
-              </Heading>
-              <Paragraph fontSize="xl" lineHeight={1.6}>
-                A list of my favorite articles & websites and tools.
-              </Paragraph>
-              <Paragraph fontSize="xs" mt={4}>
-                Last updated: February 8th, 2022
-              </Paragraph>
-            </Box>
-            <Divider my={10} />
-          </SlideFade>
-          <SlideFade in={true} offsetY={80} delay={0.2}>
-            <BookmarkTags
-              tags={tags}
-              activeTag={activeTag}
-              onClick={onTagClick}
-            />
-            <BookmarksList bookmarks={bookmarks} />
-          </SlideFade>
-        </Container>
-      </main>
-    </div>
-  );
-};
+      <Container maxW="container.lg" mt={10}>
+        <SlideFade in={true} offsetY={80}>
+          <Box>
+            <Heading
+              as="h1"
+              fontSize={{ base: "24px", md: "30px", lg: "36px" }}
+              mb={4}
+            >
+              Bookmarks
+            </Heading>
+            <Paragraph fontSize="xl" lineHeight={1.6}>
+              A list of my favorite articles & websites and tools.
+            </Paragraph>
+            <Paragraph fontSize="xs" mt={4}>
+              Last updated: February 8th, 2022
+            </Paragraph>
+          </Box>
+          <Divider my={10} />
+        </SlideFade>
+        <SlideFade in={true} offsetY={80} delay={0.2}>
+          <BookmarkTags
+            tags={tags}
+            activeTag={activeTag}
+            onClick={onTagClick}
+          />
+          <BookmarksList bookmarks={bookmarks} />
+        </SlideFade>
+      </Container>
+    </>
+  )
+}
 
 export async function getStaticProps() {
   const bookmarksData = [
@@ -116,14 +114,14 @@ export async function getStaticProps() {
         "https://blogger.googleusercontent.com/img/a/AVvXsEj7K9sQBJ8GVQcgPNGxsMGJmgCkoPaOxvbTJttSqn0kRxpRDhVSW7gPzr93vcDWOhZDY73YKOSG0_ERiJHwcw9T08EuwUvUXUAt7bFC8giFOu-Shl6FWnWmILajHGZ2K41XSzCtKNoiEpMCc2WnxGavNPac2Ua8T2iGemtud1NQ_pVfRutYVlzv6HZt=w1200-h630-p-k-no-nu",
       tags: ["tensorflow", "machine learning", "reinforcement learning"],
     },
-  ];
+  ]
 
   return {
     props: {
       bookmarksData,
     },
     revalidate: 3600,
-  };
+  }
 }
 
-export default Bookmarks;
+export default Bookmarks
