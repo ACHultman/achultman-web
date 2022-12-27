@@ -78,12 +78,12 @@ const About = () => {
                     variety of areas.
                   </Paragraph>
                 </VStack>
-                <Box w={"50%"} p={4}>
+                <VStack w={"100%"} p={4}>
                   <Paragraph fontSize="xl" lineHeight={1.6}>
                     If you've read this far, feel free to reach out!
                   </Paragraph>
                   <Contact />
-                </Box>
+                </VStack>
               </VStack>
             </Collapse>
             <LightMode>

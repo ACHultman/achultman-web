@@ -1,21 +1,21 @@
-import { Box, BoxProps, Flex, Button } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { Controller, useForm } from "react-hook-form";
+import { Box, BoxProps, Flex, Button } from "@chakra-ui/react"
+import { motion } from "framer-motion"
+import { Controller, useForm } from "react-hook-form"
 
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup"
 
-import * as yup from "yup";
-import ContactFormField from "./contact-form-field";
+import * as yup from "yup"
+import ContactFormField from "./contact-form-field"
 
 const variants = {
   open: { opacity: 1, width: "100%", height: "auto", display: "block" },
   closed: { opacity: 0, height: "0", display: "none" },
-};
+}
 
 export interface IFormInput {
-  name: string;
-  email: string;
-  message: string;
+  name: string
+  email: string
+  message: string
 }
 
 const schema = yup
@@ -27,9 +27,9 @@ const schema = yup
       .required("Please provide your email"),
     message: yup.string().required("Please provide your message"),
   })
-  .required();
+  .required()
 
-const MotionBox = motion<BoxProps>(Box);
+const MotionBox = motion(Box)
 
 const ContactForm = ({ isOpen, onSubmit }) => {
   const {
@@ -38,14 +38,17 @@ const ContactForm = ({ isOpen, onSubmit }) => {
     formState: { errors },
   } = useForm<IFormInput>({
     resolver: yupResolver(schema),
-  });
+  })
 
   // dynamic margin top for root
-  const mt = isOpen ? "5" : "0";
+  const mt = isOpen ? "5" : "0"
 
   return (
     <MotionBox
       animate={isOpen ? "open" : "closed"}
+      transition={{
+        duration: 0,
+      }}
       variants={variants}
       mt={mt}
       opacity={0}
@@ -96,7 +99,7 @@ const ContactForm = ({ isOpen, onSubmit }) => {
         </Flex>
       </form>
     </MotionBox>
-  );
-};
+  )
+}
 
-export default ContactForm;
+export default ContactForm
