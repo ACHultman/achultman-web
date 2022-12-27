@@ -51,37 +51,39 @@ const About = () => {
               About Me
             </Heading>
             <Collapse in={show} startingHeight={100}>
-              <VStack>
-                <Paragraph fontSize="xl" lineHeight={1.6}>
-                  I'm in the final year of my Bachelor of Software Engineering
-                  degree at the University of Victoria. My professional
-                  interests include cross-platform software development,
-                  cybersecurity, and artificial intelligence. I love to explore
-                  and innovate with new technologies. In my free time I enjoy
-                  working on new software projects (mostly ML), playing guitar,
-                  and going on hikes.
-                </Paragraph>
-                <Paragraph fontSize="xl" lineHeight={1.6}>
-                  I'm currently involved in a couple of student clubs: VikeLabs
-                  and Vikaxe. These are clubs for software development and
-                  cybersecurity, respectively. For VikeLabs, I've had the
-                  pleasure of hosting a react testing workshop and am working on
-                  a degree planner web application for UVic students. With
-                  Vikaxe, I've participated in a few CTFs and have learned a
-                  lot.
-                </Paragraph>
-                <Paragraph fontSize="xl" lineHeight={1.6}>
-                  My experience in industry has been mostly based on co-ops
-                  (paid internships). It includes multiple roles working as a
-                  full-stack software developer, a software developer in test,
-                  and a front-end software developer. These roles have provided
-                  invaluable experience working in a team environment and have
-                  helped me develop my skills in a variety of areas.
-                </Paragraph>
-                <Paragraph fontSize="xl" lineHeight={1.6}>
-                  If you've read this far, feel free to reach out!
-                </Paragraph>
-                <Contact />
+              <VStack gap={8}>
+                <VStack>
+                  <Paragraph fontSize="xl" lineHeight={1.6}>
+                    I graduated with a Bachelor of Software Engineering degree
+                    from the University of Victoria. My professional interests
+                    include cross-platform software development, cybersecurity,
+                    and artificial intelligence. I love to explore and innovate
+                    with new technologies. In my free time I enjoy working on
+                    new software projects, playing guitar, and hiking.
+                  </Paragraph>
+                  <Paragraph fontSize="xl" lineHeight={1.6}>
+                    I was involved in a couple of computer science and
+                    engineering student clubs: VikeLabs and VikeSec. These are
+                    clubs for software development and cybersecurity,
+                    respectively. For VikeLabs, I've had the pleasure of hosting
+                    a react testing workshop and am working on a degree planner
+                    web application for UVic students. With VikeSec, I've
+                    participated in a few CTFs and have learned a lot.
+                  </Paragraph>
+                  <Paragraph fontSize="xl" lineHeight={1.6}>
+                    My experience in software industry includes multiple roles
+                    working as a full-stack or front-end software developer.
+                    These roles have provided invaluable experience working in a
+                    team environment and have helped me develop my skills in a
+                    variety of areas.
+                  </Paragraph>
+                </VStack>
+                <Box w={"50%"} p={4}>
+                  <Paragraph fontSize="xl" lineHeight={1.6}>
+                    If you've read this far, feel free to reach out!
+                  </Paragraph>
+                  <Contact />
+                </Box>
               </VStack>
             </Collapse>
             <LightMode>
