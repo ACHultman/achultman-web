@@ -54,7 +54,7 @@ const ToolCard = ({ tool }: ToolCardProps) => {
           whileHover={{ scale: 1.1 }}
         />
         <Box>
-          <LinkOverlay href={tool.url} rel="noopener" isExternal>
+          <LinkOverlay href={tool.url} rel="noopener noreferrer" isExternal>
             <Heading as="h2" size="sm">
               {tool.name}
             </Heading>

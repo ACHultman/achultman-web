@@ -136,7 +136,11 @@ const Timeline = () => {
                       viewport={{ once: true }}
                     >
                       <VStack>
-                        <Link href={item.title.href}>
+                        <Link
+                          href={item.title.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Tooltip
                             label={item.title.description}
                             aria-label={item.title.description}

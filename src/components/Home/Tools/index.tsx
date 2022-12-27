@@ -1,4 +1,4 @@
-import { Heading, SlideFade, Grid, GridProps } from "@chakra-ui/react";
+import { Heading, SlideFade, Grid, GridProps } from "@chakra-ui/react"
 import {
   FaNodeJs,
   FaReact,
@@ -6,11 +6,11 @@ import {
   FaDatabase,
   FaGitAlt,
   FaFigma,
-} from "react-icons/fa";
-import { motion } from "framer-motion";
+} from "react-icons/fa"
+import { motion } from "framer-motion"
 
-import ToolCard from "./ToolCard";
-import Paragraph from "../../Paragraph";
+import ToolCard from "./ToolCard"
+import Paragraph from "../../Paragraph"
 
 const tools = [
   {
@@ -52,9 +52,9 @@ const tools = [
     icon: <FaFigma fontSize="20px" />,
     url: "https://www.figma.com/",
   },
-];
+]
 
-export const MotionGrid = motion<GridProps>(Grid);
+export const MotionGrid = motion<GridProps>(Grid)
 
 const Tools = () => {
   return (
@@ -73,17 +73,7 @@ const Tools = () => {
           Primary Technologies
         </Heading>
       </SlideFade>
-      <SlideFade
-        in={true}
-        offsetX={-80}
-        delay={{ enter: 1.6, exit: 1.6 }}
-        transition={{ enter: { duration: 1 } }}
-      >
-        <Paragraph fontSize="xl" lineHeight={1.6}>
-          As a Full-stack Web Developer there are many tools at one's disposal;
-          these are among my favourites.
-        </Paragraph>
-      </SlideFade>
+
       <SlideFade
         in={true}
         offsetX={80}
@@ -103,7 +93,7 @@ const Tools = () => {
         </MotionGrid>
       </SlideFade>
     </SlideFade>
-  );
-};
+  )
+}
 
-export default Tools;
+export default Tools

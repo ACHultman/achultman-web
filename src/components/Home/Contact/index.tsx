@@ -1,19 +1,23 @@
-import { Box, LightMode } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { Box, LightMode, VStack } from "@chakra-ui/react"
+import { motion } from "framer-motion"
 import {
   FaArrowAltCircleUp,
   FaCheck,
   FaEnvelope,
   FaExclamation,
-} from "react-icons/fa";
-import { MotionButton } from "../Hero";
-import ContactForm from "./contact-form";
-import { useFormManager } from "./use-form-manager";
+} from "react-icons/fa"
+import { MotionButton } from "../Hero"
+import ContactForm from "./contact-form"
+import { useFormManager } from "./use-form-manager"
 
-const MotionBox = motion(Box);
+const MotionBox = motion(Box)
+const variants = {
+  open: { width: "100%" },
+  closed: { width: "unset" },
+}
 
 const Contact = () => {
-  const { formState, isOpen, setIsOpen, onSubmit } = useFormManager();
+  const { formState, isOpen, setIsOpen, onSubmit } = useFormManager()
 
   const contactButtonState =
     formState === "success"
@@ -23,15 +27,16 @@ const Contact = () => {
           icon: <FaExclamation />,
           text: "Error! Please contact me through LinkedIn.",
         }
-      : { icon: <FaEnvelope />, text: "Contact" };
+      : { icon: <FaEnvelope />, text: "Contact" }
 
   return (
-    <>
+    <VStack w="100%">
       <MotionBox
         mt={7}
         borderRadius={5}
         borderTopRightRadius={isOpen ? 100 : 5}
         animate={isOpen ? "open" : "closed"}
+        variants={variants}
       >
         <LightMode>
           <MotionButton
@@ -47,8 +52,8 @@ const Contact = () => {
           <ContactForm isOpen={isOpen} onSubmit={onSubmit} />
         </LightMode>
       </MotionBox>
-    </>
-  );
-};
+    </VStack>
+  )
+}
 
-export default Contact;
+export default Contact

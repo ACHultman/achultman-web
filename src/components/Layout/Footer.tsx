@@ -1,10 +1,17 @@
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa"
 
 import {
-  Box, ButtonGroup, Container, Divider, IconButton, Link, Stack, Text
-} from "@chakra-ui/react";
+  Box,
+  ButtonGroup,
+  Container,
+  Divider,
+  IconButton,
+  Link,
+  Stack,
+  Text,
+} from "@chakra-ui/react"
 
-import Logo from "../Logo";
+import Logo from "../Logo"
 
 const Footer = () => (
   <Box
@@ -28,18 +35,24 @@ const Footer = () => (
           <IconButton
             as="a"
             href="https://www.instagram.com/adamog_/"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="instagram"
             icon={<FaInstagram fontSize="20px" />}
           />
           <IconButton
             as="a"
             href="https://www.linkedin.com/in/adam-hultman/"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Linkedin"
             icon={<FaLinkedin fontSize="20px" />}
           />
           <IconButton
             as="a"
             href="https://www.github.com/achultman"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Github"
             icon={<FaGithub fontSize="20px" />}
           />
@@ -54,7 +67,8 @@ const Footer = () => (
           as={Link}
           rounded="md"
           aria-label="Github Repo"
-          rel="noopener"
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://github.com/achultman/achultman-web/"
           isExternal
           icon={<FaGithub fontSize="18px" />}
@@ -62,6 +76,6 @@ const Footer = () => (
       </Stack>
     </Container>
   </Box>
-);
+)
 
-export default Footer;
+export default Footer

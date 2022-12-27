@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 
 const Link = ({ children, href, ...props }) => {
   const { asPath: currentPath } = useRouter()
-  console.log({ children, href, props })
+
   return (
     <NextLink href={href} passHref>
       <ChakraLink
