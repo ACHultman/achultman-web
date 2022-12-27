@@ -5,13 +5,13 @@ import {
   Heading,
   Link,
   SlideFade,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-import Paragraph from "../Paragraph";
-import { motion } from "framer-motion";
-import Contact from "./Contact";
+import Paragraph from "../Paragraph"
+import { motion } from "framer-motion"
+import Contact from "./Contact"
 
-export const MotionButton = motion<ButtonProps>(Button);
+export const MotionButton = motion<ButtonProps>(Button)
 
 const Hero = () => {
   return (
@@ -27,13 +27,10 @@ const Hero = () => {
         <Paragraph fontSize="2xl" lineHeight={1.6}>
           Full-stack Developer, Designer, Cybersecurity + ML Enthusiast
         </Paragraph>
-        <Paragraph fontSize="2xl" lineHeight={1.6}>
-          Learning every day.
-        </Paragraph>
         <Contact />
       </Box>
     </SlideFade>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
