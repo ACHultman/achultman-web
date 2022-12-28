@@ -1,16 +1,16 @@
 import "../main.css"
 
 import { AppProps } from "next/app"
+import Script from "next/script"
+import Head from "next/head"
 import { DefaultSeo } from "next-seo"
 
 import { ChakraProvider } from "@chakra-ui/react"
-
 import { MotionConfig } from "framer-motion"
 
 import Layout from "../components/Layout"
 import theme from "../theme"
 import SEO from "../next-seo.config"
-import Script from "next/script"
 
 const gtmScript = `
 <!-- Google Tag Manager -->
@@ -24,8 +24,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
+    <Head>
+      <Script dangerouslySetInnerHTML={{ __html: gtmScript }} />
+    </Head>
     <DefaultSeo {...SEO} />
-    <Script dangerouslySetInnerHTML={{ __html: gtmScript }} />
+
     <MotionConfig reducedMotion="user">
       <ChakraProvider resetCSS theme={theme}>
         <Layout>
