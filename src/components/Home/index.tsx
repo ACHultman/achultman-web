@@ -10,7 +10,7 @@ const Home = () => (
     <Divider my={10} />
     <Timeline />
     <Divider my={10} />
-    <Tools />
+    {/* <Tools /> */}
   </>
 )
 
