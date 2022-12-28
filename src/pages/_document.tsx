@@ -31,7 +31,7 @@ export default class Document extends NextDocument {
           <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
-          <ColorModeScript />
+          <ColorModeScript initialColorMode="system" />
           <Main />
           <NextScript />
         </body>

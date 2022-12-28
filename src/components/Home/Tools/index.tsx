@@ -15,21 +15,21 @@ const tools = [
   {
     name: "Node.js",
     description:
-      "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine that allows you to execute JavaScript on the server side.",
+      "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.",
     icon: <FaNodeJs fontSize="20px" />,
     url: "https://www.nodejs.org",
   },
   {
     name: "NextJS",
     description:
-      "Next.js is a JavaScript framework for building web applications using React. It offers server-side rendering, automatic code splitting, static export, and routing.",
+      "Next.js is a framework for web applications using React. It offers server-side rendering, automatic code splitting, static export, and routing.",
     icon: <FaJs fontSize="20px" />,
     url: "https://nextjs.org/",
   },
   {
     name: "React.js",
     description:
-      "React is a JavaScript library for building user interfaces, allowing for the creation of reusable components and efficient updates to the view of web applications.",
+      "React is a JavaScript library for building user interfaces, allowing for the creation of reusable components.",
     icon: <FaReact fontSize="20px" />,
     url: "https://www.reactjs.org",
   },

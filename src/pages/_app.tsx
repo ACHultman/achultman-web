@@ -12,6 +12,7 @@ import TagManager from "react-gtm-module"
 import Layout from "../components/Layout"
 import theme from "../theme"
 import SEO from "../next-seo.config"
+import { Chakra } from "../components/Chakra"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -22,14 +23,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <>
       <DefaultSeo {...SEO} />
       <Analytics />
-
-      <MotionConfig reducedMotion="user">
-        <ChakraProvider resetCSS theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ChakraProvider>
-      </MotionConfig>
+      <Chakra cookies={pageProps.cookies}>
+        <MotionConfig reducedMotion="user">
+          <ChakraProvider theme={theme}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ChakraProvider>
+        </MotionConfig>
+      </Chakra>
     </>
   )
 }
