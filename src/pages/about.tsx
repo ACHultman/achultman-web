@@ -40,7 +40,7 @@ const About = () => {
       <Head>
         <title>Adam Hultman | About</title>
       </Head>
-      <Container maxW="container.lg" mt={10}>
+      <Container maxW="container.lg">
         <SlideFade in={true} offsetY={80}>
           <Box>
             <Heading

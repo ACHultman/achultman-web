@@ -22,7 +22,7 @@ const Books = ({ books }: BooksProps) => {
           url: "https://hultman.dev/books",
         }}
       />
-      <Container maxW="container.lg" mt={10}>
+      <Container maxW="container.lg">
         <SlideFade in={true} offsetY={80}>
           <Box>
             <Heading

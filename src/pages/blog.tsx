@@ -1,9 +1,9 @@
-import { Box, Container, Heading, SlideFade, Divider } from "@chakra-ui/react";
-import Message from "../components/Message";
+import { Box, Container, Heading, SlideFade, Divider } from "@chakra-ui/react"
+import Message from "../components/Message"
 
 const Blog = () => {
   return (
-    <Container maxW="container.lg" mt={10}>
+    <Container maxW="container.lg">
       <SlideFade in={true} offsetY={80}>
         <Box>
           <Heading
@@ -18,7 +18,7 @@ const Blog = () => {
         <Message message="Stay tuned!" type={"empty"} />
       </SlideFade>
     </Container>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog
