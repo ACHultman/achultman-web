@@ -4,6 +4,7 @@ import { AppProps } from "next/app"
 import Script from "next/script"
 import Head from "next/head"
 import { DefaultSeo } from "next-seo"
+import { Analytics } from "@vercel/analytics/react"
 
 import { ChakraProvider } from "@chakra-ui/react"
 import { MotionConfig } from "framer-motion"
@@ -28,6 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <Script dangerouslySetInnerHTML={{ __html: gtmScript }} />
     </Head>
     <DefaultSeo {...SEO} />
+    <Analytics />
 
     <MotionConfig reducedMotion="user">
       <ChakraProvider resetCSS theme={theme}>
