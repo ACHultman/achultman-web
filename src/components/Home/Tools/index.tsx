@@ -10,7 +10,6 @@ import {
 import { motion } from "framer-motion"
 
 import ToolCard from "./ToolCard"
-import Paragraph from "../../Paragraph"
 
 const tools = [
   {
