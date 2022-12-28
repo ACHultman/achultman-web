@@ -8,9 +8,11 @@ export const DarkModeSwitch = () => {
 
   return (
     <Flex alignItems={"center"}>
-      <Button aria-label="Switch Theme" onClick={toggleColorMode} size={"lg"}>
-        {isDark ? <SunIcon /> : <MoonIcon />}
-      </Button>
+      {isDark ? (
+        <SunIcon onClick={toggleColorMode} boxSize={8} />
+      ) : (
+        <MoonIcon onClick={toggleColorMode} boxSize={8} />
+      )}
     </Flex>
   )
 }

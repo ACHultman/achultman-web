@@ -1,9 +1,11 @@
 import {
   Box,
   Container,
+  DarkMode,
   Flex,
   HStack,
   IconButton,
+  LightMode,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react"
@@ -61,14 +63,17 @@ const Navbar = () => {
     <Box py={5} borderTop="2px" borderTopColor="green.500">
       <Container maxW="container.lg">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <MotionIconButton
-            size={"lg"}
-            icon={<NavbarIcon isOpen={isOpen} />}
-            aria-label={"Open Menu"}
-            display={{ md: !isOpen ? "none" : "flex" }}
-            onClick={isOpen ? onClose : onOpen}
-            whileTap={{ scale: 0.9 }}
-          />
+          <DarkMode>
+            <MotionIconButton
+              size={"lg"}
+              bg={"transparent !important"}
+              icon={<NavbarIcon isOpen={isOpen} />}
+              aria-label={"Open Menu"}
+              display={{ md: !isOpen ? "none" : "flex" }}
+              onClick={isOpen ? onClose : onOpen}
+              whileTap={{ scale: 0.9 }}
+            />
+          </DarkMode>
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <Logo />
