@@ -1,11 +1,9 @@
 import {
   Box,
-  Container,
   DarkMode,
   Flex,
   HStack,
   IconButton,
-  LightMode,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react"
@@ -59,6 +57,8 @@ const Navbar = () => {
     </>
   )
 
+  const blur = isOpen ? "blur(15px)" : "blur(5px)"
+
   return (
     <Box
       // center
@@ -75,7 +75,7 @@ const Navbar = () => {
       px={8}
       position="fixed"
       // blur
-      backdropFilter="blur(10px)"
+      backdropFilter={blur}
     >
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <DarkMode>
