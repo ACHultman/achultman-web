@@ -2,13 +2,6 @@ import NextDocument, { Head, Html, Main, NextScript } from "next/document"
 
 import { ColorModeScript } from "@chakra-ui/react"
 
-const gtmBodyScript = `
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDX34CN"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-`
-
 export default class Document extends NextDocument {
   render() {
     return (
@@ -38,7 +31,6 @@ export default class Document extends NextDocument {
           <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
-          <noscript dangerouslySetInnerHTML={{ __html: gtmBodyScript }} />
           <ColorModeScript />
           <Main />
           <NextScript />
