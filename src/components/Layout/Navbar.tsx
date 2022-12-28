@@ -49,11 +49,11 @@ const Navbar = () => {
   const navigationItems = (
     <>
       {MAIN_LINKS.map((link) => (
-        <Link href={link.route} key={link.name}>
+        <Link href={link.route} key={link.name} onClick={onClose}>
           {link.name}
         </Link>
       ))}
-      <DropdownMenu extraLinks={EXTRA_LINKS} />
+      <DropdownMenu extraLinks={EXTRA_LINKS} onClick={onClose} />
     </>
   )
 

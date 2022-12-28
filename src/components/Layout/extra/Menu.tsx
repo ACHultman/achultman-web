@@ -12,7 +12,7 @@ import {
 
 import Link from "./Link"
 
-const DropdownMenu = ({ extraLinks }) => {
+const DropdownMenu = ({ extraLinks, onClick }) => {
   const { asPath } = useRouter()
 
   return (
@@ -36,7 +36,7 @@ const DropdownMenu = ({ extraLinks }) => {
       </MenuButton>
       <MenuList bg={useColorModeValue("gray.50", "gray.800")}>
         {extraLinks.map(({ name, route }) => (
-          <Link href={route} key={name}>
+          <Link href={route} key={name} onClick={onClick}>
             <MenuItem
               bg={asPath === route && useColorModeValue("gray.200", "gray.700")}
             >
