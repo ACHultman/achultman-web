@@ -65,10 +65,11 @@ const About = () => {
                     I was involved in a couple of computer science and
                     engineering student clubs: VikeLabs and VikeSec. These are
                     clubs for software development and cybersecurity,
-                    respectively. For VikeLabs, I've had the pleasure of hosting
-                    a react testing workshop and am working on a degree planner
-                    web application for UVic students. With VikeSec, I've
-                    participated in a few CTFs and have learned a lot.
+                    respectively. For VikeLabs, I had the pleasure of hosting a
+                    react testing workshop and working on a degree planner web
+                    application for UVic students. With VikeSec, I participated
+                    in a few CTFs and learned a lot about cybersecurity and
+                    problem-solving skills
                   </Paragraph>
                   <Paragraph fontSize="xl" lineHeight={1.6}>
                     My experience in software industry includes multiple roles
