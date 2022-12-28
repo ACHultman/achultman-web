@@ -7,7 +7,7 @@ export const DarkModeSwitch = () => {
   const isDark = colorMode === "dark"
 
   return (
-    <Flex alignItems={"center"}>
+    <Flex alignItems="center" cursor="pointer">
       {isDark ? (
         <SunIcon onClick={toggleColorMode} boxSize={8} />
       ) : (
