@@ -1,13 +1,14 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react"
 
-import Message from "../Message";
-import BookmarkCard from "./BookmarkCard";
-import { Bookmark } from "./types";
+import Message from "../Message"
+import BookmarkCard from "./BookmarkCard"
+import { Bookmark } from "./types"
+import Tilt from "react-parallax-tilt"
 
 const BookmarksList = ({ bookmarks }: { bookmarks: Bookmark[] }) => {
   // render Message component if bookmarks is empty, defaults to empty message
   if (bookmarks.length === 0) {
-    return <Message />;
+    return <Message />
   }
 
   return (
@@ -21,10 +22,12 @@ const BookmarksList = ({ bookmarks }: { bookmarks: Bookmark[] }) => {
       sx={{ columnCount: [1, 2, 3], columnGap: "20px" }}
     >
       {bookmarks.map((bookmark, i) => (
-        <BookmarkCard bookmark={{ ...bookmark, id: i }} key={`bookmark-${i}`} />
+        <Tilt key={`bookmark-${i}`}>
+          <BookmarkCard bookmark={{ ...bookmark, id: i }} />
+        </Tilt>
       ))}
     </Flex>
-  );
-};
+  )
+}
 
-export default BookmarksList;
+export default BookmarksList

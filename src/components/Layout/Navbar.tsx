@@ -61,7 +61,6 @@ const Navbar = () => {
 
   return (
     <Box
-      // center
       as="header"
       zIndex={10}
       top="0px"
