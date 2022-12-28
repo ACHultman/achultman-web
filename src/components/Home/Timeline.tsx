@@ -151,7 +151,9 @@ const Timeline = () => {
                             </Text>
                           </Tooltip>
                         </Link>
-                        <Paragraph>{item.subtitle}</Paragraph>
+                        <Paragraph textAlign={"center"}>
+                          {item.subtitle}
+                        </Paragraph>
                         <Text fontSize="sm" color={dateRangeColor}>
                           {item.dateRange}
                         </Text>
