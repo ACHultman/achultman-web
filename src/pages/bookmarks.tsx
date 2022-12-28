@@ -12,21 +12,24 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
     useBookmarkTagFilter(bookmarksData)
 
   // dynamically create list of all unique tags
-  const tags: Tag[] = bookmarksData.reduce((acc, bookmark) => {
-    bookmark.tags.forEach((tag) => {
-      if (!acc.includes(tag)) {
-        acc.push(tag)
-      }
-    })
-    return acc
-  }, [])
+  // and sort resulting list alphabetically
+  const tags: Tag[] = bookmarksData
+    .reduce((acc, bookmark) => {
+      bookmark.tags.forEach((tag) => {
+        if (!acc.includes(tag)) {
+          acc.push(tag)
+        }
+      })
+      return acc
+    }, [])
+    .sort()
 
   return (
     <>
       <Head>
         <title>Adam Hultman | Bookmarks</title>
       </Head>
-      <Container maxW="container.lg" mt={10}>
+      <Container maxW="container.lg">
         <SlideFade in={true} offsetY={80}>
           <Box>
             <Heading
