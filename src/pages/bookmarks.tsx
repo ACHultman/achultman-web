@@ -40,7 +40,7 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
               Bookmarks
             </Heading>
             <Paragraph fontSize="xl" lineHeight={1.6}>
-              A list of my favorite articles & websites and tools.
+              My favorite articles, websites, and tools.
             </Paragraph>
             <Paragraph fontSize="xs" mt={4}>
               Last updated: February 8th, 2022
