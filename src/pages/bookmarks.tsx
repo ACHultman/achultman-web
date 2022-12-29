@@ -78,7 +78,7 @@ export async function getStaticProps() {
       title: "GUN",
       domain: "GUNDB.IO",
       description:
-        "GUN is a decentralized, offline-first, graph database engine. It is a serverless, peer-to-peer, and distributed data storage solution. It is a serverless, peer-to-peer, and distributed data storage solution.",
+        "GUN is a decentralized, offline-first, graph database engine. It is a serverless, peer-to-peer, and distributed data storage solution.",
       url: "https://gun.eco/",
       image:
         "https://camo.githubusercontent.com/64213f411349db936a0fa36ef41741b170d4c8d34d1cc0d1c887f7d880838707/68747470733a2f2f636c6475702e636f6d2f5445793979476834356c2e737667",
