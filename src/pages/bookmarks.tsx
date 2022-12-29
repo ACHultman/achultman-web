@@ -43,7 +43,7 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
               My favorite articles, websites, and tools.
             </Paragraph>
             <Paragraph fontSize="xs" mt={4}>
-              Last updated: February 8th, 2022
+              Last updated: Decemmber 28th, 2022
             </Paragraph>
           </Box>
           <Divider my={10} />
@@ -62,14 +62,89 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
 }
 
 export async function getStaticProps() {
+  // list of bookmarks
+  // defined here just for fun
   const bookmarksData = [
+    {
+      title: "Vite",
+      domain: "VITEJS.DEV",
+      description: "Next generation frontend tooling. It's fast!",
+      url: "https://vitejs.dev/",
+      image: "https://vitejs.dev/logo.svg",
+      tags: ["vite", "tooling", "javascript"],
+    },
+    // GUN - decentralized database
+    {
+      title: "GUN",
+      domain: "GUNDB.IO",
+      description:
+        "GUN is a decentralized, offline-first, graph database engine. It is a serverless, peer-to-peer, and distributed data storage solution. It is a serverless, peer-to-peer, and distributed data storage solution.",
+      url: "https://gun.eco/",
+      image:
+        "https://camo.githubusercontent.com/64213f411349db936a0fa36ef41741b170d4c8d34d1cc0d1c887f7d880838707/68747470733a2f2f636c6475702e636f6d2f5445793979476834356c2e737667",
+      tags: ["database", "decentralized"],
+    },
+
+    // hack the box - HTB
+    {
+      title: "Hack The Box",
+      domain: "HACKTHEBOX.COM",
+      description:
+        "Hack The Box is an online platform allowing you to test your penetration testing skills and exchange ideas and methodologies with thousands of people in the security field.",
+      url: "https://www.hackthebox.com/",
+      image: "https://www.hackthebox.eu/images/logo-htb.svg",
+      tags: ["hacking", "pentesting", "cybersecurity"],
+    },
+    // https://serverlessland.com/patterns
+    {
+      title: "Serverless Patterns",
+      domain: "SERVERLESSLAND.COM",
+      description:
+        "A collection of serverless patterns and solutions for common use cases.",
+      url: "https://serverlessland.com/patterns",
+      image:
+        "https://serverlessland.com/assets/images/serverlessLandNewLogo.png",
+      tags: ["serverless", "patterns", "solutions"],
+    },
+
+    // cyberchef - online tool for data manipulation
+    {
+      title: "CyberChef",
+      domain: "CYBERCHEF.BBC.CO.UK",
+      description:
+        "CyberChef is the all-in-one web app for encryption, encoding, compression and data analysis.",
+      url: "https://gchq.github.io/CyberChef/",
+      image:
+        "https://www.gchq.gov.uk/images/CyberChef768x512.jpg?mpwidth=545&mlwidth=737&twidth=961&dwidth=635&dpr=1&width=864",
+      tags: ["cybersecurity", "tooling", "encryption", "encoding"],
+    },
+    // ibm q experience
+    {
+      title: "IBM Quantum Experience",
+      domain: "QUANTUMCOMPUTING.IBM.COM",
+      description:
+        "IBM Quantum Experience is a cloud-based platform that allows you to run quantum algorithms on real quantum processors. You can also design and simulate your own quantum algorithms using our open-source SDKs.",
+      url: "https://quantum-computing.ibm.com/",
+      image: "https://i.ytimg.com/vi/LAA0-vjTaNY/maxresdefault.jpg",
+      tags: ["quantum computing", "ibm"],
+    },
+    // hue mint - color scheme generator
+    {
+      title: "Hue Mint",
+      domain: "HUEMINT.COM",
+      description:
+        "Hue Mint is a color scheme generator that helps you create beautiful color palettes that work together well. It's free and easy to use.",
+      url: "https://www.huemint.com/",
+      image: "https://huemint.com/assets/img/logo-icon.svg",
+      tags: ["color", "color scheme", "generator"],
+    },
     {
       title: "Testing Recipes – React",
       domain: "reactjs.org",
       description: "A JavaScript library for building user interfaces",
       url: "https://reactjs.org/docs/testing-recipes.html",
       image: "https://reactjs.org/logo-og.png",
-      tags: ["react", "library", "testing", "web"],
+      tags: ["react", "library", "testing"],
     },
     {
       title: "Easing Functions Cheat Sheet",
@@ -78,44 +153,7 @@ export async function getStaticProps() {
         "Easing functions specify the speed of animation to make the movement more natural. Real objects don’t just move at a constant speed, and do not start and stop in an instant. This page helps you choose the right easing function.",
       url: "https://easings.net/",
       image: "https://easings.net/192.c6b79276.png",
-      tags: ["design", "animation", "css", "web"],
-    },
-    {
-      title:
-        "GitHub - mitesh77/Best-Flutter-UI-Templates: completely free for everyone. Its build-in Flutter Dart.",
-      domain: "GITHUB.COM",
-      description:
-        "Completely free for everyone. Its build-in Flutter Dart. - GitHub - mitesh77/Best-Flutter-UI-Templates: completely free for everyone. Its build-in Flutter Dart.",
-      url: "https://github.com/mitesh77/Best-Flutter-UI-Templates",
-      image:
-        "https://repository-images.githubusercontent.com/205812745/0de8a400-d662-11e9-8b88-ba362adb1830",
-      tags: ["flutter", "UI", "dart"],
-    },
-    {
-      title: "TensorFlow Object Detection with Home-Assistant",
-      domain: "PROJECTS-RASPBERRY.COM",
-      description:
-        "Get started with TensorFlow object detection in your home automation projects using Home-Assistant. Introduction WARNING: there are currently issues with the Tensorflow integration in Home Assist",
-      url: "https://projects-raspberry.com/tensorflow-object-detection-with-home-assistant/",
-      image:
-        "https://projects-raspberry.com/wp-content/uploads/2020/05/TensorFlow-Object-Detection-with-Home-Assistant.jpg",
-      tags: [
-        "raspberry pi",
-        "computer vision",
-        "tensorflow",
-        "machine learning",
-      ],
-    },
-    {
-      title:
-        "Building a board game app with TensorFlow: a new TensorFlow Lite reference app",
-      domain: "BLOG.TENSORFLOW.ORG",
-      description:
-        "In this blog post, we will show you how to train a game agent using reinforcement learning using TensorFlow and TensorFlow Agents, and deploy it.",
-      url: "https://blog.tensorflow.org/2021/10/building-board-game-app-with-tensorflow.html",
-      image:
-        "https://blogger.googleusercontent.com/img/a/AVvXsEj7K9sQBJ8GVQcgPNGxsMGJmgCkoPaOxvbTJttSqn0kRxpRDhVSW7gPzr93vcDWOhZDY73YKOSG0_ERiJHwcw9T08EuwUvUXUAt7bFC8giFOu-Shl6FWnWmILajHGZ2K41XSzCtKNoiEpMCc2WnxGavNPac2Ua8T2iGemtud1NQ_pVfRutYVlzv6HZt=w1200-h630-p-k-no-nu",
-      tags: ["tensorflow", "machine learning", "reinforcement learning"],
+      tags: ["animation", "css"],
     },
   ]
 
