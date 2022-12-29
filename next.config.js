@@ -8,6 +8,7 @@ module.exports = {
       "images.wiley.com",
       "images.wiley.com.au",
       "images.wiley.com.au.s3.amazonaws.com",
+      "learning.oreilly.com",
       "reactjs.org",
       "easings.net",
       "github.com",

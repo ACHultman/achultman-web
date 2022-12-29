@@ -66,6 +66,20 @@ export async function getStaticProps() {
       note: "Your ultimate guide to pentesting with Kali Linux",
       link: "https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076",
     },
+    // O'Reilly - Designing Data-Intensive Applications
+    {
+      cover: {
+        src: "https://learning.oreilly.com/library/cover/9781491903063/250w/",
+        alt: "Designing Data-Intensive Applications",
+        dimensions: {
+          width: 250,
+          height: 328,
+        },
+      },
+      name: "Designing Data-Intensive Applications",
+      note: "The Big Ideas Behind Reliable, Scalable, and Maintainable Systems",
+      link: "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/",
+    },
   ]
 
   return {
