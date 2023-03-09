@@ -14,8 +14,12 @@
  * }
  */
 
-import { NextApiRequest, NextApiResponse } from "next/types";
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+import { NextRequest } from "next/server";
+import { Configuration, OpenAIApi } from "openai-edge";
+
+export const config = {
+  runtime: "experimental-edge",
+};
 
 const OPENAI_MODEL = "gpt-3.5-turbo";
 const OPENAI_TEMPERATURE = 0.6;
@@ -36,101 +40,106 @@ const systemInitMessage = process.env.OPENAI_SYSTEM_INIT_MSG.replace(
   CURR_DATE
 );
 
-type ChatRequestBody = {
-  message: string;
-  prevMessages: ChatCompletionRequestMessage[];
-};
-type Override<T1, T2> = Omit<T1, keyof T2> & T2;
-type ChatRequest = Override<NextApiRequest, { body: ChatRequestBody }>;
+type Speaker = "bot" | "user";
 
-export default async function (req: ChatRequest, res: NextApiResponse) {
+export interface Speech {
+  speaker: Speaker;
+  text: string;
+}
+
+export interface Conversation {
+  history: Array<Speech>;
+}
+
+export interface RequestQueryConversation {
+  conversation: string;
+  temperature: string;
+}
+
+type Messages = Parameters<typeof openai.createChatCompletion>[0]["messages"];
+
+function getMessages({
+  conversation,
+}: {
+  conversation: Conversation;
+}): Messages {
+  let messages: Messages = [{ role: "system", content: systemInitMessage }];
+  conversation.history.forEach((speech: Speech, i) => {
+    messages.push({
+      role: speech.speaker === "user" ? "user" : "assistant",
+      content: speech.text,
+    });
+  });
+  return messages;
+}
+
+function validateConversation(conversation: Conversation) {
+  if (!conversation) {
+    throw new Error("Invalid conversation");
+  }
+  if (!conversation.history) {
+    throw new Error("Invalid conversation");
+  }
+}
+
+export default async function (req: NextRequest) {
   if (!configuration.apiKey) {
-    res.status(500).json({
+    return constructResponse(500, {
       error: {
         message:
           "Sorry, I ran out of API requests for the day. Please try again tomorrow.",
       },
     });
-
-    return;
   }
 
-  const userMessage = req.body.message || "";
-  if (userMessage.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: "Please enter a valid message.",
-      },
-    });
+  // TODO: store conversation in redis or something (with expirey)
+  const { searchParams } = new URL(req.url);
 
-    return;
+  let conversation: Conversation;
+  try {
+    conversation = JSON.parse(searchParams.get("conversation") as string);
+    validateConversation(conversation);
+  } catch (error) {
+    return constructResponse(400, {
+      error: { message: "Please enter a valid message." },
+    });
   }
 
   try {
     const completion = await openai.createChatCompletion({
       model: OPENAI_MODEL,
-      messages: constructMessages(userMessage, req.body.prevMessages || []),
+      messages: getMessages({ conversation }),
       temperature: OPENAI_TEMPERATURE,
+      stream: true,
     });
 
-    res
-      .status(200)
-      .json({ result: completion.data.choices[0].message?.content });
+    return new Response(completion.body, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "text/event-stream;charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        "X-Accel-Buffering": "no",
+      },
+    });
   } catch (error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
-      res.status(error.response.status).json(error.response.data);
+      return constructResponse(error.response.status, error.response.data);
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
-      res.status(500).json({
-        error: {
-          message: "An error occurred during your request.",
-        },
+      return constructResponse(500, {
+        error: { message: "An error occurred during your request." },
       });
     }
   }
 }
 
-function constructMessages(
-  message: string,
-  messages: ChatCompletionRequestMessage[]
-): ChatCompletionRequestMessage[] {
-  console.log([
-    {
-      role: "system",
-      content: systemInitMessage,
+function constructResponse(status: number, data: Object | string) {
+  return new Response(JSON.stringify({ data }), {
+    status,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
     },
-    ...messages,
-    {
-      role: "user",
-      content: message,
-    },
-  ]);
-  return [
-    {
-      role: "system",
-      content: systemInitMessage,
-    },
-    ...messages,
-    {
-      role: "user",
-      content: message,
-    },
-  ];
+  });
 }
-
-// test request body
-
-const testReq = {
-  message: "What did I say in my last message",
-  previousMessages: [
-    {
-      role: "user",
-      content: "What is your name?",
-    },
-    {
-      role: "assistant",
-      content: "My name is Adam Hultman",
-    },
-  ],
-};

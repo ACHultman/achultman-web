@@ -1,14 +1,16 @@
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 0.4rem;
 }
 
-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px #1a202c;
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgb(148, 152, 160);
+  border-radius: 2rem;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: #38a169;
   outline: 1px solid slategrey;
+  border-radius: 2rem;
 }
 
 .logo {
