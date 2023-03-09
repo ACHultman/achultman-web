@@ -1,4 +1,4 @@
-import Head from "next/head"
+import Head from "next/head";
 import {
   Box,
   Container,
@@ -10,13 +10,14 @@ import {
   LightMode,
   Tag,
   VStack,
-} from "@chakra-ui/react"
-import Paragraph from "../components/Paragraph"
-import { useState } from "react"
-import Contact from "../components/Home/Contact"
+} from "@chakra-ui/react";
+import Paragraph from "../components/Paragraph";
+import { useState } from "react";
+import Contact from "../components/Home/Contact";
+import Chat from "../components/Home/Chat";
 
 const About = () => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   const coolStuff = [
     "React",
@@ -31,9 +32,9 @@ const About = () => {
     "Movies",
     "Coffee",
     "Lots of coffee",
-  ]
+  ];
 
-  const handleToggle = () => setShow(!show)
+  const handleToggle = () => setShow(!show);
 
   return (
     <>
@@ -81,9 +82,9 @@ const About = () => {
                 </VStack>
                 <VStack w={"100%"} p={4}>
                   <Paragraph fontSize="xl" lineHeight={1.6}>
-                    If you've read this far, feel free to reach out!
+                    If you've read this far, feel free to ask some questions!
                   </Paragraph>
-                  <Contact />
+                  <Chat />
                 </VStack>
               </VStack>
             </Collapse>
@@ -125,7 +126,7 @@ const About = () => {
         </SlideFade>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;
