@@ -39,3 +39,8 @@ signature.html
 
 # playwright
 test-results/
+# Sentry
+.sentryclirc
+
+# Sentry
+next.config.original.js
