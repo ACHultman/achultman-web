@@ -46,7 +46,7 @@ export default function Chat() {
     ],
   });
   const [streaming, setStreaming] = useState<boolean>(false);
-  const [_error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -108,6 +108,10 @@ export default function Chat() {
   }
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    if (streaming || !data.prompt) {
+      return;
+    }
+
     if (bioNode.current) {
       bioNode.current.innerText = "...";
     }
@@ -130,6 +134,22 @@ export default function Chat() {
       },
     });
   };
+
+  if (error) {
+    setConversation((prev) => {
+      return {
+        ...prev,
+        history: [
+          ...prev.history,
+          {
+            speaker: "bot",
+            text: error,
+          },
+        ],
+      };
+    });
+    setError(null);
+  }
 
   return (
     <SlideFade in={true} offsetY={-80}>
