@@ -16,6 +16,7 @@ import { MessageBox } from './MessageBox'
 import useServerSentEvents from '@hooks/useServerSentEvents'
 import useRealtimeConversation from '@hooks/useRealtimeConversation'
 import { RequestQueryConversation } from '@pages/api/chat'
+import { useLayoutEffect, useState } from 'react'
 
 const CHAT_ENDPOINT = '/api/chat'
 const CHAT_BOT_WELCOME_MESSAGE =
@@ -28,8 +29,9 @@ interface FormData {
 }
 
 function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
+    if (!node.current) return
     const scroll = node.current.scrollHeight - node.current.clientHeight
-    node.current.scrollTo(0, scroll)
+    node.current.scrollTo({ top: scroll, behavior: 'smooth' })
 }
 
 export default function Chat() {
@@ -40,7 +42,6 @@ export default function Chat() {
         setConversation,
         streaming,
         setStreaming,
-        error,
         setError,
     } = useRealtimeConversation([
         {
@@ -54,6 +55,12 @@ export default function Chat() {
         formState: _formState,
         reset,
     } = useForm<FormData>()
+
+    useLayoutEffect(() => {
+        scrollToBottom(conversationNode)
+    }, [conversation])
+
+    const [conversationBoxIsOpen, setConversationBoxIsOpen] = useState(false)
 
     const bgColor = useColorModeValue('white', 'gray.800')
     const msgInputColor = useColorModeValue('gray.200', 'gray.600')
@@ -114,10 +121,7 @@ export default function Chat() {
             return
         }
 
-        if (bioNode.current) {
-            bioNode.current.innerText = '...'
-        }
-        setStreaming(true)
+        !conversationBoxIsOpen && setConversationBoxIsOpen(true)
 
         const newConversation: Conversation = {
             history: [
@@ -128,7 +132,11 @@ export default function Chat() {
 
         setConversation(newConversation)
 
-        scrollToBottom(conversationNode)
+        if (bioNode.current) {
+            bioNode.current.innerText = '...'
+        }
+        setStreaming(true)
+
         openStream({
             query: {
                 conversation: JSON.stringify(newConversation),
@@ -142,16 +150,19 @@ export default function Chat() {
             <VStack
                 w="100%"
                 minW="300px"
-                h="350px"
+                h={conversationBoxIsOpen ? '350px' : '200px'}
                 gap={2}
                 justify="space-between"
                 borderRadius="30px"
                 backgroundColor={bgColor}
                 overflow="hidden"
+                css={{
+                    transition: 'linear 0.5s',
+                }}
             >
                 <VStack
                     w="100%"
-                    h="350px"
+                    h-="100%"
                     borderRadius="30px"
                     px={20}
                     overflowY="auto"
