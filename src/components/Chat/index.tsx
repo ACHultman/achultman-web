@@ -17,6 +17,7 @@ import useServerSentEvents from '@hooks/useServerSentEvents'
 import useRealtimeConversation from '@hooks/useRealtimeConversation'
 import { RequestQueryConversation } from '@pages/api/chat'
 import { useLayoutEffect, useState } from 'react'
+import useCheckMobileScreen from '@hooks/useCheckMobileScreen'
 
 const CHAT_ENDPOINT = '/api/chat'
 const CHAT_BOT_WELCOME_MESSAGE =
@@ -55,6 +56,8 @@ export default function Chat() {
         formState: _formState,
         reset,
     } = useForm<FormData>()
+
+    const isMobile = useCheckMobileScreen()
 
     useLayoutEffect(() => {
         scrollToBottom(conversationNode)
@@ -164,7 +167,7 @@ export default function Chat() {
                     w="100%"
                     h-="100%"
                     borderRadius="30px"
-                    px={20}
+                    px={isMobile ? 8 : 20}
                     overflowY="auto"
                     ref={conversationNode}
                 >
