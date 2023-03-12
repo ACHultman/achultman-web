@@ -46,7 +46,7 @@ export default function Chat() {
         setError,
     } = useRealtimeConversation([
         {
-            speaker: 'bot',
+            author: 'bot',
             text: CHAT_BOT_WELCOME_MESSAGE,
         },
     ])
@@ -102,7 +102,7 @@ export default function Chat() {
                     history: [
                         ...prev.history,
                         {
-                            speaker: 'bot',
+                            author: 'bot',
                             text: bioNode.current?.innerText.replace(
                                 /<br>/g,
                                 '\n'
@@ -129,7 +129,7 @@ export default function Chat() {
         const newConversation: Conversation = {
             history: [
                 ...conversation.history,
-                { speaker: 'user', text: data.prompt },
+                { author: 'user', text: data.prompt },
             ],
         }
 
@@ -172,7 +172,7 @@ export default function Chat() {
                     ref={conversationNode}
                 >
                     {conversation.history.map((x, i) =>
-                        x.speaker === 'user' ? (
+                        x.author === 'user' ? (
                             <MotionMessageBox
                                 key={i}
                                 message={x.text}

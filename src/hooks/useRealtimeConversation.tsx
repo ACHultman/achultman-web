@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
-import { Conversation, Speech } from '@pages/api/chat'
 
-export default function useRealtimeConversation(initMessages: Speech[]) {
+export default function useRealtimeConversation(initMessages: Message[]) {
     const bioNode = useRef<HTMLParagraphElement>(null)
     const conversationNode = useRef<HTMLDivElement>(null)
     const [conversation, setConversation] = useState<Conversation>({
@@ -17,7 +16,7 @@ export default function useRealtimeConversation(initMessages: Speech[]) {
                 history: [
                     ...prev.history,
                     {
-                        speaker: 'bot',
+                        author: 'bot',
                         text: error,
                     },
                 ],

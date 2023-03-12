@@ -1,7 +1,7 @@
-type Speaker = 'bot' | 'user'
+type Author = 'bot' | 'user'
 
 type Message = {
-    author: Speaker
+    author: Author
     text: string
 }
 
