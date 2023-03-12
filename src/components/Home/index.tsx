@@ -3,7 +3,7 @@ import { Box, Divider, Flex, useBreakpointValue } from '@chakra-ui/react'
 import Hero from './Hero'
 import Timeline from './Timeline'
 import GitTimeline from './GitTimeline'
-import Chat from './Chat'
+import Chat from '../Chat'
 
 const Home = () => {
     const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' })

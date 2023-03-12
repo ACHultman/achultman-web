@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 
 import Paragraph from '@components/Paragraph'
-import Chat from '@components/Home/Chat'
+import Chat from '@components/Chat'
 
 const About = () => {
     const [show, setShow] = useState(false)
