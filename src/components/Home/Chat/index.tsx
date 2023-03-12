@@ -1,10 +1,4 @@
-import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useServerSentEvents from "../../../hooks/useServerSentEvents";
-import {
-  Conversation,
-  RequestQueryConversation,
-} from "../../../pages/api/chat";
 import {
   chakra,
   IconButton,
@@ -15,9 +9,16 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { MessageBox } from "./MessageBox";
 import { MdSend } from "react-icons/md";
 import { motion } from "framer-motion";
+
+import { MessageBox } from "./MessageBox";
+import useServerSentEvents from "../../../hooks/useServerSentEvents";
+import {
+  Conversation,
+  RequestQueryConversation,
+} from "../../../pages/api/chat";
+import useRealtimeConversation from "../../../hooks/useRealtimeConversation";
 
 const CHAT_ENDPOINT = "/api/chat";
 const CHAT_BOT_WELCOME_MESSAGE =
@@ -35,18 +36,21 @@ function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
 }
 
 export default function Chat() {
-  const bioNode = useRef<HTMLParagraphElement>(null);
-  const conversationNode = useRef<HTMLDivElement>(null);
-  const [conversation, setConversation] = useState<Conversation>({
-    history: [
-      {
-        speaker: "bot",
-        text: CHAT_BOT_WELCOME_MESSAGE,
-      },
-    ],
-  });
-  const [streaming, setStreaming] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    bioNode,
+    conversationNode,
+    conversation,
+    setConversation,
+    streaming,
+    setStreaming,
+    error,
+    setError,
+  } = useRealtimeConversation([
+    {
+      speaker: "bot",
+      text: CHAT_BOT_WELCOME_MESSAGE,
+    },
+  ]);
   const {
     register,
     handleSubmit,
@@ -62,7 +66,21 @@ export default function Chat() {
     config: {
       withCredentials: false,
     },
-    onData,
+    onData: (data: string) => {
+      if (!bioNode.current) {
+        return;
+      }
+      try {
+        let text = JSON.parse(data).choices[0].delta.content;
+        if (text) {
+          bioNode.current.innerText = bioNode.current.innerText + text;
+          scrollToBottom(conversationNode);
+        }
+      } catch (err) {
+        console.error(`Failed to parse data: ${data}`);
+        setError(`Failed to parse the response`);
+      }
+    },
     onOpen: () => {
       reset();
       if (bioNode.current) {
@@ -91,23 +109,7 @@ export default function Chat() {
     },
   });
 
-  function onData(data: string) {
-    if (!bioNode.current) {
-      return;
-    }
-    try {
-      let text = JSON.parse(data).choices[0].delta.content;
-      if (text) {
-        bioNode.current.innerText = bioNode.current.innerText + text;
-        scrollToBottom(conversationNode);
-      }
-    } catch (err) {
-      console.error(`Failed to parse data: ${data}`);
-      setError(`Failed to parse the response`);
-    }
-  }
-
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onMessageSubmit: SubmitHandler<FormData> = (data) => {
     if (streaming || !data.prompt) {
       return;
     }
@@ -134,22 +136,6 @@ export default function Chat() {
       },
     });
   };
-
-  if (error) {
-    setConversation((prev) => {
-      return {
-        ...prev,
-        history: [
-          ...prev.history,
-          {
-            speaker: "bot",
-            text: error,
-          },
-        ],
-      };
-    });
-    setError(null);
-  }
 
   return (
     <SlideFade in={true} offsetY={-80}>
@@ -185,7 +171,7 @@ export default function Chat() {
             isUser={false}
           />
         </VStack>
-        <chakra.form w="80%" onSubmit={handleSubmit(onSubmit)}>
+        <chakra.form w="80%" onSubmit={handleSubmit(onMessageSubmit)}>
           <InputGroup size="lg" mb={4} w="100%">
             <Input
               maxLength={80}
