@@ -15,7 +15,7 @@ import { motion } from 'framer-motion'
 import { MessageBox } from './MessageBox'
 import useServerSentEvents from '@hooks/useServerSentEvents'
 import useRealtimeConversation from '@hooks/useRealtimeConversation'
-import { Conversation, RequestQueryConversation } from '@pages/api/chat'
+import { RequestQueryConversation } from '@pages/api/chat'
 
 const CHAT_ENDPOINT = '/api/chat'
 const CHAT_BOT_WELCOME_MESSAGE =

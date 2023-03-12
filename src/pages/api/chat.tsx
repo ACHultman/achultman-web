@@ -2,16 +2,7 @@
  * /api/chat
  * This is the API endpoint for the chatbot.
  * It uses the OpenAI API to generate a response.
- * It poses as me, so you can ask me questions on my website.
- * Expecting a POST request with a JSON body containing:
- * {
- *  "message": "message to send to the chatbot",
- *  "previousMessages": [{"role": "user", "content": "message"}, ... ] // optional
- * }
- * Returns a JSON object containing the chatbot's response:
- * {
- *  "result": "chatbot's response"
- * }
+ * It poses as me, so the user can ask me questions on my website.
  */
 
 import { NextRequest } from 'next/server'
@@ -40,17 +31,6 @@ const systemInitMessage = process.env.OPENAI_SYSTEM_INIT_MSG.replace(
     CURR_DATE
 )
 
-type Speaker = 'bot' | 'user'
-
-export interface Speech {
-    speaker: Speaker
-    text: string
-}
-
-export interface Conversation {
-    history: Array<Speech>
-}
-
 export interface RequestQueryConversation {
     conversation: string
     temperature: string
@@ -64,10 +44,10 @@ function getMessages({
     conversation: Conversation
 }): Messages {
     let messages: Messages = [{ role: 'system', content: systemInitMessage }]
-    conversation.history.forEach((speech: Speech, i) => {
+    conversation.history.forEach((message: Message, i) => {
         messages.push({
-            role: speech.speaker === 'user' ? 'user' : 'assistant',
-            content: speech.text,
+            role: message.author === 'user' ? 'user' : 'assistant',
+            content: message.text,
         })
     })
     return messages
