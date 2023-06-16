@@ -3,7 +3,7 @@ import { Box, Divider, Flex, useBreakpointValue } from '@chakra-ui/react'
 import Hero from './Hero'
 import Timeline from './Timeline'
 import GitTimeline from './GitTimeline'
-import ChatV2 from '@components/ChatV2'
+import Chat from '@components/Chat'
 
 const Home = () => {
     const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' })
@@ -12,7 +12,7 @@ const Home = () => {
         <>
             <Hero />
             <Divider my={10} />
-            <ChatV2 />
+            <Chat />
             <Divider my={10} />
             {/* use GitTimeline as the background of Timeline */}
             <Flex justifyContent={'center'}>

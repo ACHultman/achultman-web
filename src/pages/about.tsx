@@ -9,7 +9,6 @@ import {
     Button,
     Collapse,
     LightMode,
-    Tag,
     VStack,
 } from '@chakra-ui/react'
 

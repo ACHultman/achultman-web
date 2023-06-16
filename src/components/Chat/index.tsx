@@ -1,33 +1,29 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
 import {
-    chakra,
     IconButton,
     Input,
     InputGroup,
     InputRightElement,
     SlideFade,
-    useColorModeValue,
     VStack,
+    chakra,
+    useColorModeValue,
 } from '@chakra-ui/react'
-import { MdSend } from 'react-icons/md'
+import { useChat } from 'ai/react'
 import { motion } from 'framer-motion'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { MdSend } from 'react-icons/md'
+import { isMobile } from 'react-device-detect'
 
-import { MessageBox } from './MessageBox'
-import useServerSentEvents from '@hooks/useServerSentEvents'
-import useRealtimeConversation from '@hooks/useRealtimeConversation'
-import { RequestQueryConversation } from '@pages/api/chat'
-import { useLayoutEffect, useState } from 'react'
-import useCheckMobileScreen from '@hooks/useCheckMobileScreen'
+import { MessageBox } from '@components/Chat/MessageBox'
+import {
+    CHAT_BOT_WELCOME_MESSAGE,
+    INIT_PROMPT_CHOICES,
+} from 'src/constants/chat'
+import { ChipList } from '@components/ChipList'
 
-const CHAT_ENDPOINT = '/api/chat'
-const CHAT_BOT_WELCOME_MESSAGE =
-    "Hi there! I'm here to help you learn more about Adam. What would you like to know?"
+const CHAT_ENDPOINT = '/api/v2/chat'
 
 const MotionMessageBox = motion(MessageBox)
-
-interface FormData {
-    prompt: string
-}
 
 function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
     if (!node.current) return
@@ -35,117 +31,68 @@ function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
     node.current.scrollTo({ top: scroll, behavior: 'smooth' })
 }
 
-export default function Chat() {
-    const {
-        bioNode,
-        conversationNode,
-        conversation,
-        setConversation,
-        streaming,
-        setStreaming,
-        setError,
-    } = useRealtimeConversation([
-        {
-            author: 'bot',
-            text: CHAT_BOT_WELCOME_MESSAGE,
-        },
-    ])
-    const {
-        register,
-        handleSubmit,
-        formState: _formState,
-        reset,
-    } = useForm<FormData>()
+function generateSuggestions(n: number) {
+    return INIT_PROMPT_CHOICES.sort(() => Math.random() - 0.5).slice(0, n)
+}
 
-    const isMobile = useCheckMobileScreen()
+export default function Chat() {
+    // const [firstChunkReceived, setFirstChunkReceived] = useState(false)
+
+    const {
+        messages,
+        input,
+        handleInputChange,
+        handleSubmit,
+        append,
+        isLoading,
+    } = useChat({
+        api: CHAT_ENDPOINT,
+        initialInput: isMobile
+            ? undefined
+            : INIT_PROMPT_CHOICES[
+                  Math.floor(Math.random() * INIT_PROMPT_CHOICES.length)
+              ],
+        initialMessages: [
+            {
+                id: '0',
+                content: CHAT_BOT_WELCOME_MESSAGE,
+                role: 'assistant',
+            },
+        ],
+        onResponse() {
+            // setFirstChunkReceived(true)
+        },
+        onFinish() {
+            // setFirstChunkReceived(false)
+            // scrollToBottom(conversationNode)
+        },
+    })
+    const conversationNode = useRef<HTMLDivElement>(null)
+    const bgColor = useColorModeValue('white', 'gray.800')
+    const msgInputColor = useColorModeValue('gray.200', 'gray.600')
+    const suggestionChipColor = useColorModeValue('black', 'gray.200')
 
     useLayoutEffect(() => {
         scrollToBottom(conversationNode)
-    }, [conversation])
-
-    const [conversationBoxIsOpen, setConversationBoxIsOpen] = useState(false)
-
-    const bgColor = useColorModeValue('white', 'gray.800')
-    const msgInputColor = useColorModeValue('gray.200', 'gray.600')
-
-    const { openStream } = useServerSentEvents<RequestQueryConversation>({
-        baseUrl: CHAT_ENDPOINT,
-        config: {
-            withCredentials: false,
-        },
-        onData: (data: string) => {
-            if (!bioNode.current) {
-                return
-            }
-            try {
-                let text = JSON.parse(data).choices[0].delta.content
-                if (text) {
-                    bioNode.current.innerText = bioNode.current.innerText + text
-                    scrollToBottom(conversationNode)
-                }
-            } catch (err) {
-                console.error(`Failed to parse data: ${data}`)
-                setError(`Failed to parse the response`)
-            }
-        },
-        onOpen: () => {
-            reset()
-            if (bioNode.current) {
-                bioNode.current.innerText = ''
-            }
-        },
-        onClose: () => {
-            setStreaming(false)
-            setConversation((prev) => {
-                return {
-                    ...prev,
-                    history: [
-                        ...prev.history,
-                        {
-                            author: 'bot',
-                            text: bioNode.current?.innerText.replace(
-                                /<br>/g,
-                                '\n'
-                            ) as string,
-                        },
-                    ],
-                }
-            })
-        },
-        onError: (event) => {
-            console.error(event)
-            setStreaming(false)
-            setError(`Something went wrong with the request`)
-        },
     })
 
-    const onMessageSubmit: SubmitHandler<FormData> = (data) => {
-        if (streaming || !data.prompt) {
-            return
-        }
+    // Shuffle array and pick the first 2 items
+    const suggestions = useMemo(
+        () => generateSuggestions(isMobile ? 1 : 2),
+        [isLoading, isMobile]
+    )
 
-        !conversationBoxIsOpen && setConversationBoxIsOpen(true)
+    const [isClient, setIsClient] = useState(false)
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
-        const newConversation: Conversation = {
-            history: [
-                ...conversation.history,
-                { author: 'user', text: data.prompt },
-            ],
-        }
+    const showSuggestions =
+        (messages.length > 1 || (isMobile && isClient)) && !isLoading
 
-        setConversation(newConversation)
-
-        if (bioNode.current) {
-            bioNode.current.innerText = '...'
-        }
-        setStreaming(true)
-
-        openStream({
-            query: {
-                conversation: JSON.stringify(newConversation),
-                temperature: '0.7',
-            },
-        })
+    let convoHeight = isMobile ? '400px' : '250px'
+    if (messages.length > 1) {
+        convoHeight = '400px'
     }
 
     return (
@@ -153,7 +100,7 @@ export default function Chat() {
             <VStack
                 w="100%"
                 minW="300px"
-                h={conversationBoxIsOpen ? '350px' : '200px'}
+                h={convoHeight}
                 gap={2}
                 justify="space-between"
                 borderRadius="30px"
@@ -167,33 +114,48 @@ export default function Chat() {
                     w="100%"
                     h-="100%"
                     borderRadius="30px"
-                    px={isMobile ? 8 : 20}
+                    px={isMobile ? 4 : 20}
                     overflowY="auto"
+                    overflowX="hidden"
                     ref={conversationNode}
                 >
-                    {conversation.history.map((x, i) =>
-                        x.author === 'user' ? (
-                            <MotionMessageBox
-                                key={i}
-                                message={x.text}
-                                isUser={true}
-                            />
-                        ) : (
-                            <MotionMessageBox
-                                key={i}
-                                message={x.text}
-                                isUser={false}
-                            />
-                        )
-                    )}
-                    <MotionMessageBox
-                        ref={bioNode}
+                    {messages.map((m) => (
+                        <MotionMessageBox
+                            key={m.id}
+                            message={m.content}
+                            isUser={m.role === 'user'}
+                        />
+                    ))}
+                    {/* <MotionMessageBox
                         message="..."
-                        hidden={!streaming}
-                        isUser={false}
-                    />
+                        hidden={!(isLoading && !firstChunkReceived)}
+                    /> */}
+                    {showSuggestions && (
+                        <ChipList
+                            list={suggestions}
+                            onClick={(choice) => {
+                                append({ role: 'user', content: choice })
+                            }}
+                            flexProps={{
+                                alignSelf: 'flex-end',
+                                justifyContent: 'flex-end',
+                                gap: 2,
+                            }}
+                            tagProps={{
+                                colorScheme: 'green',
+                                size: 'md',
+                                color: suggestionChipColor,
+                                variant: 'outline',
+                                cursor: 'pointer',
+                                padding: 4,
+                                background: `linear-gradient(white, white) padding-box, linear-gradient(to top, #00ff0078, ${bgColor}) border-box`,
+                                borderRadius: '30px',
+                                border: '4px solid transparent',
+                            }}
+                        />
+                    )}
                 </VStack>
-                <chakra.form w="80%" onSubmit={handleSubmit(onMessageSubmit)}>
+                <chakra.form w="80%" onSubmit={handleSubmit}>
                     <InputGroup size="lg" mb={4} w="100%">
                         <Input
                             maxLength={80}
@@ -203,7 +165,8 @@ export default function Chat() {
                             _focus={{
                                 outline: 'none',
                             }}
-                            {...register('prompt', { required: true })}
+                            value={input}
+                            onChange={handleInputChange}
                         />
                         <InputRightElement>
                             <IconButton
