@@ -25,6 +25,9 @@ module.exports = {
             'storage.googleapis.com',
         ],
     },
+    compiler: {
+        emotion: true,
+    },
 }
 
 module.exports = withSentryConfig(

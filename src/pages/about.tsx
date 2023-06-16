@@ -9,12 +9,12 @@ import {
     Button,
     Collapse,
     LightMode,
-    Tag,
     VStack,
 } from '@chakra-ui/react'
 
 import Paragraph from '@components/Paragraph'
 import Chat from '@components/Chat'
+import { ChipList } from '@components/ChipList'
 
 const About = () => {
     const [show, setShow] = useState(false)
@@ -122,17 +122,11 @@ const About = () => {
                         Cool Stuff
                     </Heading>
                     <Paragraph fontSize="xl" lineHeight={1.6}>
-                        {coolStuff.map((item) => (
-                            <Tag
-                                size="lg"
-                                colorScheme="green"
-                                key={item}
-                                marginY={2}
-                                marginRight={2}
-                            >
-                                {item}
-                            </Tag>
-                        ))}
+                        <ChipList
+                            list={coolStuff}
+                            size="lg"
+                            colorScheme="green"
+                        />
                     </Paragraph>
                 </SlideFade>
             </Container>
