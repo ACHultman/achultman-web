@@ -14,18 +14,18 @@ export const config = {
 
 const OPENAI_MODEL = 'gpt-3.5-turbo'
 const OPENAI_TEMPERATURE = 0.6
-const CURR_DATE = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-})
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 })
 const openai = new OpenAIApi(configuration)
 
+const CURR_DATE = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+})
 const systemInitMessage = process.env.OPENAI_SYSTEM_INIT_MSG.replace(
     '{CURR_DATE}',
     CURR_DATE

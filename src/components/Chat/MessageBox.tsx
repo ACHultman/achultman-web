@@ -3,13 +3,16 @@ import React, { forwardRef, LegacyRef } from 'react'
 
 interface Props {
     message: string
-    isUser: boolean
+    isUser?: boolean
     hidden?: boolean
     ref?: LegacyRef<HTMLDivElement>
 }
 
 export const MessageBox: React.FC<Props> = forwardRef(
-    ({ message, isUser, hidden }: Props, ref?: LegacyRef<HTMLDivElement>) => {
+    (
+        { message, isUser = false, hidden }: Props,
+        ref?: LegacyRef<HTMLDivElement>
+    ) => {
         const msgBoxShadowColor = useColorModeValue('#000000', '#ffffff')
         const userColor = useColorModeValue('green.100', 'green.600')
         const botColor = useColorModeValue('gray.100', 'gray.600')
