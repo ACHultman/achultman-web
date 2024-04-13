@@ -1,4 +1,4 @@
-import { Button, Flex, Tag } from '@chakra-ui/react'
+import {  Flex, Tag } from '@chakra-ui/react'
 
 type Props = {
     list: string[]

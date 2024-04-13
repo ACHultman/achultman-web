@@ -21,8 +21,6 @@ import {
 } from 'src/constants/chat'
 import { ChipList } from '@components/ChipList'
 
-const CHAT_ENDPOINT = '/api/v2/chat'
-
 const MotionMessageBox = motion(MessageBox)
 
 function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
@@ -36,8 +34,6 @@ function generateSuggestions(n: number) {
 }
 
 export default function Chat() {
-    // const [firstChunkReceived, setFirstChunkReceived] = useState(false)
-
     const {
         messages,
         input,
@@ -46,7 +42,7 @@ export default function Chat() {
         append,
         isLoading,
     } = useChat({
-        api: CHAT_ENDPOINT,
+        api: '/api/v2/chat',
         initialInput: isMobile
             ? undefined
             : INIT_PROMPT_CHOICES[
@@ -59,13 +55,6 @@ export default function Chat() {
                 role: 'assistant',
             },
         ],
-        onResponse() {
-            // setFirstChunkReceived(true)
-        },
-        onFinish() {
-            // setFirstChunkReceived(false)
-            // scrollToBottom(conversationNode)
-        },
     })
     const conversationNode = useRef<HTMLDivElement>(null)
     const bgColor = useColorModeValue('white', 'gray.800')
@@ -104,10 +93,9 @@ export default function Chat() {
                 gap={2}
                 justify="space-between"
                 borderRadius="30px"
-                backgroundColor={bgColor}
                 overflow="hidden"
                 css={{
-                    transition: 'linear 0.5s',
+                    transition: 'height linear 500ms',
                 }}
             >
                 <VStack
@@ -126,10 +114,6 @@ export default function Chat() {
                             isUser={m.role === 'user'}
                         />
                     ))}
-                    {/* <MotionMessageBox
-                        message="..."
-                        hidden={!(isLoading && !firstChunkReceived)}
-                    /> */}
                     {showSuggestions && (
                         <ChipList
                             list={suggestions}
