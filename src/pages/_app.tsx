@@ -7,18 +7,13 @@ import { useEffect } from 'react'
 
 import { ChakraProvider } from '@chakra-ui/react'
 import { MotionConfig } from 'framer-motion'
-import TagManager from 'react-gtm-module'
 
 import { Chakra } from '@components/Chakra'
 import Layout from '@components/Layout'
 import theme from '../theme'
 import SEO from '../next-seo.config'
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
-    useEffect(() => {
-        TagManager.initialize({ gtmId: 'GTM-NDX34CN' })
-    }, [])
-
+function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <DefaultSeo {...SEO} />
@@ -36,4 +31,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     )
 }
 
-export default MyApp
+export default App
