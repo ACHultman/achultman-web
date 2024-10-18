@@ -8,14 +8,14 @@ import {
     Flex,
     Image,
     VStack,
-} from '@chakra-ui/react'
-import { motion } from 'framer-motion'
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 
-import Paragraph from '../Paragraph'
-import { Bookmark } from './types'
+import Paragraph from '../Paragraph';
+import { Bookmark } from './types';
 
 interface Props {
-    bookmark: Bookmark
+    bookmark: Bookmark;
 }
 
 function BookmarkCard({ bookmark }: Props) {
@@ -82,7 +82,7 @@ function BookmarkCard({ bookmark }: Props) {
                 </Box>
             </LinkBox>
         </motion.div>
-    )
+    );
 }
 
-export default BookmarkCard
+export default BookmarkCard;

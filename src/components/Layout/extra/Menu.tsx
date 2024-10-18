@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
-import { FaAngleDown } from 'react-icons/fa'
+import { useRouter } from 'next/router';
+import { FaAngleDown } from 'react-icons/fa';
 
 import {
     Button,
@@ -8,17 +8,17 @@ import {
     MenuItem,
     MenuList,
     useColorModeValue,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import Link from './Link'
+import Link from './Link';
 
 interface Props {
-    extraLinks: { name: string; route: string }[]
-    onClick: () => void
+    extraLinks: { name: string; route: string }[];
+    onClick: () => void;
 }
 
 function DropdownMenu({ extraLinks, onClick }) {
-    const { asPath } = useRouter()
+    const { asPath } = useRouter();
 
     return (
         <Menu autoSelect={false}>
@@ -54,7 +54,7 @@ function DropdownMenu({ extraLinks, onClick }) {
                 ))}
             </MenuList>
         </Menu>
-    )
+    );
 }
 
-export default DropdownMenu
+export default DropdownMenu;

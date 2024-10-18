@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-import { Divide as Hamburger } from 'hamburger-react'
-import theme from '../../theme'
+import { Divide as Hamburger } from 'hamburger-react';
+import theme from '../../theme';
 
 function NavbarIcon({ isOpen }) {
     return (
@@ -14,7 +14,7 @@ function NavbarIcon({ isOpen }) {
             label="Show menu"
             color={theme.colors.green[500]}
         />
-    )
+    );
 }
 
-export default NavbarIcon
+export default NavbarIcon;

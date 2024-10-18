@@ -1,14 +1,14 @@
-import { Heading, SlideFade, ListItem, theme } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
-import { Gitgraph, Mode, TemplateName, templateExtend } from '@gitgraph/react'
-import type { BranchUserApi, Commit as TCommit } from '@gitgraph/core'
-import { ReactSvgElement } from '@gitgraph/react/lib/types'
-import { constructGitGraph } from '../../../utils/gitgraph'
-import { ORG_COLORS } from '../../../constants'
-import { Commit } from './Commit'
+import { Heading, SlideFade, ListItem, theme } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { Gitgraph, Mode, TemplateName, templateExtend } from '@gitgraph/react';
+import type { BranchUserApi, Commit as TCommit } from '@gitgraph/core';
+import { ReactSvgElement } from '@gitgraph/react/lib/types';
+import { constructGitGraph } from '../../../utils/gitgraph';
+import { ORG_COLORS } from '../../../constants';
+import { Commit } from './Commit';
 
-export const MotionHeading = motion(Heading)
-export const MotionListItem = motion(ListItem)
+export const MotionHeading = motion(Heading);
+export const MotionListItem = motion(ListItem);
 
 const graphTemplate = templateExtend(TemplateName.Metro, {
     colors: [
@@ -30,10 +30,10 @@ const graphTemplate = templateExtend(TemplateName.Metro, {
             display: false,
         },
     },
-})
+});
 
 function renderMessage(commit: TCommit<ReactSvgElement>) {
-    return <Commit commit={commit} />
+    return <Commit commit={commit} />;
 }
 
 function createCommit(
@@ -44,7 +44,7 @@ function createCommit(
         subject,
         body,
         renderMessage,
-    })
+    });
 }
 
 function GitTimeline() {
@@ -60,7 +60,7 @@ function GitTimeline() {
                 {(gitgraph) => constructGitGraph(gitgraph, createCommit)}
             </Gitgraph>
         </SlideFade>
-    )
+    );
 }
 
-export default GitTimeline
+export default GitTimeline;

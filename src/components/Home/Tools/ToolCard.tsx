@@ -5,25 +5,25 @@ import {
     LinkOverlay,
     LinkBox,
     useColorModeValue,
-} from '@chakra-ui/react'
-import { motion } from 'framer-motion'
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 
-import Paragraph from '../../Paragraph'
+import Paragraph from '../../Paragraph';
 
-const MotionIconButton = motion(IconButton)
+const MotionIconButton = motion(IconButton);
 
 export interface ToolCardProps {
     tool: {
-        name: string
-        description: string
-        url: string
-        icon: JSX.Element
-    }
+        name: string;
+        description: string;
+        url: string;
+        icon: JSX.Element;
+    };
 }
 
 function ToolCard({ tool }: ToolCardProps) {
     if (!tool) {
-        return
+        return;
     }
 
     return (
@@ -69,7 +69,7 @@ function ToolCard({ tool }: ToolCardProps) {
                 </Box>
             </Box>
         </LinkBox>
-    )
+    );
 }
 
-export default ToolCard
+export default ToolCard;

@@ -1,11 +1,11 @@
-import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
-import React, { forwardRef, LegacyRef } from 'react'
+import { Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import React, { forwardRef, LegacyRef } from 'react';
 
 interface Props {
-    message: string
-    isUser?: boolean
-    hidden?: boolean
-    ref?: LegacyRef<HTMLDivElement>
+    message: string;
+    isUser?: boolean;
+    hidden?: boolean;
+    ref?: LegacyRef<HTMLDivElement>;
 }
 
 const MessageBox: React.FC<Props> = forwardRef(
@@ -13,10 +13,10 @@ const MessageBox: React.FC<Props> = forwardRef(
         { message, isUser = false, hidden }: Props,
         ref?: LegacyRef<HTMLDivElement>
     ) => {
-        const msgBoxShadowColor = useColorModeValue('#000000', '#ffffff')
-        const userColor = useColorModeValue('green.100', 'green.600')
-        const botColor = useColorModeValue('gray.100', 'gray.600')
-        const shadowLocation = isUser ? '2px 2px 4px 0px' : '-2px 2px 4px 0px'
+        const msgBoxShadowColor = useColorModeValue('#000000', '#ffffff');
+        const userColor = useColorModeValue('green.100', 'green.600');
+        const botColor = useColorModeValue('gray.100', 'gray.600');
+        const shadowLocation = isUser ? '2px 2px 4px 0px' : '-2px 2px 4px 0px';
 
         return (
             <Flex
@@ -37,8 +37,8 @@ const MessageBox: React.FC<Props> = forwardRef(
                     </Text>
                 </Flex>
             </Flex>
-        )
+        );
     }
-)
+);
 
-export default MessageBox
+export default MessageBox;

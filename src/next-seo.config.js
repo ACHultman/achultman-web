@@ -15,4 +15,4 @@ export default {
         handle: '@HultmanAdam',
         cardType: 'summary_large_image',
     },
-}
+};

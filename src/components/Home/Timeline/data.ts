@@ -1,5 +1,5 @@
-import { MdCheckCircle } from 'react-icons/md'
-import { ORG_MAP } from 'src/constants'
+import { MdCheckCircle } from 'react-icons/md';
+import { ORG_MAP } from 'src/constants';
 
 export const TIMELINE: Record<string, TimelineItem[]> = {
     Present: [
@@ -72,4 +72,4 @@ export const TIMELINE: Record<string, TimelineItem[]> = {
             dateRange: 'September 2017',
         },
     ],
-}
+};

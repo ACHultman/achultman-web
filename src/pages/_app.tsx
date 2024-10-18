@@ -1,17 +1,17 @@
-import '../main.css'
+import '../main.css';
 
-import { AppProps } from 'next/app'
-import { DefaultSeo } from 'next-seo'
-import { Analytics } from '@vercel/analytics/react'
-import { useEffect } from 'react'
+import { AppProps } from 'next/app';
+import { DefaultSeo } from 'next-seo';
+import { Analytics } from '@vercel/analytics/react';
+import { useEffect } from 'react';
 
-import { ChakraProvider } from '@chakra-ui/react'
-import { MotionConfig } from 'framer-motion'
+import { ChakraProvider } from '@chakra-ui/react';
+import { MotionConfig } from 'framer-motion';
 
-import { Chakra } from '@components/Chakra'
-import Layout from '@components/Layout'
-import theme from '../theme'
-import SEO from '../next-seo.config'
+import { Chakra } from '@components/Chakra';
+import Layout from '@components/Layout';
+import theme from '../theme';
+import SEO from '../next-seo.config';
 
 function App({ Component, pageProps }: AppProps) {
     return (
@@ -28,7 +28,7 @@ function App({ Component, pageProps }: AppProps) {
                 </MotionConfig>
             </Chakra>
         </>
-    )
+    );
 }
 
-export default App
+export default App;

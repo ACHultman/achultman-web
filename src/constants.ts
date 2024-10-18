@@ -4,7 +4,7 @@ export const ORG_COLORS = {
     se: '#3dcd58',
     assembly: '#523eff',
     looking: '#000000',
-}
+};
 
 export const ORG_MAP: Record<OrgName, Org> = {
     looking: {
@@ -41,4 +41,4 @@ export const ORG_MAP: Record<OrgName, Org> = {
         description:
             'The University of Victoria is a public research university located in Victoria, British Columbia.',
     },
-}
+};

@@ -1,8 +1,8 @@
-import { Box, useColorMode } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Box, useColorMode } from '@chakra-ui/react';
+import Link from 'next/link';
 
 function Logo() {
-    const { colorMode } = useColorMode()
+    const { colorMode } = useColorMode();
 
     return (
         <Link href="/">
@@ -37,7 +37,7 @@ function Logo() {
                 </svg>
             </Box>
         </Link>
-    )
+    );
 }
 
-export default Logo
+export default Logo;

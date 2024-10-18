@@ -1,11 +1,11 @@
-import { Container, Flex } from '@chakra-ui/react'
-import { Roboto_Mono } from 'next/font/google'
-import Footer from './Footer'
-import Navbar from './Navbar'
+import { Container, Flex } from '@chakra-ui/react';
+import { Roboto_Mono } from 'next/font/google';
+import Footer from './Footer';
+import Navbar from './Navbar';
 
 const robotoMono = Roboto_Mono({
     subsets: ['latin'],
-})
+});
 
 function Layout({ children }) {
     return (
@@ -18,7 +18,7 @@ function Layout({ children }) {
                 </Container>
             </Flex>
         </Container>
-    )
+    );
 }
 
-export default Layout
+export default Layout;

@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react'
+import { useRef, useState } from 'react';
 
 export default function useConversation(initMessages: Message[]) {
-    const bioNode = useRef<HTMLParagraphElement>(null)
-    const conversationNode = useRef<HTMLDivElement>(null)
+    const bioNode = useRef<HTMLParagraphElement>(null);
+    const conversationNode = useRef<HTMLDivElement>(null);
     const [conversation, setConversation] = useState<Conversation>({
         history: [...initMessages],
-    })
-    const [streaming, setStreaming] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>(null)
+    });
+    const [streaming, setStreaming] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
     if (error) {
         setConversation((prev) => {
@@ -20,9 +20,9 @@ export default function useConversation(initMessages: Message[]) {
                         text: error,
                     },
                 ],
-            }
-        })
-        setError(null)
+            };
+        });
+        setError(null);
     }
 
     return {
@@ -34,5 +34,5 @@ export default function useConversation(initMessages: Message[]) {
         setStreaming,
         error,
         setError,
-    }
+    };
 }

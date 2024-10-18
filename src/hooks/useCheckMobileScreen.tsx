@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 function useCheckMobileScreen() {
-    const [width, setWidth] = useState(0)
+    const [width, setWidth] = useState(0);
 
     useEffect(() => {
-        const handleWindowSizeChange = () => setWidth(window.innerWidth)
-        handleWindowSizeChange()
-        window.addEventListener('resize', handleWindowSizeChange)
+        const handleWindowSizeChange = () => setWidth(window.innerWidth);
+        handleWindowSizeChange();
+        window.addEventListener('resize', handleWindowSizeChange);
         return () =>
-            window.removeEventListener('resize', handleWindowSizeChange)
-    }, [])
+            window.removeEventListener('resize', handleWindowSizeChange);
+    }, []);
 
-    return width <= 576
+    return width <= 576;
 }
 
-export default useCheckMobileScreen
+export default useCheckMobileScreen;

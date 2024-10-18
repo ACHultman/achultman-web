@@ -1,13 +1,13 @@
-import { Box, Container, Heading, Divider, SlideFade } from '@chakra-ui/react'
-import { NextSeo } from 'next-seo'
+import { Box, Container, Heading, Divider, SlideFade } from '@chakra-ui/react';
+import { NextSeo } from 'next-seo';
 
-import Paragraph from '@components/Paragraph'
-import Message from '@components/Message'
-import { Book } from '@components/BookList/types'
-import BookList from '@components/BookList'
+import Paragraph from '@components/Paragraph';
+import Message from '@components/Message';
+import { Book } from '@components/BookList/types';
+import BookList from '@components/BookList';
 
 interface Props {
-    books: Book[]
+    books: Book[];
 }
 
 function Books({ books }: Props) {
@@ -47,7 +47,7 @@ function Books({ books }: Props) {
                 </SlideFade>
             </Container>
         </>
-    )
+    );
 }
 
 export async function getStaticProps() {
@@ -78,13 +78,13 @@ export async function getStaticProps() {
             note: 'The Big Ideas Behind Reliable, Scalable, and Maintainable Systems',
             link: 'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/',
         },
-    ]
+    ];
 
     return {
         props: {
             books,
         },
-    }
+    };
 }
 
-export default Books
+export default Books;

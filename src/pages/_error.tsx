@@ -11,21 +11,21 @@
  *  - https://reactjs.org/docs/error-boundaries.html
  */
 
-import * as Sentry from '@sentry/nextjs'
-import { NextPageContext } from 'next'
-import NextErrorComponent from 'next/error'
+import * as Sentry from '@sentry/nextjs';
+import { NextPageContext } from 'next';
+import NextErrorComponent from 'next/error';
 
 function Error(props: { statusCode: number }) {
-    return <NextErrorComponent statusCode={props.statusCode} />
+    return <NextErrorComponent statusCode={props.statusCode} />;
 }
 
 Error.getInitialProps = async (ctx: NextPageContext) => {
     // In case this is running in a serverless function, await this in order to give Sentry
     // time to send the error before the lambda exits
-    await Sentry.captureUnderscoreErrorException(ctx)
+    await Sentry.captureUnderscoreErrorException(ctx);
 
     // This will contain the status code of the response
-    return NextErrorComponent.getInitialProps(ctx)
-}
+    return NextErrorComponent.getInitialProps(ctx);
+};
 
-export default Error
+export default Error;

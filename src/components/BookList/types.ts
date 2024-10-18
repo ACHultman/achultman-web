@@ -1,13 +1,13 @@
 export interface Book {
     cover: {
-        src: string
-        alt: string
+        src: string;
+        alt: string;
         dimensions: {
-            width: number
-            height: number
-        }
-    }
-    name: string
-    note: string
-    link: string
+            width: number;
+            height: number;
+        };
+    };
+    name: string;
+    note: string;
+    link: string;
 }
