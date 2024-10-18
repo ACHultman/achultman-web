@@ -5,19 +5,22 @@ import Timeline from './Timeline';
 import GitTimeline from './GitTimeline';
 import Chat from '@components/Chat';
 
+import Skills from './Skills';
+
 function Home() {
     const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' });
-
     return (
         <>
             <Hero />
             <Divider my={10} />
             <Chat />
             <Divider my={10} />
-            <Flex justifyContent={'center'}>
+            <Skills />
+            <Divider my={10} />
+            <Flex justifyContent="center">
                 <Box
                     position="absolute"
-                    alignSelf={'center'}
+                    alignSelf="center"
                     marginLeft={bgMarginLeftPx}
                     zIndex="-1"
                     opacity="0.05"

@@ -53,7 +53,7 @@ export function Year({ yearString }: Props) {
                                     <Tooltip
                                         label={item.org.description}
                                         aria-label={item.org.description}
-                                        placement="right-start"
+                                        placement="auto"
                                     >
                                         <Text
                                             borderBottom={`0.5px dotted ${item.org.color}`}
