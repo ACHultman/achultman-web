@@ -1,17 +1,17 @@
-import { Flex } from '@chakra-ui/react'
-import Tilt from 'react-parallax-tilt'
+import { Flex } from '@chakra-ui/react';
+import Tilt from 'react-parallax-tilt';
 
-import Message from '../Message'
-import BookmarkCard from './BookmarkCard'
-import { Bookmark } from './types'
+import Message from '../Message';
+import BookmarkCard from './BookmarkCard';
+import { Bookmark } from './types';
 
 interface Props {
-    bookmarks: Bookmark[]
+    bookmarks: Bookmark[];
 }
 
 function BookmarksList({ bookmarks }: Props) {
     if (!bookmarks || !bookmarks.length) {
-        return <Message />
+        return <Message />;
     }
 
     return (
@@ -30,7 +30,7 @@ function BookmarksList({ bookmarks }: Props) {
                 </Tilt>
             ))}
         </Flex>
-    )
+    );
 }
 
-export default BookmarksList
+export default BookmarksList;

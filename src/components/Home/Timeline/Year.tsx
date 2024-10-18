@@ -5,19 +5,19 @@ import {
     Text,
     Tooltip,
     useColorModeValue,
-} from '@chakra-ui/react'
-import Paragraph from '@components/Paragraph'
-import Link from 'next/link'
-import { MotionHeading, MotionListItem } from '.'
-import { TIMELINE } from './data'
+} from '@chakra-ui/react';
+import Paragraph from '@components/Paragraph';
+import Link from 'next/link';
+import { MotionHeading, MotionListItem } from '.';
+import { TIMELINE } from './data';
 
 interface Props {
-    yearString: string
+    yearString: string;
 }
 
 export function Year({ yearString }: Props) {
-    const titleColor = useColorModeValue('black', 'white')
-    const fontColor = useColorModeValue('gray.600', 'gray.400')
+    const titleColor = useColorModeValue('black', 'white');
+    const fontColor = useColorModeValue('gray.600', 'gray.400');
 
     return (
         <Box>
@@ -73,5 +73,5 @@ export function Year({ yearString }: Props) {
                 </List>
             </VStack>
         </Box>
-    )
+    );
 }

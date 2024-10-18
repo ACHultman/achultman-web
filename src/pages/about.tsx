@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import Head from 'next/head'
+import { useState } from 'react';
+import Head from 'next/head';
 import {
     Box,
     Container,
@@ -10,14 +10,14 @@ import {
     Collapse,
     LightMode,
     VStack,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import Paragraph from '@components/Paragraph'
-import Chat from '@components/Chat'
-import ChipList from '@components/ChipList'
+import Paragraph from '@components/Paragraph';
+import Chat from '@components/Chat';
+import ChipList from '@components/ChipList';
 
 function About() {
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
 
     const coolStuff = [
         'React',
@@ -32,9 +32,9 @@ function About() {
         'Movies',
         'Coffee',
         'Lots of coffee',
-    ]
+    ];
 
-    const handleToggle = () => setShow(!show)
+    const handleToggle = () => setShow(!show);
 
     return (
         <>
@@ -131,7 +131,7 @@ function About() {
                 </SlideFade>
             </Container>
         </>
-    )
+    );
 }
 
-export default About
+export default About;

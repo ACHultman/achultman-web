@@ -6,14 +6,14 @@ import {
     IconButton,
     Stack,
     useDisclosure,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import DarkModeSwitch from '../DarkModeSwitch'
-import Logo from '../Logo'
-import Link from './extra/Link'
-import DropdownMenu from './extra/Menu'
-import { motion } from 'framer-motion'
-import NavbarIcon from './NavbarIcon'
+import DarkModeSwitch from '../DarkModeSwitch';
+import Logo from '../Logo';
+import Link from './extra/Link';
+import DropdownMenu from './extra/Menu';
+import { motion } from 'framer-motion';
+import NavbarIcon from './NavbarIcon';
 
 const MAIN_LINKS = [
     {
@@ -24,7 +24,7 @@ const MAIN_LINKS = [
         name: 'About Me',
         route: '/about',
     },
-]
+];
 
 const EXTRA_LINKS = [
     {
@@ -39,12 +39,12 @@ const EXTRA_LINKS = [
         name: 'Blog',
         route: '/blog',
     },
-]
+];
 
-const MotionIconButton = motion(IconButton)
+const MotionIconButton = motion(IconButton);
 
 function Navbar() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const navigationItems = (
         <>
@@ -55,9 +55,9 @@ function Navbar() {
             ))}
             <DropdownMenu extraLinks={EXTRA_LINKS} onClick={onClose} />
         </>
-    )
+    );
 
-    const blur = isOpen ? 'blur(15px)' : 'blur(5px)'
+    const blur = isOpen ? 'blur(15px)' : 'blur(5px)';
 
     return (
         <Box
@@ -110,7 +110,7 @@ function Navbar() {
                 </Box>
             )}
         </Box>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;

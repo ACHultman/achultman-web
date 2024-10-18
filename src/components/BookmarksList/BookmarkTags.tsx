@@ -4,28 +4,28 @@ import {
     Heading,
     VStack,
     useBreakpointValue,
-} from '@chakra-ui/react'
-import { Tag } from './types'
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+} from '@chakra-ui/react';
+import { Tag } from './types';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const MotionButton = motion(Button)
-const MotionFlex = motion(Flex)
+const MotionButton = motion(Button);
+const MotionFlex = motion(Flex);
 
 interface Props {
-    tags: Tag[]
-    activeTag: Tag
-    onClick: (tag: Tag) => void
+    tags: Tag[];
+    activeTag: Tag;
+    onClick: (tag: Tag) => void;
 }
 
 function BookmarkTags({ tags, activeTag, onClick }: Props) {
-    const [showAllTags, setShowAllTags] = useState(false)
+    const [showAllTags, setShowAllTags] = useState(false);
 
     // get device width
     const maxTagCount = useBreakpointValue({
         base: 5,
         md: 8,
-    })
+    });
 
     return (
         <VStack gap={4}>
@@ -63,7 +63,7 @@ function BookmarkTags({ tags, activeTag, onClick }: Props) {
                                 >
                                     {tag}
                                 </MotionButton>
-                            )
+                            );
                         })}
                 </MotionFlex>
             </AnimatePresence>
@@ -75,7 +75,7 @@ function BookmarkTags({ tags, activeTag, onClick }: Props) {
                 {`Show ${showAllTags ? 'less' : 'more'}`}
             </MotionButton>
         </VStack>
-    )
+    );
 }
 
-export default BookmarkTags
+export default BookmarkTags;

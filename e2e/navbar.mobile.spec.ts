@@ -1,17 +1,17 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test('should navigate to the about page', async ({ page }) => {
     // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
-    await page.goto('/')
+    await page.goto('/');
 
-    await page.click('button[aria-label="Open Menu"]')
+    await page.click('button[aria-label="Open Menu"]');
 
     // Find an element with the text 'About Page' and click on it
-    await page.click('text=About Me')
+    await page.click('text=About Me');
 
     // The new url should be "/about" (baseURL is used there)
-    await expect(page).toHaveURL('/about')
+    await expect(page).toHaveURL('/about');
 
     // The new page should contain an h1 with "About Page"
-    await expect(page.locator('h1')).toContainText('About Me')
-})
+    await expect(page.locator('h1')).toContainText('About Me');
+});

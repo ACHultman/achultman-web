@@ -1,10 +1,10 @@
-import { MoonIcon, SunIcon } from '@chakra-ui/icons'
-import { Flex, useColorMode } from '@chakra-ui/react'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Flex, useColorMode } from '@chakra-ui/react';
 
 function DarkModeSwitch() {
-    const { colorMode, toggleColorMode } = useColorMode()
+    const { colorMode, toggleColorMode } = useColorMode();
 
-    const isDark = colorMode === 'dark'
+    const isDark = colorMode === 'dark';
 
     return (
         <Flex alignItems="center" cursor="pointer">
@@ -14,7 +14,7 @@ function DarkModeSwitch() {
                 <MoonIcon onClick={toggleColorMode} boxSize={8} />
             )}
         </Flex>
-    )
+    );
 }
 
-export default DarkModeSwitch
+export default DarkModeSwitch;

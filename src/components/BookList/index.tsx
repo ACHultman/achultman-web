@@ -1,10 +1,10 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react';
 
-import BookCard from './BookCard'
-import { Book } from './types'
+import BookCard from './BookCard';
+import { Book } from './types';
 
 interface Props {
-    books: Book[]
+    books: Book[];
 }
 
 function BookList({ books }: Props) {
@@ -20,7 +20,7 @@ function BookList({ books }: Props) {
                 <BookCard book={book} key={`book-${book.name}`} />
             ))}
         </Flex>
-    )
+    );
 }
 
-export default BookList
+export default BookList;

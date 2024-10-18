@@ -1,5 +1,5 @@
 export const CHAT_BOT_WELCOME_MESSAGE =
-    "Hi there! I'm here to help you learn more about Adam. What would you like to know?"
+    "Hi there! I'm here to help you learn more about Adam. What would you like to know?";
 export const INIT_PROMPT_CHOICES = [
     "What's Adam been working on lately?",
     "What's been inspiring Adam recently?",
@@ -13,4 +13,4 @@ export const INIT_PROMPT_CHOICES = [
     "What's Adam's dream coding project?",
     "What's a skill Adam's been eager to learn recently?",
     "What's a memorable moment from Adam's recent travels?",
-]
+];

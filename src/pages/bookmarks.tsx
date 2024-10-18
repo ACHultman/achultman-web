@@ -1,30 +1,30 @@
-import Head from 'next/head'
-import { Box, Container, Heading, Divider, SlideFade } from '@chakra-ui/react'
+import Head from 'next/head';
+import { Box, Container, Heading, Divider, SlideFade } from '@chakra-ui/react';
 
-import Paragraph from '@components/Paragraph'
-import BookmarksList from '@components/BookmarksList'
-import BookmarkTags from '@components/BookmarksList/BookmarkTags'
-import { Bookmark, Tag } from '@components/BookmarksList/types'
-import useBookmarkTagFilter from '@hooks/useTagFilter'
+import Paragraph from '@components/Paragraph';
+import BookmarksList from '@components/BookmarksList';
+import BookmarkTags from '@components/BookmarksList/BookmarkTags';
+import { Bookmark, Tag } from '@components/BookmarksList/types';
+import useBookmarkTagFilter from '@hooks/useTagFilter';
 
 interface Props {
-    bookmarksData: Bookmark[]
+    bookmarksData: Bookmark[];
 }
 
 function Bookmarks({ bookmarksData }: Props) {
     const { bookmarks, activeTag, onTagClick } =
-        useBookmarkTagFilter(bookmarksData)
+        useBookmarkTagFilter(bookmarksData);
 
     const tags: Tag[] = bookmarksData
         .reduce((acc, bookmark) => {
             bookmark.tags.forEach((tag) => {
                 if (!acc.includes(tag)) {
-                    acc.push(tag)
+                    acc.push(tag);
                 }
-            })
-            return acc
+            });
+            return acc;
         }, [])
-        .sort()
+        .sort();
 
     return (
         <>
@@ -60,7 +60,7 @@ function Bookmarks({ bookmarksData }: Props) {
                 </SlideFade>
             </Container>
         </>
-    )
+    );
 }
 
 export async function getStaticProps() {
@@ -152,13 +152,13 @@ export async function getStaticProps() {
             image: 'https://easings.net/192.c6b79276.png',
             tags: ['animation', 'css'],
         },
-    ]
+    ];
 
     return {
         props: {
             bookmarksData,
         },
-    }
+    };
 }
 
-export default Bookmarks
+export default Bookmarks;

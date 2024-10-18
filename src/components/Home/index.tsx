@@ -1,12 +1,12 @@
-import { Box, Divider, Flex, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Divider, Flex, useBreakpointValue } from '@chakra-ui/react';
 
-import Hero from './Hero'
-import Timeline from './Timeline'
-import GitTimeline from './GitTimeline'
-import Chat from '@components/Chat'
+import Hero from './Hero';
+import Timeline from './Timeline';
+import GitTimeline from './GitTimeline';
+import Chat from '@components/Chat';
 
 function Home() {
-    const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' })
+    const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' });
 
     return (
         <>
@@ -28,7 +28,7 @@ function Home() {
                 <Timeline />
             </Flex>
         </>
-    )
+    );
 }
 
-export default Home
+export default Home;

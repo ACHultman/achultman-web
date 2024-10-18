@@ -1,5 +1,5 @@
-import { Box, Container, Heading, SlideFade, Divider } from '@chakra-ui/react'
-import Message from '@components/Message'
+import { Box, Container, Heading, SlideFade, Divider } from '@chakra-ui/react';
+import Message from '@components/Message';
 
 function Blog() {
     return (
@@ -18,7 +18,7 @@ function Blog() {
                 <Message message="Stay tuned!" type={'empty'} />
             </SlideFade>
         </Container>
-    )
+    );
 }
 
-export default Blog
+export default Blog;

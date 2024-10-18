@@ -1,4 +1,4 @@
-import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 import {
     Box,
@@ -9,9 +9,9 @@ import {
     Link,
     Stack,
     Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import Logo from '../Logo'
+import Logo from '../Logo';
 
 function Footer() {
     return (
@@ -82,7 +82,7 @@ function Footer() {
                 </Stack>
             </Container>
         </Box>
-    )
+    );
 }
 
-export default Footer
+export default Footer;

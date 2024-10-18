@@ -7,29 +7,29 @@ import {
     VStack,
     chakra,
     useColorModeValue,
-} from '@chakra-ui/react'
-import { useChat } from 'ai/react'
-import { motion } from 'framer-motion'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { MdSend } from 'react-icons/md'
-import { isMobile } from 'react-device-detect'
+} from '@chakra-ui/react';
+import { useChat } from 'ai/react';
+import { motion } from 'framer-motion';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { MdSend } from 'react-icons/md';
+import { isMobile } from 'react-device-detect';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
     INIT_PROMPT_CHOICES,
-} from '../../constants/chat'
-import MessageBox from '@components/Chat/MessageBox'
-import ChipList from '@components/ChipList'
+} from '../../constants/chat';
+import MessageBox from '@components/Chat/MessageBox';
+import ChipList from '@components/ChipList';
 
-const MotionMessageBox = motion(MessageBox)
+const MotionMessageBox = motion(MessageBox);
 
 function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
-    if (!node.current) return
-    const scroll = node.current.scrollHeight - node.current.clientHeight
-    node.current.scrollTo({ top: scroll, behavior: 'smooth' })
+    if (!node.current) return;
+    const scroll = node.current.scrollHeight - node.current.clientHeight;
+    node.current.scrollTo({ top: scroll, behavior: 'smooth' });
 }
 
 function generateSuggestions(n: number) {
-    return INIT_PROMPT_CHOICES.sort(() => Math.random() - 0.5).slice(0, n)
+    return INIT_PROMPT_CHOICES.sort(() => Math.random() - 0.5).slice(0, n);
 }
 
 function Chat() {
@@ -54,33 +54,33 @@ function Chat() {
                 role: 'assistant',
             },
         ],
-    })
-    const conversationNode = useRef<HTMLDivElement>(null)
-    const bgColor = useColorModeValue('white', 'gray.800')
-    const msgInputColor = useColorModeValue('gray.200', 'gray.600')
-    const suggestionChipColor = useColorModeValue('black', 'gray.200')
+    });
+    const conversationNode = useRef<HTMLDivElement>(null);
+    const bgColor = useColorModeValue('white', 'gray.800');
+    const msgInputColor = useColorModeValue('gray.200', 'gray.600');
+    const suggestionChipColor = useColorModeValue('black', 'gray.200');
 
     useLayoutEffect(() => {
-        scrollToBottom(conversationNode)
-    })
+        scrollToBottom(conversationNode);
+    });
 
     // Shuffle array and pick the first 2 items
     const suggestions = useMemo(
         () => generateSuggestions(isMobile ? 1 : 2),
         [isLoading, isMobile]
-    )
+    );
 
-    const [isClient, setIsClient] = useState(false)
+    const [isClient, setIsClient] = useState(false);
     useEffect(() => {
-        setIsClient(true)
-    }, [])
+        setIsClient(true);
+    }, []);
 
     const showSuggestions =
-        (messages.length > 1 || (isMobile && isClient)) && !isLoading
+        (messages.length > 1 || (isMobile && isClient)) && !isLoading;
 
-    let convoHeight = isMobile ? '400px' : '250px'
+    let convoHeight = isMobile ? '400px' : '250px';
     if (messages.length > 1) {
-        convoHeight = '400px'
+        convoHeight = '400px';
     }
 
     return (
@@ -117,7 +117,7 @@ function Chat() {
                         <ChipList
                             list={suggestions}
                             onClick={(choice) => {
-                                append({ role: 'user', content: choice })
+                                append({ role: 'user', content: choice });
                             }}
                             flexProps={{
                                 alignSelf: 'flex-end',
@@ -162,7 +162,7 @@ function Chat() {
                 </chakra.form>
             </VStack>
         </SlideFade>
-    )
+    );
 }
 
-export default Chat
+export default Chat;

@@ -2,8 +2,8 @@ import type {
     BranchUserApi,
     GitgraphUserApi,
     Commit as TCommit,
-} from '@gitgraph/core'
-import { ReactSvgElement } from '@gitgraph/react/lib/types'
+} from '@gitgraph/core';
+import { ReactSvgElement } from '@gitgraph/react/lib/types';
 
 export function constructGitGraph(
     gitgraph: GitgraphUserApi<ReactSvgElement>,
@@ -17,17 +17,17 @@ export function constructGitGraph(
         branchName: string,
         commits: Partial<TCommit<ReactSvgElement>>[]
     ) {
-        const branch = parentBranch.branch({ name: branchName })
-        commits.forEach((commit) => createCommit(branch, commit))
-        parentBranch.merge(branch)
-        return branch
+        const branch = parentBranch.branch({ name: branchName });
+        commits.forEach((commit) => createCommit(branch, commit));
+        parentBranch.merge(branch);
+        return branch;
     }
 
-    const main = gitgraph.branch('main')
+    const main = gitgraph.branch('main');
     createCommit(main, {
         subject: 'Initial commit',
         body: 'September 2017',
-    })
+    });
 
     const bsengDegree = createBranchWithCommits(main, 'edu/uvic/bseng', [
         {
@@ -38,7 +38,7 @@ export function constructGitGraph(
             subject: 'Begin Software Engineering (B.S.Eng.) degree',
             body: 'September 2018',
         },
-    ])
+    ]);
 
     createBranchWithCommits(bsengDegree, 'work/coop/itc', [
         {
@@ -49,7 +49,7 @@ export function constructGitGraph(
             subject: 'Full-stack Software Developer - Part-time',
             body: 'May 2019 - December 2019',
         },
-    ])
+    ]);
 
     createBranchWithCommits(bsengDegree, 'work/coop/se', [
         {
@@ -60,7 +60,7 @@ export function constructGitGraph(
             subject: 'Software Designer - Co-op - Term 2',
             body: 'January 2021 - September 2021',
         },
-    ])
+    ]);
 
     createBranchWithCommits(bsengDegree, 'work/coop/assembly', [
         {
@@ -71,26 +71,26 @@ export function constructGitGraph(
             subject: 'Software Developer - Part-time',
             body: 'May 2022 - August 2022',
         },
-    ])
+    ]);
 
     createCommit(bsengDegree, {
         subject: 'Complete Software Engineering (B.S.Eng.) degree',
         body: 'August 2022',
-    })
+    });
 
-    main.merge(bsengDegree)
+    main.merge(bsengDegree);
 
     const assembly = createBranchWithCommits(main, 'work/assembly', [
         {
             subject: 'Software Developer',
             body: 'May 2022 - October 2024',
         },
-    ])
+    ]);
 
-    main.merge(assembly)
+    main.merge(assembly);
 
     createCommit(main, {
         subject: 'Looking for work',
         body: 'October 2024',
-    })
+    });
 }

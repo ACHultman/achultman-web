@@ -1,10 +1,10 @@
-import NextLink from 'next/link'
+import NextLink from 'next/link';
 
-import { Link as ChakraLink, useColorModeValue } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
+import { Link as ChakraLink, useColorModeValue } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 function Link({ children, href, ...props }) {
-    const { asPath: currentPath } = useRouter()
+    const { asPath: currentPath } = useRouter();
 
     return (
         <NextLink href={href} passHref>
@@ -25,7 +25,7 @@ function Link({ children, href, ...props }) {
                 {children}
             </ChakraLink>
         </NextLink>
-    )
+    );
 }
 
-export default Link
+export default Link;

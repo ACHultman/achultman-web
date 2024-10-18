@@ -1,14 +1,14 @@
-import { Box, Text, useColorModeValue } from '@chakra-ui/react'
-import { FaClock, FaInfo } from 'react-icons/fa'
-import { motion } from 'framer-motion'
+import { Box, Text, useColorModeValue } from '@chakra-ui/react';
+import { FaClock, FaInfo } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 interface Props {
-    message?: string
-    type?: 'empty'
+    message?: string;
+    type?: 'empty';
 }
 
 function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
-    const Icon = type === 'empty' ? FaClock : FaInfo
+    const Icon = type === 'empty' ? FaClock : FaInfo;
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -30,7 +30,7 @@ function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
                 </Text>
             </Box>
         </motion.div>
-    )
+    );
 }
 
-export default Message
+export default Message;

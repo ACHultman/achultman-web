@@ -1,4 +1,4 @@
-import { Heading, SlideFade, Grid, GridProps } from '@chakra-ui/react'
+import { Heading, SlideFade, Grid, GridProps } from '@chakra-ui/react';
 import {
     FaNodeJs,
     FaReact,
@@ -6,10 +6,10 @@ import {
     FaDatabase,
     FaGitAlt,
     FaFigma,
-} from 'react-icons/fa'
-import { motion } from 'framer-motion'
+} from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-import ToolCard from './ToolCard'
+import ToolCard from './ToolCard';
 
 const TOOLS = [
     {
@@ -54,9 +54,9 @@ const TOOLS = [
         icon: <FaFigma fontSize="20px" />,
         url: 'https://www.figma.com/',
     },
-]
+];
 
-export const MotionGrid = motion<GridProps>(Grid)
+export const MotionGrid = motion<GridProps>(Grid);
 
 function Tools() {
     return (
@@ -100,7 +100,7 @@ function Tools() {
                 </MotionGrid>
             </SlideFade>
         </SlideFade>
-    )
+    );
 }
 
-export default Tools
+export default Tools;
