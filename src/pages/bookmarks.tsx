@@ -43,7 +43,7 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
                             My favorite articles, websites, and tools.
                         </Paragraph>
                         <Paragraph fontSize="xs" mt={4}>
-                            Last updated: Decemmber 28th, 2022
+                            Last updated: December 28th, 2022
                         </Paragraph>
                     </Box>
                     <Divider my={10} />

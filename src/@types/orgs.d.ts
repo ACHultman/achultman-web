@@ -1,4 +1,4 @@
-type OrgName = 'uvic' | 'itc' | 'se' | 'asm'
+type OrgName = 'uvic' | 'itc' | 'se' | 'assembly' | 'looking'
 
 type Org = {
     title: string
