@@ -10,9 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { useChat } from 'ai/react';
 import { motion } from 'framer-motion';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { MdSend } from 'react-icons/md';
-import { isMobile } from 'react-device-detect';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
     INIT_PROMPT_CHOICES,
@@ -42,11 +41,6 @@ function Chat() {
         isLoading,
     } = useChat({
         api: '/api/v2/chat',
-        initialInput: isMobile
-            ? undefined
-            : INIT_PROMPT_CHOICES[
-                  Math.floor(Math.random() * INIT_PROMPT_CHOICES.length)
-              ],
         initialMessages: [
             {
                 id: '0',
@@ -60,25 +54,10 @@ function Chat() {
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'gray.200');
 
-    useLayoutEffect(() => {
-        scrollToBottom(conversationNode);
-    });
+    const suggestions = generateSuggestions(1);
+    const showSuggestions = messages.length === 1 && !isLoading;
 
-    // Shuffle array and pick the first 2 items
-    const suggestions = useMemo(
-        () => generateSuggestions(isMobile ? 1 : 2),
-        [isLoading, isMobile]
-    );
-
-    const [isClient, setIsClient] = useState(false);
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    const showSuggestions =
-        (messages.length > 1 || (isMobile && isClient)) && !isLoading;
-
-    let convoHeight = isMobile ? '400px' : '250px';
+    let convoHeight = '300px';
     if (messages.length > 1) {
         convoHeight = '400px';
     }
@@ -99,9 +78,9 @@ function Chat() {
             >
                 <VStack
                     w="100%"
-                    h-="100%"
+                    h="100%"
                     borderRadius="30px"
-                    px={isMobile ? 4 : 20}
+                    px={4}
                     overflowY="auto"
                     overflowX="hidden"
                     ref={conversationNode}
@@ -113,6 +92,8 @@ function Chat() {
                             isUser={m.role === 'user'}
                         />
                     ))}
+                </VStack>
+                <chakra.form w="80%" onSubmit={handleSubmit}>
                     {showSuggestions && (
                         <ChipList
                             list={suggestions}
@@ -137,8 +118,6 @@ function Chat() {
                             }}
                         />
                     )}
-                </VStack>
-                <chakra.form w="80%" onSubmit={handleSubmit}>
                     <InputGroup size="lg" mb={4} w="100%">
                         <Input
                             maxLength={80}
