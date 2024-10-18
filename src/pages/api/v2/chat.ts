@@ -1,11 +1,11 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { NextRequest } from 'next/server';
-import OpenAI from 'openai';
+import { createOpenAI } from '@ai-sdk/openai';
+import { streamText } from 'ai';
 
-const openai = new OpenAI({
+const openai = createOpenAI({
+    compatibility: 'strict',
     apiKey: process.env.OPENAI_API_KEY,
 });
-
 export const runtime = 'edge';
 
 const CURR_DATE = new Date().toLocaleDateString('en-US', {
@@ -21,12 +21,13 @@ const systemInitMessage = (
 export default async function handler(req: NextRequest) {
     const { messages } = await req.json();
 
-    const response = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        stream: true,
-        messages: [{ role: 'system', content: systemInitMessage }, ...messages],
-    });
-
-    const stream = OpenAIStream(response);
-    return new StreamingTextResponse(stream);
+    return (
+        await streamText({
+            model: openai('gpt-4o-mini'),
+            messages: [
+                { role: 'system', content: systemInitMessage },
+                ...messages,
+            ],
+        })
+    ).toDataStreamResponse();
 }

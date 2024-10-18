@@ -1,5 +1,4 @@
 import { Flex } from '@chakra-ui/react';
-import Tilt from 'react-parallax-tilt';
 
 import Message from '../Message';
 import BookmarkCard from './BookmarkCard';
@@ -25,9 +24,10 @@ function BookmarksList({ bookmarks }: Props) {
             sx={{ columnCount: [1, 2, 3], columnGap: '20px' }}
         >
             {bookmarks.map((bookmark, i) => (
-                <Tilt key={`bookmark-${i}`}>
-                    <BookmarkCard bookmark={{ ...bookmark, id: i }} />
-                </Tilt>
+                <BookmarkCard
+                    key={`bookmark-${i}`}
+                    bookmark={{ ...bookmark, id: i }}
+                />
             ))}
         </Flex>
     );
