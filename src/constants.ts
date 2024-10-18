@@ -2,14 +2,21 @@ export const ORG_COLORS = {
     uvic: '#f5aa1c',
     itc: '#1B538F',
     se: '#3dcd58',
-    asm: '#523eff',
+    assembly: '#523eff',
+    looking: '#000000',
 }
 
 export const ORG_MAP: Record<OrgName, Org> = {
-    asm: {
+    looking: {
+        title: 'Looking for Work',
+        href: `mailto:${process.env.NEXT_PUBLIC_EMAIL}`,
+        color: 'black',
+        description: 'I am currently looking for work.',
+    },
+    assembly: {
         title: 'Assembly Digital Media',
         href: 'https://assmb.ly',
-        color: ORG_COLORS.asm,
+        color: ORG_COLORS.assembly,
         description:
             'Assembly Digital Media is a tech leader, disrupting the digital publishing industry with an innovative stack of technology that has turned traditional and digital media on its head.',
     },
