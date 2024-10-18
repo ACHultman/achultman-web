@@ -1,17 +1,24 @@
 import { Container, Flex } from '@chakra-ui/react'
+import { Roboto_Mono } from 'next/font/google'
 import Footer from './Footer'
 import Navbar from './Navbar'
 
-const Layout = ({ children }) => (
-    <Container maxW="container.lg">
-        <Flex>
-            <Navbar />
-            <Container maxW="container.lg" mt={'106px'}>
-                {children}
-                <Footer />
-            </Container>
-        </Flex>
-    </Container>
-)
+const robotoMono = Roboto_Mono({
+    subsets: ['latin'],
+})
+
+function Layout({ children }) {
+    return (
+        <Container maxW="container.lg" className={robotoMono.className}>
+            <Flex>
+                <Navbar />
+                <Container maxW="container.lg" mt={'106px'}>
+                    {children}
+                    <Footer />
+                </Container>
+            </Flex>
+        </Container>
+    )
+}
 
 export default Layout
