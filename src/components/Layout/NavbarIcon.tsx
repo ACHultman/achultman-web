@@ -8,7 +8,7 @@ function NavbarIcon({ isOpen }) {
         <Hamburger
             toggled={isOpen}
             size={30}
-            duration={0.4}
+            duration={0.2}
             easing="ease-in"
             rounded
             label="Show menu"

@@ -1,4 +1,12 @@
-import { Heading, SlideFade, ListItem, theme } from '@chakra-ui/react';
+import {
+    Heading,
+    SlideFade,
+    ListItem,
+    theme,
+    Flex,
+    Box,
+    useBreakpointValue,
+} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Gitgraph, Mode, TemplateName, templateExtend } from '@gitgraph/react';
 import type { BranchUserApi, Commit as TCommit } from '@gitgraph/core';
@@ -48,18 +56,29 @@ function createCommit(
 }
 
 function GitTimeline() {
+    const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' });
+
     return (
-        <SlideFade in={true} offsetY={80} delay={0.2}>
-            <Gitgraph
-                options={{
-                    author: 'Adam Hultman <adam@hultman.dev>',
-                    template: graphTemplate,
-                    mode: Mode.Compact,
-                }}
-            >
-                {(gitgraph) => constructGitGraph(gitgraph, createCommit)}
-            </Gitgraph>
-        </SlideFade>
+        <Box
+            position="absolute"
+            alignSelf="center"
+            marginLeft={bgMarginLeftPx}
+            zIndex="-1"
+            opacity="0.05"
+            overflow="hidden"
+        >
+            <SlideFade in={true} offsetY={80} delay={0.2}>
+                <Gitgraph
+                    options={{
+                        author: 'Adam Hultman <adam@hultman.dev>',
+                        template: graphTemplate,
+                        mode: Mode.Compact,
+                    }}
+                >
+                    {(gitgraph) => constructGitGraph(gitgraph, createCommit)}
+                </Gitgraph>
+            </SlideFade>
+        </Box>
     );
 }
 

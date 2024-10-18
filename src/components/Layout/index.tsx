@@ -9,7 +9,7 @@ const robotoMono = Roboto_Mono({
 
 function Layout({ children }) {
     return (
-        <Container maxW="container.lg" className={robotoMono.className}>
+        <Container maxW="container.lg" className={robotoMono.className} px={0}>
             <Flex>
                 <Navbar />
                 <Container maxW="container.lg" mt="106px">

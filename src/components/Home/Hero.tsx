@@ -1,7 +1,17 @@
-import { Box, Button, ButtonProps, Heading, SlideFade } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    ButtonProps,
+    Center,
+    Heading,
+    SlideFade,
+} from '@chakra-ui/react';
 
 import Paragraph from '../Paragraph';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { FaEnvelope } from 'react-icons/fa';
+import theme from 'src/theme';
 
 export const MotionButton = motion<ButtonProps>(Button);
 
@@ -17,9 +27,26 @@ function Hero() {
                     Hey, I’m Adam
                 </Heading>
                 <Paragraph fontSize="2xl" lineHeight={1.6}>
-                    Full-stack Developer, Designer, Cybersecurity + ML
-                    Enthusiast
+                    Full-Stack Developer and Cybersecurity Enthusiast.
                 </Paragraph>
+                <Paragraph fontSize="2xl" lineHeight={1.6} mt={4}>
+                    Let’s build something amazing together!
+                </Paragraph>
+                <Center>
+                    <Link href="#contact">
+                        <MotionButton
+                            colorScheme="green"
+                            size="lg"
+                            mt={8}
+                            bg={theme.colors.green[500]}
+                            color="white"
+                            whileHover={{ scale: 1.1 }}
+                            leftIcon={<FaEnvelope />}
+                        >
+                            Contact
+                        </MotionButton>
+                    </Link>
+                </Center>
             </Box>
         </SlideFade>
     );

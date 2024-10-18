@@ -82,7 +82,7 @@ function Navbar() {
                         size="lg"
                         bg="transparent !important"
                         icon={<NavbarIcon isOpen={isOpen} />}
-                        aria-label={'Open Menu'}
+                        aria-label="Open Menu"
                         display={{ md: !isOpen ? 'none' : 'flex' }}
                         onClick={isOpen ? onClose : onOpen}
                         whileTap={{ scale: 0.9 }}
