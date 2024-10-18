@@ -3,7 +3,6 @@ import '../main.css';
 import { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 import { Analytics } from '@vercel/analytics/react';
-import { useEffect } from 'react';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { MotionConfig } from 'framer-motion';
