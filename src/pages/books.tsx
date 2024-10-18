@@ -6,11 +6,11 @@ import Message from '@components/Message'
 import { Book } from '@components/BookList/types'
 import BookList from '@components/BookList'
 
-interface BooksProps {
+interface Props {
     books: Book[]
 }
 
-const Books = ({ books }: BooksProps) => {
+function Books({ books }: Props) {
     return (
         <>
             <NextSeo
@@ -51,7 +51,6 @@ const Books = ({ books }: BooksProps) => {
 }
 
 export async function getStaticProps() {
-    // list of books
     const books: Book[] = [
         {
             cover: {
@@ -66,7 +65,6 @@ export async function getStaticProps() {
             note: 'Your ultimate guide to pentesting with Kali Linux',
             link: 'https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076',
         },
-        // O'Reilly - Designing Data-Intensive Applications
         {
             cover: {
                 src: 'https://learning.oreilly.com/library/cover/9781491903063/250w/',
@@ -86,7 +84,6 @@ export async function getStaticProps() {
         props: {
             books,
         },
-        revalidate: 3600,
     }
 }
 

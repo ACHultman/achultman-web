@@ -3,7 +3,7 @@ import React from 'react'
 import { Divide as Hamburger } from 'hamburger-react'
 import theme from '../../theme'
 
-export const NavbarIcon = ({ isOpen }) => {
+function NavbarIcon({ isOpen }) {
     return (
         <Hamburger
             toggled={isOpen}
@@ -16,3 +16,5 @@ export const NavbarIcon = ({ isOpen }) => {
         />
     )
 }
+
+export default NavbarIcon

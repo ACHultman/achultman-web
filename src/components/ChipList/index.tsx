@@ -1,6 +1,6 @@
-import {  Flex, Tag } from '@chakra-ui/react'
+import { Flex, Tag } from '@chakra-ui/react'
 
-type Props = {
+interface Props {
     list: string[]
     onClick?: (item: string) => void
     size?: 'sm' | 'md' | 'lg'
@@ -9,7 +9,7 @@ type Props = {
     tagProps?: React.ComponentProps<typeof Tag>
 }
 
-export const ChipList = ({ list, onClick, ...opts }: Props) => {
+function ChipList({ list, onClick, ...opts }: Props) {
     return (
         <Flex wrap="wrap" gap={2} {...opts.flexProps}>
             {list?.map((item, i) => (
@@ -28,3 +28,5 @@ export const ChipList = ({ list, onClick, ...opts }: Props) => {
         </Flex>
     )
 }
+
+export default ChipList

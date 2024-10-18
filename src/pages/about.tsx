@@ -14,9 +14,9 @@ import {
 
 import Paragraph from '@components/Paragraph'
 import Chat from '@components/Chat'
-import { ChipList } from '@components/ChipList'
+import ChipList from '@components/ChipList'
 
-const About = () => {
+function About() {
     const [show, setShow] = useState(false)
 
     const coolStuff = [

@@ -8,12 +8,12 @@ import {
     useDisclosure,
 } from '@chakra-ui/react'
 
-import { DarkModeSwitch } from '../DarkModeSwitch'
+import DarkModeSwitch from '../DarkModeSwitch'
 import Logo from '../Logo'
 import Link from './extra/Link'
 import DropdownMenu from './extra/Menu'
 import { motion } from 'framer-motion'
-import { NavbarIcon } from './NavbarIcon'
+import NavbarIcon from './NavbarIcon'
 
 const MAIN_LINKS = [
     {
@@ -43,7 +43,7 @@ const EXTRA_LINKS = [
 
 const MotionIconButton = motion(IconButton)
 
-const Navbar = () => {
+function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const navigationItems = (
@@ -68,7 +68,7 @@ const Navbar = () => {
             borderColor="green.500"
             // left 0 if mobile-ish, unset otherwise
             left={['0px', 'unset']}
-            width={'100%'}
+            width="100%"
             maxW="container.lg"
             py={4}
             px={8}
@@ -76,11 +76,11 @@ const Navbar = () => {
             // blur
             backdropFilter={blur}
         >
-            <Flex alignItems={'center'} justifyContent={'space-between'}>
+            <Flex alignItems="center" justifyContent="space-between">
                 <DarkMode>
                     <MotionIconButton
-                        size={'lg'}
-                        bg={'transparent !important'}
+                        size="lg"
+                        bg="transparent !important"
                         icon={<NavbarIcon isOpen={isOpen} />}
                         aria-label={'Open Menu'}
                         display={{ md: !isOpen ? 'none' : 'flex' }}
@@ -88,12 +88,12 @@ const Navbar = () => {
                         whileTap={{ scale: 0.9 }}
                     />
                 </DarkMode>
-                <HStack spacing={8} alignItems={'center'}>
+                <HStack spacing={8} alignItems="center">
                     <Box>
                         <Logo />
                     </Box>
                     <HStack
-                        as={'nav'}
+                        as="nav"
                         spacing={4}
                         display={{ base: 'none', md: 'flex' }}
                     >
@@ -104,7 +104,7 @@ const Navbar = () => {
             </Flex>
             {isOpen && (
                 <Box pb={4} mt={3}>
-                    <Stack as={'nav'} spacing={4}>
+                    <Stack as="nav" spacing={4}>
                         {navigationItems}
                     </Stack>
                 </Box>

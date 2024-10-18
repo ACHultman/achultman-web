@@ -12,7 +12,12 @@ import {
 
 import Link from './Link'
 
-const DropdownMenu = ({ extraLinks, onClick }) => {
+interface Props {
+    extraLinks: { name: string; route: string }[]
+    onClick: () => void
+}
+
+function DropdownMenu({ extraLinks, onClick }) {
     const { asPath } = useRouter()
 
     return (
@@ -20,7 +25,7 @@ const DropdownMenu = ({ extraLinks, onClick }) => {
             <MenuButton
                 p={2}
                 textAlign="left"
-                rounded={'md'}
+                rounded="md"
                 bg="none"
                 _hover={{
                     bg: useColorModeValue('gray.200', 'gray.700'),

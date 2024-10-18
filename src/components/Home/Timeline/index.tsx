@@ -6,7 +6,7 @@ import { TIMELINE } from './data'
 export const MotionHeading = motion(Heading)
 export const MotionListItem = motion(ListItem)
 
-const Timeline = () => {
+function Timeline() {
     return (
         <SlideFade in={true} offsetY={80} delay={0.2}>
             {Object.keys(TIMELINE)

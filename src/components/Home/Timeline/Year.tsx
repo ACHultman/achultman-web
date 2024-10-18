@@ -63,7 +63,7 @@ export function Year({ yearString }: Props) {
                                         </Text>
                                     </Tooltip>
                                 </Link>
-                                <Paragraph textAlign={'center'}>
+                                <Paragraph textAlign="center">
                                     {item.subtitle}
                                 </Paragraph>
                                 <Text fontSize="sm">{item.dateRange}</Text>

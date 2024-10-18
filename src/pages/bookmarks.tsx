@@ -5,14 +5,16 @@ import Paragraph from '@components/Paragraph'
 import BookmarksList from '@components/BookmarksList'
 import BookmarkTags from '@components/BookmarksList/BookmarkTags'
 import { Bookmark, Tag } from '@components/BookmarksList/types'
-import { useBookmarkTagFilter } from '@components/BookmarksList/useTagFilter'
+import useBookmarkTagFilter from '@hooks/useTagFilter'
 
-const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
+interface Props {
+    bookmarksData: Bookmark[]
+}
+
+function Bookmarks({ bookmarksData }: Props) {
     const { bookmarks, activeTag, onTagClick } =
         useBookmarkTagFilter(bookmarksData)
 
-    // dynamically create list of all unique tags
-    // and sort resulting list alphabetically
     const tags: Tag[] = bookmarksData
         .reduce((acc, bookmark) => {
             bookmark.tags.forEach((tag) => {
@@ -62,8 +64,6 @@ const Bookmarks = ({ bookmarksData }: { bookmarksData: Bookmark[] }) => {
 }
 
 export async function getStaticProps() {
-    // list of bookmarks
-    // defined here just for fun
     const bookmarksData = [
         {
             title: 'Vite',
@@ -80,7 +80,7 @@ export async function getStaticProps() {
             description:
                 'GUN is a decentralized, offline-first, graph database engine. It is a serverless, peer-to-peer, and distributed data storage solution.',
             url: 'https://gun.eco/',
-            image: 'https://camo.githubusercontent.com/64213f411349db936a0fa36ef41741b170d4c8d34d1cc0d1c887f7d880838707/68747470733a2f2f636c6475702e636f6d2f5445793979476834356c2e737667',
+            image: 'https://camo.githubusercontent.com/26d0c5ce61e716dfb8f8057157f608d0d97e2915331327e3d4a751f49240a675/68747470733a2f2f67756e2e65636f2f7365652f636f6d706172652e706e67',
             tags: ['database', 'decentralized'],
         },
 
@@ -158,7 +158,6 @@ export async function getStaticProps() {
         props: {
             bookmarksData,
         },
-        revalidate: 3600,
     }
 }
 

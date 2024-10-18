@@ -2,15 +2,12 @@ import { Box, Text, useColorModeValue } from '@chakra-ui/react'
 import { FaClock, FaInfo } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 
-interface MessageProps {
+interface Props {
     message?: string
     type?: 'empty'
 }
 
-const Message = ({
-    message = 'Such an empty place!',
-    type = 'empty',
-}: MessageProps) => {
+function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
     const Icon = type === 'empty' ? FaClock : FaInfo
     return (
         <motion.div

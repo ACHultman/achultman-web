@@ -16,7 +16,7 @@ interface BookCardProps {
     book: Book
 }
 
-const BookCard = ({ book }: BookCardProps) => {
+function BookCard({ book }: BookCardProps) {
     if (!book) {
         return null
     }

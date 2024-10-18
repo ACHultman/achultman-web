@@ -14,9 +14,11 @@ import { motion } from 'framer-motion'
 import Paragraph from '../Paragraph'
 import { Bookmark } from './types'
 
-// TODO: Fix first bookmark render bug
+interface Props {
+    bookmark: Bookmark
+}
 
-const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
+function BookmarkCard({ bookmark }: Props) {
     return (
         <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -27,7 +29,7 @@ const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
             <LinkBox h="100%" as="article">
                 <Box
                     h="100%"
-                    maxW={'400px'}
+                    maxW="400px"
                     borderColor={useColorModeValue('gray.200', 'gray.700')}
                     borderRadius={10}
                     borderWidth="1px"
@@ -45,7 +47,7 @@ const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
                             h="auto"
                             borderTopRadius={10}
                         />
-                        <Box w={'100%'} h={'100%'}>
+                        <Box w="100%" h="100%">
                             <Flex
                                 flexDirection="column"
                                 alignItems="start"
@@ -62,7 +64,7 @@ const BookmarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
                                         {bookmark.description}
                                     </Paragraph>
                                 </LinkOverlay>
-                                <Flex wrap={'wrap'} gap={2}>
+                                <Flex wrap="wrap" gap={2}>
                                     {bookmark.tags.length > 0 &&
                                         bookmark.tags.map((tag) => (
                                             <Tag

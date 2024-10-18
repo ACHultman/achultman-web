@@ -8,7 +8,7 @@ interface Props {
     ref?: LegacyRef<HTMLDivElement>
 }
 
-export const MessageBox: React.FC<Props> = forwardRef(
+const MessageBox: React.FC<Props> = forwardRef(
     (
         { message, isUser = false, hidden }: Props,
         ref?: LegacyRef<HTMLDivElement>
@@ -40,3 +40,5 @@ export const MessageBox: React.FC<Props> = forwardRef(
         )
     }
 )
+
+export default MessageBox

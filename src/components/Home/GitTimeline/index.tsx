@@ -1,12 +1,11 @@
-import { Heading, SlideFade, ListItem, Text, theme } from '@chakra-ui/react'
+import { Heading, SlideFade, ListItem, theme } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { Gitgraph, Mode, TemplateName, templateExtend } from '@gitgraph/react'
-import React from 'react'
-import { ORG_COLORS } from '../../../constants'
 import type { BranchUserApi, Commit as TCommit } from '@gitgraph/core'
 import { ReactSvgElement } from '@gitgraph/react/lib/types'
+import { constructGitGraph } from '../../../utils/gitgraph'
+import { ORG_COLORS } from '../../../constants'
 import { Commit } from './Commit'
-import { constructGitGraph } from 'src/utils/gitgraph'
 
 export const MotionHeading = motion(Heading)
 export const MotionListItem = motion(ListItem)

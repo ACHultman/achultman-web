@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Bookmark, Tag } from './types'
+import { Bookmark, Tag } from '../components/BookmarksList/types'
 
-export const useBookmarkTagFilter = (
+export default function useBookmarkTagFilter(
     rawBookmarks: Bookmark[],
     initialActiveTag?: Tag
-) => {
+) {
     const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
     const [activeTag, setActiveTag] = useState<Tag>(initialActiveTag)
 

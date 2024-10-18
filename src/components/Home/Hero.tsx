@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 export const MotionButton = motion<ButtonProps>(Button)
 
-const Hero = () => {
+function Hero() {
     return (
         <SlideFade in={true} offsetY={-80}>
             <Box>

@@ -12,15 +12,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 const MotionButton = motion(Button)
 const MotionFlex = motion(Flex)
 
-const BookmarkTags = ({
-    tags,
-    activeTag,
-    onClick,
-}: {
+interface Props {
     tags: Tag[]
     activeTag: Tag
     onClick: (tag: Tag) => void
-}) => {
+}
+
+function BookmarkTags({ tags, activeTag, onClick }: Props) {
     const [showAllTags, setShowAllTags] = useState(false)
 
     // get device width
@@ -35,7 +33,7 @@ const BookmarkTags = ({
                 Tags
             </Heading>
             <AnimatePresence>
-                <MotionFlex gap={3} align="left" wrap={'wrap'}>
+                <MotionFlex gap={3} align="left" wrap="wrap">
                     {tags
                         .slice(0, showAllTags ? tags.length : maxTagCount)
                         .map((tag, i) => {
