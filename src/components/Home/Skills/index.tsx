@@ -169,6 +169,25 @@ function Skills() {
                                 Vue
                             </ListItem>
                             <ListItem>
+                                <ListIcon as={SiAngular} color="green.500" />
+                                Angular
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={SiSpring} color="green.500" />
+                                Spring
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon
+                                    as={TbBrandReactNative}
+                                    color="green.500"
+                                />
+                                React Native
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={SiLangchain} color="green.500" />
+                                Langchain
+                            </ListItem>
+                            <ListItem>
                                 <ListIcon
                                     as={SiApollographql}
                                     color="green.500"
@@ -184,25 +203,6 @@ function Skills() {
                                 Jest
                             </ListItem>
                             <ListItem>
-                                <ListIcon as={SiAngular} color="green.500" />
-                                Angular
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={SiLangchain} color="green.500" />
-                                Langchain
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={SiSpring} color="green.500" />
-                                Spring
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon
-                                    as={TbBrandReactNative}
-                                    color="green.500"
-                                />
-                                React Native
-                            </ListItem>
-                            <ListItem>
                                 <ListIcon as={SiTensorflow} color="green.500" />
                                 Tensorflow
                             </ListItem>
@@ -215,8 +215,45 @@ function Skills() {
                         </Heading>
                         <List spacing={3}>
                             <ListItem>
+                                <ListIcon as={TbCpu} color="green.500" />
+                                RTOS
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon
+                                    as={MdDesignServices}
+                                    color="green.500"
+                                />
+                                UI/UX Design
+                            </ListItem>
+                            <ListItem>
                                 <ListIcon as={FaKey} color="green.500" />
                                 Cryptography
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={MdSecurity} color="green.500" />
+                                Cybersecurity
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={FaEye} color="green.500" />
+                                Computer Vision
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon
+                                    as={FaClipboardList}
+                                    color="green.500"
+                                />
+                                Software Testing
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={FaRobot} color="green.500" />
+                                Machine Learning
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon
+                                    as={SiDwavesystems}
+                                    color="green.500"
+                                />
+                                Quantum Algorithms
                             </ListItem>
                             <ListItem>
                                 <ListIcon
@@ -227,32 +264,10 @@ function Skills() {
                             </ListItem>
                             <ListItem>
                                 <ListIcon
-                                    as={FaClipboardList}
+                                    as={MdArchitecture}
                                     color="green.500"
                                 />
-                                Software Testing
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={TbGraph} color="green.500" />
-                                Algorithms & Datastructures
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon
-                                    as={MdDesignServices}
-                                    color="green.500"
-                                />
-                                UI/UX Design
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon
-                                    as={SiDwavesystems}
-                                    color="green.500"
-                                />
-                                Quantum Algorithms
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={TbCpu} color="green.500" />
-                                RTOS
+                                Software Architecture
                             </ListItem>
                             <ListItem>
                                 <ListIcon
@@ -262,23 +277,8 @@ function Skills() {
                                 Requirements Engineering
                             </ListItem>
                             <ListItem>
-                                <ListIcon
-                                    as={MdArchitecture}
-                                    color="green.500"
-                                />
-                                Software Architecture
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={FaEye} color="green.500" />
-                                Computer Vision
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={FaRobot} color="green.500" />
-                                Machine Learning
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={MdSecurity} color="green.500" />
-                                Cybersecurity
+                                <ListIcon as={TbGraph} color="green.500" />
+                                Algorithms & Datastructures
                             </ListItem>
                         </List>
                     </Box>
@@ -306,6 +306,22 @@ function Skills() {
                             <ListItem>
                                 <ListIcon as={SiPostgresql} color="green.500" />
                                 PostgreSQL
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={SiFigma} color="green.500" />
+                                Figma
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={SiDatadog} color="green.500" />
+                                Datadog
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={SiWordpress} color="green.500" />
+                                WordPress
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={SiGraphql} color="green.500" />
+                                GraphQL
                             </ListItem>
                             <ListItem>
                                 <ListIcon as={SiCloudflare} color="green.500" />
@@ -338,22 +354,6 @@ function Skills() {
                                     color="green.500"
                                 />
                                 Google Cloud Platform
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={SiFigma} color="green.500" />
-                                Figma
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={SiDatadog} color="green.500" />
-                                Datadog
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={SiWordpress} color="green.500" />
-                                WordPress
-                            </ListItem>
-                            <ListItem>
-                                <ListIcon as={SiGraphql} color="green.500" />
-                                GraphQL
                             </ListItem>
                         </List>
                     </Box>

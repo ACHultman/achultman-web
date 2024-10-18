@@ -15,7 +15,7 @@ export const TIMELINE: Record<string, TimelineItem[]> = {
             icon: MdCheckCircle,
             org: ORG_MAP.assembly,
             subtitle: 'Software Developer',
-            dateRange: 'October 2022 - October 2024',
+            dateRange: 'September 2022 - October 2024',
         },
         {
             icon: MdCheckCircle,
