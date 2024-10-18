@@ -11,7 +11,7 @@ import { motion } from 'framer-motion'
 
 import ToolCard from './ToolCard'
 
-const tools = [
+const TOOLS = [
     {
         name: 'Node.js',
         description:
@@ -58,7 +58,7 @@ const tools = [
 
 export const MotionGrid = motion<GridProps>(Grid)
 
-const Tools = () => {
+function Tools() {
     return (
         <SlideFade in={true} offsetY={80} delay={0.2}>
             <SlideFade
@@ -92,7 +92,7 @@ const Tools = () => {
                     ]}
                     gap={5}
                 >
-                    {tools.map((tool) => (
+                    {TOOLS.map((tool) => (
                         <motion.div key={tool.name} layout>
                             <ToolCard tool={tool} />
                         </motion.div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useCheckMobileScreen = () => {
+function useCheckMobileScreen() {
     const [width, setWidth] = useState(0)
 
     useEffect(() => {

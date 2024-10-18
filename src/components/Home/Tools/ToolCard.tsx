@@ -10,6 +10,8 @@ import { motion } from 'framer-motion'
 
 import Paragraph from '../../Paragraph'
 
+const MotionIconButton = motion(IconButton)
+
 export interface ToolCardProps {
     tool: {
         name: string
@@ -19,9 +21,7 @@ export interface ToolCardProps {
     }
 }
 
-const MotionIconButton = motion(IconButton)
-
-const ToolCard = ({ tool }: ToolCardProps) => {
+function ToolCard({ tool }: ToolCardProps) {
     if (!tool) {
         return
     }

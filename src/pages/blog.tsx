@@ -1,7 +1,7 @@
 import { Box, Container, Heading, SlideFade, Divider } from '@chakra-ui/react'
 import Message from '@components/Message'
 
-const Blog = () => {
+function Blog() {
     return (
         <Container maxW="container.lg">
             <SlideFade in={true} offsetY={80}>

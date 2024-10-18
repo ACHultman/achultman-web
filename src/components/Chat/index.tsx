@@ -13,13 +13,12 @@ import { motion } from 'framer-motion'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { MdSend } from 'react-icons/md'
 import { isMobile } from 'react-device-detect'
-
-import { MessageBox } from '@components/Chat/MessageBox'
 import {
     CHAT_BOT_WELCOME_MESSAGE,
     INIT_PROMPT_CHOICES,
-} from 'src/constants/chat'
-import { ChipList } from '@components/ChipList'
+} from '../../constants/chat'
+import MessageBox from '@components/Chat/MessageBox'
+import ChipList from '@components/ChipList'
 
 const MotionMessageBox = motion(MessageBox)
 
@@ -33,7 +32,7 @@ function generateSuggestions(n: number) {
     return INIT_PROMPT_CHOICES.sort(() => Math.random() - 0.5).slice(0, n)
 }
 
-export default function Chat() {
+function Chat() {
     const {
         messages,
         input,
@@ -165,3 +164,5 @@ export default function Chat() {
         </SlideFade>
     )
 }
+
+export default Chat

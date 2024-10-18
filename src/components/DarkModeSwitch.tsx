@@ -1,7 +1,7 @@
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { Flex, useColorMode } from '@chakra-ui/react'
 
-export const DarkModeSwitch = () => {
+function DarkModeSwitch() {
     const { colorMode, toggleColorMode } = useColorMode()
 
     const isDark = colorMode === 'dark'
@@ -16,3 +16,5 @@ export const DarkModeSwitch = () => {
         </Flex>
     )
 }
+
+export default DarkModeSwitch

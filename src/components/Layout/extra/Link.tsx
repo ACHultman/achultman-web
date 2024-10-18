@@ -3,7 +3,7 @@ import NextLink from 'next/link'
 import { Link as ChakraLink, useColorModeValue } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-const Link = ({ children, href, ...props }) => {
+function Link({ children, href, ...props }) {
     const { asPath: currentPath } = useRouter()
 
     return (

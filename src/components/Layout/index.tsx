@@ -12,7 +12,7 @@ function Layout({ children }) {
         <Container maxW="container.lg" className={robotoMono.className}>
             <Flex>
                 <Navbar />
-                <Container maxW="container.lg" mt={'106px'}>
+                <Container maxW="container.lg" mt="106px">
                     {children}
                     <Footer />
                 </Container>

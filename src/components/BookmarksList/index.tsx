@@ -1,20 +1,23 @@
 import { Flex } from '@chakra-ui/react'
+import Tilt from 'react-parallax-tilt'
 
 import Message from '../Message'
 import BookmarkCard from './BookmarkCard'
 import { Bookmark } from './types'
-import Tilt from 'react-parallax-tilt'
 
-const BookmarksList = ({ bookmarks }: { bookmarks: Bookmark[] }) => {
-    // render Message component if bookmarks is empty, defaults to empty message
-    if (bookmarks.length === 0) {
+interface Props {
+    bookmarks: Bookmark[]
+}
+
+function BookmarksList({ bookmarks }: Props) {
+    if (!bookmarks || !bookmarks.length) {
         return <Message />
     }
 
     return (
         <Flex
             wrap="wrap"
-            direction={'row'}
+            direction="row"
             gap={4}
             w="100%"
             mt={10}

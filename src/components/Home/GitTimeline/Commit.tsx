@@ -2,7 +2,7 @@ import { useTheme, Text } from '@chakra-ui/react'
 import type { Commit as TCommit } from '@gitgraph/core'
 import { ReactSvgElement } from '@gitgraph/react/lib/types'
 
-type Props = {
+interface Props {
     commit: TCommit<ReactSvgElement>
 }
 

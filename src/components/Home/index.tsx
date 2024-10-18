@@ -5,7 +5,7 @@ import Timeline from './Timeline'
 import GitTimeline from './GitTimeline'
 import Chat from '@components/Chat'
 
-const Home = () => {
+function Home() {
     const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' })
 
     return (
@@ -14,7 +14,6 @@ const Home = () => {
             <Divider my={10} />
             <Chat />
             <Divider my={10} />
-            {/* use GitTimeline as the background of Timeline */}
             <Flex justifyContent={'center'}>
                 <Box
                     position="absolute"
