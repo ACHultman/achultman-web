@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useChat } from 'ai/react';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { MdSend } from 'react-icons/md';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
@@ -54,7 +54,7 @@ function Chat() {
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'gray.200');
 
-    const suggestions = generateSuggestions(1);
+    const suggestions = useMemo(() => generateSuggestions(1), []);
     const showSuggestions = messages.length === 1 && !isLoading;
 
     let convoHeight = '300px';
@@ -118,7 +118,7 @@ function Chat() {
                             }}
                         />
                     )}
-                    <InputGroup size="lg" mb={4} w="100%">
+                    <InputGroup size="lg" my={4} w="100%">
                         <Input
                             maxLength={80}
                             placeholder="Type a message..."
