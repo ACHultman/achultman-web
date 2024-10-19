@@ -50,10 +50,6 @@ function BlogPost({ post }) {
 
     const { page, blocks } = post;
 
-    console.log({
-        page,
-    });
-
     return (
         <>
             <Head>
@@ -137,7 +133,6 @@ function BlogPost({ post }) {
 }
 
 function BlockImage({ block }: WithContentValidationProps) {
-    console.log({ block });
     return (
         <Image
             src={block.content.external.url}
@@ -147,7 +142,6 @@ function BlockImage({ block }: WithContentValidationProps) {
 }
 
 function BlockCode({ block }: WithContentValidationProps) {
-    console.log({ codeBLock: block });
     return (
         <Box mb="1.5rem">
             <CopyBlock
