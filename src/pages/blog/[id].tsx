@@ -1,7 +1,4 @@
-import '@9gustin/react-notion-render/dist/index.css';
-
 import { Roboto } from 'next/font/google';
-import { Render } from '@9gustin/react-notion-render';
 import {
     Box,
     Container,
@@ -17,16 +14,24 @@ import {
     Button,
     AlertIcon,
 } from '@chakra-ui/react';
-import { WithContentValidationProps } from '@9gustin/react-notion-render/dist/hoc/withContentValidation';
-import { CopyBlock, dracula } from 'react-code-blocks';
 import Link from 'next/link';
 import Head from 'next/head';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { fetchPost } from '../../services/blog';
+import { fetchPost, fetchPosts } from '../../services/blog';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import RenderBlocks from '@components/RenderBlocks';
+import { NextSeo } from 'next-seo';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
-function BlogPost({ post }) {
+function BlogPost({ post, seo }) {
+    const { scrollYProgress } = useScroll();
+    const scale = useSpring(scrollYProgress, {
+        stiffness: 200,
+        damping: 40,
+        bounce: 20,
+    });
+
     if (!post) {
         return (
             <Container maxW="container.md">
@@ -52,30 +57,20 @@ function BlogPost({ post }) {
 
     return (
         <>
-            <Head>
-                <title>{page.title} | Hultman Dev</title>
-                <meta
-                    name="description"
-                    content={
-                        page.description ||
-                        'A brief description of the blog post'
-                    }
-                />
-                <meta name="author" content={page.author || 'Author Name'} />
-                <meta property="og:title" content={page.title} />
-                <meta
-                    property="og:description"
-                    content={
-                        page.description ||
-                        'A brief description of the blog post'
-                    }
-                />
-                <meta property="og:type" content="article" />
-                <meta
-                    property="og:image"
-                    content={page.coverImage || 'default-image-url.jpg'}
-                />
-            </Head>
+            <NextSeo {...seo} />
+            <motion.div
+                style={{
+                    scaleX: scale,
+                    transformOrigin: 'left',
+                    background: 'green',
+                    position: 'sticky',
+                    top: 74,
+                    width: '100%',
+                    height: '8px',
+                    borderRadius: '20px',
+                    zIndex: 1,
+                }}
+            />
             <Container maxW="container.md" className={roboto.className}>
                 <Box>
                     <Heading
@@ -116,70 +111,100 @@ function BlogPost({ post }) {
                         />
                     )}
                     <Divider my={6} />
-                    <Render
-                        blocks={blocks.results}
-                        useStyles
-                        emptyBlocks
-                        blockComponentsMapper={{
-                            image: BlockImage,
-                            code: BlockCode,
-                            quote: BlockQuote,
-                        }}
-                    />
+
+                    <RenderBlocks blocks={blocks.results} />
+
+                    <Link href="/blog">
+                        <Button leftIcon={<ArrowLeftIcon />}>
+                            Back to list
+                        </Button>
+                    </Link>
                 </Box>
             </Container>
         </>
     );
 }
 
-function BlockImage({ block }: WithContentValidationProps) {
-    return (
-        <Image
-            src={block.content.external.url}
-            alt={block.content.caption[0].plain_text ?? ''}
-        />
-    );
-}
-
-function BlockCode({ block }: WithContentValidationProps) {
-    return (
-        <Box mb="1.5rem">
-            <CopyBlock
-                text={block.content.text
-                    .map((text) => text.plain_text)
-                    .join('\n')}
-                language={block.content.language}
-                theme={dracula}
-                showLineNumbers
-                codeBlock
-            />
-        </Box>
-    );
-}
-
-function BlockQuote({ block }: WithContentValidationProps) {
-    return (
-        <Box mb="1.5rem" ml="1.5rem">
-            <Text as="blockquote" fontSize="xl" fontStyle="italic">
-                {block.content.text.map((text) => text.plain_text).join('')}
-            </Text>
-        </Box>
-    );
-}
-
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params, draftMode }) {
     const { id } = params;
 
+    let baseUrl = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+    if (draftMode) {
+        baseUrl = `https://${process.env.VERCEL_URL}`;
+    } else if (process.env.NODE_ENV === 'development') {
+        baseUrl = `http://localhost:3000`;
+    }
+
     try {
+        const post = await fetchPost(id);
+        let ogImageUrl = `${baseUrl}/og_blog_fallback.png`;
+
+        if (post.page.coverImage) {
+            // assume the cover image is an external URL
+            ogImageUrl = post.page.coverImage;
+        }
+
         return {
             props: {
-                post: await fetchPost(id),
+                post,
+                seo: {
+                    title: post.page.title,
+                    description: post.page.description,
+                    canonical: `${baseUrl}/blog/${id}`,
+                    openGraph: {
+                        title: post.page.title,
+                        description: post.page.description,
+                        url: `${baseUrl}/blog/${id}`,
+                        type: 'article',
+                        siteName: 'Adam Hultman',
+                        images: [
+                            {
+                                url: ogImageUrl,
+                                width: 1200,
+                                height: 630,
+                                alt: post.page.title,
+                            },
+                        ],
+                        article: {
+                            secion: 'Technology',
+                            authors: ['Adam Hultman'],
+                            publishedTime: post.page.publishedDate,
+                            modifiedTime: post.page.publishedDate,
+                            tags: post.page.tags,
+                        },
+                    },
+                    twitter: {
+                        handle: '@RecursiveAge',
+                        cardType: 'summary_large_image',
+                    },
+                },
             },
+            revalidate: 43200, // 12 hours
         };
     } catch (error) {
         console.error('Failed to fetch post:', error);
         return {
             notFound: true,
+        };
+    }
+}
+
+export async function getStaticPaths() {
+    try {
+        const posts = await fetchPosts();
+        const paths = posts.map((post) => ({
+            params: { id: post.id },
+        }));
+
+        return {
+            paths,
+            fallback: 'blocking',
+        };
+    } catch (error) {
+        console.error('Failed to fetch paths:', error);
+        return {
+            paths: [],
+            fallback: 'blocking',
         };
     }
 }

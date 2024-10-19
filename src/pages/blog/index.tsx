@@ -12,7 +12,10 @@ import {
     Alert,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import { fetchPosts } from 'src/services/blog';
+import { motion } from 'framer-motion';
+import { fetchPosts } from '../../services/blog';
+
+const MotionBox = motion(Box);
 
 function Blog({ posts }) {
     return (
@@ -36,58 +39,64 @@ function Blog({ posts }) {
                 ) : (
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                         {posts.map((post) => (
-                            <Box
+                            <Link
                                 key={post.id}
-                                borderWidth="1px"
-                                borderRadius="lg"
-                                overflow="hidden"
-                                boxShadow="md"
+                                className="blog-postbox"
+                                href={`/blog/${post.id}`}
                             >
-                                {post.coverImage && (
-                                    <Image
-                                        src={post.coverImage}
-                                        alt={post.title}
-                                        width="100%"
-                                        height={200}
-                                        objectFit="cover"
-                                    />
-                                )}
-                                <Box p={6}>
-                                    <Link href={`/blog/${post.id}`}>
+                                <MotionBox
+                                    borderWidth="1px"
+                                    borderRadius="lg"
+                                    overflow="hidden"
+                                    boxShadow="md"
+                                    height="100%"
+                                    style={{ transition: 'box-shadow 0.2s' }}
+                                    whileHover={{ scale: 1.02 }}
+                                    _hover={{
+                                        boxShadow:
+                                            '0 0 10px rgba(56, 161, 105, 0.6)', // Adjust the color and intensity of the glow here
+                                    }}
+                                    whileTap={{ scale: 0.9 }}
+                                >
+                                    {post.coverImage && (
+                                        <Image
+                                            src={post.coverImage}
+                                            alt={post.title}
+                                            width="100%"
+                                            height={200}
+                                            objectFit="cover"
+                                        />
+                                    )}
+                                    <Box p={6}>
                                         <Heading as="h2" fontSize="xl" mb={2}>
                                             {post.title}
                                         </Heading>
-                                    </Link>
-                                    <Text color="gray.500" mb={4}>
-                                        {post.publishedDate
-                                            ? new Date(
-                                                  post.publishedDate
-                                              ).toLocaleDateString()
-                                            : 'Unpublished'}
-                                    </Text>
-                                    <Text mb={4}>{post.description}</Text>
-                                    <Stack
-                                        wrap="wrap"
-                                        direction="row"
-                                        spacing={2}
-                                        mb={4}
-                                    >
-                                        {post.tags.map((tag) => (
-                                            <Tag key={tag} colorScheme="green">
-                                                {tag}
-                                            </Tag>
-                                        ))}
-                                    </Stack>
-                                    <Link href={`/blog/${post.id}`}>
-                                        <Text
-                                            color="green.500"
-                                            fontWeight="bold"
-                                        >
-                                            Read More →
+                                        <Text color="gray.500" mb={4}>
+                                            {post.publishedDate
+                                                ? new Date(
+                                                      post.publishedDate
+                                                  ).toLocaleDateString()
+                                                : 'Unpublished'}
                                         </Text>
-                                    </Link>
-                                </Box>
-                            </Box>
+                                        <Text mb={4}>{post.description}</Text>
+                                        <Stack
+                                            wrap="wrap"
+                                            direction="row"
+                                            spacing={2}
+                                            mb={4}
+                                        >
+                                            {post.tags.map((tag) => (
+                                                <Tag
+                                                    key={tag}
+                                                    colorScheme="green"
+                                                >
+                                                    {tag}
+                                                </Tag>
+                                            ))}
+                                        </Stack>
+                                    </Box>
+                                </MotionBox>
+                            </Link>
                         ))}
                     </SimpleGrid>
                 )}

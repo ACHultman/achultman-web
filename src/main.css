@@ -89,6 +89,14 @@ a {
     }
 }
 
+/* blog */
+
+.blog-postbox:hover {
+    *:hover {
+        text-decoration: none;
+    }
+}
+
 .rnr-container {
     display: flex;
     flex-direction: column;
