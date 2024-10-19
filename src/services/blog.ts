@@ -38,6 +38,10 @@ export async function fetchPosts() {
 
         const response = await notion.databases.query({
             database_id: databaseId,
+            filter: {
+                property: 'Published',
+                date: { is_not_empty: true },
+            },
         });
 
         const posts = response.results

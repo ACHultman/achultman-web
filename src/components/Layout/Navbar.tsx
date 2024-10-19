@@ -49,12 +49,7 @@ function Navbar() {
     const navigationItems = (
         <>
             {MAIN_LINKS.map((link) => (
-                <Link
-                    key={link.name}
-                    href={link.route}
-                    onClick={onClose}
-                    prefetch
-                >
+                <Link key={link.name} href={link.route} onClick={onClose}>
                     {link.name}
                 </Link>
             ))}
