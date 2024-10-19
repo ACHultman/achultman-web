@@ -12,6 +12,7 @@ import {
     Alert,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { fetchPosts } from 'src/services/blog';
 
 function Blog({ posts }) {
     return (
@@ -97,14 +98,9 @@ function Blog({ posts }) {
 
 export async function getServerSideProps() {
     try {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/v1/blog`
-        );
-        const data = await response.json();
-
         return {
             props: {
-                posts: data.posts || [],
+                posts: await fetchPosts(),
             },
         };
     } catch (error) {

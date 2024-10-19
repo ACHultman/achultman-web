@@ -9,7 +9,6 @@ import {
     Text,
     Image,
     Divider,
-    Spinner,
     Stack,
     Tag,
     Alert,
@@ -19,10 +18,11 @@ import {
     AlertIcon,
 } from '@chakra-ui/react';
 import { WithContentValidationProps } from '@9gustin/react-notion-render/dist/hoc/withContentValidation';
-import { CodeBlock, CopyBlock, dracula } from 'react-code-blocks';
+import { CopyBlock, dracula } from 'react-code-blocks';
 import Link from 'next/link';
-import { ArrowLeftIcon } from '@chakra-ui/icons';
 import Head from 'next/head';
+import { ArrowLeftIcon } from '@chakra-ui/icons';
+import { fetchPost } from 'src/services/blog';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -177,14 +177,9 @@ export async function getServerSideProps({ params }) {
     const { id } = params;
 
     try {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/v1/post/${id}`
-        );
-        const post = await response.json();
-
         return {
             props: {
-                post,
+                post: await fetchPost(id),
             },
         };
     } catch (error) {

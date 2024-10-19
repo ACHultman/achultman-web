@@ -1,24 +1,39 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { Client } from '@notionhq/client';
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
+function formatPageData(pageResponse) {
+    const title =
+        pageResponse.properties.Name?.title[0]?.plain_text || 'Untitled';
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    if (req.method !== 'GET') {
-        res.setHeader('Allow', ['GET']);
-        return res.status(405).json({ message: 'Method not allowed' });
-    }
+    const coverImage =
+        pageResponse.cover?.type === 'external'
+            ? pageResponse.cover.external.url
+            : null;
+    const publishedDate =
+        pageResponse.properties.Published?.date?.start || null;
+    const tags =
+        pageResponse.properties.Tags?.multi_select?.map((tag) => tag.name) ||
+        [];
+    const description =
+        pageResponse.properties['AI custom autofill']?.rich_text[0]
+            ?.plain_text || '';
 
+    return {
+        id: pageResponse.id,
+        title,
+        publishedDate,
+        tags,
+        description,
+        coverImage,
+    };
+}
+
+export async function fetchPosts() {
     const databaseId = process.env.NOTION_DATABASE_ID;
 
     try {
         if (!databaseId) {
-            return res
-                .status(500)
-                .json({ message: 'Database ID not provided' });
+            return [];
         }
 
         const response = await notion.databases.query({
@@ -95,9 +110,26 @@ export default async function handler(
                 };
             });
 
-        return res.status(200).json({ posts });
+        return posts;
     } catch (error) {
         console.error('Error fetching blog posts:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+        return [];
+    }
+}
+
+export async function fetchPost(id: string) {
+    try {
+        const pageResponse = await notion.pages.retrieve({ page_id: id });
+
+        const blocks = await notion.blocks.children.list({
+            block_id: id,
+        });
+
+        const page = formatPageData(pageResponse);
+
+        return { page, blocks };
+    } catch (error) {
+        console.error('Error fetching page:', error);
+        return null;
     }
 }
