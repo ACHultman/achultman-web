@@ -9,7 +9,7 @@ const ratelimit = new Ratelimit({
 });
 
 export const config = {
-    matcher: '/((?!_next/static|_next/image|favicon.ico).*)',
+    matcher: '/(api/.*)',
 };
 
 const LOCAL_IP = '127.0.0.1';
@@ -21,8 +21,7 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    const { success, pending, limit, reset, remaining } =
-        await ratelimit.limit(ip);
+    const { success } = await ratelimit.limit(ip);
 
     return success
         ? NextResponse.next()
