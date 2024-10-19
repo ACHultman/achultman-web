@@ -22,7 +22,7 @@ import { CopyBlock, dracula } from 'react-code-blocks';
 import Link from 'next/link';
 import Head from 'next/head';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { fetchPost } from 'src/services/blog';
+import { fetchPost } from '../../services/blog';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 

@@ -96,15 +96,16 @@ function Blog({ posts }) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     try {
+        const posts = await fetchPosts();
         return {
             props: {
-                posts: await fetchPosts(),
+                posts,
             },
+            revalidate: 43200, // 12 hours
         };
     } catch (error) {
-        console.error('Failed to fetch posts:', error);
         return {
             props: {
                 posts: [],
