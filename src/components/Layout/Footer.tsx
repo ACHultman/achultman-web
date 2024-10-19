@@ -35,14 +35,6 @@ function Footer() {
                     <ButtonGroup variant="ghost">
                         <IconButton
                             as="a"
-                            href="https://www.instagram.com/adamog_/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="instagram"
-                            icon={<FaInstagram fontSize="20px" />}
-                        />
-                        <IconButton
-                            as="a"
                             href="https://www.linkedin.com/in/adam-hultman/"
                             target="_blank"
                             rel="noopener noreferrer"

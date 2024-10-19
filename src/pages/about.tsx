@@ -1,41 +1,17 @@
-import { useState } from 'react';
 import Head from 'next/head';
 import {
     Box,
     Container,
     Heading,
     SlideFade,
-    Divider,
-    Button,
-    Collapse,
-    LightMode,
+    Highlight,
     VStack,
 } from '@chakra-ui/react';
 
 import Paragraph from '@components/Paragraph';
 import Chat from '@components/Chat';
-import ChipList from '@components/ChipList';
 
 function About() {
-    const [show, setShow] = useState(false);
-
-    const coolStuff = [
-        'React',
-        'JavasSript',
-        'Next.js',
-        'Machine Learning',
-        'Cybersecurity',
-        'Physics',
-        'Android',
-        'Figma',
-        'Video Games',
-        'Movies',
-        'Coffee',
-        'Lots of coffee',
-    ];
-
-    const handleToggle = () => setShow(!show);
-
     return (
         <>
             <Head>
@@ -51,83 +27,97 @@ function About() {
                         >
                             About Me
                         </Heading>
-                        <Collapse in={show} startingHeight={100}>
+                        <VStack gap={8}>
                             <VStack gap={8}>
-                                <VStack>
-                                    <Paragraph fontSize="xl" lineHeight={1.6}>
-                                        I graduated with a Bachelor of Software
+                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                    <Highlight
+                                        query={[
+                                            'Bachelor of Software Engineering',
+                                            'cross-platform software development',
+                                            'cybersecurity',
+                                            'artificial intelligence',
+                                        ]}
+                                        styles={{
+                                            color: 'green.500',
+                                        }}
+                                    >
+                                        I hold a Bachelor of Software
                                         Engineering degree from the University
-                                        of Victoria. My professional interests
-                                        include cross-platform software
+                                        of Victoria, where I developed a deep
+                                        passion for cross-platform software
                                         development, cybersecurity, and
-                                        artificial intelligence. I love to
-                                        explore and innovate with new
-                                        technologies. In my free time I enjoy
-                                        working on new software projects,
-                                        playing guitar, and hiking.
-                                    </Paragraph>
-                                    <Paragraph fontSize="xl" lineHeight={1.6}>
-                                        I was involved in a couple of computer
-                                        science and engineering student clubs:
-                                        VikeLabs and VikeSec. These are clubs
-                                        for software development and
-                                        cybersecurity, respectively. For
-                                        VikeLabs, I had the pleasure of hosting
-                                        a react testing workshop and working on
-                                        a degree planner web application for
-                                        UVic students. With VikeSec, I
-                                        participated in a few CTFs and learned a
-                                        lot about cybersecurity and
-                                        problem-solving skills
-                                    </Paragraph>
-                                    <Paragraph fontSize="xl" lineHeight={1.6}>
-                                        My experience in software industry
-                                        includes multiple roles working as a
-                                        full-stack or front-end software
-                                        developer. These roles have provided
-                                        invaluable experience working in a team
-                                        environment and have helped me develop
-                                        my skills in a variety of areas.
-                                    </Paragraph>
-                                </VStack>
-                                <VStack w={'100%'} p={4}>
-                                    <Paragraph fontSize="xl" lineHeight={1.6}>
-                                        If you've read this far, feel free to
-                                        ask some questions!
-                                    </Paragraph>
-                                    <Chat />
-                                </VStack>
+                                        artificial intelligence. I thrive on
+                                        exploring and innovating with new
+                                        technologies, always looking for ways to
+                                        build better, more efficient solutions.
+                                    </Highlight>
+                                </Paragraph>
+                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                    <Highlight
+                                        query={[
+                                            'full-stack',
+                                            'front-end',
+                                            'robust, user-centric software',
+                                            'collaboration',
+                                            'problem-solving',
+                                            'adapting to diverse technical challenges',
+                                        ]}
+                                        styles={{
+                                            color: 'green.500',
+                                        }}
+                                    >
+                                        Professionally, I've gained experience
+                                        in various full-stack and front-end
+                                        roles, where I've honed my ability to
+                                        deliver robust, user-centric software.
+                                        These roles have helped me sharpen my
+                                        skills in collaboration,
+                                        problem-solving, and adapting to diverse
+                                        technical challenges.
+                                    </Highlight>
+                                </Paragraph>
+                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                    <Highlight
+                                        query={[
+                                            'VikeLabs',
+                                            'VikeSec',
+                                            'hosted a React testing workshop',
+                                            'Capture The Flag (CTF)',
+                                            'problem-solving skills',
+                                        ]}
+                                        styles={{
+                                            color: 'green.500',
+                                        }}
+                                    >
+                                        During my time at UVic, I actively
+                                        participated in student-led initiatives
+                                        like VikeLabs and VikeSec. At VikeLabs,
+                                        I hosted a React testing workshop and
+                                        contributed to building a degree planner
+                                        web application for UVic students. With
+                                        VikeSec, I participated in Capture The
+                                        Flag (CTF) competitions, which fueled my
+                                        interest in cybersecurity and sharpened
+                                        my problem-solving skills.
+                                    </Highlight>
+                                </Paragraph>
+                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                    In my free time, I enjoy working on side
+                                    projects, playing guitar, and hiking. I’m
+                                    always eager to learn, adapt, and
+                                    grow—qualities that I bring to every team
+                                    and project I’m a part of.
+                                </Paragraph>
                             </VStack>
-                        </Collapse>
-                        <LightMode>
-                            <Button
-                                size="sm"
-                                onClick={handleToggle}
-                                mt="1rem"
-                                colorScheme="green"
-                                bg="green.500"
-                            >
-                                Show {show ? 'Less' : 'More'}
-                            </Button>
-                        </LightMode>
+                            <VStack w="100%" p={4}>
+                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                    If you've read this far, feel free to ask
+                                    some questions!
+                                </Paragraph>
+                                <Chat />
+                            </VStack>
+                        </VStack>
                     </Box>
-                    <Divider my={10} />
-                </SlideFade>
-                <SlideFade in={true} offsetY={80} delay={0.2}>
-                    <Heading
-                        as="h2"
-                        fontSize={{ base: '24px', md: '30px', lg: '36px' }}
-                        mb={3}
-                    >
-                        Cool Stuff
-                    </Heading>
-                    <Paragraph fontSize="xl" lineHeight={1.6}>
-                        <ChipList
-                            list={coolStuff}
-                            size="lg"
-                            colorScheme="green"
-                        />
-                    </Paragraph>
                 </SlideFade>
             </Container>
         </>

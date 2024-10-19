@@ -45,11 +45,6 @@ function ContactForm() {
         'idle' | 'error' | 'success'
     >('idle');
 
-    function onSuccess() {
-        console.log('success');
-        setSubmitStatus('success');
-    }
-
     async function onSubmitForm({ name, email, message }: FormData) {
         let r: Response;
         try {
@@ -61,13 +56,11 @@ function ContactForm() {
                 body: JSON.stringify({ name, email, message }),
             });
             if (r.ok) {
-                onSuccess();
+                setSubmitStatus('success');
             } else {
-                console.log('error');
                 setSubmitStatus('error');
             }
-        } catch (error) {
-            console.error('error', error);
+        } catch {
             setSubmitStatus('error');
         }
     }

@@ -13,6 +13,12 @@
     border-radius: 2rem;
 }
 
+a {
+    :hover {
+        text-decoration: underline;
+    }
+}
+
 .logo {
     position: relative;
     cursor: pointer;
@@ -81,4 +87,37 @@
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
+}
+
+.rnr-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.rnr-container h1,
+.rnr-container h2 {
+    border-bottom: 1px dotted #38a169;
+}
+
+.rnr-container p,
+.rnr-container ul,
+.rnr-container ol,
+.rnr-container hr,
+.rnr-container img,
+.rnr-container h1,
+.rnr-container h2,
+.rnr-container h3,
+.rnr-container h4,
+.rnr-container h5,
+.rnr-container h6 {
+    margin-bottom: 1.5rem;
+}
+
+.rnr-container ul,
+.rnr-container ol {
+    margin-left: 2.5rem;
+}
+
+.rnr-container li {
+    margin-bottom: 0.5rem;
 }
