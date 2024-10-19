@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useChat } from 'ai/react';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { MdSend } from 'react-icons/md';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
@@ -20,12 +20,6 @@ import MessageBox from '@components/Chat/MessageBox';
 import ChipList from '@components/ChipList';
 
 const MotionMessageBox = motion(MessageBox);
-
-function scrollToBottom(node: React.RefObject<HTMLDivElement>) {
-    if (!node.current) return;
-    const scroll = node.current.scrollHeight - node.current.clientHeight;
-    node.current.scrollTo({ top: scroll, behavior: 'smooth' });
-}
 
 function generateSuggestions(n: number) {
     return INIT_PROMPT_CHOICES.sort(() => Math.random() - 0.5).slice(0, n);
@@ -40,7 +34,7 @@ function Chat() {
         append,
         isLoading,
     } = useChat({
-        api: '/api/v2/chat',
+        api: '/api/v1/chat',
         initialMessages: [
             {
                 id: '0',
@@ -54,12 +48,12 @@ function Chat() {
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'gray.200');
 
-    const suggestions = generateSuggestions(1);
-    const showSuggestions = messages.length === 1 && !isLoading;
+    const [suggestions] = useState(() => generateSuggestions(1)); // fix hydration error
+    const showSuggestions = suggestions && messages.length === 1 && !isLoading;
 
-    let convoHeight = '300px';
+    let convoHeight = '20%';
     if (messages.length > 1) {
-        convoHeight = '400px';
+        convoHeight = '30%';
     }
 
     return (
@@ -118,7 +112,7 @@ function Chat() {
                             }}
                         />
                     )}
-                    <InputGroup size="lg" mb={4} w="100%">
+                    <InputGroup size="lg" my={4} w="100%">
                         <Input
                             maxLength={80}
                             placeholder="Type a message..."

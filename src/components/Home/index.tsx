@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { Divider, Flex } from '@chakra-ui/react';
 
 import Hero from './Hero';
 import Timeline from './Timeline';
@@ -6,9 +6,9 @@ import GitTimeline from './GitTimeline';
 import Chat from '@components/Chat';
 
 import Skills from './Skills';
+import Contact from '@components/Contact';
 
 function Home() {
-    const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' });
     return (
         <>
             <Hero />
@@ -18,18 +18,13 @@ function Home() {
             <Skills />
             <Divider my={10} />
             <Flex justifyContent="center">
-                <Box
-                    position="absolute"
-                    alignSelf="center"
-                    marginLeft={bgMarginLeftPx}
-                    zIndex="-1"
-                    opacity="0.05"
-                    overflow="hidden"
-                >
-                    <GitTimeline />
-                </Box>
+                <GitTimeline />
                 <Timeline />
             </Flex>
+            <Divider my={10} />
+            <section id="contact">
+                <Contact />
+            </section>
         </>
     );
 }

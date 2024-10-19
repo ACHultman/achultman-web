@@ -24,6 +24,10 @@ const MAIN_LINKS = [
         name: 'About Me',
         route: '/about',
     },
+    {
+        name: 'Blog',
+        route: '/blog',
+    },
 ];
 
 const EXTRA_LINKS = [
@@ -34,10 +38,6 @@ const EXTRA_LINKS = [
     {
         name: 'Books',
         route: '/books',
-    },
-    {
-        name: 'Blog',
-        route: '/blog',
     },
 ];
 
@@ -82,7 +82,7 @@ function Navbar() {
                         size="lg"
                         bg="transparent !important"
                         icon={<NavbarIcon isOpen={isOpen} />}
-                        aria-label={'Open Menu'}
+                        aria-label="Open Menu"
                         display={{ md: !isOpen ? 'none' : 'flex' }}
                         onClick={isOpen ? onClose : onOpen}
                         whileTap={{ scale: 0.9 }}
