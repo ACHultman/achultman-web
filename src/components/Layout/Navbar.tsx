@@ -24,6 +24,10 @@ const MAIN_LINKS = [
         name: 'About Me',
         route: '/about',
     },
+    {
+        name: 'Blog',
+        route: '/blog',
+    },
 ];
 
 const EXTRA_LINKS = [
@@ -34,10 +38,6 @@ const EXTRA_LINKS = [
     {
         name: 'Books',
         route: '/books',
-    },
-    {
-        name: 'Blog',
-        route: '/blog',
     },
 ];
 
