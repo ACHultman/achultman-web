@@ -19,7 +19,7 @@ function BookList({ books }: Props) {
                         'calc(33.33% - 20px)',
                     ]}
                     maxW={['100%', 'calc(50% - 20px)', 'calc(33.33% - 20px)']}
-                    mb={4}
+                    maxH="fit-content"
                 >
                     <BookCard book={book} />
                 </Box>
