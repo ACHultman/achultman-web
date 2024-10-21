@@ -9,8 +9,8 @@ import {
 } from '@chakra-ui/react';
 
 import Paragraph from '@components/Paragraph';
-import Chat from '@components/Chat';
 import styled from '@emotion/styled';
+import Contact from '@components/Contact';
 
 const P = styled(Paragraph)`
     line-height: 1.6;
@@ -51,20 +51,21 @@ function About() {
                                             'cross-platform software development',
                                             'cybersecurity',
                                             'artificial intelligence',
+                                            'user-centric',
                                         ]}
                                         styles={{
                                             color: 'green.500',
                                         }}
                                     >
                                         I hold a Bachelor of Software
-                                        Engineering degree from the University
-                                        of Victoria, where I developed a deep
-                                        passion for cross-platform software
-                                        development, cybersecurity, and
-                                        artificial intelligence. I thrive on
-                                        exploring and innovating with new
-                                        technologies, always looking for ways to
-                                        build better, more efficient solutions.
+                                        Engineering from the University of
+                                        Victoria, where I cultivated a deep
+                                        passion for cross-platform development,
+                                        cybersecurity, and artificial
+                                        intelligence. I’m driven by the
+                                        challenge of building innovative
+                                        solutions that are not only efficient
+                                        but also user-centric.
                                     </Highlight>
                                 </P>
                                 <P>
@@ -72,23 +73,23 @@ function About() {
                                         query={[
                                             'full-stack',
                                             'front-end',
-                                            'robust, user-centric software',
-                                            'collaboration',
+                                            'scalable',
+                                            'collaborative',
                                             'problem-solving',
-                                            'adapting to diverse technical challenges',
+                                            'diverse technical challenges',
                                         ]}
                                         styles={{
                                             color: 'green.500',
                                         }}
                                     >
-                                        Professionally, I've gained experience
-                                        in various full-stack and front-end
-                                        roles, where I've honed my ability to
-                                        deliver robust, user-centric software.
-                                        These roles have helped me sharpen my
-                                        skills in collaboration,
-                                        problem-solving, and adapting to diverse
-                                        technical challenges.
+                                        Throughout my career, I’ve excelled in
+                                        full-stack and front-end roles,
+                                        delivering scalable and high-quality
+                                        software tailored to user needs. I
+                                        thrive in collaborative environments,
+                                        where I can apply my skills in
+                                        problem-solving and adaptability to
+                                        tackle diverse technical challenges.
                                     </Highlight>
                                 </P>
 
@@ -99,38 +100,56 @@ function About() {
                                             'VikeSec',
                                             'hosted a React testing workshop',
                                             'Capture The Flag (CTF)',
-                                            'problem-solving skills',
+                                            'cybersecurity',
+                                            'analytical skills',
                                         ]}
                                         styles={{
                                             color: 'green.500',
                                         }}
                                     >
-                                        During my time at UVic, I actively
-                                        participated in student-led initiatives
-                                        like VikeLabs and VikeSec. At VikeLabs,
-                                        I hosted a React testing workshop and
-                                        contributed to building a degree planner
-                                        web application for UVic students. With
-                                        VikeSec, I participated in Capture The
-                                        Flag (CTF) competitions, which fueled my
-                                        interest in cybersecurity and sharpened
-                                        my problem-solving skills.
+                                        At UVic, I actively engaged in
+                                        student-led initiatives like VikeLabs
+                                        and VikeSec. With VikeLabs, I hosted a
+                                        React testing workshop and helped
+                                        develop a degree planner web app for
+                                        students. At VikeSec, I participated in
+                                        Capture The Flag (CTF) competitions,
+                                        which ignited my passion for
+                                        cybersecurity and sharpened my
+                                        analytical skills.
                                     </Highlight>
                                 </P>
                                 <P>
-                                    In my free time, I enjoy working on side
-                                    projects, playing guitar, and hiking. I’m
-                                    always eager to learn, adapt, and
-                                    grow—qualities that I bring to every team
-                                    and project I’m a part of.
+                                    <Highlight
+                                        query={[
+                                            'side projects',
+                                            'playing piano',
+                                            'new hiking trails',
+                                            'learn',
+                                            'adapt',
+                                            'grow',
+                                        ]}
+                                        styles={{
+                                            color: 'green.500',
+                                        }}
+                                    >
+                                        Beyond my professional pursuits, I enjoy
+                                        diving into side projects, playing
+                                        piano, and exploring new hiking trails.
+                                        I’m always eager to learn, adapt, and
+                                        grow, bringing curiosity and enthusiasm
+                                        to every team and project I join.
+                                    </Highlight>
                                 </P>
                             </VStack>
-                            <VStack w="100%" p={4}>
+                            <VStack w="100%" gap={8}>
                                 <P>
-                                    If you've read this far, feel free to ask
-                                    some questions!
+                                    Thanks for making it this far! Feel free to
+                                    connect with me on LinkedIn or drop me a
+                                    message using the form below. I’d love to
+                                    hear from you!
                                 </P>
-                                <Chat />
+                                <Contact />
                             </VStack>
                         </VStack>
                     </Box>
