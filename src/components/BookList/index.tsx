@@ -15,6 +15,7 @@ function BookList({ books }: Props) {
             mx="auto"
             sx={{ columnCount: [1, 2, 3], columnGap: '20px' }}
             wrap="wrap"
+            gap={4}
         >
             {books.map((book) => (
                 <BookCard book={book} key={`book-${book.title}`} />
