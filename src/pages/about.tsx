@@ -10,6 +10,21 @@ import {
 
 import Paragraph from '@components/Paragraph';
 import Chat from '@components/Chat';
+import styled from '@emotion/styled';
+
+const P = styled(Paragraph)`
+    line-height: 1.6;
+    width: 100%;
+    font-size: var(--chakra-fontSizes-lg);
+
+    @media (min-width: 768px) {
+        font-size: var(--chakra-fontSizes-xl);
+    }
+
+    mark {
+        white-space: pre-wrap;
+    }
+`;
 
 function About() {
     return (
@@ -28,8 +43,8 @@ function About() {
                             About Me
                         </Heading>
                         <VStack gap={8}>
-                            <VStack gap={8}>
-                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                            <VStack gap={8} w="100%">
+                                <P>
                                     <Highlight
                                         query={[
                                             'Bachelor of Software Engineering',
@@ -51,8 +66,8 @@ function About() {
                                         technologies, always looking for ways to
                                         build better, more efficient solutions.
                                     </Highlight>
-                                </Paragraph>
-                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                </P>
+                                <P>
                                     <Highlight
                                         query={[
                                             'full-stack',
@@ -75,8 +90,9 @@ function About() {
                                         problem-solving, and adapting to diverse
                                         technical challenges.
                                     </Highlight>
-                                </Paragraph>
-                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                </P>
+
+                                <P>
                                     <Highlight
                                         query={[
                                             'VikeLabs',
@@ -100,20 +116,20 @@ function About() {
                                         interest in cybersecurity and sharpened
                                         my problem-solving skills.
                                     </Highlight>
-                                </Paragraph>
-                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                </P>
+                                <P>
                                     In my free time, I enjoy working on side
                                     projects, playing guitar, and hiking. I’m
                                     always eager to learn, adapt, and
                                     grow—qualities that I bring to every team
                                     and project I’m a part of.
-                                </Paragraph>
+                                </P>
                             </VStack>
                             <VStack w="100%" p={4}>
-                                <Paragraph fontSize="xl" lineHeight={1.6}>
+                                <P>
                                     If you've read this far, feel free to ask
                                     some questions!
-                                </Paragraph>
+                                </P>
                                 <Chat />
                             </VStack>
                         </VStack>
