@@ -51,3 +51,13 @@ export function getTags(
     }
     return [];
 }
+
+export function getLink(
+    page: PageObjectResponse,
+    propertyName: string
+): string {
+    if (page.properties[propertyName]?.type === 'url') {
+        return page.properties[propertyName].url || '';
+    }
+    return '';
+}

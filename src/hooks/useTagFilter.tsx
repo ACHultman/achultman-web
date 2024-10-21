@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Bookmark, Tag } from '../components/BookmarksList/types';
+import { Bookmark } from '..//types/notion';
 
 export default function useBookmarkTagFilter(
     rawBookmarks: Bookmark[],
-    initialActiveTag?: Tag
+    initialActiveTag?: string
 ) {
-    const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-    const [activeTag, setActiveTag] = useState<Tag>(initialActiveTag);
+    const [filteredBookmarks, setBookmarks] = useState<Bookmark[]>([]);
+    const [activeTag, setActiveTag] = useState<string>(initialActiveTag);
 
     useEffect(() => {
         let filteredBookmark = rawBookmarks.filter(
@@ -15,11 +15,12 @@ export default function useBookmarkTagFilter(
         setBookmarks(filteredBookmark);
     }, [activeTag]);
 
-    const onTagClick = (tag: string) =>
-        activeTag === tag ? setActiveTag(null) : setActiveTag(tag);
+    function onTagClick(tag: string) {
+        setActiveTag(activeTag === tag ? null : tag);
+    }
 
     return {
-        bookmarks,
+        filteredBookmarks,
         activeTag,
         onTagClick,
     };
