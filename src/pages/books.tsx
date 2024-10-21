@@ -5,6 +5,7 @@ import Paragraph from '@components/Paragraph';
 import Message from '@components/Message';
 import { Book } from '@components/BookList/types';
 import BookList from '@components/BookList';
+import { fetchNotions } from '../services/notion';
 
 interface Props {
     books: Book[];
@@ -51,34 +52,7 @@ function Books({ books }: Props) {
 }
 
 export async function getStaticProps() {
-    const books: Book[] = [
-        {
-            cover: {
-                src: 'https://media.wiley.com/product_data/coverImage300/89/11197190/1119719089.jpg',
-                alt: 'Kali Linux Penetration Testing Bible',
-                dimensions: {
-                    width: 300,
-                    height: 376,
-                },
-            },
-            name: 'Kali Linux Penetration Testing Bible',
-            note: 'Your ultimate guide to pentesting with Kali Linux',
-            link: 'https://www.wiley.com/en-us/Kali+Linux+Penetration+Testing+Bible-p-9781119719076',
-        },
-        {
-            cover: {
-                src: 'https://learning.oreilly.com/library/cover/9781491903063/250w/',
-                alt: 'Designing Data-Intensive Applications',
-                dimensions: {
-                    width: 250,
-                    height: 328,
-                },
-            },
-            name: 'Designing Data-Intensive Applications',
-            note: 'The Big Ideas Behind Reliable, Scalable, and Maintainable Systems',
-            link: 'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/',
-        },
-    ];
+    const books = await fetchNotions('books');
 
     return {
         props: {

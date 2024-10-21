@@ -17,7 +17,7 @@ function BookList({ books }: Props) {
             wrap="wrap"
         >
             {books.map((book) => (
-                <BookCard book={book} key={`book-${book.name}`} />
+                <BookCard book={book} key={`book-${book.title}`} />
             ))}
         </Flex>
     );

@@ -23,6 +23,7 @@ module.exports = {
             'blog.tensorflow.org',
             'blogger.googleusercontent.com',
             'storage.googleapis.com',
+            'images-na.ssl-images-amazon.com',
         ],
     },
     compiler: {

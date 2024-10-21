@@ -15,7 +15,6 @@ import {
     AlertIcon,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import Head from 'next/head';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { fetchPost, fetchPosts } from '../../services/blog';
 import { motion, useScroll, useSpring } from 'framer-motion';
