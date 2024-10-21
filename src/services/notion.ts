@@ -6,6 +6,7 @@ import {
 import {
     BlogPost,
     Book,
+    Bookmark,
     DatabaseName,
     FormatterReturnType,
     NotionPageWithBlocks,
@@ -14,6 +15,7 @@ import {
 import {
     getCover,
     getDateField,
+    getLink,
     getRichText,
     getTags,
     getTitle,
@@ -41,6 +43,11 @@ const MAP_DATABASE_CONFIG: {
         },
         formatter: formatBlogPostData,
     },
+    bookmarks: {
+        id: process.env.NOTION_DATABASE_ID_BOOKMARKS,
+        defaultFilter: undefined,
+        formatter: formatBookmarkData,
+    },
 };
 
 function formatBookData(book: PageObjectResponse): Book | null {
@@ -52,10 +59,7 @@ function formatBookData(book: PageObjectResponse): Book | null {
         id: book.id,
         title: getTitle(book),
         author: getRichText(book, 'Author'),
-        link:
-            book.properties.Link?.type === 'url'
-                ? book.properties.Link.url || ''
-                : '',
+        link: getLink(book, 'Link'),
         cover: getCover(book),
     };
 }
@@ -75,6 +79,25 @@ function formatBlogPostData(page: PageObjectResponse): BlogPost | null {
         url: page.url,
         created_time: page.created_time,
         last_edited_time: page.last_edited_time,
+    };
+}
+
+function formatBookmarkData(bookmark: PageObjectResponse): Bookmark | null {
+    if (!pageIsPageObjectResponse(bookmark)) {
+        return null;
+    }
+
+    // get cover from https://icon.horse/icon/<domain>
+    const domain = new URL(getLink(bookmark, 'Link')).hostname;
+    const cover = `https://icon.horse/icon/${domain}`;
+
+    return {
+        id: bookmark.id,
+        title: getTitle(bookmark),
+        link: getLink(bookmark, 'Link'),
+        description: getRichText(bookmark, 'Description'),
+        cover,
+        tags: getTags(bookmark, 'Tags'),
     };
 }
 
@@ -104,12 +127,6 @@ export async function fetchNotions<T extends DatabaseName>(
     if (!dbConfig.id) {
         return [];
     }
-
-    console.log('fetching', db, dbConfig.id, {
-        page_size,
-        filter: filter ?? dbConfig.defaultFilter,
-        sorts,
-    });
 
     try {
         const r = await notion.databases.query({

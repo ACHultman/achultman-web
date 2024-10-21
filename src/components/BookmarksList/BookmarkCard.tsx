@@ -11,8 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
+import { Bookmark } from '../../types/notion';
+
 import Paragraph from '../Paragraph';
-import { Bookmark } from './types';
 
 interface Props {
     bookmark: Bookmark;
@@ -41,43 +42,60 @@ function BookmarkCard({ bookmark }: Props) {
                     }}
                 >
                     <VStack h="100%">
-                        <Image
-                            src={bookmark.image}
-                            alt={`Image for ${bookmark.title} link`}
-                            h="auto"
-                            borderTopRadius={10}
-                        />
-                        <Box w="100%" h="100%">
-                            <Flex
-                                flexDirection="column"
-                                alignItems="start"
-                                justifyContent="space-between"
-                                h="100%"
-                                p={4}
-                                gap={3}
-                            >
-                                <LinkOverlay href={bookmark.url} isExternal>
-                                    <Heading as="h6" size="md" mb={2}>
-                                        {bookmark?.title}
-                                    </Heading>
-                                    <Paragraph fontSize="sm">
-                                        {bookmark.description}
-                                    </Paragraph>
-                                </LinkOverlay>
-                                <Flex wrap="wrap" gap={2}>
-                                    {bookmark.tags.length > 0 &&
-                                        bookmark.tags.map((tag) => (
-                                            <Tag
-                                                key={`${bookmark.id}-${tag}`}
-                                                textTransform="capitalize"
-                                                p={2}
-                                            >
-                                                {tag}
-                                            </Tag>
-                                        ))}
+                        <motion.div
+                            style={{ width: '100%' }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <Image
+                                src={bookmark.cover}
+                                alt={`Image for ${bookmark.title} link`}
+                                h="auto"
+                                borderTopRadius={10}
+                            />
+                        </motion.div>
+                        <motion.div
+                            style={{ width: '100%' }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.1 }} // Slight delay for a smoother effect
+                        >
+                            <Box w="100%" h="100%">
+                                <Flex
+                                    flexDirection="column"
+                                    alignItems="start"
+                                    justifyContent="space-between"
+                                    h="100%"
+                                    p={4}
+                                    gap={3}
+                                >
+                                    <LinkOverlay
+                                        href={bookmark.link}
+                                        isExternal
+                                    >
+                                        <Heading as="h6" size="md" mb={2}>
+                                            {bookmark?.title}
+                                        </Heading>
+                                        <Paragraph fontSize="sm">
+                                            {bookmark.description}
+                                        </Paragraph>
+                                    </LinkOverlay>
+                                    <Flex wrap="wrap" gap={2}>
+                                        {bookmark.tags.length > 0 &&
+                                            bookmark.tags.map((tag) => (
+                                                <Tag
+                                                    key={`${bookmark.id}-${tag}`}
+                                                    textTransform="capitalize"
+                                                    p={2}
+                                                >
+                                                    {tag}
+                                                </Tag>
+                                            ))}
+                                    </Flex>
                                 </Flex>
-                            </Flex>
-                        </Box>
+                            </Box>
+                        </motion.div>
                     </VStack>
                 </Box>
             </LinkBox>

@@ -6,7 +6,7 @@ import {
     ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-export type DatabaseName = 'books' | 'blog';
+export type DatabaseName = 'books' | 'blog' | 'bookmarks';
 
 export type Book = {
     id: string;
@@ -28,12 +28,23 @@ export type BlogPost = {
     last_edited_time: string;
 };
 
+export type Bookmark = {
+    id: string;
+    title: string;
+    link: string;
+    description: string;
+    cover: string;
+    tags: string[];
+};
+
 // get type-safe return type based on database name
 export type FormatterReturnType<T extends DatabaseName> = T extends 'books'
     ? Book
     : T extends 'blog'
       ? BlogPost
-      : never;
+      : T extends 'bookmarks'
+        ? Bookmark
+        : never;
 
 export type FormatterArgument =
     | PageObjectResponse
