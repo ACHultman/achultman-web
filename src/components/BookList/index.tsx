@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 import BookCard from './BookCard';
 import { Book } from '../../types/notion';
@@ -9,16 +9,20 @@ interface Props {
 
 function BookList({ books }: Props) {
     return (
-        <Flex
-            w="100%"
-            mt={10}
-            mx="auto"
-            sx={{ columnCount: [1, 2, 3], columnGap: '20px' }}
-            wrap="wrap"
-            gap={4}
-        >
+        <Flex w="100%" wrap="wrap" justify="center" gap={4}>
             {books.map((book) => (
-                <BookCard book={book} key={`book-${book.title}`} />
+                <Box
+                    key={`book-${book.title}`}
+                    flexBasis={[
+                        '100%',
+                        'calc(50% - 20px)',
+                        'calc(33.33% - 20px)',
+                    ]}
+                    maxW={['100%', 'calc(50% - 20px)', 'calc(33.33% - 20px)']}
+                    maxH="fit-content"
+                >
+                    <BookCard book={book} />
+                </Box>
             ))}
         </Flex>
     );

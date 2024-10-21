@@ -28,29 +28,32 @@ function BookCard({ book }: BookCardProps) {
                 _hover={{
                     borderColor: 'green.300',
                 }}
+                width="100%"
             >
                 <Box
                     display="flex"
                     flexDirection="column"
                     alignItems="start"
                     justifyContent="space-between"
-                    width="400px"
-                    height="600px"
+                    width="100%"
                 >
                     <Box
                         position="relative"
                         mb={4}
-                        width="400px"
-                        height="600px"
+                        width="100%"
+                        height="0"
+                        paddingTop="150%" // maintain a 2:3 aspect ratio for the image
+                        overflow="hidden"
+                        borderRadius={5}
                     >
                         {cover ? (
                             <Image
                                 src={cover}
                                 layout="fill"
                                 objectFit="cover"
-                                quality={100}
                                 alt={title}
                                 priority
+                                style={{ borderRadius: '5px' }}
                             />
                         ) : (
                             <Box
