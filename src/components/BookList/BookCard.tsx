@@ -3,8 +3,8 @@ import Image from 'next/image';
 
 import Paragraph from '../Paragraph';
 
-import { Book } from './types';
 import ExternalLink from '@components/ExternalLink';
+import { Book } from '../../types/notion';
 
 interface BookCardProps {
     book: Book;

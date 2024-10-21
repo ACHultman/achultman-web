@@ -3,9 +3,9 @@ import { NextSeo } from 'next-seo';
 
 import Paragraph from '@components/Paragraph';
 import Message from '@components/Message';
-import { Book } from '@components/BookList/types';
 import BookList from '@components/BookList';
 import { fetchNotions } from '../services/notion';
+import { Book } from '../types/notion';
 
 interface Props {
     books: Book[];

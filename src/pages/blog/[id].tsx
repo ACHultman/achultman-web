@@ -16,14 +16,21 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { fetchPost, fetchPosts } from '../../services/blog';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { NotionBlock } from '@9gustin/react-notion-render';
 import RenderBlocks from '@components/RenderBlocks';
-import { NextSeo } from 'next-seo';
+import { NextSeo, NextSeoProps } from 'next-seo';
+import { fetchNotion, fetchNotions } from '../../services/notion';
+import { NotionPageWithBlocks } from '../../types/notion';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
-function BlogPost({ post, seo }) {
+interface Props {
+    post: NotionPageWithBlocks<'blog'>;
+    seo: NextSeoProps;
+}
+
+function BlogPost({ post, seo }: Props) {
     const { scrollYProgress } = useScroll();
     const scale = useSpring(scrollYProgress, {
         stiffness: 200,
@@ -99,9 +106,9 @@ function BlogPost({ post, seo }) {
                             </Tag>
                         ))}
                     </Stack>
-                    {page.coverImage && (
+                    {page.cover && (
                         <Image
-                            src={page.coverImage}
+                            src={page.cover}
                             alt={page.title}
                             width="100%"
                             height={400}
@@ -111,7 +118,8 @@ function BlogPost({ post, seo }) {
                     )}
                     <Divider my={6} />
 
-                    <RenderBlocks blocks={blocks.results} />
+                    {/* TODO: Fix type issue here */}
+                    <RenderBlocks blocks={blocks.results as NotionBlock[]} />
 
                     <Link href="/blog">
                         <Button leftIcon={<ArrowLeftIcon />}>
@@ -135,12 +143,13 @@ export async function getStaticProps({ params, draftMode }) {
     }
 
     try {
-        const post = await fetchPost(id);
+        const post = await fetchNotion('blog', id);
+
         let ogImageUrl = `${baseUrl}/og_blog_fallback.png`;
 
-        if (post.page.coverImage) {
+        if (post.page.cover) {
             // assume the cover image is an external URL
-            ogImageUrl = post.page.coverImage;
+            ogImageUrl = post.page.cover;
         }
 
         return {
@@ -190,7 +199,7 @@ export async function getStaticProps({ params, draftMode }) {
 
 export async function getStaticPaths() {
     try {
-        const posts = await fetchPosts();
+        const posts = await fetchNotions('blog');
         const paths = posts.map((post) => ({
             params: { id: post.id },
         }));

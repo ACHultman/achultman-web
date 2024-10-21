@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 
 import BookCard from './BookCard';
-import { Book } from './types';
+import { Book } from '../../types/notion';
 
 interface Props {
     books: Book[];
