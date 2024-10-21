@@ -1,9 +1,8 @@
 import { Box, Flex } from '@chakra-ui/react';
-
+import { AnimatePresence, motion } from 'framer-motion';
+import { Bookmark } from '../../types/notion';
 import Message from '../Message';
 import BookmarkCard from './BookmarkCard';
-import { Bookmark } from '../../types/notion';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface Props {
     bookmarks: Bookmark[];
@@ -18,7 +17,13 @@ function BookmarksList({ bookmarks }: Props) {
 
     return (
         <AnimatePresence>
-            <Flex w="100%" wrap="wrap" justify="center" gap={4}>
+            <Flex
+                key="bookmarks-list"
+                w="100%"
+                wrap="wrap"
+                justify="center"
+                gap={4}
+            >
                 {bookmarks.map((bookmark, i) => (
                     <MotionBox
                         key={bookmark.id}

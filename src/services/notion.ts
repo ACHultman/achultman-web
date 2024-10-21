@@ -98,6 +98,7 @@ function formatBookmarkData(bookmark: PageObjectResponse): Bookmark | null {
         description: getRichText(bookmark, 'Description'),
         cover,
         tags: getTags(bookmark, 'Tags'),
+        lastEditedTime: bookmark.last_edited_time,
     };
 }
 

@@ -1,7 +1,6 @@
 import { Button, Collapse, Flex, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUpIcon } from '@chakra-ui/icons';
 
 const MotionButton = motion(Button);
 const MotionFlex = motion(Flex);
@@ -19,6 +18,7 @@ function BookmarkTags({ tags, activeTag, onClick }: Props) {
         <VStack gap={4}>
             <AnimatePresence>
                 <MotionButton
+                    key="show-all-tags" // key is required for AnimatePresence
                     w="100%"
                     variant="outline"
                     onClick={() => setShowAllTags(!showAllTags)}

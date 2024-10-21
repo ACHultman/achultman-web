@@ -7,6 +7,7 @@ import {
     SlideFade,
     VStack,
 } from '@chakra-ui/react';
+import { useMemo } from 'react';
 
 import Paragraph from '@components/Paragraph';
 import BookmarksList from '@components/BookmarksList';
@@ -14,7 +15,6 @@ import BookmarkTags from '@components/BookmarksList/BookmarkTags';
 import useBookmarkTagFilter from '@hooks/useTagFilter';
 import { fetchNotions } from '../services/notion';
 import { Bookmark } from '../types/notion';
-import { use, useMemo } from 'react';
 
 interface Props {
     bookmarks: Bookmark[];
@@ -31,11 +31,32 @@ function collectTags(bookmarks: Bookmark[]) {
     }, []);
 }
 
+function findMostRecentUpdate(bookmarks: Bookmark[]) {
+    // lastEditedTime is a string in the format of '2024-10-21T21:07:00.000Z'
+    return bookmarks.reduce((acc, bookmark) => {
+        const bookmarkDate = new Date(bookmark.lastEditedTime);
+        if (bookmarkDate > acc) {
+            return bookmarkDate;
+        }
+        return acc;
+    }, new Date(0));
+}
+
 function Bookmarks({ bookmarks }: Props) {
     const { filteredBookmarks, activeTag, onTagClick } =
         useBookmarkTagFilter(bookmarks);
 
     const tags = useMemo(() => collectTags(bookmarks), [bookmarks]);
+
+    const mostRecentUpdate = useMemo(
+        () => findMostRecentUpdate(bookmarks),
+        [bookmarks]
+    );
+    const formattedDate = mostRecentUpdate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
 
     return (
         <>
@@ -60,7 +81,7 @@ function Bookmarks({ bookmarks }: Props) {
                             My favorite articles, websites, and tools.
                         </Paragraph>
                         <Paragraph fontSize="xs" mt={4}>
-                            Last updated: December 28th, 2022
+                            Last updated: {formattedDate}
                         </Paragraph>
                     </Box>
                     <Divider my={10} />

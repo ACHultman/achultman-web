@@ -10,9 +10,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-
 import { Bookmark } from '../../types/notion';
-
 import Paragraph from '../Paragraph';
 
 interface Props {

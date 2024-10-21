@@ -35,6 +35,7 @@ export type Bookmark = {
     description: string;
     cover: string;
     tags: string[];
+    lastEditedTime: string;
 };
 
 // get type-safe return type based on database name
