@@ -13,11 +13,16 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { fetchPosts } from '../../services/blog';
+import { fetchNotions } from '../../services/notion';
+import { BlogPost } from '../../types/notion';
 
 const MotionBox = motion(Box);
 
-function Blog({ posts }) {
+interface Props {
+    posts: BlogPost[];
+}
+
+function Blog({ posts }: Props) {
     return (
         <Container maxW="container.lg">
             <SlideFade in={true} offsetY={80}>
@@ -58,9 +63,9 @@ function Blog({ posts }) {
                                     }}
                                     whileTap={{ scale: 0.9 }}
                                 >
-                                    {post.coverImage && (
+                                    {post.cover && (
                                         <Image
-                                            src={post.coverImage}
+                                            src={post.cover}
                                             alt={post.title}
                                             width="100%"
                                             height={200}
@@ -107,7 +112,8 @@ function Blog({ posts }) {
 
 export async function getStaticProps() {
     try {
-        const posts = await fetchPosts();
+        const posts = await fetchNotions('blog');
+
         return {
             props: {
                 posts,

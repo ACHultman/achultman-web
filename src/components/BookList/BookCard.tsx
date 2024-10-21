@@ -1,16 +1,10 @@
-import {
-    Box,
-    Heading,
-    LinkOverlay,
-    LinkBox,
-    useColorModeValue,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { Box, Heading, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 
 import Paragraph from '../Paragraph';
 
-import { Book } from './types';
+import ExternalLink from '@components/ExternalLink';
+import { Book } from '../../types/notion';
 
 interface BookCardProps {
     book: Book;
@@ -21,68 +15,67 @@ function BookCard({ book }: BookCardProps) {
         return null;
     }
 
-    const { cover, name, note, link } = book;
-
-    // calculate total required width for the book card
-    // use the cover image width as a base and add 2 rem
-    const totalWidth = `${cover.dimensions.width + 32}px`;
+    const { cover, title, author, link } = book;
 
     return (
-        <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            style={{ width: totalWidth }}
-        >
-            <LinkBox as="article">
+        <ExternalLink href={link} underline={false}>
+            <Box
+                p={4}
+                borderRadius={5}
+                borderWidth="1px"
+                cursor="pointer"
+                role="group"
+                _hover={{
+                    borderColor: 'green.300',
+                }}
+            >
                 <Box
-                    w="100%"
-                    p={4}
-                    mb={5}
-                    display="inline-block"
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}
-                    borderRadius={5}
-                    borderWidth="1px"
-                    transition=".5s"
-                    cursor="pointer"
-                    role="group"
-                    _hover={{
-                        borderColor: 'green.300',
-                    }}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="start"
+                    justifyContent="space-between"
+                    width="400px"
+                    height="600px"
                 >
                     <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="start"
-                        justifyContent="space-between"
+                        position="relative"
+                        mb={4}
+                        width="400px"
+                        height="600px"
                     >
-                        <Box
-                            position="relative"
-                            width="100%"
-                            height="400px"
-                            mb={4}
-                        >
+                        {cover ? (
                             <Image
-                                src={cover.src}
+                                src={cover}
                                 layout="fill"
                                 objectFit="cover"
                                 quality={100}
-                                alt={cover.alt}
-                                priority={true}
+                                alt={title}
+                                priority
                             />
-                        </Box>
-                        <LinkOverlay href={link} isExternal>
-                            <Heading as="h6" size="md">
-                                {name}
-                            </Heading>
-                            <Paragraph mt={1} fontSize="sm">
-                                {note}
-                            </Paragraph>
-                        </LinkOverlay>
+                        ) : (
+                            <Box
+                                height="100%"
+                                borderRadius={12}
+                                bg={useColorModeValue('gray.100', 'gray.900')}
+                                display="flex"
+                                justifyContent="center"
+                                alignItems="center"
+                                color="gray.500"
+                                fontSize="lg"
+                            >
+                                No Cover Available
+                            </Box>
+                        )}
                     </Box>
+                    <Heading as="h6" size="md">
+                        {title}
+                    </Heading>
+                    <Paragraph mt={1} fontSize="sm">
+                        {author}
+                    </Paragraph>
                 </Box>
-            </LinkBox>
-        </motion.div>
+            </Box>
+        </ExternalLink>
     );
 }
 
