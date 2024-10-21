@@ -23,13 +23,9 @@ function BookmarkTags({ tags, activeTag, onClick }: Props) {
                     variant="outline"
                     onClick={() => setShowAllTags(!showAllTags)}
                 >
-                    {`Show ${showAllTags ? 'less' : 'more'}`}
+                    {`Show ${showAllTags ? 'less' : 'more'} tags`}
                 </MotionButton>
-                <Collapse
-                    startingHeight={100}
-                    in={showAllTags}
-                    onClick={() => setShowAllTags(true)}
-                >
+                <Collapse startingHeight={100} in={showAllTags}>
                     <MotionFlex gap={3} wrap="wrap">
                         {tags.map((tag, i) => {
                             return (
