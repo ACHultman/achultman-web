@@ -14,6 +14,7 @@ import {
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { fetchPosts } from '../../services/blog';
+import { rgbaGreen } from '../../utils/theme';
 
 const MotionBox = motion(Box);
 
@@ -53,8 +54,7 @@ function Blog({ posts }) {
                                     style={{ transition: 'box-shadow 0.2s' }}
                                     whileHover={{ scale: 1.02 }}
                                     _hover={{
-                                        boxShadow:
-                                            '0 0 10px rgba(56, 161, 105, 0.6)', // Adjust the color and intensity of the glow here
+                                        boxShadow: `0 0 10px ${rgbaGreen(0.6)}`,
                                     }}
                                     whileTap={{ scale: 0.9 }}
                                 >

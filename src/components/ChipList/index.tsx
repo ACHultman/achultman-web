@@ -1,5 +1,6 @@
 import { Flex, Tag } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { rgbaGreen } from '../../utils/theme';
 
 interface Props {
     list: string[];
@@ -24,10 +25,10 @@ function ChipList({ list, onClick, ...opts }: Props) {
                     marginRight={2}
                     onClick={() => onClick(item)}
                     initial={{
-                        boxShadow: '0px 0px 0px rgba(56, 161, 105, 0.3)',
+                        boxShadow: `0px 0px 0px ${rgbaGreen(0.3)}`,
                     }}
                     animate={{
-                        boxShadow: '0px 0px 20px rgba(56, 161, 105, 0.6)',
+                        boxShadow: `0px 0px 20px ${rgbaGreen(0.6)}`,
                         transition: {
                             duration: 5,
                             repeat: Infinity,
@@ -36,7 +37,7 @@ function ChipList({ list, onClick, ...opts }: Props) {
                     }}
                     whileHover={{
                         scale: 1.1,
-                        boxShadow: '0px 0px 20px rgba(56, 161, 105, 0.6)',
+                        boxShadow: `0px 0px 20px ${rgbaGreen(0.6)}`,
                     }}
                     whileTap={{ scale: 0.8 }}
                     {...opts.tagProps}

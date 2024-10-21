@@ -21,6 +21,7 @@ import { fetchPost, fetchPosts } from '../../services/blog';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import RenderBlocks from '@components/RenderBlocks';
 import { NextSeo } from 'next-seo';
+import { constructSeoData } from 'src/utils/seo';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -147,37 +148,18 @@ export async function getStaticProps({ params, draftMode }) {
         return {
             props: {
                 post,
-                seo: {
+                seo: constructSeoData({
                     title: post.page.title,
                     description: post.page.description,
-                    canonical: `${baseUrl}/blog/${id}`,
-                    openGraph: {
-                        title: post.page.title,
-                        description: post.page.description,
-                        url: `${baseUrl}/blog/${id}`,
-                        type: 'article',
-                        siteName: 'Adam Hultman',
-                        images: [
-                            {
-                                url: ogImageUrl,
-                                width: 1200,
-                                height: 630,
-                                alt: post.page.title,
-                            },
-                        ],
-                        article: {
-                            secion: 'Technology',
-                            authors: ['Adam Hultman'],
-                            publishedTime: post.page.publishedDate,
-                            modifiedTime: post.page.publishedDate,
-                            tags: post.page.tags,
-                        },
+                    url: `${baseUrl}/blog/${id}`,
+                    type: 'article',
+                    image: ogImageUrl,
+                    article: {
+                        publishedTime: post.page.publishedDate,
+                        modifiedTime: post.page.publishedDate,
+                        tags: post.page.tags,
                     },
-                    twitter: {
-                        handle: '@RecursiveAge',
-                        cardType: 'summary_large_image',
-                    },
-                },
+                }),
             },
             revalidate: 43200, // 12 hours
         };

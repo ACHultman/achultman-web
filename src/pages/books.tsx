@@ -16,8 +16,10 @@ function Books({ books }: Props) {
             <NextSeo
                 title="Adam Hultman | Books"
                 description="A list of my favorite tech books."
+                canonical="https://hultman.dev/books"
                 openGraph={{
                     title: 'Adam Hultman | Books',
+                    type: 'website',
                     description: 'A list of my favorite tech books.',
                     url: 'https://hultman.dev/books',
                 }}
