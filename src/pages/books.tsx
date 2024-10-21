@@ -58,6 +58,7 @@ export async function getStaticProps() {
         props: {
             books,
         },
+        revalidate: 86400, // 24 hours
     };
 }
 
