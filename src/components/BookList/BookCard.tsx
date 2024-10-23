@@ -49,11 +49,14 @@ function BookCard({ book }: BookCardProps) {
                         {cover ? (
                             <Image
                                 src={cover}
-                                layout="fill"
-                                objectFit="cover"
                                 alt={title}
                                 priority
-                                style={{ borderRadius: '5px' }}
+                                fill
+                                sizes="100vw"
+                                style={{
+                                    borderRadius: '5px',
+                                    objectFit: 'cover',
+                                }}
                             />
                         ) : (
                             <Box

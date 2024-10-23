@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useChat } from 'ai/react';
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MdSend } from 'react-icons/md';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
@@ -48,7 +48,12 @@ function Chat() {
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'gray.200');
 
-    const [suggestions] = useState(() => generateSuggestions(1)); // fix hydration error
+    const [suggestions, setSuggestions] = useState([]);
+
+    useEffect(() => {
+        setSuggestions(generateSuggestions(1));
+    }, []);
+
     const showSuggestions = suggestions && messages.length === 1 && !isLoading;
 
     let convoHeight = '20%';

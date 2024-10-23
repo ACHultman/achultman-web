@@ -34,16 +34,20 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 function Contact() {
     const { hasCopied, onCopy } = useClipboard(process.env.NEXT_PUBLIC_EMAIL);
 
+    const bgColor = useColorModeValue('white', 'gray.800');
+    const bgImage = useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK);
+    const btnHoverColor = useColorModeValue('white', 'gray.700');
+
+    const formBg = useColorModeValue('white', 'gray.700');
+    const formColor = useColorModeValue('gray.700', 'whiteAlpha.900');
+
     return (
         <Flex
-            bg={useColorModeValue('white', 'gray.800')}
+            bg={bgColor}
             align="center"
             justify="center"
             css={{
-                backgroundImage: useColorModeValue(
-                    CONFETTI_LIGHT,
-                    CONFETTI_DARK
-                ),
+                backgroundImage: bgImage,
                 backgroundAttachment: 'fixed',
             }}
         >
@@ -88,11 +92,8 @@ function Contact() {
                                         fontSize="3xl"
                                         icon={<MdEmail />}
                                         _hover={{
-                                            bg: 'blue.500',
-                                            color: useColorModeValue(
-                                                'white',
-                                                'gray.700'
-                                            ),
+                                            bg: 'green.500',
+                                            color: btnHoverColor,
                                         }}
                                         onClick={onCopy}
                                         isRound
@@ -107,11 +108,8 @@ function Contact() {
                                         fontSize="3xl"
                                         icon={<BsGithub />}
                                         _hover={{
-                                            bg: 'blue.500',
-                                            color: useColorModeValue(
-                                                'white',
-                                                'gray.700'
-                                            ),
+                                            bg: 'black',
+                                            color: btnHoverColor,
                                         }}
                                         isRound
                                     />
@@ -125,10 +123,7 @@ function Contact() {
                                         icon={<BsLinkedin size="28px" />}
                                         _hover={{
                                             bg: 'blue.500',
-                                            color: useColorModeValue(
-                                                'white',
-                                                'gray.700'
-                                            ),
+                                            color: btnHoverColor,
                                         }}
                                         isRound
                                     />
@@ -136,13 +131,10 @@ function Contact() {
                             </Stack>
 
                             <Box
-                                bg={useColorModeValue('white', 'gray.700')}
+                                bg={formBg}
                                 borderRadius="lg"
                                 p={8}
-                                color={useColorModeValue(
-                                    'gray.700',
-                                    'whiteAlpha.900'
-                                )}
+                                color={formColor}
                                 shadow="dark-lg"
                             >
                                 <ContactForm />
