@@ -2,16 +2,18 @@ import styled from '@emotion/styled';
 import Link, { LinkProps } from 'next/link';
 import { PropsWithChildren } from 'react';
 
-interface ExternalLinkProps extends PropsWithChildren<LinkProps> {
-    underline?: boolean;
-}
-
-const UnderlineLink = styled(Link)<{ underline?: boolean }>`
+const UnderlineLink = styled(Link, {
+    shouldForwardProp: (prop) => prop !== 'underline',
+})<{ underline?: boolean }>`
     &:hover,
     *:hover {
         text-decoration: ${(props) => (props.underline ? 'underline' : 'none')};
     }
 `;
+
+interface ExternalLinkProps extends PropsWithChildren<LinkProps> {
+    underline?: boolean;
+}
 
 function ExternalLink({ href, children, underline }: ExternalLinkProps) {
     return (
