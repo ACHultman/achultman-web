@@ -15,6 +15,7 @@ We are connecting the Next.js `_app.js` with `chakra-ui`'s Provider and theme so
 Preview the example live on [StackBlitz](http://stackblitz.com/):
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-chakra-ui-typescript)
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui-typescript)
 
 ### Deploy your own
 
