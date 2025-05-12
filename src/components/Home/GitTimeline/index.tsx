@@ -3,7 +3,6 @@ import {
     SlideFade,
     ListItem,
     theme,
-    Flex,
     Box,
     useBreakpointValue,
 } from '@chakra-ui/react';
