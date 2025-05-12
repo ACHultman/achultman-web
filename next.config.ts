@@ -1,5 +1,3 @@
-const { withSentryConfig } = require('@sentry/nextjs');
-
 module.exports = {
     serverExternalPackages: ['next-seo'],
     images: {
@@ -94,9 +92,3 @@ module.exports = {
         emotion: true,
     },
 };
-
-module.exports = withSentryConfig(
-    module.exports,
-    { silent: true },
-    { hideSourcemaps: true }
-);
