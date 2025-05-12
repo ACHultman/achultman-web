@@ -2,20 +2,12 @@ import { MdCheckCircle } from 'react-icons/md';
 import { ORG_MAP } from 'src/constants';
 
 export const TIMELINE: Record<string, TimelineItem[]> = {
-    Present: [
-        {
-            icon: MdCheckCircle,
-            org: ORG_MAP.looking,
-            subtitle: 'Software Developer',
-            dateRange: 'October 2024 - Present',
-        },
-    ],
     '2022': [
         {
             icon: MdCheckCircle,
             org: ORG_MAP.assembly,
             subtitle: 'Software Developer',
-            dateRange: 'September 2022 - October 2024',
+            dateRange: 'September 2022 - Present',
         },
         {
             icon: MdCheckCircle,
