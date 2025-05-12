@@ -8,7 +8,7 @@ import {
     chakra,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { MdSend } from 'react-icons/md';
@@ -26,23 +26,17 @@ function generateSuggestions(n: number) {
 }
 
 function Chat() {
-    const {
-        messages,
-        input,
-        handleInputChange,
-        handleSubmit,
-        append,
-        isLoading,
-    } = useChat({
-        api: '/api/v1/chat',
-        initialMessages: [
-            {
-                id: '0',
-                content: CHAT_BOT_WELCOME_MESSAGE,
-                role: 'assistant',
-            },
-        ],
-    });
+    const { messages, input, handleInputChange, handleSubmit, append, status } =
+        useChat({
+            api: '/api/v1/chat',
+            initialMessages: [
+                {
+                    id: '0',
+                    content: CHAT_BOT_WELCOME_MESSAGE,
+                    role: 'assistant',
+                },
+            ],
+        });
     const conversationNode = useRef<HTMLDivElement>(null);
     const bgColor = useColorModeValue('white', 'gray.800');
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
@@ -51,10 +45,11 @@ function Chat() {
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
+        console.log('generating suggestions');
         setSuggestions(generateSuggestions(1));
-    }, []);
+    }, [messages.filter((m) => m.role === 'assistant').length]);
 
-    const showSuggestions = suggestions && messages.length === 1 && !isLoading;
+    const showSuggestions = suggestions && status === 'ready';
 
     let convoHeight = '20%';
     if (messages.length > 1) {

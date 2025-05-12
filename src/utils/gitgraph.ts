@@ -62,14 +62,21 @@ export function constructGitGraph(
         },
     ]);
 
-    createBranchWithCommits(bsengDegree, 'work/coop/assembly', [
+    const assembly = createBranchWithCommits(
+        bsengDegree,
+        'work/coop/assembly',
+        [
+            {
+                subject: 'Full-stack Software Developer Co-op',
+                body: 'September 2021 - December 2021',
+            },
+        ]
+    );
+
+    createBranchWithCommits(assembly, 'work/assembly', [
         {
-            subject: 'Full-stack Software Developer Co-op',
-            body: 'September 2021 - December 2021',
-        },
-        {
-            subject: 'Software Developer - Part-time',
-            body: 'May 2022 - August 2022',
+            subject: 'Software Developer',
+            body: 'May 2022 - Present',
         },
     ]);
 
@@ -79,18 +86,4 @@ export function constructGitGraph(
     });
 
     main.merge(bsengDegree);
-
-    const assembly = createBranchWithCommits(main, 'work/assembly', [
-        {
-            subject: 'Software Developer',
-            body: 'May 2022 - October 2024',
-        },
-    ]);
-
-    main.merge(assembly);
-
-    createCommit(main, {
-        subject: 'Looking for work',
-        body: 'October 2024',
-    });
 }

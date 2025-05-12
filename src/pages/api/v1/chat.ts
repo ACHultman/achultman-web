@@ -21,13 +21,8 @@ const systemInitMessage = (
 export default async function handler(req: NextRequest) {
     const { messages } = await req.json();
 
-    return (
-        await streamText({
-            model: openai('gpt-4o-mini'),
-            messages: [
-                { role: 'system', content: systemInitMessage },
-                ...messages,
-            ],
-        })
-    ).toDataStreamResponse();
+    return streamText({
+        model: openai('gpt-4o-mini'),
+        messages: [{ role: 'system', content: systemInitMessage }, ...messages],
+    }).toDataStreamResponse();
 }
