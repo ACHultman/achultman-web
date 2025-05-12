@@ -33,7 +33,6 @@
         "next-seo": "^6.6.0",
         "nodemailer": "^6.9.15",
         "openai": "^4.67.3",
-        "openai-edge": "^1.2.2",
         "react": "^18.3.1",
         "react-code-blocks": "^0.1.6",
         "react-dom": "^18.3.1",
