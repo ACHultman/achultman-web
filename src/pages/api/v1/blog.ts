@@ -1,7 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { Client } from '@notionhq/client';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { config } from '../../../config';
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
+const notion = new Client({ auth: config.NOTION_API_KEY });
 
 export default async function handler(
     req: NextApiRequest,
@@ -12,7 +13,7 @@ export default async function handler(
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const databaseId = process.env.NOTION_DATABASE_ID;
+    const databaseId = config.NOTION_DATABASE_ID_BLOG;
 
     try {
         if (!databaseId) {

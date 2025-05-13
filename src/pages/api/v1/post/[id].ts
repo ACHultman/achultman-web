@@ -1,7 +1,8 @@
 import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { config } from '../../../../config';
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
+const notion = new Client({ auth: config.NOTION_API_KEY });
 
 export default async function handler(
     req: NextApiRequest,

@@ -7,7 +7,7 @@ function BlockCode({ block }: WithContentValidationProps) {
         <Box mb="1.5rem">
             <CopyBlock
                 text={block.content.text
-                    .map((text) => text.plain_text)
+                    .map((text) => text.plain_text || '')
                     .join('\n')}
                 language={block.content.language}
                 theme={dracula}

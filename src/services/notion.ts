@@ -1,27 +1,28 @@
 import { Client } from '@notionhq/client';
-import {
-    QueryDatabaseParameters,
+import type {
     PageObjectResponse,
+    QueryDatabaseParameters,
+    ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints';
+import { config } from '../config';
 import {
-    BlogPost,
     Book,
     Bookmark,
+    BlogPost,
     DatabaseName,
     FormatterReturnType,
-    NotionPageWithBlocks,
-    pageIsPageObjectResponse,
 } from '../types/notion';
 import {
-    getCover,
     getDateField,
+    getCover,
     getLink,
     getRichText,
     getTags,
     getTitle,
+    pageIsPageObjectResponse,
 } from '../utils/notion';
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
+const notion = new Client({ auth: config.NOTION_API_KEY });
 
 const MAP_DATABASE_CONFIG: {
     [K in DatabaseName]: {
@@ -31,12 +32,12 @@ const MAP_DATABASE_CONFIG: {
     };
 } = {
     books: {
-        id: process.env.NOTION_DATABASE_ID_BOOKS,
+        id: config.NOTION_DATABASE_ID_BOOKS,
         defaultFilter: undefined,
         formatter: formatBookData,
     },
     blog: {
-        id: process.env.NOTION_DATABASE_ID_BLOG,
+        id: config.NOTION_DATABASE_ID_BLOG,
         defaultFilter: {
             property: 'Published',
             date: { is_not_empty: true },
@@ -44,7 +45,7 @@ const MAP_DATABASE_CONFIG: {
         formatter: formatBlogPostData,
     },
     bookmarks: {
-        id: process.env.NOTION_DATABASE_ID_BOOKMARKS,
+        id: config.NOTION_DATABASE_ID_BOOKMARKS,
         defaultFilter: undefined,
         formatter: formatBookmarkData,
     },
@@ -87,7 +88,6 @@ function formatBookmarkData(bookmark: PageObjectResponse): Bookmark | null {
         return null;
     }
 
-    // get cover from https://icon.horse/icon/<domain>
     const domain = new URL(getLink(bookmark, 'Link')).hostname;
     const cover = `https://icon.horse/icon/${domain}`;
 
@@ -108,21 +108,16 @@ interface NotionFetchOptions {
     sorts?: QueryDatabaseParameters['sorts'];
 }
 
-// parsed from standard language... do something crazy and
-// use GPT to parse from natural language to notion query language... 👀
-// expose this search functionality to the user, so they can search for books in their own words
 export async function searchBooks(query: string) {
     // pass thru gpt to parse query to notion query language
-
     // pass thru fetchBooks with parsed query
-
     return [];
 }
 
 export async function fetchNotions<T extends DatabaseName>(
     db: T,
     { page_size = 10, filter, sorts }: NotionFetchOptions = {}
-): Promise<FormatterReturnType<T>[]> {
+) {
     const dbConfig = MAP_DATABASE_CONFIG[db];
 
     if (!dbConfig.id) {
@@ -137,25 +132,29 @@ export async function fetchNotions<T extends DatabaseName>(
             sorts,
         });
 
-        return r.results.map(
-            (p) => pageIsPageObjectResponse(p) && dbConfig.formatter(p)
-        );
+        return r.results
+            .map((p) => {
+                if (p.object === 'page' && pageIsPageObjectResponse(p)) {
+                    return dbConfig.formatter(p);
+                }
+                return null;
+            })
+            .filter(Boolean) as FormatterReturnType<T>[];
     } catch (error) {
-        console.error('Error fetching blog posts:', error);
+        console.error('Error fetching notions:', error);
         return [];
     }
 }
 
-export async function fetchNotion<T extends DatabaseName>(
-    db: T,
-    id: string
-): Promise<NotionPageWithBlocks<T>> {
+export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
     if (!db || !id) {
         return null;
     }
 
     try {
-        const pageResponse = await notion.pages.retrieve({ page_id: id });
+        const pageResponse = await notion.pages.retrieve({
+            page_id: id,
+        });
 
         if (!pageIsPageObjectResponse(pageResponse)) {
             return null;
@@ -163,6 +162,10 @@ export async function fetchNotion<T extends DatabaseName>(
 
         const blocks = await notion.blocks.children.list({ block_id: id });
         const page = MAP_DATABASE_CONFIG[db].formatter(pageResponse);
+
+        if (!page) {
+            return null;
+        }
 
         return { page, blocks };
     } catch (error) {

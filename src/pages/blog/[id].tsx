@@ -1,25 +1,28 @@
+import { GetStaticPropsContext } from 'next';
+import { NextSeo, NextSeoProps } from 'next-seo';
 import { Roboto } from 'next/font/google';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import {
+    Alert,
+    AlertIcon,
     Box,
+    Button,
+    Center,
     Container,
-    Heading,
-    Text,
-    Image,
     Divider,
+    Heading,
+    Image,
+    Link,
     Stack,
     Tag,
-    Alert,
-    Center,
+    Text,
     VStack,
-    Button,
-    AlertIcon,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { motion, useScroll, useSpring } from 'framer-motion';
 import { NotionBlock } from '@9gustin/react-notion-render';
-import RenderBlocks from '@components/RenderBlocks';
-import { NextSeo, NextSeoProps } from 'next-seo';
+
+import RenderBlocks from '../../components/RenderBlocks';
+import { config } from '../../config';
 import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
 
@@ -40,22 +43,28 @@ function BlogPost({ post, seo }: Props) {
 
     if (!post) {
         return (
-            <Container maxW="container.md">
-                <Center>
-                    <VStack textAlign="center" spacing={8}>
-                        <Alert status="error">
-                            <AlertIcon />
-                            Sorry, this post could not be found. Please try
-                            again later.
-                        </Alert>
-                        <Link href="/blog">
-                            <Button leftIcon={<ArrowLeftIcon />}>
-                                Back to blog
-                            </Button>
-                        </Link>
-                    </VStack>
-                </Center>
-            </Container>
+            <>
+                <NextSeo
+                    title="Post Not Found"
+                    description="The blog post you are looking for could not be found."
+                />
+                <Container maxW="container.md">
+                    <Center minH="60vh">
+                        <VStack textAlign="center" spacing={8}>
+                            <Alert status="error">
+                                <AlertIcon />
+                                Sorry, this post could not be found. Please try
+                                again later.
+                            </Alert>
+                            <Link href="/blog">
+                                <Button leftIcon={<ArrowLeftIcon />}>
+                                    Back to blog
+                                </Button>
+                            </Link>
+                        </VStack>
+                    </Center>
+                </Container>
+            </>
         );
     }
 
@@ -74,11 +83,11 @@ function BlogPost({ post, seo }: Props) {
                     width: '100%',
                     height: '8px',
                     borderRadius: '20px',
-                    zIndex: 1,
+                    zIndex: 10,
                 }}
             />
-            <Container maxW="container.md" className={roboto.className}>
-                <Box>
+            <Container maxW="container.md" className={roboto.className} py={8}>
+                <Box as="article">
                     <Heading
                         as="h1"
                         fontSize={{ base: '28px', md: '32px', lg: '36px' }}
@@ -88,112 +97,121 @@ function BlogPost({ post, seo }: Props) {
                     </Heading>
                     <Text
                         as="time"
-                        dateTime={page.publishedDate}
+                        dateTime={page.publishedDate || undefined}
                         color="gray.500"
                         mb={2}
+                        display="block"
                     >
                         {page.publishedDate
-                            ? page.publishedDate
+                            ? new Date(page.publishedDate).toLocaleDateString(
+                                  'en-US',
+                                  {
+                                      year: 'numeric',
+                                      month: 'long',
+                                      day: 'numeric',
+                                  }
+                              )
                             : 'Unpublished'}
                     </Text>
                     <Text color="gray.500" mb={4}>
                         By Adam Hultman
                     </Text>
-                    <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
-                        {page.tags.map((tag) => (
-                            <Tag key={tag} colorScheme="green">
-                                {tag}
-                            </Tag>
-                        ))}
-                    </Stack>
+                    {page.tags && page.tags.length > 0 && (
+                        <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
+                            {page.tags.map((tag) => (
+                                <Tag key={tag} colorScheme="green">
+                                    {tag}
+                                </Tag>
+                            ))}
+                        </Stack>
+                    )}
                     {page.cover && (
                         <Image
                             src={page.cover}
-                            alt={page.title}
+                            alt={`${page.title} cover image`}
                             width="100%"
-                            height={400}
+                            maxHeight={{ base: '300px', md: '400px' }}
                             objectFit="cover"
                             mb={6}
+                            borderRadius="md"
                         />
                     )}
                     <Divider my={6} />
 
-                    {/* TODO: Fix type issue here */}
+                    {/* TODO: narrow this type to NotionBlock properly */}
                     <RenderBlocks blocks={blocks.results as NotionBlock[]} />
 
-                    <Link href="/blog">
-                        <Button leftIcon={<ArrowLeftIcon />}>
-                            Back to list
-                        </Button>
-                    </Link>
+                    <Box mt={8} textAlign="center">
+                        <Link href="/blog">
+                            <Button leftIcon={<ArrowLeftIcon />}>
+                                Back to Blog List
+                            </Button>
+                        </Link>
+                    </Box>
                 </Box>
             </Container>
         </>
     );
 }
 
-export async function getStaticProps({ params, draftMode }) {
-    const { id } = params;
+export async function getStaticProps({
+    params,
+}: GetStaticPropsContext<{ id: string }>) {
+    const { id } = params!;
 
-    let baseUrl = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-    if (draftMode) {
-        baseUrl = `https://${process.env.VERCEL_URL}`;
-    } else if (process.env.NODE_ENV === 'development') {
-        baseUrl = `http://localhost:3000`;
-    }
+    const baseUrl = config.APP_BASE_URL;
 
     try {
         const post = await fetchNotion('blog', id);
 
+        if (!post || !post.page) {
+            return { notFound: true };
+        }
+
+        const { page } = post;
+
         let ogImageUrl = `${baseUrl}/og_blog_fallback.png`;
 
-        if (post.page.cover) {
-            // assume the cover image is an external URL
-            ogImageUrl = post.page.cover;
+        if (page.cover) {
+            ogImageUrl = page.cover;
         }
+
+        const seoProps: NextSeoProps = {
+            title: page.title,
+            description: page.description,
+            canonical: `${baseUrl}/blog/${page.id}`,
+            openGraph: {
+                title: page.title,
+                description: page.description,
+                url: `${baseUrl}/blog/${page.id}`,
+                type: 'article',
+                article: {
+                    publishedTime: page.publishedDate || undefined,
+                    modifiedTime: page.last_edited_time,
+                    authors: ['Adam Hultman'],
+                    tags: page.tags,
+                },
+                images: [
+                    {
+                        url: ogImageUrl,
+                        width: 1200,
+                        height: 630,
+                        alt: page.title,
+                    },
+                ],
+            },
+        };
 
         return {
             props: {
                 post,
-                seo: {
-                    title: post.page.title,
-                    description: post.page.description,
-                    canonical: `${baseUrl}/blog/${id}`,
-                    openGraph: {
-                        title: post.page.title,
-                        description: post.page.description,
-                        url: `${baseUrl}/blog/${id}`,
-                        type: 'article',
-                        siteName: 'Adam Hultman',
-                        images: [
-                            {
-                                url: ogImageUrl,
-                                width: 1200,
-                                height: 630,
-                                alt: post.page.title,
-                            },
-                        ],
-                        article: {
-                            secion: 'Technology',
-                            authors: ['Adam Hultman'],
-                            publishedTime: post.page.publishedDate,
-                            modifiedTime: post.page.publishedDate,
-                            tags: post.page.tags,
-                        },
-                    },
-                    twitter: {
-                        handle: '@RecursiveAge',
-                        cardType: 'summary_large_image',
-                    },
-                },
+                seo: seoProps,
             },
-            revalidate: 43200, // 12 hours
+            revalidate: 3600,
         };
     } catch (error) {
-        console.error('Failed to fetch post:', error);
-        return {
-            notFound: true,
-        };
+        console.error(`Error fetching blog post with id ${id}:`, error);
+        return { notFound: true };
     }
 }
 
@@ -209,7 +227,7 @@ export async function getStaticPaths() {
             fallback: 'blocking',
         };
     } catch (error) {
-        console.error('Failed to fetch paths:', error);
+        console.error('Error fetching blog paths:', error);
         return {
             paths: [],
             fallback: 'blocking',

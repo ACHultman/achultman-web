@@ -4,8 +4,8 @@ import { Image } from '@chakra-ui/react';
 function BlockImage({ block }: WithContentValidationProps) {
     return (
         <Image
-            src={block.content.external.url}
-            alt={block.content.caption[0].plain_text ?? ''}
+            src={block.content.external?.url || block.content.file?.url || ''}
+            alt={block.content.caption[0]?.plain_text || ''}
         />
     );
 }
