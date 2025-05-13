@@ -1,4 +1,13 @@
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+    PageObjectResponse,
+    PartialPageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
+
+export function pageIsPageObjectResponse(
+    page: PageObjectResponse | PartialPageObjectResponse
+): page is PageObjectResponse {
+    return 'parent' in page && 'properties' in page;
+}
 
 export function getTitle(
     page: PageObjectResponse,

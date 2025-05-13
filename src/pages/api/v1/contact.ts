@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
+import { config } from '../../../config';
 
 type Data = {
     message: string;
@@ -27,14 +28,14 @@ export default async function handler(
             port: 465,
             secure: true,
             auth: {
-                user: process.env.NEXT_PUBLIC_EMAIL,
-                pass: process.env.EMAIL_PASS,
+                user: config.NEXT_PUBLIC_EMAIL,
+                pass: config.EMAIL_PASS,
             },
         });
 
         const mailOptions = {
             from: '"Contact Form" <no-reply@hultman.dev>',
-            to: process.env.NEXT_PUBLIC_EMAIL,
+            to: config.NEXT_PUBLIC_EMAIL,
             subject: `New Contact Form Submission from ${name}`,
             text: `
                 You have a new contact form submission:

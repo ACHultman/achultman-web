@@ -58,6 +58,8 @@ export type NotionPageWithBlocks<T extends DatabaseName> = {
     blocks: ListBlockChildrenResponse;
 };
 
+export type NotionBlock = ListBlockChildrenResponse['results'][number];
+
 export function pageIsPageObjectResponse(
     page: FormatterArgument
 ): page is PageObjectResponse {

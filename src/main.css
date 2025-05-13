@@ -104,6 +104,7 @@ a {
 
 .rnr-container h1,
 .rnr-container h2 {
+    text-decoration: none;
     border-bottom: 1px dotted #38a169;
 }
 
