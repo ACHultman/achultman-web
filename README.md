@@ -1,43 +1,123 @@
-# My personal webiste
+# My Personal Website
 
-This is my personal website. It was bootstrapped using the tools below. Have a look :)
+This is my personal website, showcasing my timeline, blog, and skills. It's built with Next.js, Chakra UI, and TypeScript!
 
-## Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui) and TypeScript
+## Features
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app with TypeScript.
+- **Blog:** Articles on web development, cybersecurity, and other tech topics.
+- **Books:** A list of books I've read and recommend.
+- **Bookmarks:** A collection of useful links and resources.
+- **Responsive Design:** Optimized for all screen sizes.
+- **Dark/Light Mode:** App-wide theme switching.
 
-Next.js and chakra-ui have built-in TypeScript declarations, so we'll get autocompletion for their modules straight away.
+## Tech Stack
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Provider and theme so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
+- **Framework:** [Next.js](https://nextjs.org/)
+- **UI Library:** [Chakra UI](https://chakra-ui.com/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Emotion](https://emotion.sh/)
+- **Form Handling:** [React Hook Form](https://react-hook-form.com/)
+- **Linting/Formatting:** [ESLint](https://eslint.org/), [Prettier](https://prettier.io/)
+- **Testing:** [Playwright](https://playwright.dev/) for E2E tests.
+- **Deployment:** [Vercel](https://vercel.com/)
 
-### Preview
+## Getting Started
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+### Prerequisites
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-chakra-ui-typescript)
+- Node.js (v20 or later recommended)
+- npm or yarn
 
-### Deploy your own
+### Installation
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+3.  Set up environment variables:
+    Create a `.env.local` file in the root directory by copying the `.env.example` file (if you create one).
+    Populate it with your API keys and other necessary configurations as described in `src/config.ts`.
+    Key variables include:
+    - `NEXT_PUBLIC_EMAIL`
+    - `EMAIL_PASS`
+    - `OPENAI_API_KEY`
+    - `NOTION_API_KEY`
+    - `NOTION_DATABASE_ID_BLOG`
+    - `NOTION_DATABASE_ID_BOOKS`
+    - `NOTION_DATABASE_ID_BOOKMARKS`
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui-typescript&project-name=with-chakra-ui-typescript&repository-name=with-chakra-ui-typescript)
+## Running the App
 
-### How to use
-
-#### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+To run the development server:
 
 ```bash
-npx create-next-app --example with-chakra-ui-typescript with-chakra-ui-typescript-app
+npm run dev
 # or
-yarn create next-app --example with-chakra-ui-typescript with-chakra-ui-typescript-app
+yarn dev
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-### Notes
+## Building for Production
 
-Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
+To build the application for production:
 
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.ts`.
+```bash
+npm run build
+# or
+yarn build
+```
+
+This will create an optimized build in the `.next` folder.
+
+To start the production server:
+
+```bash
+npm run start
+# or
+yarn start
+```
+
+## Running Tests
+
+This project uses Playwright for end-to-end testing.
+
+To run the tests:
+
+```bash
+npm run test:e2e
+# or
+yarn test:e2e
+```
+
+Make sure the development server is running before executing the E2E tests if `reuseExistingServer` is set to `true` in `playwright.config.ts` and `IS_CI` is false.
+
+## Linting and Formatting
+
+To check for linting and formatting issues:
+
+```bash
+npm run prettier:check
+```
+
+To automatically fix linting and formatting issues:
+
+```bash
+npm run prettier
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgements
+
+- This project was bootstrapped using an example from [Next.js examples with Chakra UI and TypeScript](https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui-typescript).
+- Inspiration from various open-source projects and developer portfolios.
