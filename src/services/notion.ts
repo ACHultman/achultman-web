@@ -20,7 +20,7 @@ import {
     getTags,
     getTitle,
     pageIsPageObjectResponse,
-    isBlockObjectResponse, // Import the new type guard
+    isBlockObjectResponse,
 } from '../utils/notion';
 
 const notion = new Client({ auth: config.NOTION_API_KEY });
@@ -115,7 +115,7 @@ export async function searchBooks(query: string) {
     // pass thru gpt to parse query to notion query language
     // pass thru fetchBooks with parsed query
     // TODO: Implement this functionality or remove if not planned
-    console.warn('searchBooks function is not yet implemented. Query:', query); // Added query to log
+    console.warn('searchBooks function is not yet implemented. Query:', query);
     return [];
 }
 

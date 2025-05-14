@@ -19,7 +19,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render'; // Import NotionBlock from the rendering library
+import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 
 import RenderBlocks from '../../components/RenderBlocks';
 import { config } from '../../config';

@@ -73,7 +73,6 @@ function Navbar() {
             py={4}
             px={8}
             position="fixed"
-            // blur
             backdropFilter={blur}
         >
             <Flex alignItems="center" justifyContent="space-between">

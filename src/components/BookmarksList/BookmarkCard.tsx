@@ -57,7 +57,7 @@ function BookmarkCard({ bookmark }: Props) {
                             style={{ width: '100%' }}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.1 }} // Slight delay for a smoother effect
+                            transition={{ duration: 0.5, delay: 0.1 }}
                         >
                             <Box w="100%" h="100%">
                                 <Flex

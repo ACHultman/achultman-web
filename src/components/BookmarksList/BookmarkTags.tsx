@@ -18,7 +18,7 @@ function BookmarkTags({ tags, activeTag, onClick }: Props) {
         <VStack gap={4}>
             <AnimatePresence>
                 <MotionButton
-                    key="show-all-tags" // key is required for AnimatePresence
+                    key="show-all-tags"
                     w="100%"
                     variant="outline"
                     onClick={() => setShowAllTags(!showAllTags)}
