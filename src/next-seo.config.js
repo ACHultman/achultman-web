@@ -1,4 +1,4 @@
-export default {
+const config = {
     title: 'Adam Hultman',
     description:
         'Adam Hultman | Full-stack developer, UI/UX Designer, cybersecurity enthusiast.',
@@ -16,3 +16,5 @@ export default {
         cardType: 'summary_large_image',
     },
 };
+
+export default config;

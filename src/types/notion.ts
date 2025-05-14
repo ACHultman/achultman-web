@@ -4,6 +4,7 @@ import {
     PartialDatabaseObjectResponse,
     DatabaseObjectResponse,
     ListBlockChildrenResponse,
+    BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 export type DatabaseName = 'books' | 'blog' | 'bookmarks';
@@ -13,7 +14,7 @@ export type Book = {
     title: string;
     author: string;
     link: string;
-    cover: string;
+    cover: string | null;
 };
 
 export type BlogPost = {
@@ -38,7 +39,6 @@ export type Bookmark = {
     lastEditedTime: string;
 };
 
-// get type-safe return type based on database name
 export type FormatterReturnType<T extends DatabaseName> = T extends 'books'
     ? Book
     : T extends 'blog'
@@ -53,12 +53,17 @@ export type FormatterArgument =
     | PartialDatabaseObjectResponse
     | DatabaseObjectResponse;
 
-export type NotionPageWithBlocks<T extends DatabaseName> = {
-    page: FormatterReturnType<T>;
-    blocks: ListBlockChildrenResponse;
+type FilteredListBlockChildrenResponse = Omit<
+    ListBlockChildrenResponse,
+    'results'
+> & {
+    results: BlockObjectResponse[];
 };
 
-export type NotionBlock = ListBlockChildrenResponse['results'][number];
+export type NotionPageWithBlocks<T extends DatabaseName> = {
+    page: FormatterReturnType<T>;
+    blocks: FilteredListBlockChildrenResponse;
+};
 
 export function pageIsPageObjectResponse(
     page: FormatterArgument

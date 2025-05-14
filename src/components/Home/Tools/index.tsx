@@ -11,7 +11,14 @@ import { motion } from 'framer-motion';
 
 import ToolCard from './ToolCard';
 
-const TOOLS = [
+export type TTool = {
+    name: string;
+    description: string;
+    url: string;
+    icon: JSX.Element;
+};
+
+const TOOLS: TTool[] = [
     {
         name: 'Node.js',
         description:

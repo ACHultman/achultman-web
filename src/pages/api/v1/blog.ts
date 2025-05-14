@@ -1,8 +1,13 @@
 import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '../../../config';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 const notion = new Client({ auth: config.NOTION_API_KEY });
+
+function isFullPageObjectResponse(page: any): page is PageObjectResponse {
+    return page && page.object === 'page' && page.properties;
+}
 
 export default async function handler(
     req: NextApiRequest,
@@ -27,8 +32,18 @@ export default async function handler(
         });
 
         const posts = response.results
-            .filter((page: any) => page.properties?.Published?.date)
-            .map((page: any) => {
+            .filter((page): page is PageObjectResponse => {
+                if (!isFullPageObjectResponse(page)) {
+                    return false;
+                }
+                const publishedProp = page.properties.Published;
+                return !!(
+                    publishedProp &&
+                    publishedProp.type === 'date' &&
+                    publishedProp.date
+                );
+            })
+            .map((page: PageObjectResponse) => {
                 const {
                     id,
                     created_time,
@@ -37,50 +52,54 @@ export default async function handler(
                     cover,
                     url,
                 } = page;
-                if (!properties) {
-                    return null;
-                }
 
                 let title = 'Untitled';
+                const nameProp = properties.Name;
                 if (
-                    properties.Name.type === 'title' &&
-                    properties.Name.title.length > 0
+                    nameProp &&
+                    nameProp.type === 'title' &&
+                    nameProp.title.length > 0
                 ) {
-                    title = properties.Name.title[0].plain_text;
+                    title = nameProp.title[0].plain_text;
                 }
 
                 let description = '';
+                const descriptionProp = properties['AI custom autofill'];
                 if (
-                    properties['AI custom autofill']?.type === 'rich_text' &&
-                    properties['AI custom autofill']?.rich_text.length > 0
+                    descriptionProp &&
+                    descriptionProp.type === 'rich_text' &&
+                    descriptionProp.rich_text.length > 0
                 ) {
-                    description =
-                        properties['AI custom autofill'].rich_text[0]
-                            .plain_text;
+                    description = descriptionProp.rich_text[0].plain_text;
                 }
 
                 let publishedDate = null;
+                const publishedProp = properties.Published;
                 if (
-                    properties.Published.type === 'date' &&
-                    properties.Published.date
+                    publishedProp &&
+                    publishedProp.type === 'date' &&
+                    publishedProp.date
                 ) {
-                    publishedDate = properties.Published.date.start;
+                    publishedDate = publishedProp.date.start;
                 }
 
-                let tags = [];
-
+                let tags: string[] = [];
+                const tagsProp = properties.Tags;
                 if (
-                    properties.Tags.type === 'multi_select' &&
-                    properties.Tags.multi_select.length > 0
+                    tagsProp &&
+                    tagsProp.type === 'multi_select' &&
+                    tagsProp.multi_select.length > 0
                 ) {
-                    tags = properties.Tags.multi_select.map(
+                    tags = tagsProp.multi_select.map(
                         (tag: { name: string }) => tag.name
                     );
                 }
 
                 let coverImage = null;
-                if (cover.type === 'external' && cover.external) {
+                if (cover && cover.type === 'external' && cover.external) {
                     coverImage = cover.external.url;
+                } else if (cover && cover.type === 'file' && cover.file) {
+                    coverImage = cover.file.url;
                 }
 
                 return {
@@ -94,7 +113,8 @@ export default async function handler(
                     created_time,
                     last_edited_time,
                 };
-            });
+            })
+            .filter(Boolean);
 
         return res.status(200).json({ posts });
     } catch (error) {

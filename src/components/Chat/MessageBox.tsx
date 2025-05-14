@@ -41,4 +41,6 @@ const MessageBox: React.FC<Props> = forwardRef(
     }
 );
 
+MessageBox.displayName = 'MessageBox';
+
 export default MessageBox;

@@ -9,21 +9,19 @@ import {
 import { motion } from 'framer-motion';
 
 import Paragraph from '../../Paragraph';
+import { TTool } from '.';
 
 const MotionIconButton = motion(IconButton);
 
 export interface ToolCardProps {
-    tool: {
-        name: string;
-        description: string;
-        url: string;
-        icon: JSX.Element;
-    };
+    tool: TTool;
 }
 
 function ToolCard({ tool }: ToolCardProps) {
+    const borderColor = useColorModeValue('gray.300', 'gray.700');
+
     if (!tool) {
-        return;
+        return null;
     }
 
     return (
@@ -31,7 +29,7 @@ function ToolCard({ tool }: ToolCardProps) {
             <Box
                 w="100%"
                 p={4}
-                borderColor={useColorModeValue('gray.300', 'gray.700')}
+                borderColor={borderColor}
                 borderRadius={5}
                 borderWidth="1px"
                 transition=".5s"

@@ -1,6 +1,8 @@
 import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '../../../../config';
+import { GetPageResponse } from '@notionhq/client/build/src/api-endpoints';
+import { pageIsPageObjectResponse } from '../../../../utils/notion';
 
 const notion = new Client({ auth: config.NOTION_API_KEY });
 
@@ -33,31 +35,50 @@ export default async function handler(
         console.error('Error fetching page:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
-}
 
-function formatPageData(pageResponse) {
-    const title =
-        pageResponse.properties.Name?.title[0]?.plain_text || 'Untitled';
+    function formatPageData(pageResponse: GetPageResponse) {
+        if (!pageIsPageObjectResponse(pageResponse)) {
+            return {
+                id: pageResponse.id,
+                title: 'Untitled',
+                publishedDate: null,
+                tags: [],
+                description: '',
+                coverImage: null,
+            };
+        }
 
-    const coverImage =
-        pageResponse.cover?.type === 'external'
-            ? pageResponse.cover.external.url
-            : null;
-    const publishedDate =
-        pageResponse.properties.Published?.date?.start || null;
-    const tags =
-        pageResponse.properties.Tags?.multi_select?.map((tag) => tag.name) ||
-        [];
-    const description =
-        pageResponse.properties['AI custom autofill']?.rich_text[0]
-            ?.plain_text || '';
+        const properties = pageResponse.properties;
 
-    return {
-        id: pageResponse.id,
-        title,
-        publishedDate,
-        tags,
-        description,
-        coverImage,
-    };
+        const title =
+            (properties.Name?.type === 'title' &&
+                properties.Name.title[0]?.plain_text) ||
+            'Untitled';
+
+        const coverImage =
+            pageResponse.cover?.type === 'external'
+                ? pageResponse.cover.external.url
+                : null;
+        const publishedDate =
+            (properties.Published?.type === 'date' &&
+                properties.Published.date?.start) ||
+            null;
+        const tags =
+            (properties.Tags?.type === 'multi_select' &&
+                properties.Tags.multi_select?.map((tag) => tag.name)) ||
+            [];
+        const description =
+            (properties['AI custom autofill']?.type === 'rich_text' &&
+                properties['AI custom autofill'].rich_text[0]?.plain_text) ||
+            '';
+
+        return {
+            id: pageResponse.id,
+            title,
+            publishedDate,
+            tags,
+            description,
+            coverImage,
+        };
+    }
 }

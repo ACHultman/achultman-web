@@ -11,6 +11,8 @@ interface BookCardProps {
 }
 
 function BookCard({ book }: BookCardProps) {
+    const noCoverBg = useColorModeValue('gray.100', 'gray.900');
+
     if (!book) {
         return null;
     }
@@ -62,7 +64,7 @@ function BookCard({ book }: BookCardProps) {
                             <Box
                                 height="100%"
                                 borderRadius={12}
-                                bg={useColorModeValue('gray.100', 'gray.900')}
+                                bg={noCoverBg}
                                 display="flex"
                                 justifyContent="center"
                                 alignItems="center"

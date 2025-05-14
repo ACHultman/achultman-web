@@ -22,7 +22,7 @@ function ChipList({ list, onClick, ...opts }: Props) {
                     colorScheme={opts.colorScheme || 'gray'}
                     marginY={2}
                     marginRight={2}
-                    onClick={() => onClick(item)}
+                    onClick={() => onClick?.(item)}
                     initial={{
                         boxShadow: '0px 0px 0px rgba(56, 161, 105, 0.3)',
                     }}
