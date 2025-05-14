@@ -7,7 +7,7 @@ const MotionFlex = motion(Flex);
 
 interface Props {
     tags: string[];
-    activeTag: string;
+    activeTag: string | undefined;
     onClick: (tag: string) => void;
 }
 
@@ -36,7 +36,7 @@ function BookmarkTags({ tags, activeTag, onClick }: Props) {
                                     w="fit-content"
                                     borderRadius={20}
                                     textTransform="capitalize"
-                                    isActive={activeTag === tag}
+                                    isActive={activeTag && activeTag === tag}
                                     _active={{
                                         bg: 'green.500',
                                     }}

@@ -9,16 +9,12 @@ import {
 import { motion } from 'framer-motion';
 
 import Paragraph from '../../Paragraph';
+import { TTool } from '.';
 
 const MotionIconButton = motion(IconButton);
 
 export interface ToolCardProps {
-    tool: {
-        name: string;
-        description: string;
-        url: string;
-        icon: JSX.Element;
-    };
+    tool: TTool;
 }
 
 function ToolCard({ tool }: ToolCardProps) {

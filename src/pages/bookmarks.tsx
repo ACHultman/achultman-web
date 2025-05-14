@@ -21,7 +21,7 @@ interface Props {
 }
 
 function collectTags(bookmarks: Bookmark[]) {
-    return bookmarks.reduce((acc, bookmark) => {
+    return bookmarks.reduce<string[]>((acc, bookmark) => {
         bookmark.tags.forEach((tag) => {
             if (!acc.includes(tag)) {
                 acc.push(tag);

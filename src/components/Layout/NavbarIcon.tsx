@@ -3,7 +3,11 @@ import React from 'react';
 import { Divide as Hamburger } from 'hamburger-react';
 import theme from '../../theme';
 
-function NavbarIcon({ isOpen }) {
+interface NavbarIconProps {
+    isOpen: boolean;
+}
+
+function NavbarIcon({ isOpen }: NavbarIconProps) {
     return (
         <Hamburger
             toggled={isOpen}

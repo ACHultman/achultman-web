@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 function BlockQuote({ block }: WithContentValidationProps) {
     if (!block.content) {
-        return null; // Or some fallback UI
+        return null;
     }
 
     return (
