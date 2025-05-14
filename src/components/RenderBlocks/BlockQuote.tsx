@@ -2,6 +2,10 @@ import { WithContentValidationProps } from '@9gustin/react-notion-render/dist/ho
 import { Box, Text } from '@chakra-ui/react';
 
 function BlockQuote({ block }: WithContentValidationProps) {
+    if (!block.content) {
+        return null; // Or some fallback UI
+    }
+
     return (
         <Box mb="1.5rem" ml="1.5rem">
             <Text as="blockquote" fontSize="xl" fontStyle="italic">

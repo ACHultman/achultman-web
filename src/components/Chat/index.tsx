@@ -42,14 +42,17 @@ function Chat() {
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'gray.200');
 
-    const [suggestions, setSuggestions] = useState([]);
+    const [suggestions, setSuggestions] = useState<string[]>([]);
 
+    const assistantMessagesCount = messages.filter(
+        (m) => m.role === 'assistant'
+    ).length;
     useEffect(() => {
         console.log('generating suggestions');
         setSuggestions(generateSuggestions(1));
-    }, [messages.filter((m) => m.role === 'assistant').length]);
+    }, [assistantMessagesCount]);
 
-    const showSuggestions = suggestions && status === 'ready';
+    const showSuggestions = suggestions.length > 0 && status === 'ready';
 
     let convoHeight = '20%';
     if (messages.length > 1) {

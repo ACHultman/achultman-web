@@ -19,7 +19,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
-import { NotionBlock } from '@9gustin/react-notion-render';
+import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render'; // Import NotionBlock from the rendering library
 
 import RenderBlocks from '../../components/RenderBlocks';
 import { config } from '../../config';
@@ -138,8 +138,8 @@ function BlogPost({ post, seo }: Props) {
                     )}
                     <Divider my={6} />
 
-                    {/* TODO: narrow this type to NotionBlock properly */}
-                    <RenderBlocks blocks={blocks.results as NotionBlock[]} />
+                    {/* Notion API client and block renderer do not have identical types */}
+                    <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
 
                     <Box mt={8} textAlign="center">
                         <Link href="/blog">

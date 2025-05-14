@@ -20,6 +20,7 @@ import {
     getTags,
     getTitle,
     pageIsPageObjectResponse,
+    isBlockObjectResponse, // Import the new type guard
 } from '../utils/notion';
 
 const notion = new Client({ auth: config.NOTION_API_KEY });
@@ -28,7 +29,7 @@ const MAP_DATABASE_CONFIG: {
     [K in DatabaseName]: {
         id: string;
         defaultFilter: QueryDatabaseParameters['filter'];
-        formatter: (page: PageObjectResponse) => FormatterReturnType<K>;
+        formatter: (page: PageObjectResponse) => FormatterReturnType<K> | null;
     };
 } = {
     books: {
@@ -56,12 +57,14 @@ function formatBookData(book: PageObjectResponse): Book | null {
         return null;
     }
 
+    const cover = getCover(book);
+
     return {
         id: book.id,
         title: getTitle(book),
         author: getRichText(book, 'Author'),
         link: getLink(book, 'Link'),
-        cover: getCover(book),
+        cover,
     };
 }
 
@@ -111,6 +114,8 @@ interface NotionFetchOptions {
 export async function searchBooks(query: string) {
     // pass thru gpt to parse query to notion query language
     // pass thru fetchBooks with parsed query
+    // TODO: Implement this functionality or remove if not planned
+    console.warn('searchBooks function is not yet implemented. Query:', query); // Added query to log
     return [];
 }
 
@@ -160,14 +165,23 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
             return null;
         }
 
-        const blocks = await notion.blocks.children.list({ block_id: id });
+        const blockChildrenResponse = await notion.blocks.children.list({
+            block_id: id,
+        });
+        const filteredBlocks = blockChildrenResponse.results.filter(
+            isBlockObjectResponse
+        );
+
         const page = MAP_DATABASE_CONFIG[db].formatter(pageResponse);
 
         if (!page) {
             return null;
         }
 
-        return { page, blocks };
+        return {
+            page,
+            blocks: { ...blockChildrenResponse, results: filteredBlocks },
+        };
     } catch (error) {
         console.error('Error fetching page:', error);
         return null;

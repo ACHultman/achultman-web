@@ -33,13 +33,17 @@ type FormData = {
 };
 
 function ContactForm() {
-    const { hasCopied, onCopy } = useClipboard(process.env.NEXT_PUBLIC_EMAIL);
+    const hoverBg = useColorModeValue('blue.500', 'blue.500');
+    const hoverColor = useColorModeValue('white', 'gray.700');
+    const { hasCopied, onCopy } = useClipboard(
+        process.env.NEXT_PUBLIC_EMAIL || ''
+    );
 
     const {
         handleSubmit,
         register,
         formState: { errors, isSubmitting },
-    } = useForm();
+    } = useForm<FormData>();
 
     const [submitStatus, setSubmitStatus] = useState<
         'idle' | 'error' | 'success'
@@ -77,7 +81,6 @@ function ContactForm() {
                         </InputLeftElement>
                         <Input
                             type="text"
-                            name="name"
                             placeholder="Your Name"
                             disabled={submitStatus === 'success'}
                             {...register('name', {
@@ -85,9 +88,7 @@ function ContactForm() {
                             })}
                         />
                     </InputGroup>
-                    <FormErrorMessage>
-                        {errors.name && errors.name.message.toString()}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
                 </FormControl>
 
                 <FormControl isRequired>
@@ -99,7 +100,6 @@ function ContactForm() {
                         </InputLeftElement>
                         <Input
                             type="email"
-                            name="email"
                             placeholder="Your Email"
                             disabled={submitStatus === 'success'}
                             {...register('email', {
@@ -107,16 +107,13 @@ function ContactForm() {
                             })}
                         />
                     </InputGroup>
-                    <FormErrorMessage>
-                        {errors.email && errors.email.message.toString()}
-                    </FormErrorMessage>
+                    <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
                 </FormControl>
 
                 <FormControl isRequired>
                     <FormLabel>Message</FormLabel>
 
                     <Textarea
-                        name="message"
                         placeholder="Your Message"
                         rows={6}
                         disabled={submitStatus === 'success'}
@@ -125,7 +122,7 @@ function ContactForm() {
                         })}
                     />
                     <FormErrorMessage>
-                        {errors.message && errors.message.message.toString()}
+                        {errors.message?.message}
                     </FormErrorMessage>
                 </FormControl>
 
@@ -145,8 +142,8 @@ function ContactForm() {
                             Message sent!
                         </AlertTitle>
                         <AlertDescription maxWidth="sm">
-                            Thanks for reaching out. I'll get back to you as
-                            soon as I can.
+                            Thanks for reaching out. I&apos;ll get back to you
+                            as soon as I can.
                         </AlertDescription>
                     </Alert>
                 ) : submitStatus === 'error' ? (
@@ -177,11 +174,8 @@ function ContactForm() {
                                     fontSize="3xl"
                                     icon={<MdEmail />}
                                     _hover={{
-                                        bg: 'blue.500',
-                                        color: useColorModeValue(
-                                            'white',
-                                            'gray.700'
-                                        ),
+                                        bg: hoverBg,
+                                        color: hoverColor,
                                     }}
                                     onClick={onCopy}
                                     isRound

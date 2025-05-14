@@ -17,7 +17,7 @@ export default function Custom404() {
                 404 - Page Not Found
             </Heading>
             <Text fontSize="lg" mb={6}>
-                Oops! The page you're looking for doesn't exist.
+                Oops! The page you&apos;re looking for doesn&apos;t exist.
             </Text>
             <Link href="/">
                 <Button colorScheme="green" leftIcon={<MdHome />}>

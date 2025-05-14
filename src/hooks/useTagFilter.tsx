@@ -6,17 +6,19 @@ export default function useBookmarkTagFilter(
     initialActiveTag?: string
 ) {
     const [filteredBookmarks, setBookmarks] = useState<Bookmark[]>([]);
-    const [activeTag, setActiveTag] = useState<string>(initialActiveTag);
+    const [activeTag, setActiveTag] = useState<string | undefined>(
+        initialActiveTag
+    );
 
     useEffect(() => {
         let filteredBookmark = rawBookmarks.filter(
             (bookmark) => !activeTag || bookmark.tags.includes(activeTag)
         );
         setBookmarks(filteredBookmark);
-    }, [activeTag]);
+    }, [activeTag, rawBookmarks]);
 
     function onTagClick(tag: string) {
-        setActiveTag(activeTag === tag ? null : tag);
+        setActiveTag(activeTag === tag ? undefined : tag);
     }
 
     return {

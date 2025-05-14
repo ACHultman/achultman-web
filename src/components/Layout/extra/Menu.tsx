@@ -17,8 +17,11 @@ interface Props {
     onClick: () => void;
 }
 
-function DropdownMenu({ extraLinks, onClick }) {
+function DropdownMenu({ extraLinks, onClick }: Props) {
     const { asPath } = useRouter();
+    const menuButtonHoverBg = useColorModeValue('gray.200', 'gray.700');
+    const menuListBg = useColorModeValue('gray.50', 'gray.800');
+    const activeMenuItemBg = useColorModeValue('gray.200', 'gray.700');
 
     return (
         <Menu autoSelect={false}>
@@ -28,10 +31,10 @@ function DropdownMenu({ extraLinks, onClick }) {
                 rounded="md"
                 bg="none"
                 _hover={{
-                    bg: useColorModeValue('gray.200', 'gray.700'),
+                    bg: menuButtonHoverBg,
                 }}
                 _active={{
-                    bg: useColorModeValue('gray.200', 'gray.700'),
+                    bg: menuButtonHoverBg,
                 }}
                 fontWeight={400}
                 as={Button}
@@ -39,14 +42,11 @@ function DropdownMenu({ extraLinks, onClick }) {
             >
                 Extras
             </MenuButton>
-            <MenuList bg={useColorModeValue('gray.50', 'gray.800')}>
+            <MenuList bg={menuListBg}>
                 {extraLinks.map(({ name, route }) => (
                     <Link href={route} key={name} onClick={onClick}>
                         <MenuItem
-                            bg={
-                                asPath === route &&
-                                useColorModeValue('gray.200', 'gray.700')
-                            }
+                            bg={asPath === route ? activeMenuItemBg : undefined}
                         >
                             {name}
                         </MenuItem>

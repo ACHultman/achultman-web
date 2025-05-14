@@ -13,10 +13,8 @@
     border-radius: 2rem;
 }
 
-a {
-    :hover {
-        text-decoration: underline;
-    }
+a:hover {
+    text-decoration: underline;
 }
 
 .logo {

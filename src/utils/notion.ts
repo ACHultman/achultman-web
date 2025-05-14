@@ -1,12 +1,20 @@
 import {
     PageObjectResponse,
     PartialPageObjectResponse,
+    BlockObjectResponse,
+    PartialBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 export function pageIsPageObjectResponse(
     page: PageObjectResponse | PartialPageObjectResponse
 ): page is PageObjectResponse {
     return 'parent' in page && 'properties' in page;
+}
+
+export function isBlockObjectResponse(
+    block: PartialBlockObjectResponse | BlockObjectResponse
+): block is BlockObjectResponse {
+    return block.object === 'block' && 'type' in block;
 }
 
 export function getTitle(
