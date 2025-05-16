@@ -111,14 +111,6 @@ interface NotionFetchOptions {
     sorts?: QueryDatabaseParameters['sorts'];
 }
 
-export async function searchBooks(query: string) {
-    // pass thru gpt to parse query to notion query language
-    // pass thru fetchBooks with parsed query
-    // TODO: Implement this functionality or remove if not planned
-    console.warn('searchBooks function is not yet implemented. Query:', query);
-    return [];
-}
-
 export async function fetchNotions<T extends DatabaseName>(
     db: T,
     { page_size = 10, filter, sorts }: NotionFetchOptions = {}
