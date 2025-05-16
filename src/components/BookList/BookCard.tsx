@@ -22,7 +22,6 @@ function BookCard({ book }: BookCardProps) {
     return (
         <ExternalLink href={link} underline={false}>
             <Box
-                p={4}
                 borderRadius={5}
                 borderWidth="1px"
                 cursor="pointer"
@@ -41,7 +40,6 @@ function BookCard({ book }: BookCardProps) {
                 >
                     <Box
                         position="relative"
-                        mb={4}
                         width="100%"
                         height="0"
                         paddingTop="150%" // maintain a 2:3 aspect ratio for the image
@@ -57,7 +55,6 @@ function BookCard({ book }: BookCardProps) {
                                 sizes="100vw"
                                 style={{
                                     borderRadius: '5px',
-                                    objectFit: 'cover',
                                 }}
                             />
                         ) : (
@@ -75,12 +72,14 @@ function BookCard({ book }: BookCardProps) {
                             </Box>
                         )}
                     </Box>
-                    <Heading as="h6" size="md">
-                        {title}
-                    </Heading>
-                    <Paragraph mt={1} fontSize="sm">
-                        {author}
-                    </Paragraph>
+                    <Box p={4}>
+                        <Heading as="h6" size="md">
+                            {title}
+                        </Heading>
+                        <Paragraph mt={1} fontSize="sm">
+                            {author}
+                        </Paragraph>
+                    </Box>
                 </Box>
             </Box>
         </ExternalLink>
