@@ -24,23 +24,11 @@ function getOptionalEnv(key: string): string | undefined {
 
 const NODE_ENV = getOptionalEnv('NODE_ENV') || 'development';
 
-const nextPublicEmail = process.env.NEXT_PUBLIC_EMAIL;
-if (
-    nextPublicEmail === undefined ||
-    nextPublicEmail === null ||
-    nextPublicEmail.trim() === ''
-) {
-    throw new Error(
-        'Missing or empty environment variable: NEXT_PUBLIC_EMAIL. Ensure it is set in your .env file or environment.'
-    );
-}
-
-export const serverConfig = {
+const serverConfig = {
     NODE_ENV,
     IS_CI: !!getOptionalEnv('CI'),
 
     // Email
-    NEXT_PUBLIC_EMAIL: nextPublicEmail,
     EMAIL_PASS: getRequiredEnv('EMAIL_PASS'),
 
     // OpenAI
@@ -74,3 +62,5 @@ export const serverConfig = {
         return 'http://localhost:3000';
     })(),
 };
+
+export { serverConfig };
