@@ -56,8 +56,8 @@ function About() {
                                         ]}
                                         styles={{ color: 'green.500' }}
                                     >
-                                        I am a Full-stack software developer
-                                        (EIT) with 5+ years of professional
+                                        I’m a Full-stack software developer
+                                        (EIT) with over 5 years of professional
                                         experience building AI-enabled, secure,
                                         and scalable platforms. I hold a
                                         Bachelor of Software Engineering with a
@@ -79,17 +79,16 @@ function About() {
                                         ]}
                                         styles={{ color: 'green.500' }}
                                     >
-                                        I have a proven track record delivering
-                                        high-traffic web applications and
-                                        distributed systems optimized for
+                                        I have a strong track record of
+                                        delivering high-traffic web applications
+                                        and distributed systems optimized for
                                         performance, security, and user
-                                        experience. As a strong collaborator, I
-                                        bring deep expertise in platform
+                                        experience. As a collaborative teammate,
+                                        I bring deep expertise in platform
                                         architecture, edge computing, and
                                         cybersecurity to every project.
                                     </Highlight>
                                 </P>
-
                                 <P>
                                     <Highlight
                                         query={[
@@ -100,20 +99,14 @@ function About() {
                                             'cybersecurity',
                                             'analytical skills',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        At UVic, I actively engaged in
-                                        student-led initiatives like VikeLabs
-                                        and VikeSec. With VikeLabs, I hosted a
-                                        React testing workshop and helped
-                                        develop a degree planner web app for
-                                        students. At VikeSec, I participated in
-                                        Capture The Flag (CTF) competitions,
-                                        which ignited my passion for
-                                        cybersecurity and sharpened my
-                                        analytical skills.
+                                        Right now, I’m building generative AI
+                                        tools for editorial teams that run on
+                                        the edge using Cloudflare Workers and
+                                        the OpenAI API. I’m also iterating on a
+                                        redirect platform that integrates deeply
+                                        with WordPress and Golang microservices.
                                     </Highlight>
                                 </P>
                                 <P>
@@ -126,25 +119,22 @@ function About() {
                                             'adapt',
                                             'grow',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        Beyond my professional pursuits, I enjoy
-                                        diving into side projects, playing
-                                        piano, and exploring new hiking trails.
-                                        I’m always eager to learn, adapt, and
-                                        grow, bringing curiosity and enthusiasm
-                                        to every team and project I join.
+                                        Outside of work, I enjoy exploring side
+                                        projects, playing piano, and discovering
+                                        new hiking trails. I’m always eager to
+                                        learn, adapt, and grow, and I bring that
+                                        same energy and curiosity to every team
+                                        I join.
                                     </Highlight>
                                 </P>
                             </VStack>
                             <VStack w="100%" gap={8}>
                                 <P>
-                                    Thanks for making it this far! Feel free to
-                                    connect with me on LinkedIn or drop me a
-                                    message using the form below. I’d love to
-                                    hear from you!
+                                    Thanks for reading! Feel free to connect
+                                    with me on LinkedIn or send a message using
+                                    the form below.
                                 </P>
                                 <Contact />
                             </VStack>

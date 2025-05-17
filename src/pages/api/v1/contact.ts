@@ -27,14 +27,14 @@ export default async function handler(
             port: 465,
             secure: true,
             auth: {
-                user: serverConfig.NEXT_PUBLIC_EMAIL,
+                user: process.env.NEXT_PUBLIC_EMAIL,
                 pass: serverConfig.EMAIL_PASS,
             },
         });
 
         const mailOptions = {
             from: '"Contact Form" <no-reply@hultman.dev>',
-            to: serverConfig.NEXT_PUBLIC_EMAIL,
+            to: process.env.NEXT_PUBLIC_EMAIL,
             subject: `New Contact Form Submission from ${name}`,
             text: `
                 You have a new contact form submission:
