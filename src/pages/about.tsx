@@ -102,11 +102,12 @@ function About() {
                                         styles={{ color: 'green.500' }}
                                     >
                                         Right now, I’m building generative AI
-                                        tools for editorial teams that run on
-                                        the edge using Cloudflare Workers and
-                                        the OpenAI API. I’m also iterating on a
-                                        redirect platform that integrates deeply
-                                        with WordPress and Golang microservices.
+                                        tools focused on speed, usability, and
+                                        practical integration. I’m especially
+                                        interested in applying LLMs to
+                                        real-world editorial and automation
+                                        workflows — keeping things fast,
+                                        minimal, and resilient at scale.
                                     </Highlight>
                                 </P>
                                 <P>
