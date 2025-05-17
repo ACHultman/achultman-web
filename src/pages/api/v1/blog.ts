@@ -1,9 +1,9 @@
 import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { config } from '../../../config';
+import { serverConfig } from '../../../config';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-const notion = new Client({ auth: config.NOTION_API_KEY });
+const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
 
 function isFullPageObjectResponse(page: any): page is PageObjectResponse {
     return page && page.object === 'page' && page.properties;
@@ -18,7 +18,7 @@ export default async function handler(
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const databaseId = config.NOTION_DATABASE_ID_BLOG;
+    const databaseId = serverConfig.NOTION_DATABASE_ID_BLOG;
 
     try {
         if (!databaseId) {

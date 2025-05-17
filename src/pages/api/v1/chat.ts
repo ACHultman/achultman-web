@@ -1,11 +1,11 @@
 import { NextRequest } from 'next/server';
 import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-import { config } from '../../../config';
+import { serverConfig } from '../../../config';
 
 const openai = createOpenAI({
     compatibility: 'strict',
-    apiKey: config.OPENAI_API_KEY,
+    apiKey: serverConfig.OPENAI_API_KEY,
 });
 export const runtime = 'edge';
 
@@ -15,7 +15,7 @@ const CURR_DATE = new Date().toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
 });
-const systemInitMessage = config.OPENAI_SYSTEM_INIT_MSG.replace(
+const systemInitMessage = serverConfig.OPENAI_SYSTEM_INIT_MSG.replace(
     '{CURR_DATE}',
     CURR_DATE
 );

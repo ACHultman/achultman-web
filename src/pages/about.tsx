@@ -47,49 +47,46 @@ function About() {
                                 <P>
                                     <Highlight
                                         query={[
-                                            'Bachelor of Software Engineering',
-                                            'cross-platform software development',
-                                            'cybersecurity',
-                                            'artificial intelligence',
-                                            'user-centric',
+                                            'Full-stack software developer',
+                                            '5+ years',
+                                            'AI-enabled',
+                                            'secure',
+                                            'scalable platforms',
+                                            'Cybersecurity & Privacy',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        I hold a Bachelor of Software
-                                        Engineering from the University of
-                                        Victoria, where I cultivated a deep
-                                        passion for cross-platform development,
-                                        cybersecurity, and artificial
-                                        intelligence. I’m driven by the
-                                        challenge of building innovative
-                                        solutions that are not only efficient
-                                        but also user-centric.
+                                        I am a Full-stack software developer
+                                        (EIT) with 5+ years of professional
+                                        experience building AI-enabled, secure,
+                                        and scalable platforms. I hold a
+                                        Bachelor of Software Engineering with a
+                                        specialization in Cybersecurity &
+                                        Privacy from the University of Victoria.
                                     </Highlight>
                                 </P>
                                 <P>
                                     <Highlight
                                         query={[
-                                            'full-stack',
-                                            'front-end',
-                                            'scalable',
-                                            'collaborative',
-                                            'problem-solving',
-                                            'diverse technical challenges',
+                                            'high-traffic web applications',
+                                            'distributed systems',
+                                            'performance',
+                                            'security',
+                                            'user experience',
+                                            'platform architecture',
+                                            'edge computing',
+                                            'collaborator',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        Throughout my career, I’ve excelled in
-                                        full-stack and front-end roles,
-                                        delivering scalable and high-quality
-                                        software tailored to user needs. I
-                                        thrive in collaborative environments,
-                                        where I can apply my skills in
-                                        problem-solving and adaptability to
-                                        tackle diverse technical challenges.
+                                        I have a proven track record delivering
+                                        high-traffic web applications and
+                                        distributed systems optimized for
+                                        performance, security, and user
+                                        experience. As a strong collaborator, I
+                                        bring deep expertise in platform
+                                        architecture, edge computing, and
+                                        cybersecurity to every project.
                                     </Highlight>
                                 </P>
 

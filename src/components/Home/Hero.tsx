@@ -27,10 +27,13 @@ function Hero() {
                     Hey, I’m Adam
                 </Heading>
                 <Paragraph fontSize="2xl" lineHeight={1.6}>
-                    Full-Stack Developer and Cybersecurity Enthusiast.
+                    Hey, I’m Adam Full-stack software developer (EIT) with a
+                    focus on AI-powered, secure, and scalable platforms. I help
+                    teams turn complex challenges into reliable, elegant
+                    systems.
                 </Paragraph>
                 <Paragraph fontSize="2xl" lineHeight={1.6} mt={4}>
-                    Let’s build something amazing together!
+                    Let’s build something great together.
                 </Paragraph>
                 <Center>
                     <Link href="#contact">

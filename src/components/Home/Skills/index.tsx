@@ -50,6 +50,8 @@ import {
     SiVisualbasic,
     SiVuedotjs,
     SiWordpress,
+    SiAmazondynamodb,
+    SiTerraform,
 } from 'react-icons/si';
 import {
     FaClipboardCheck,
@@ -138,6 +140,11 @@ const skillData = [
             { name: 'Azure', icon: SiMicrosoftazure },
             { name: 'Azure Devops', icon: SiAzuredevops },
             { name: 'Google Cloud Platform', icon: SiGooglecloud },
+            { name: 'AWS Lambda', icon: SiAmazonwebservices },
+            { name: 'AWS CDK', icon: SiAmazonwebservices },
+            { name: 'Amazon ECS', icon: SiAmazonwebservices },
+            { name: 'DynamoDB', icon: SiAmazondynamodb },
+            { name: 'Terraform', icon: SiTerraform },
         ],
     },
 ];

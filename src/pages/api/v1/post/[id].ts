@@ -1,10 +1,10 @@
 import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { config } from '../../../../config';
+import { serverConfig } from '../../../../config';
 import { GetPageResponse } from '@notionhq/client/build/src/api-endpoints';
 import { pageIsPageObjectResponse } from '../../../../utils/notion';
 
-const notion = new Client({ auth: config.NOTION_API_KEY });
+const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
 
 export default async function handler(
     req: NextApiRequest,
