@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 
 const robotoMono = Roboto_Mono({
     subsets: ['latin'],
+    display: 'swap',
 });
 
 function Layout({ children }: PropsWithChildren) {
