@@ -46,3 +46,4 @@ test-results/
 next.config.original.js
 
 docs/cv.md
+tsconfig.tsbuildinfo
