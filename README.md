@@ -9,6 +9,7 @@ This is my personal website, showcasing my timeline, blog, and skills. It's buil
 - **Bookmarks:** A collection of useful links and resources.
 - **Responsive Design:** Optimized for all screen sizes.
 - **Dark/Light Mode:** App-wide theme switching.
+- **Sitemap:** Automatically generated sitemap for SEO.
 
 ## Tech Stack
 

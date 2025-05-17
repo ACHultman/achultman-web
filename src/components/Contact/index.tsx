@@ -15,7 +15,6 @@ import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import ExternalLink from '@components/ExternalLink';
 import ContactForm from './ContactForm';
-import { config } from '../../config';
 
 const confetti = {
     light: {

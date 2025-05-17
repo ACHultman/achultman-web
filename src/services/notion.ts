@@ -2,9 +2,8 @@ import { Client } from '@notionhq/client';
 import type {
     PageObjectResponse,
     QueryDatabaseParameters,
-    ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints';
-import { config } from '../config';
+import { serverConfig } from '../config';
 import {
     Book,
     Bookmark,
@@ -23,7 +22,7 @@ import {
     isBlockObjectResponse,
 } from '../utils/notion';
 
-const notion = new Client({ auth: config.NOTION_API_KEY });
+const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
 
 const MAP_DATABASE_CONFIG: {
     [K in DatabaseName]: {
@@ -33,12 +32,12 @@ const MAP_DATABASE_CONFIG: {
     };
 } = {
     books: {
-        id: config.NOTION_DATABASE_ID_BOOKS,
+        id: serverConfig.NOTION_DATABASE_ID_BOOKS,
         defaultFilter: undefined,
         formatter: formatBookData,
     },
     blog: {
-        id: config.NOTION_DATABASE_ID_BLOG,
+        id: serverConfig.NOTION_DATABASE_ID_BLOG,
         defaultFilter: {
             property: 'Published',
             date: { is_not_empty: true },
@@ -46,7 +45,7 @@ const MAP_DATABASE_CONFIG: {
         formatter: formatBlogPostData,
     },
     bookmarks: {
-        id: config.NOTION_DATABASE_ID_BOOKMARKS,
+        id: serverConfig.NOTION_DATABASE_ID_BOOKMARKS,
         defaultFilter: undefined,
         formatter: formatBookmarkData,
     },

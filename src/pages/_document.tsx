@@ -28,10 +28,10 @@ function Document() {
                 <link
                     rel="mask-icon"
                     href="/safari-pinned-tab.svg"
-                    color="#5bbad5"
+                    color="#38A169"
                 />
-                <meta name="msapplication-TileColor" content="#2b5797" />
-                <meta name="theme-color" content="#ffffff" />
+                <meta name="msapplication-TileColor" content="#38A169" />
+                <meta name="theme-color" content="#38A169" />
             </Head>
             <body>
                 <ColorModeScript

@@ -1,6 +1,6 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
 import path from 'path';
-import { config as appConfig } from './src/config';
+import { serverConfig } from './src/config';
 
 const config: PlaywrightTestConfig = {
     timeout: 30 * 1000,
@@ -12,12 +12,12 @@ const config: PlaywrightTestConfig = {
         command: 'npm run dev',
         port: 3000,
         timeout: 120 * 1000,
-        reuseExistingServer: !appConfig.IS_CI,
+        reuseExistingServer: !serverConfig.IS_CI,
     },
 
     use: {
         trace: 'retry-with-trace',
-        baseURL: appConfig.APP_BASE_URL,
+        baseURL: serverConfig.APP_BASE_URL,
     },
 
     projects: [

@@ -47,52 +47,48 @@ function About() {
                                 <P>
                                     <Highlight
                                         query={[
-                                            'Bachelor of Software Engineering',
-                                            'cross-platform software development',
-                                            'cybersecurity',
-                                            'artificial intelligence',
-                                            'user-centric',
+                                            'Full-stack software developer',
+                                            '5+ years',
+                                            'AI-enabled',
+                                            'secure',
+                                            'scalable platforms',
+                                            'Cybersecurity & Privacy',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        I hold a Bachelor of Software
-                                        Engineering from the University of
-                                        Victoria, where I cultivated a deep
-                                        passion for cross-platform development,
-                                        cybersecurity, and artificial
-                                        intelligence. I’m driven by the
-                                        challenge of building innovative
-                                        solutions that are not only efficient
-                                        but also user-centric.
+                                        I’m a Full-stack software developer
+                                        (EIT) with over 5 years of professional
+                                        experience building AI-enabled, secure,
+                                        and scalable platforms. I hold a
+                                        Bachelor of Software Engineering with a
+                                        specialization in Cybersecurity &
+                                        Privacy from the University of Victoria.
                                     </Highlight>
                                 </P>
                                 <P>
                                     <Highlight
                                         query={[
-                                            'full-stack',
-                                            'front-end',
-                                            'scalable',
-                                            'collaborative',
-                                            'problem-solving',
-                                            'diverse technical challenges',
+                                            'high-traffic web applications',
+                                            'distributed systems',
+                                            'performance',
+                                            'security',
+                                            'user experience',
+                                            'platform architecture',
+                                            'edge computing',
+                                            'collaborator',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        Throughout my career, I’ve excelled in
-                                        full-stack and front-end roles,
-                                        delivering scalable and high-quality
-                                        software tailored to user needs. I
-                                        thrive in collaborative environments,
-                                        where I can apply my skills in
-                                        problem-solving and adaptability to
-                                        tackle diverse technical challenges.
+                                        I have a strong track record of
+                                        delivering high-traffic web applications
+                                        and distributed systems optimized for
+                                        performance, security, and user
+                                        experience. As a collaborative teammate,
+                                        I bring deep expertise in platform
+                                        architecture, edge computing, and
+                                        cybersecurity to every project.
                                     </Highlight>
                                 </P>
-
                                 <P>
                                     <Highlight
                                         query={[
@@ -103,20 +99,15 @@ function About() {
                                             'cybersecurity',
                                             'analytical skills',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        At UVic, I actively engaged in
-                                        student-led initiatives like VikeLabs
-                                        and VikeSec. With VikeLabs, I hosted a
-                                        React testing workshop and helped
-                                        develop a degree planner web app for
-                                        students. At VikeSec, I participated in
-                                        Capture The Flag (CTF) competitions,
-                                        which ignited my passion for
-                                        cybersecurity and sharpened my
-                                        analytical skills.
+                                        Right now, I’m building generative AI
+                                        tools focused on speed, usability, and
+                                        practical integration. I’m especially
+                                        interested in applying LLMs to
+                                        real-world editorial and automation
+                                        workflows — keeping things fast,
+                                        minimal, and resilient at scale.
                                     </Highlight>
                                 </P>
                                 <P>
@@ -129,25 +120,22 @@ function About() {
                                             'adapt',
                                             'grow',
                                         ]}
-                                        styles={{
-                                            color: 'green.500',
-                                        }}
+                                        styles={{ color: 'green.500' }}
                                     >
-                                        Beyond my professional pursuits, I enjoy
-                                        diving into side projects, playing
-                                        piano, and exploring new hiking trails.
-                                        I’m always eager to learn, adapt, and
-                                        grow, bringing curiosity and enthusiasm
-                                        to every team and project I join.
+                                        Outside of work, I enjoy exploring side
+                                        projects, playing piano, and discovering
+                                        new hiking trails. I’m always eager to
+                                        learn, adapt, and grow, and I bring that
+                                        same energy and curiosity to every team
+                                        I join.
                                     </Highlight>
                                 </P>
                             </VStack>
                             <VStack w="100%" gap={8}>
                                 <P>
-                                    Thanks for making it this far! Feel free to
-                                    connect with me on LinkedIn or drop me a
-                                    message using the form below. I’d love to
-                                    hear from you!
+                                    Thanks for reading! Feel free to connect
+                                    with me on LinkedIn or send a message using
+                                    the form below.
                                 </P>
                                 <Contact />
                             </VStack>

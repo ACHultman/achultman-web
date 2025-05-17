@@ -1,5 +1,12 @@
-function getRequiredEnv(key: string): string {
+function getRequiredEnv(key: string) {
+    if (typeof window !== 'undefined') {
+        throw new Error(
+            `Environment variable ${key} is not available in the browser.`
+        );
+    }
+
     const value = process.env[key];
+
     if (value === undefined || value === null || value.trim() === '') {
         throw new Error(
             `Missing or empty environment variable: ${key}. Ensure it is set in your .env file or environment.`
@@ -17,12 +24,11 @@ function getOptionalEnv(key: string): string | undefined {
 
 const NODE_ENV = getOptionalEnv('NODE_ENV') || 'development';
 
-export const config = {
+const serverConfig = {
     NODE_ENV,
     IS_CI: !!getOptionalEnv('CI'),
 
     // Email
-    NEXT_PUBLIC_EMAIL: getRequiredEnv('NEXT_PUBLIC_EMAIL'),
     EMAIL_PASS: getRequiredEnv('EMAIL_PASS'),
 
     // OpenAI
@@ -56,3 +62,5 @@ export const config = {
         return 'http://localhost:3000';
     })(),
 };
+
+export { serverConfig };

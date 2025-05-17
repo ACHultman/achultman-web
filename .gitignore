@@ -44,3 +44,6 @@ test-results/
 
 # Sentry
 next.config.original.js
+
+docs/cv.md
+tsconfig.tsbuildinfo

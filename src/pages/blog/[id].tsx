@@ -22,7 +22,6 @@ import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 
 import RenderBlocks from '../../components/RenderBlocks';
-import { config } from '../../config';
 import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
 
@@ -159,7 +158,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ id: string }>) {
     const { id } = params!;
 
-    const baseUrl = config.APP_BASE_URL;
+    const baseUrl = process.env.APP_BASE_URL;
 
     try {
         const post = await fetchNotion('blog', id);
