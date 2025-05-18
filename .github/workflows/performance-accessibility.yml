@@ -44,6 +44,6 @@ jobs:
                   configPath: .lighthouserc.js
 
             - name: Run Axe accessibility audit
-              uses: paambaati/axe-action@v2
+              uses: paambaati/axe-action@v1
               with:
                   url: http://localhost:3000
