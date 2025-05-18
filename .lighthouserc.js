@@ -2,7 +2,11 @@ module.exports = {
     ci: {
         collect: {
             startServerCommand: 'npm run start',
-            url: ['http://localhost:3000'],
+        url: ['http://localhost:3000'],
+        settings: {
+            // Use provided network/CPU (no simulated throttling) for faster results in CI
+            throttlingMethod: 'provided',
+        },
         },
         assert: {
             assertions: {
