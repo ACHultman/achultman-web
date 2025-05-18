@@ -49,3 +49,6 @@ docs/cv.md
 tsconfig.tsbuildinfo
 
 roadmap.md
+
+.lighthouseci
+*lighthouse.*
