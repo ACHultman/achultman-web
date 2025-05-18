@@ -7,6 +7,8 @@ module.exports = {
             // Use provided network/CPU (no simulated throttling) for faster results in CI
             throttlingMethod: 'provided',
         },
+        // Run Chrome in no-sandbox & disable GPU to avoid CI issues
+        chromeFlags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
         },
         assert: {
             assertions: {
