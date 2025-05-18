@@ -25,7 +25,11 @@ import RenderBlocks from '../../components/RenderBlocks';
 import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
 
-const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
+const roboto = Roboto({
+    subsets: ['latin'],
+    weight: ['400', '500', '700'],
+    preload: true,
+});
 
 interface Props {
     post: NotionPageWithBlocks<'blog'>;
