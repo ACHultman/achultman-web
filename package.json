@@ -48,7 +48,7 @@
     "devDependencies": {
         "@lhci/cli": "^0.11.1",
         "@playwright/test": "^1.48.1",
-        "@next/bundle-analyzer": "^5.1.5",
+        "@next/bundle-analyzer": "^15.3.2",
         "@types/node": "^18.19.56",
         "@types/nodemailer": "^6.4.16",
         "@types/react": "18.3.12",
