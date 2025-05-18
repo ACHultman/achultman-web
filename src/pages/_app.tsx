@@ -1,13 +1,9 @@
 import '../main.css';
 import React from 'react';
-import App, { AppContext, AppProps } from 'next/app';
+import App, { /*AppContext,*/ AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import {
-    ChakraProvider,
-    cookieStorageManagerSSR,
-    localStorageManager,
-} from '@chakra-ui/react';
+import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
 
 import createEmotionCache from '../utils/createEmotionCache';
@@ -24,7 +20,6 @@ const Analytics = dynamic(
 
 interface MyAppProps extends AppProps {
     emotionCache?: EmotionCache;
-    cookies: string;
 }
 
 function MyApp({
@@ -32,11 +27,7 @@ function MyApp({
     pageProps,
     emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
-    const cookies = (pageProps.cookies as string) ?? '';
-    const colorModeManager =
-        typeof cookies === 'string'
-            ? cookieStorageManagerSSR(cookies)
-            : localStorageManager;
+    const colorModeManager = localStorageManager;
 
     return (
         <CacheProvider value={emotionCache}>
@@ -51,12 +42,5 @@ function MyApp({
     );
 }
 
-MyApp.getInitialProps = async (appContext: AppContext) => {
-    const appProps = await App.getInitialProps(appContext);
-    return {
-        ...appProps,
-        cookies: appContext.ctx.req?.headers.cookie ?? '',
-    };
-};
 
 export default MyApp;
