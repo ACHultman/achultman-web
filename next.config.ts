@@ -88,6 +88,20 @@ module.exports = {
             },
         ],
     },
+    // Add Cache-Control header to avoid no-store and enable back/forward cache (bfcache) on static pages
+    async headers() {
+        return [
+            {
+                source: '/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=0, must-revalidate',
+                    },
+                ],
+            },
+        ];
+    },
     compiler: {
         emotion: true,
     },
