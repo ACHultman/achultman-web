@@ -2,10 +2,10 @@ import { Divider, Flex } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 const Hero = dynamic(() => import('./Hero'));
-const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
-const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
-const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
-const Skills = dynamic(() => import('./Skills'), { ssr: false });
+const Timeline = dynamic(() => import('./Timeline'));
+const GitTimeline = dynamic(() => import('./GitTimeline'));
+const Chat = dynamic(() => import('@components/Chat'));
+const Skills = dynamic(() => import('./Skills'));
 const Contact = dynamic(() => import('@components/Contact'));
 
 function Home() {

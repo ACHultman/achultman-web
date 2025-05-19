@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import createEmotionCache from '../utils/createEmotionCache';
 import theme from '../theme';
@@ -33,6 +34,7 @@ function MyApp({
         <CacheProvider value={emotionCache}>
             <DefaultSeo {...SEO} />
             <Analytics />
+            <SpeedInsights />
             <ChakraProvider theme={theme} colorModeManager={colorModeManager}>
                 <Layout>
                     <Component {...pageProps} />

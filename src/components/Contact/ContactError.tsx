@@ -2,18 +2,12 @@ import {
     VStack,
     Text,
     Flex,
-    Tooltip,
-    IconButton,
-    ButtonProps,
     Button,
     useClipboard,
     useColorModeValue,
 } from '@chakra-ui/react';
 import { MdEmail } from 'react-icons/md';
-import { motion } from 'framer-motion';
 import { ContactAlert } from './ContactAlert';
-
-export const MotionButton = motion<ButtonProps>(Button);
 
 export function ContactError({
     firstName,
@@ -41,43 +35,24 @@ export function ContactError({
                         flexWrap="wrap"
                     >
                         Sorry, {firstName}. Please press&nbsp;
-                        <MdEmail
-                            style={{
-                                verticalAlign: 'middle',
-                                fontSize: '1em',
-                            }}
-                        />
-                        &nbsp;to copy my email address.
+                        <Button
+                            variant="link"
+                            onClick={onCopy}
+                            leftIcon={<MdEmail />}
+                            aria-label="Copy email address"
+                        >
+                            to copy my email address.
+                        </Button>
                     </Text>
                 }
             >
                 <Flex align="center" justifyContent="space-between" w="100%">
-                    <Tooltip
-                        label={hasCopied ? 'Email Copied!' : 'Copy Email'}
-                        closeOnClick={false}
-                        hasArrow
-                    >
-                        <IconButton
-                            aria-label="email"
-                            variant="ghost"
-                            size="lg"
-                            fontSize="3xl"
-                            icon={<MdEmail />}
-                            _hover={{
-                                bg: hoverBg,
-                                color: hoverColor,
-                            }}
-                            onClick={onCopy}
-                            isRound
-                        />
-                    </Tooltip>
-                    <MotionButton
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={onRetry}
-                    >
+                    <Button onClick={onRetry} colorScheme="blue">
                         Try Again
-                    </MotionButton>
+                    </Button>
+                    <Button onClick={onCopy} variant="outline">
+                        {hasCopied ? 'Copied!' : 'Copy Email'}
+                    </Button>
                 </Flex>
             </ContactAlert>
         </VStack>

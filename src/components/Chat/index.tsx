@@ -9,20 +9,17 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { useChat } from '@ai-sdk/react';
-import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { MdSend } from 'react-icons/md';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
     INIT_PROMPT_CHOICES,
 } from '../../constants/chat';
-import MessageBox from '@components/Chat/MessageBox';
 import ChipList from '@components/ChipList';
-
-const MotionMessageBox = motion(MessageBox);
+import MessageBox from './MessageBox';
 
 function generateSuggestions(n: number) {
-    return INIT_PROMPT_CHOICES.sort(() => Math.random() - 0.5).slice(0, n);
+    return INIT_PROMPT_CHOICES.slice(n, n + 1);
 }
 
 function Chat() {
@@ -49,8 +46,7 @@ function Chat() {
         (m) => m.role === 'assistant'
     ).length;
     useEffect(() => {
-        console.log('generating suggestions');
-        setSuggestions(generateSuggestions(1));
+        setSuggestions(generateSuggestions(assistantMessagesCount));
     }, [assistantMessagesCount]);
 
     const showSuggestions = suggestions.length > 0 && status === 'ready';
@@ -84,7 +80,7 @@ function Chat() {
                     ref={conversationNode}
                 >
                     {messages.map((m) => (
-                        <MotionMessageBox
+                        <MessageBox
                             key={m.id}
                             message={m.content}
                             isUser={m.role === 'user'}

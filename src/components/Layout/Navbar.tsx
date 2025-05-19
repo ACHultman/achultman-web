@@ -12,7 +12,6 @@ import DarkModeSwitch from '../DarkModeSwitch';
 import Logo from '../Logo';
 import Link from './extra/Link';
 import DropdownMenu from './extra/Menu';
-import { motion } from 'framer-motion';
 import NavbarIcon from './NavbarIcon';
 
 const MAIN_LINKS = [
@@ -40,8 +39,6 @@ const EXTRA_LINKS = [
         route: '/books',
     },
 ];
-
-const MotionIconButton = motion(IconButton);
 
 function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,14 +74,13 @@ function Navbar() {
         >
             <Flex alignItems="center" justifyContent="space-between">
                 <DarkMode>
-                    <MotionIconButton
+                    <IconButton
                         size="lg"
                         bg="transparent !important"
                         icon={<NavbarIcon isOpen={isOpen} />}
-                        aria-label="Open Menu"
+                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
                         display={{ md: !isOpen ? 'none' : 'flex' }}
                         onClick={isOpen ? onClose : onOpen}
-                        whileTap={{ scale: 0.9 }}
                     />
                 </DarkMode>
                 <HStack spacing={8} alignItems="center">
