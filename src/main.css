@@ -27,6 +27,10 @@ a:hover {
     transform: scale(0.9);
 }
 
+.logo:active {
+    transform: scale(0.8);
+}
+
 /* Inner cricle  */
 
 .logo::before {
@@ -71,8 +75,8 @@ a:hover {
 }
 
 .logo:hover::after {
-    height: 80px;
-    width: 80px;
+    height: 72px;
+    width: 72px;
     opacity: 1;
     transition: 250ms;
     animation: spin 10s infinite linear;
@@ -85,6 +89,18 @@ a:hover {
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--chakra-colors-green-500); /* Or your desired color */
+    transform-origin: 0%;
+    z-index: var(--chakra-zIndices-banner); /* Or a high z-index */
+    transform: scaleX(var(--scroll-progress, 0));
 }
 
 /* blog */

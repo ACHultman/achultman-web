@@ -1,11 +1,8 @@
-import { Box, Button, ButtonProps, Center, Heading } from '@chakra-ui/react';
+import { Box, Button, Center, Heading } from '@chakra-ui/react';
 
 import Paragraph from '../Paragraph';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
-
-const MotionButton = motion<ButtonProps>(Button);
 
 function Hero() {
     return (
@@ -27,18 +24,17 @@ function Hero() {
             </Paragraph>
             <Center>
                 <Link href="#contact">
-                    <MotionButton
+                    <Button
                         colorScheme="green"
                         size="lg"
                         mt={8}
                         bg="green.600"
                         _hover={{ bg: 'green.700' }}
                         color="white"
-                        whileHover={{ scale: 1.1 }}
                         leftIcon={<FaEnvelope />}
                     >
                         Contact
-                    </MotionButton>
+                    </Button>
                 </Link>
             </Center>
         </Box>

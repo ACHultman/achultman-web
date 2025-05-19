@@ -1,48 +1,34 @@
-import { Divider, Flex } from '@chakra-ui/react';
+import { Divider, Flex, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
-const loading = () => (
-    <div className="section-loading" style={{ minHeight: 120 }} />
-);
+import Hero from './Hero';
 
-const Hero = dynamic(() => import('./Hero'), {
-    loading,
-});
-const Timeline = dynamic(() => import('./Timeline'), {
-    loading,
-});
-const GitTimeline = dynamic(() => import('./GitTimeline'), {
-    loading,
-});
-const Chat = dynamic(() => import('@components/Chat'), {
-    ssr: false,
-    loading,
-});
-const Skills = dynamic(() => import('./Skills'), {
-    loading,
-});
-const Contact = dynamic(() => import('@components/Contact'), {
-    loading,
-});
+const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
+const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
+const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
+const Skills = dynamic(() => import('./Skills'), { ssr: false });
+const Contact = dynamic(() => import('@components/Contact'), { ssr: false });
 
 function Home() {
     return (
-        <>
+        <VStack
+            spacing={8}
+            align="center"
+            justify="center"
+            w="100%"
+            divider={<Divider />}
+        >
             <Hero />
-            <Divider className="divider" my={10} />
             <Chat />
-            <Divider className="divider" my={10} />
             <Skills />
-            <Divider className="divider" my={10} />
             <Flex justifyContent="center">
                 <GitTimeline />
                 <Timeline />
             </Flex>
-            <Divider className="divider" my={10} />
             <section id="contact">
                 <Contact />
             </section>
-        </>
+        </VStack>
     );
 }
 

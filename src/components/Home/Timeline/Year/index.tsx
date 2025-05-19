@@ -1,5 +1,4 @@
-import { Box, VStack, List } from '@chakra-ui/react';
-import { MotionHeading } from '..';
+import { Box, VStack, List, Heading } from '@chakra-ui/react';
 import { YearEntry } from './YearEntry';
 import { TIMELINE } from 'src/constants/timeline';
 
@@ -14,19 +13,16 @@ export function Year({ year, entries }: Props) {
     return (
         <Box>
             <VStack>
-                <MotionHeading
+                <Heading
+                    suppressHydrationWarning
                     mt={10}
                     mb={5}
                     as="h2"
                     size="md"
                     borderBottom="2px"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
                 >
                     {year}
-                </MotionHeading>
+                </Heading>
                 <List spacing={18} fontSize="18">
                     {entries.map((item, i) => (
                         <YearEntry

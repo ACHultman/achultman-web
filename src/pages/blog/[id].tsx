@@ -1,7 +1,6 @@
 import { GetStaticPropsContext } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import { Roboto } from 'next/font/google';
-import { motion, useScroll, useSpring } from 'framer-motion';
 import {
     Alert,
     AlertIcon,
@@ -20,6 +19,7 @@ import {
 import NextImage from 'next/image';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
+import { useEffect } from 'react';
 
 import RenderBlocks from '../../components/RenderBlocks';
 import { fetchNotion, fetchNotions } from '../../services/notion';
@@ -37,12 +37,26 @@ interface Props {
 }
 
 function BlogPost({ post, seo }: Props) {
-    const { scrollYProgress } = useScroll();
-    const scale = useSpring(scrollYProgress, {
-        stiffness: 200,
-        damping: 40,
-        bounce: 20,
-    });
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const updateScrollProgress = () => {
+                const scrollableHeight =
+                    document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = window.scrollY;
+                const progress =
+                    scrollableHeight > 0 ? scrolled / scrollableHeight : 0;
+                document.documentElement.style.setProperty(
+                    '--scroll-progress',
+                    String(progress)
+                );
+            };
+            window.addEventListener('scroll', updateScrollProgress);
+            updateScrollProgress(); // Initial call
+
+            return () =>
+                window.removeEventListener('scroll', updateScrollProgress);
+        }
+    }, []);
 
     if (!post) {
         return (
@@ -76,90 +90,82 @@ function BlogPost({ post, seo }: Props) {
     return (
         <>
             <NextSeo {...seo} />
-            <motion.div
-                style={{
-                    scaleX: scale,
-                    transformOrigin: 'left',
-                    background: 'green',
-                    position: 'sticky',
-                    top: 74,
-                    width: '100%',
-                    height: '8px',
-                    borderRadius: '20px',
-                    zIndex: 10,
-                }}
-            />
-            <Container maxW="container.md" className={roboto.className} py={8}>
-                <Box as="article">
-                    <Heading
-                        as="h1"
-                        fontSize={{ base: '28px', md: '32px', lg: '36px' }}
-                        mb={4}
-                    >
-                        {page.title}
-                    </Heading>
-                    <Text
-                        as="time"
-                        dateTime={page.publishedDate || undefined}
-                        color="gray.500"
-                        mb={2}
-                        display="block"
-                    >
-                        {page.publishedDate
-                            ? new Date(page.publishedDate).toLocaleDateString(
-                                  'en-US',
-                                  {
-                                      year: 'numeric',
-                                      month: 'long',
-                                      day: 'numeric',
-                                  }
-                              )
-                            : 'Unpublished'}
-                    </Text>
-                    <Text color="gray.500" mb={4}>
-                        By Adam Hultman
-                    </Text>
-                    {page.tags && page.tags.length > 0 && (
-                        <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
-                            {page.tags.map((tag) => (
-                                <Tag key={tag} colorScheme="green">
-                                    {tag}
-                                </Tag>
-                            ))}
-                        </Stack>
-                    )}
-                    {page.cover && (
-                        <Box
-                            position="relative"
-                            width="100%"
-                            height={{ base: '300px', md: '400px' }}
-                            mb={6}
-                            borderRadius="md"
-                            overflow="hidden"
-                        >
-                            <NextImage
-                                src={page.cover}
-                                alt={`${page.title} cover image`}
-                                fill
-                                style={{ objectFit: 'cover' }}
-                                placeholder="empty"
-                            />
-                        </Box>
-                    )}
-                    <Divider my={6} />
+            <Box
+                as="article"
+                className={roboto.className}
+                p={8}
+                css={{ position: 'relative' }}
+            >
+                <div className="progress-bar" />
 
-                    {/* Notion API client and block renderer do not have identical types */}
-                    <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
-
-                    <Box mt={8} textAlign="center">
-                        <Link href="/blog">
-                            <Button leftIcon={<ArrowLeftIcon />}>
-                                Back to Blog List
-                            </Button>
-                        </Link>
+                <Heading
+                    as="h1"
+                    fontSize={{ base: '28px', md: '32px', lg: '36px' }}
+                    mb={4}
+                >
+                    {page.title}
+                </Heading>
+                <Text
+                    as="time"
+                    dateTime={page.publishedDate || undefined}
+                    color="gray.500"
+                    mb={2}
+                    display="block"
+                >
+                    {page.publishedDate
+                        ? new Date(page.publishedDate).toLocaleDateString(
+                              'en-US',
+                              {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                              }
+                          )
+                        : 'Unpublished'}
+                </Text>
+                <Text color="gray.500" mb={4}>
+                    By Adam Hultman
+                </Text>
+                {page.tags && page.tags.length > 0 && (
+                    <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
+                        {page.tags.map((tag) => (
+                            <Tag key={tag} colorScheme="green">
+                                {tag}
+                            </Tag>
+                        ))}
+                    </Stack>
+                )}
+                {page.cover && (
+                    <Box
+                        position="relative"
+                        width="100%"
+                        height={{ base: '300px', md: '400px' }}
+                        mb={6}
+                        borderRadius="md"
+                        overflow="hidden"
+                    >
+                        <NextImage
+                            src={page.cover}
+                            alt={`${page.title} cover image`}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            placeholder="empty"
+                        />
                     </Box>
+                )}
+                <Divider my={6} />
+
+                {/* Notion API client and block renderer do not have identical types */}
+                <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
+
+                <Box mt={8} textAlign="center">
+                    <Link href="/blog">
+                        <Button leftIcon={<ArrowLeftIcon />}>
+                            Back to Blog List
+                        </Button>
+                    </Link>
                 </Box>
-            </Container>
+            </Box>
         </>
     );
 }

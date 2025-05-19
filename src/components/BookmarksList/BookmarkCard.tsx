@@ -7,7 +7,6 @@ import {
     Tag,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { Bookmark } from '../../types/notion';
 import Paragraph from '../Paragraph';
 
@@ -15,14 +14,12 @@ interface Props {
     bookmark: Bookmark;
 }
 
-const MotionBox = motion(Box);
-
 function BookmarkCard({ bookmark }: Props) {
     const borderColor = useColorModeValue('gray.200', 'gray.700');
 
     return (
         <LinkBox as="article">
-            <MotionBox
+            <Box
                 h="100%"
                 maxW="400px"
                 borderWidth="1px"
@@ -31,10 +28,6 @@ function BookmarkCard({ bookmark }: Props) {
                 cursor="pointer"
                 role="group"
                 style={{ transition: '.5s' }}
-                layout
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
                 _hover={{ borderColor: 'green.300' }}
             >
                 <Flex
@@ -72,7 +65,7 @@ function BookmarkCard({ bookmark }: Props) {
                         </Flex>
                     )}
                 </Flex>
-            </MotionBox>
+            </Box>
         </LinkBox>
     );
 }

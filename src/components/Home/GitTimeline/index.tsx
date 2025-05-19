@@ -1,21 +1,10 @@
-import {
-    Heading,
-    SlideFade,
-    ListItem,
-    theme,
-    Box,
-    useBreakpointValue,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { SlideFade, theme, Box } from '@chakra-ui/react';
 import { Gitgraph, Mode, TemplateName, templateExtend } from '@gitgraph/react';
 import type { BranchUserApi, Commit as TCommit } from '@gitgraph/core';
 import { ReactSvgElement } from '@gitgraph/react/lib/types';
 import { constructGitGraph } from '../../../utils/gitgraph';
 import { ORG_COLORS } from '../../../constants';
 import { Commit } from './Commit';
-
-export const MotionHeading = motion(Heading);
-export const MotionListItem = motion(ListItem);
 
 const graphTemplate = templateExtend(TemplateName.Metro, {
     colors: [
@@ -55,18 +44,21 @@ function createCommit(
 }
 
 function GitTimeline() {
-    const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' });
-
     return (
         <Box
             position="absolute"
             alignSelf="center"
-            marginLeft={bgMarginLeftPx}
+            ml={{ base: 0, lg: '580px' }}
             zIndex="-1"
             opacity="0.05"
             overflow="hidden"
         >
-            <SlideFade in={true} offsetY={80} delay={0.2}>
+            <SlideFade
+                in={true}
+                offsetY={80}
+                delay={0.2}
+                suppressHydrationWarning
+            >
                 <Gitgraph
                     options={{
                         author: 'Adam Hultman <adam@hultman.dev>',

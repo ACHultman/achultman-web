@@ -6,16 +6,13 @@ import {
     Textarea,
     VStack,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { BsPerson } from 'react-icons/bs';
 import { MdOutlineEmail } from 'react-icons/md';
 import { ContactFormField } from './ContactFormField';
 import { ContactAlert } from './ContactAlert';
 import { ContactError } from './ContactError';
-
-const MotionButton = motion(Button);
 
 type FormData = {
     name: string;
@@ -132,18 +129,16 @@ function ContactForm() {
                         onRetry={() => setSubmitStatus('idle')}
                     />
                 ) : (
-                    <MotionButton
+                    <Button
                         colorScheme="green"
                         bg="green.600"
                         color="white"
                         width="full"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
                         isLoading={isSubmitting}
                         type="submit"
                     >
                         Send Message
-                    </MotionButton>
+                    </Button>
                 )}
             </VStack>
         </form>

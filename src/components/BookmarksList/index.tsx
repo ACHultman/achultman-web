@@ -1,53 +1,50 @@
-import { Box, Flex } from '@chakra-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { Box, Button, Flex, SimpleGrid } from '@chakra-ui/react';
+import { useState } from 'react';
 import { Bookmark } from '../../types/notion';
-import Message from '../Message';
 import BookmarkCard from './BookmarkCard';
+import BookmarkTags from './BookmarkTags';
 
 interface Props {
     bookmarks: Bookmark[];
 }
 
-const MotionBox = motion(Box);
-
 function BookmarksList({ bookmarks }: Props) {
-    if (!bookmarks || !bookmarks.length) {
-        return <Message />;
-    }
+    const [selectedTag, setSelectedTag] = useState<string | null>(null);
+    const [limit, setLimit] = useState(12);
+    const tags = Array.from(new Set(bookmarks.flatMap((bm) => bm.tags)));
+    const filteredBookmarks = selectedTag
+        ? bookmarks.filter((bm) => bm.tags.includes(selectedTag))
+        : bookmarks;
+
+    const loadMore = () => {
+        setLimit((prev) => prev + 12);
+    };
 
     return (
-        <AnimatePresence>
-            <Flex
-                key="bookmarks-list"
-                w="100%"
-                wrap="wrap"
-                justify="center"
-                gap={4}
-            >
-                {bookmarks.map((bookmark, i) => (
-                    <MotionBox
-                        key={bookmark.id}
-                        flexBasis={[
-                            '100%',
-                            'calc(50% - 20px)',
-                            'calc(33.33% - 20px)',
-                        ]}
-                        maxW={[
-                            '100%',
-                            'calc(50% - 20px)',
-                            'calc(33.33% - 20px)',
-                        ]}
-                        maxH="fit-content"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                    >
-                        <BookmarkCard bookmark={bookmark} />
-                    </MotionBox>
+        <Box>
+            <BookmarkTags
+                tags={tags}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+            />
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={8}>
+                {filteredBookmarks.slice(0, limit).map((bm) => (
+                    <BookmarkCard key={bm.id} bookmark={bm} />
                 ))}
-            </Flex>
-        </AnimatePresence>
+            </SimpleGrid>
+            {limit < filteredBookmarks.length && (
+                <Flex justify="center" mt={8}>
+                    <Button
+                        onClick={loadMore}
+                        variant="outline"
+                        colorScheme="green"
+                        style={{ transition: '.5s' }}
+                    >
+                        Load More
+                    </Button>
+                </Flex>
+            )}
+        </Box>
     );
 }
 
