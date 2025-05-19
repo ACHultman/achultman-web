@@ -54,5 +54,7 @@ jobs:
 
             - name: Run Pa11y CI
               env:
+                  CI: true
+                  VERCEL_PREVIEW_URL: https://${{ steps.vercel_preview_url.outputs.preview_url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-              run: npx pa11y-ci --config .pa11yci.js https://${{ steps.vercel_preview_url.outputs.preview_url }}
+              run: npx pa11y-ci --config .pa11yci.js
