@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 
-export const MotionButton = motion<ButtonProps>(Button);
+const MotionButton = motion<ButtonProps>(Button);
 
 function Hero() {
     return (

@@ -1,31 +1,21 @@
 import {
-    Alert,
-    AlertDescription,
-    AlertIcon,
-    AlertTitle,
     Button,
-    Flex,
-    FormControl,
-    FormErrorMessage,
-    FormLabel,
-    IconButton,
     Input,
     InputGroup,
     InputLeftElement,
     Textarea,
-    Tooltip,
-    useClipboard,
-    useColorModeValue,
     VStack,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsPerson } from 'react-icons/bs';
-import { MdOutlineEmail, MdEmail } from 'react-icons/md';
+import { MdOutlineEmail } from 'react-icons/md';
+import { ContactFormField } from './ContactFormField';
+import { ContactAlert } from './ContactAlert';
+import { ContactError } from './ContactError';
 
 const MotionButton = motion(Button);
-const requiredIndicator = <span style={{ color: '#dd3636' }}>*</span>;
 
 type FormData = {
     name: string;
@@ -34,17 +24,14 @@ type FormData = {
 };
 
 function ContactForm() {
-    const hoverBg = useColorModeValue('blue.500', 'blue.500');
-    const hoverColor = useColorModeValue('white', 'gray.700');
-    const { hasCopied, onCopy } = useClipboard(
-        process.env.NEXT_PUBLIC_EMAIL || ''
-    );
-
     const {
         handleSubmit,
         register,
         formState: { errors, isSubmitting },
+        getValues,
     } = useForm<FormData>();
+
+    const displayFirstName = getValues('name')?.split(' ')[0];
 
     const [submitStatus, setSubmitStatus] = useState<
         'idle' | 'error' | 'success'
@@ -73,11 +60,11 @@ function ContactForm() {
     return (
         <form onSubmit={handleSubmit(onSubmitForm)}>
             <VStack spacing={5}>
-                <FormControl isRequired>
-                    <FormLabel requiredIndicator={requiredIndicator}>
-                        Name
-                    </FormLabel>
-
+                <ContactFormField
+                    label="Name"
+                    isRequired
+                    error={errors.name?.message}
+                >
                     <InputGroup>
                         <InputLeftElement>
                             <BsPerson />
@@ -91,14 +78,13 @@ function ContactForm() {
                             })}
                         />
                     </InputGroup>
-                    <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-                </FormControl>
+                </ContactFormField>
 
-                <FormControl isRequired>
-                    <FormLabel requiredIndicator={requiredIndicator}>
-                        Email
-                    </FormLabel>
-
+                <ContactFormField
+                    label="Email"
+                    isRequired
+                    error={errors.email?.message}
+                >
                     <InputGroup>
                         <InputLeftElement>
                             <MdOutlineEmail />
@@ -112,14 +98,13 @@ function ContactForm() {
                             })}
                         />
                     </InputGroup>
-                    <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-                </FormControl>
+                </ContactFormField>
 
-                <FormControl isRequired>
-                    <FormLabel requiredIndicator={requiredIndicator}>
-                        Message
-                    </FormLabel>
-
+                <ContactFormField
+                    label="Message"
+                    isRequired
+                    error={errors.message?.message}
+                >
                     <Textarea
                         placeholder="Your Message"
                         rows={6}
@@ -128,79 +113,24 @@ function ContactForm() {
                             required: 'Message is required',
                         })}
                     />
-                    <FormErrorMessage>
-                        {errors.message?.message}
-                    </FormErrorMessage>
-                </FormControl>
+                </ContactFormField>
 
                 {submitStatus === 'success' ? (
-                    <Alert
+                    <ContactAlert
                         status="success"
-                        variant="subtle"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                        textAlign="center"
-                        height="200px"
-                        borderRadius="lg"
-                    >
-                        <AlertIcon boxSize="40px" mr={0} />
-                        <AlertTitle mt={4} mb={1} fontSize="lg">
-                            Message sent!
-                        </AlertTitle>
-                        <AlertDescription maxWidth="sm">
-                            Thanks for reaching out. I&apos;ll get back to you
-                            as soon as I can.
-                        </AlertDescription>
-                    </Alert>
+                        title="Message sent!"
+                        description={
+                            <>
+                                Nice to meet you, {displayFirstName}. I&apos;ll
+                                get back to you as soon as I can.
+                            </>
+                        }
+                    />
                 ) : submitStatus === 'error' ? (
-                    <VStack spacing="4">
-                        <Alert status="error">
-                            <AlertIcon />
-                            <AlertDescription>
-                                Apologies! There was an error while sending your
-                                message.
-                            </AlertDescription>
-                        </Alert>
-                        <Flex
-                            align="center"
-                            justifyContent="space-between"
-                            w="100%"
-                        >
-                            <Tooltip
-                                label={
-                                    hasCopied ? 'Email Copied!' : 'Copy Email'
-                                }
-                                closeOnClick={false}
-                                hasArrow
-                            >
-                                <IconButton
-                                    aria-label="email"
-                                    variant="ghost"
-                                    size="lg"
-                                    fontSize="3xl"
-                                    icon={<MdEmail />}
-                                    _hover={{
-                                        bg: hoverBg,
-                                        color: hoverColor,
-                                    }}
-                                    onClick={onCopy}
-                                    isRound
-                                />
-                            </Tooltip>
-                            <MotionButton
-                                whileHover={{
-                                    scale: 1.05,
-                                }}
-                                whileTap={{
-                                    scale: 0.95,
-                                }}
-                                onClick={() => setSubmitStatus('idle')}
-                            >
-                                Try Again
-                            </MotionButton>
-                        </Flex>
-                    </VStack>
+                    <ContactError
+                        firstName={displayFirstName}
+                        onRetry={() => setSubmitStatus('idle')}
+                    />
                 ) : (
                     <MotionButton
                         colorScheme="green"
