@@ -1,31 +1,34 @@
-import { Divider, Flex } from '@chakra-ui/react';
+import { Divider, Flex, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
-const Hero = dynamic(() => import('./Hero'));
-const Timeline = dynamic(() => import('./Timeline'));
-const GitTimeline = dynamic(() => import('./GitTimeline'));
+import Hero from './Hero';
+
+const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
+const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
 const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
-const Skills = dynamic(() => import('./Skills'));
-const Contact = dynamic(() => import('@components/Contact'));
+const Skills = dynamic(() => import('./Skills'), { ssr: false });
+const Contact = dynamic(() => import('@components/Contact'), { ssr: false });
 
 function Home() {
     return (
-        <>
+        <VStack
+            spacing={8}
+            align="center"
+            justify="center"
+            w="100%"
+            divider={<Divider />}
+        >
             <Hero />
-            <Divider className="divider" my={10} />
             <Chat />
-            <Divider className="divider" my={10} />
             <Skills />
-            <Divider className="divider" my={10} />
             <Flex justifyContent="center">
                 <GitTimeline />
                 <Timeline />
             </Flex>
-            <Divider className="divider" my={10} />
             <section id="contact">
                 <Contact />
             </section>
-        </>
+        </VStack>
     );
 }
 
