@@ -162,6 +162,7 @@ function Skills() {
                                         <ListIcon
                                             as={skill.icon}
                                             color={iconColor}
+                                            aria-hidden={true}
                                         />
                                         {skill.name}
                                     </ListItem>

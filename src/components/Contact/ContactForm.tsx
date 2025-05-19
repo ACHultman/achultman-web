@@ -25,6 +25,7 @@ import { BsPerson } from 'react-icons/bs';
 import { MdOutlineEmail, MdEmail } from 'react-icons/md';
 
 const MotionButton = motion(Button);
+const requiredIndicator = <span style={{ color: '#dd3636' }}>*</span>;
 
 type FormData = {
     name: string;
@@ -73,7 +74,9 @@ function ContactForm() {
         <form onSubmit={handleSubmit(onSubmitForm)}>
             <VStack spacing={5}>
                 <FormControl isRequired>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel requiredIndicator={requiredIndicator}>
+                        Name
+                    </FormLabel>
 
                     <InputGroup>
                         <InputLeftElement>
@@ -92,7 +95,9 @@ function ContactForm() {
                 </FormControl>
 
                 <FormControl isRequired>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel requiredIndicator={requiredIndicator}>
+                        Email
+                    </FormLabel>
 
                     <InputGroup>
                         <InputLeftElement>
@@ -111,7 +116,9 @@ function ContactForm() {
                 </FormControl>
 
                 <FormControl isRequired>
-                    <FormLabel>Message</FormLabel>
+                    <FormLabel requiredIndicator={requiredIndicator}>
+                        Message
+                    </FormLabel>
 
                     <Textarea
                         placeholder="Your Message"
@@ -195,7 +202,7 @@ function ContactForm() {
                         </Flex>
                     </VStack>
                 ) : (
-                <MotionButton
+                    <MotionButton
                         colorScheme="green"
                         bg="green.600"
                         color="white"

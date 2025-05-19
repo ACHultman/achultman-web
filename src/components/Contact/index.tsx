@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
-import ExternalLink from '@components/ExternalLink';
 import ContactForm from './ContactForm';
 
 const confetti = {
@@ -106,34 +105,38 @@ function Contact() {
                                 />
                             </Tooltip>
 
-                            <ExternalLink href="https://github.com/ACHultman">
-                                <IconButton
-                                    aria-label="github"
-                                    variant="ghost"
-                                    size="lg"
-                                    fontSize="3xl"
-                                    icon={<BsGithub />}
-                                    _hover={{
-                                        bg: 'black',
-                                        color: btnHoverColor,
-                                    }}
-                                    isRound
-                                />
-                            </ExternalLink>
+                            <IconButton
+                                as="a"
+                                href="https://github.com/ACHultman"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="github"
+                                variant="ghost"
+                                size="lg"
+                                fontSize="3xl"
+                                icon={<BsGithub />}
+                                _hover={{
+                                    bg: 'black',
+                                    color: btnHoverColor,
+                                }}
+                                isRound
+                            />
 
-                            <ExternalLink href="https://www.linkedin.com/in/adam-hultman/">
-                                <IconButton
-                                    aria-label="linkedin"
-                                    variant="ghost"
-                                    size="lg"
-                                    icon={<BsLinkedin size="28px" />}
-                                    _hover={{
-                                        bg: 'blue.500',
-                                        color: btnHoverColor,
-                                    }}
-                                    isRound
-                                />
-                            </ExternalLink>
+                            <IconButton
+                                as="a"
+                                href="https://www.linkedin.com/in/adam-hultman/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="linkedin"
+                                variant="ghost"
+                                size="lg"
+                                icon={<BsLinkedin size="28px" />}
+                                _hover={{
+                                    bg: 'blue.500',
+                                    color: btnHoverColor,
+                                }}
+                                isRound
+                            />
                         </Stack>
 
                         <Box
