@@ -1,9 +1,15 @@
 const isPreview = process.env.VERCEL_ENV === 'preview';
+const baseUrl = process.env.VERCEL_PREVIEW_URL || 'http://localhost:3000';
 
 module.exports = {
     ci: {
         collect: {
-            url: [process.env.VERCEL_PREVIEW_URL],
+            url: [
+                baseUrl,
+                ...['about', 'blog', 'books', 'bookmarks'].map(
+                    (path) => `${baseUrl}/${path}`
+                ),
+            ],
             settings: {
                 throttlingMethod: 'provided',
                 extraHeaders: JSON.stringify({
@@ -13,8 +19,10 @@ module.exports = {
             },
             chromeFlags: [
                 '--no-sandbox',
-                '--disable-gpu',
+                '--disable-setuid-sandbox',
                 '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--headless',
             ],
         },
         assert: {
