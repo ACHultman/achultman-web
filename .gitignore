@@ -48,7 +48,6 @@ next.config.original.js
 docs/cv.md
 tsconfig.tsbuildinfo
 
-roadmap.md
 
 .lighthouseci
 *lighthouse.*
