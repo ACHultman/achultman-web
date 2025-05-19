@@ -10,6 +10,7 @@ import {
     Stack,
     SimpleGrid,
     Alert,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -23,6 +24,8 @@ interface Props {
 }
 
 function Blog({ posts }: Props) {
+    const dateColor = useColorModeValue('gray.600', 'gray.400');
+
     return (
         <Container maxW="container.lg">
             <SlideFade in={true} offsetY={80}>
@@ -76,7 +79,7 @@ function Blog({ posts }: Props) {
                                         <Heading as="h2" fontSize="xl" mb={2}>
                                             {post.title}
                                         </Heading>
-                                        <Text color="gray.500" mb={4}>
+                                        <Text color={dateColor} mb={4}>
                                             {post.publishedDate
                                                 ? new Date(
                                                       post.publishedDate
