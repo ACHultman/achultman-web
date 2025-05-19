@@ -10,7 +10,7 @@ const Contact = dynamic(() => import('@components/Contact'));
 
 function Home() {
     return (
-        <>
+        <div suppressHydrationWarning>
             <Hero />
             <Divider className="divider" my={10} />
             <Chat />
@@ -25,7 +25,7 @@ function Home() {
             <section id="contact">
                 <Contact />
             </section>
-        </>
+        </div>
     );
 }
 
