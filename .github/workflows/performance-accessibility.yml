@@ -44,4 +44,4 @@ jobs:
                   configPath: .lighthouserc.js
 
             - name: Run Pa11y CI
-              run: npx pa11y-ci http://localhost:3000
+              run: npm run pa11y
