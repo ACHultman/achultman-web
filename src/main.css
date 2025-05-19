@@ -91,6 +91,18 @@ a:hover {
     }
 }
 
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--chakra-colors-green-500); /* Or your desired color */
+    transform-origin: 0%;
+    z-index: var(--chakra-zIndices-banner); /* Or a high z-index */
+    transform: scaleX(var(--scroll-progress, 0));
+}
+
 /* blog */
 
 .blog-postbox:hover {

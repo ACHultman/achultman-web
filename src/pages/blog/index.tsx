@@ -2,31 +2,21 @@ import {
     Box,
     Container,
     Heading,
-    SlideFade,
     Divider,
-    Text,
-    Tag,
-    Stack,
     SimpleGrid,
     Alert,
-    useColorModeValue,
 } from '@chakra-ui/react';
-import NextImage from 'next/image';
-import Link from 'next/link';
-import { NextSeo } from 'next-seo';
-import { motion } from 'framer-motion';
-import { fetchNotions } from '../../services/notion';
-import { BlogPost } from '../../types/notion';
 
-const MotionBox = motion(Box);
+import { NextSeo } from 'next-seo';
+import { fetchNotions } from '../../services/notion';
+import { BlogPost as BlogPostType } from '../../types/notion'; // Renamed to avoid conflict
+import PostBox from '../../components/Blog/PostBox'; // Import the new component
 
 interface Props {
-    posts: BlogPost[];
+    posts: BlogPostType[];
 }
 
-function Blog({ posts }: Props) {
-    const dateColor = useColorModeValue('gray.600', 'gray.400');
-
+function BlogPage({ posts }: Props) {
     return (
         <>
             <NextSeo
@@ -35,7 +25,6 @@ function Blog({ posts }: Props) {
                 canonical="https://hultman.dev/blog"
             />
             <Container maxW="container.lg">
-            <SlideFade in={true} offsetY={80}>
                 <Box>
                     <Heading
                         as="h1"
@@ -54,71 +43,11 @@ function Blog({ posts }: Props) {
                 ) : (
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                         {posts.map((post) => (
-                            <Link
-                                key={post.id}
-                                className="blog-postbox"
-                                href={`/blog/${post.id}`}
-                            >
-                                <MotionBox
-                                    borderWidth="1px"
-                                    borderRadius="lg"
-                                    overflow="hidden"
-                                    boxShadow="md"
-                                    height="100%"
-                                    style={{ transition: 'box-shadow 0.2s' }}
-                                    whileHover={{ scale: 1.02 }}
-                                    _hover={{
-                                        boxShadow:
-                                            '0 0 10px rgba(56, 161, 105, 0.6)',
-                                    }}
-                                    whileTap={{ scale: 0.9 }}
-                                >
-                                    {post.cover && (
-                                        <Box position="relative" width="100%" height="200px">
-                                            <NextImage
-                                                src={post.cover}
-                                                alt={post.title}
-                                                fill
-                                                style={{ objectFit: 'cover' }}
-                                                placeholder="empty"
-                                            />
-                                        </Box>
-                                    )}
-                                    <Box p={6}>
-                                        <Heading as="h2" fontSize="xl" mb={2}>
-                                            {post.title}
-                                        </Heading>
-                                        <Text color={dateColor} mb={4}>
-                                            {post.publishedDate
-                                                ? new Date(
-                                                      post.publishedDate
-                                                  ).toLocaleDateString()
-                                                : 'Unpublished'}
-                                        </Text>
-                                        <Text mb={4}>{post.description}</Text>
-                                        <Stack
-                                            wrap="wrap"
-                                            direction="row"
-                                            spacing={2}
-                                            mb={4}
-                                        >
-                                            {post.tags.map((tag) => (
-                                                <Tag
-                                                    key={tag}
-                                                    colorScheme="green"
-                                                >
-                                                    {tag}
-                                                </Tag>
-                                            ))}
-                                        </Stack>
-                                    </Box>
-                                </MotionBox>
-                            </Link>
+                            <PostBox key={post.id} post={post} />
                         ))}
                     </SimpleGrid>
                 )}
-            </SlideFade>
-        </Container>
+            </Container>
         </>
     );
 }
@@ -142,4 +71,4 @@ export async function getStaticProps() {
     }
 }
 
-export default Blog;
+export default BlogPage; // Updated export

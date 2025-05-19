@@ -1,62 +1,44 @@
-import { Button, Collapse, Flex, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-
-const MotionButton = motion(Button);
-const MotionFlex = motion(Flex);
+import { Tag, Wrap, WrapItem, useColorModeValue } from '@chakra-ui/react';
 
 interface Props {
     tags: string[];
-    activeTag: string | undefined;
-    onClick: (tag: string) => void;
+    selectedTag: string | null;
+    setSelectedTag: (tag: string | null) => void;
 }
 
-function BookmarkTags({ tags, activeTag, onClick }: Props) {
-    const [showAllTags, setShowAllTags] = useState(false);
+function BookmarkTags({ tags, selectedTag, setSelectedTag }: Props) {
+    const activeBg = useColorModeValue('green.200', 'green.500');
+    const inactiveBg = useColorModeValue('gray.200', 'gray.700');
 
     return (
-        <VStack gap={4}>
-            <AnimatePresence>
-                <MotionButton
-                    key="show-all-tags" // key is required for AnimatePresence
-                    w="100%"
-                    variant="outline"
-                    onClick={() => setShowAllTags(!showAllTags)}
+        <Wrap spacing={2} justify="center">
+            <WrapItem>
+                <Tag
+                    size="lg"
+                    variant="solid"
+                    bg={!selectedTag ? activeBg : inactiveBg}
+                    cursor="pointer"
+                    onClick={() => setSelectedTag(null)}
+                    style={{ transition: '.2s' }}
                 >
-                    {`Show ${showAllTags ? 'less' : 'more'} tags`}
-                </MotionButton>
-                <Collapse startingHeight={100} in={showAllTags}>
-                    <MotionFlex gap={3} wrap="wrap">
-                        {tags.map((tag, i) => {
-                            return (
-                                <MotionButton
-                                    key={tag}
-                                    onClick={() => onClick(tag)}
-                                    // style
-                                    w="fit-content"
-                                    borderRadius={20}
-                                    textTransform="capitalize"
-                                    isActive={activeTag && activeTag === tag}
-                                    _active={{
-                                        bg: 'green.500',
-                                    }}
-                                    // animation
-                                    transition={{
-                                        duration: 0.1,
-                                        delay: i * 0.01,
-                                        type: 'spring',
-                                        stiffness: 500,
-                                        damping: 30,
-                                    }}
-                                >
-                                    {tag}
-                                </MotionButton>
-                            );
-                        })}
-                    </MotionFlex>
-                </Collapse>
-            </AnimatePresence>
-        </VStack>
+                    All
+                </Tag>
+            </WrapItem>
+            {tags.map((tag) => (
+                <WrapItem key={tag}>
+                    <Tag
+                        size="lg"
+                        variant="solid"
+                        bg={selectedTag === tag ? activeBg : inactiveBg}
+                        cursor="pointer"
+                        onClick={() => setSelectedTag(tag)}
+                        style={{ transition: '.2s' }}
+                    >
+                        {tag}
+                    </Tag>
+                </WrapItem>
+            ))}
+        </Wrap>
     );
 }
 

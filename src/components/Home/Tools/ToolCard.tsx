@@ -1,71 +1,54 @@
 import {
     Box,
-    Heading,
-    IconButton,
-    LinkOverlay,
+    Flex,
+    Icon,
     LinkBox,
+    LinkOverlay,
+    Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import NextLink from 'next/link';
+import { IconType } from 'react-icons';
 
-import Paragraph from '../../Paragraph';
-import { TTool } from '.';
-
-const MotionIconButton = motion(IconButton);
-
-export interface ToolCardProps {
-    tool: TTool;
+interface Props {
+    name: string;
+    icon: IconType;
+    url: string;
 }
 
-function ToolCard({ tool }: ToolCardProps) {
-    const borderColor = useColorModeValue('gray.300', 'gray.700');
-
-    if (!tool) {
-        return null;
-    }
+function ToolCard({ name, icon, url }: Props) {
+    const bg = useColorModeValue('gray.100', 'gray.700');
+    const hoverBg = useColorModeValue('gray.200', 'gray.600');
 
     return (
         <LinkBox as="article">
-            <Box
-                w="100%"
+            <Flex
+                alignItems="center"
+                justifyContent="center"
+                flexDir="column"
                 p={4}
-                borderColor={borderColor}
-                borderRadius={5}
-                borderWidth="1px"
-                transition=".5s"
-                cursor="pointer"
-                display="flex"
-                role="group"
+                bg={bg}
+                borderRadius="md"
+                textAlign="center"
                 _hover={{
-                    borderColor: 'green.500',
+                    bg: hoverBg,
+                    transform: 'translateY(-2px)',
+                    boxShadow: 'lg',
                 }}
+                style={{ transition: 'all 0.2s ease-in-out' }}
             >
-                <MotionIconButton
-                    as="a"
-                    href={tool.url}
-                    rel="noopener noreferrer"
+                <Icon as={icon} boxSize={10} mb={2} />
+                <LinkOverlay
+                    as={NextLink}
+                    href={url}
                     target="_blank"
-                    aria-label={tool.name}
-                    mr={3}
-                    _groupHover={{ color: 'green.500' }}
-                    icon={tool.icon}
-                    whileHover={{ scale: 1.1 }}
-                />
-                <Box>
-                    <LinkOverlay
-                        href={tool.url}
-                        rel="noopener noreferrer"
-                        isExternal
-                    >
-                        <Heading as="h2" size="sm">
-                            {tool.name}
-                        </Heading>
-                        <Paragraph mt={1} fontSize="sm">
-                            {tool.description}
-                        </Paragraph>
-                    </LinkOverlay>
-                </Box>
-            </Box>
+                    rel="noopener noreferrer"
+                >
+                    <Text fontWeight="semibold" fontSize="lg">
+                        {name}
+                    </Text>
+                </LinkOverlay>
+            </Flex>
         </LinkBox>
     );
 }

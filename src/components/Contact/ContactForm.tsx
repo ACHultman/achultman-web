@@ -1,4 +1,11 @@
-import { Button, Input, InputGroup, InputLeftElement, Textarea, VStack } from '@chakra-ui/react';
+import {
+    Button,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    Textarea,
+    VStack,
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { BsPerson } from 'react-icons/bs';

@@ -61,8 +61,6 @@ function Navbar() {
             as="header"
             zIndex={10}
             top="0px"
-            borderTop="2px solid"
-            borderColor="green.500"
             // left 0 if mobile-ish, unset otherwise
             left={['0px', 'unset']}
             width="100%"
