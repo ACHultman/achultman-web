@@ -1,6 +1,6 @@
 import '../main.css';
 import React from 'react';
-import App, { /*AppContext,*/ AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
@@ -41,6 +41,5 @@ function MyApp({
         </CacheProvider>
     );
 }
-
 
 export default MyApp;

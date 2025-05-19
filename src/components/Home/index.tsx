@@ -2,15 +2,15 @@ import { Divider, Flex } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 const Hero = dynamic(() => import('./Hero'));
-const Timeline = dynamic(() => import('./Timeline'));
-const GitTimeline = dynamic(() => import('./GitTimeline'));
+const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
+const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
 const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
-const Skills = dynamic(() => import('./Skills'));
+const Skills = dynamic(() => import('./Skills'), { ssr: false });
 const Contact = dynamic(() => import('@components/Contact'));
 
 function Home() {
     return (
-        <div suppressHydrationWarning>
+        <>
             <Hero />
             <Divider className="divider" my={10} />
             <Chat />
@@ -25,7 +25,7 @@ function Home() {
             <section id="contact">
                 <Contact />
             </section>
-        </div>
+        </>
     );
 }
 
