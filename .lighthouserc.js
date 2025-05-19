@@ -2,13 +2,19 @@ module.exports = {
     ci: {
         collect: {
             startServerCommand: 'npm run start',
-        url: ['http://localhost:3000'],
-        settings: {
-            // Use provided network/CPU (no simulated throttling) for faster results in CI
-            throttlingMethod: 'provided',
-        },
-        // Run Chrome in no-sandbox & disable GPU to avoid CI issues
-        chromeFlags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
+            url: ['http://localhost:3000'],
+            settings: {
+                throttlingMethod: 'provided',
+                extraHeaders: JSON.stringify({
+                    'x-vercel-protection-bypass':
+                        process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+                }),
+            },
+            chromeFlags: [
+                '--no-sandbox',
+                '--disable-gpu',
+                '--disable-dev-shm-usage',
+            ],
         },
         assert: {
             assertions: {

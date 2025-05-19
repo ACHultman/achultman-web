@@ -28,20 +28,29 @@ jobs:
             - name: Audit dependencies
               run: npm audit --audit-level=high
 
-            - name: Build production
-              run: npm run build
+            - name: Wait for Vercel to finish deployment
+              run: sleep 30
 
-            - name: Serve production
-              run: npm run start &
+            - name: Get Vercel Preview URL
+              id: vercel_preview_url
+              uses: zentered/vercel-preview-url@v1.4.0
+              env:
+                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              with:
+                  vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
 
-            - name: Wait for server to start
-              run: npx wait-on http://localhost:3000
+            - name: Confirm Preview URL
+              run: echo "Preview deployed at https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
             - name: Run Lighthouse CI
               uses: treosh/lighthouse-ci-action@v12
+              env:
+                  VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               with:
-                  urls: http://localhost:3000
+                  urls: https://${{ steps.vercel_preview_url.outputs.preview_url }}
                   configPath: .lighthouserc.js
 
             - name: Run Pa11y CI
-              run: npm run pa11y
+              env:
+                  VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+              run: npx pa11y-ci --config .pa11yci.js https://${{ steps.vercel_preview_url.outputs.preview_url }}

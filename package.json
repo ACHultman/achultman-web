@@ -11,8 +11,7 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "analyze": "ANALYZE=true next build",
-        "lhci": "npm run build && npx lhci autorun --config .lighthouserc.js",
-        "pa11y": "npx pa11y-ci http://localhost:3000"
+        "lhci": "npm run build && npx lhci autorun --config .lighthouserc.js"
     },
     "dependencies": {
         "@9gustin/react-notion-render": "^3.11.3",
