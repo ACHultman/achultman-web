@@ -90,15 +90,11 @@ function formatBookmarkData(bookmark: PageObjectResponse): Bookmark | null {
         return null;
     }
 
-    const domain = new URL(getLink(bookmark, 'Link')).hostname;
-    const cover = `https://icon.horse/icon/${domain}`;
-
     return {
         id: bookmark.id,
         title: getTitle(bookmark),
         link: getLink(bookmark, 'Link'),
         description: getRichText(bookmark, 'Description'),
-        cover,
         tags: getTags(bookmark, 'Tags'),
         lastEditedTime: bookmark.last_edited_time,
     };

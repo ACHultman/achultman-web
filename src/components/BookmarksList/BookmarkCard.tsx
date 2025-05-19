@@ -6,7 +6,6 @@ import {
     useColorModeValue,
     Tag,
     Flex,
-    Image,
     VStack,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
@@ -18,6 +17,8 @@ interface Props {
 }
 
 function BookmarkCard({ bookmark }: Props) {
+    const borderColor = useColorModeValue('gray.200', 'gray.700');
+
     return (
         <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -29,7 +30,7 @@ function BookmarkCard({ bookmark }: Props) {
                 <Box
                     h="100%"
                     maxW="400px"
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}
+                    borderColor={borderColor}
                     borderRadius={10}
                     borderWidth="1px"
                     transition=".5s"
@@ -40,19 +41,6 @@ function BookmarkCard({ bookmark }: Props) {
                     }}
                 >
                     <VStack h="100%">
-                        <motion.div
-                            style={{ width: '100%' }}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <Image
-                                src={bookmark.cover}
-                                alt={`Image for ${bookmark.title} link`}
-                                h="auto"
-                                borderTopRadius={10}
-                            />
-                        </motion.div>
                         <motion.div
                             style={{ width: '100%' }}
                             initial={{ opacity: 0 }}

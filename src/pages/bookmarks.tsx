@@ -104,9 +104,7 @@ function Bookmarks({ bookmarks }: Props) {
 export async function getStaticProps() {
     const bookmarks = await fetchNotions('bookmarks');
     return {
-        props: {
-            bookmarks,
-        },
+        props: { bookmarks },
         revalidate: 86400, // 24 hours
     };
 }

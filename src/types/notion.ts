@@ -34,7 +34,6 @@ export type Bookmark = {
     title: string;
     link: string;
     description: string;
-    cover: string;
     tags: string[];
     lastEditedTime: string;
 };
