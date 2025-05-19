@@ -43,7 +43,8 @@ jobs:
                   urls: http://localhost:3000
                   configPath: .lighthouserc.js
 
-            - name: Run Axe accessibility audit
-              uses: paambaati/axe-action@v1
+            - name: Run A11yWatch accessibility audit
+              uses: a11ywatch/github-action@v2.1.10
               with:
-                  url: http://localhost:3000
+                  WEBSITE_URL: 'http://localhost:3000'
+                  SITE_WIDE: true
