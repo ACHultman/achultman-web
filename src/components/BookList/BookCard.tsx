@@ -11,13 +11,13 @@ interface BookCardProps {
 }
 
 function BookCard({ book }: BookCardProps) {
-    const noCoverBg = useColorModeValue('gray.100', 'gray.900');
+    const noCoverBg = useColorModeValue('gray.100', 'gray.700');
 
     if (!book) {
         return null;
     }
 
-    const { cover, title, author, link } = book;
+    const { title, author, link, cover, coverWidth, coverHeight } = book;
 
     return (
         <ExternalLink href={link} underline={false}>
@@ -31,6 +31,39 @@ function BookCard({ book }: BookCardProps) {
                 }}
                 width="100%"
             >
+                {cover && coverWidth && coverHeight ? (
+                    <Box
+                        position="relative"
+                        width="100%"
+                        overflow="hidden"
+                        borderTopRadius={5}
+                    >
+                        <Image
+                            src={cover}
+                            alt={title}
+                            width={coverWidth}
+                            height={coverHeight}
+                            priority
+                            style={{
+                                objectFit: 'cover',
+                                borderRadius: '5px 5px 0 0',
+                            }}
+                        />
+                    </Box>
+                ) : (
+                    <Box
+                        borderTopRadius={5}
+                        bg={noCoverBg}
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        color="gray.500"
+                        fontSize="lg"
+                        p={4}
+                    >
+                        No Cover Available
+                    </Box>
+                )}
                 <Box
                     display="flex"
                     flexDirection="column"
@@ -38,40 +71,6 @@ function BookCard({ book }: BookCardProps) {
                     justifyContent="space-between"
                     width="100%"
                 >
-                    <Box
-                        position="relative"
-                        width="100%"
-                        height="0"
-                        paddingTop="150%" // maintain a 2:3 aspect ratio for the image
-                        overflow="hidden"
-                        borderRadius={5}
-                    >
-                        {cover ? (
-                            <Image
-                                src={cover}
-                                alt={title}
-                                priority
-                                fill
-                                sizes="100vw"
-                                style={{
-                                    borderRadius: '5px',
-                                }}
-                            />
-                        ) : (
-                            <Box
-                                height="100%"
-                                borderRadius={12}
-                                bg={noCoverBg}
-                                display="flex"
-                                justifyContent="center"
-                                alignItems="center"
-                                color="gray.500"
-                                fontSize="lg"
-                            >
-                                No Cover Available
-                            </Box>
-                        )}
-                    </Box>
                     <Box p={4}>
                         <Heading as="h6" size="md">
                             {title}

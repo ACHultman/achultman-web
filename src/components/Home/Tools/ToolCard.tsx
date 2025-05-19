@@ -43,7 +43,7 @@ function ToolCard({ tool }: ToolCardProps) {
                 <MotionIconButton
                     as="a"
                     href={tool.url}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                     aria-label={tool.name}
                     mr={3}
