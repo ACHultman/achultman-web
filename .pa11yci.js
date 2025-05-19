@@ -1,4 +1,5 @@
 const isCI = process.env.CI === 'true';
+const baseUrl = process.env.VERCEL_PREVIEW_URL || 'http://localhost:3000';
 
 module.exports = {
     defaults: {
@@ -19,5 +20,10 @@ module.exports = {
         },
         timeout: 30000,
     },
-    urls: [isCI ? process.env.VERCEL_PREVIEW_URL : 'http://localhost:3000'],
+    urls: [
+        baseUrl,
+        ...['about', 'blog', 'books', 'bookmarks'].map(
+            (path) => `${baseUrl}/${path}`
+        ),
+    ],
 };
