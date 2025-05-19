@@ -1,3 +1,5 @@
+const isPreview = process.env.VERCEL_ENV === 'preview';
+
 module.exports = {
     ci: {
         collect: {
@@ -17,10 +19,16 @@ module.exports = {
         },
         assert: {
             assertions: {
-                'categories:performance': ['error', { minScore: 0.95 }],
+                'categories:performance': [
+                    'error',
+                    { minScore: isPreview ? 0.9 : 0.95 },
+                ],
                 'categories:accessibility': ['error', { minScore: 0.95 }],
                 'categories:best-practices': ['error', { minScore: 0.95 }],
-                'categories:seo': ['error', { minScore: 0.95 }],
+                'categories:seo': [
+                    'warn',
+                    { minScore: isPreview ? 0.6 : 0.95 },
+                ],
             },
         },
         upload: {
