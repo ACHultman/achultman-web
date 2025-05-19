@@ -60,94 +60,93 @@ function Contact() {
                 m={{ base: 4, md: 8, lg: 16 }}
                 p={{ base: 6, md: 8, lg: 10 }}
             >
-                <VStack spacing={{ base: 4, md: 8, lg: 20 }}>
-                        <Heading
-                            fontSize={{
-                                base: '4xl',
-                                md: '5xl',
-                            }}
-                        >
-                            Get in Touch
-                        </Heading>
+                <VStack spacing={{ base: 4, md: 8 }}>
+                    <Heading
+                        fontSize={{
+                            base: '4xl',
+                            md: '5xl',
+                        }}
+                        textAlign="center"
+                    >
+                        Get in Touch
+                    </Heading>
 
+                    <Stack
+                        spacing={{ base: 4, md: 8 }}
+                        direction={{ base: 'column' }}
+                        align="center"
+                        justify="center"
+                        w="100%"
+                    >
                         <Stack
-                            spacing={{ base: 4, md: 8 }}
-                            direction={{ base: 'column' }}
                             align="center"
-                            justify="center"
-                            w="100%"
+                            justify="space-around"
+                            direction={{ base: 'row' }}
+                            spacing={{ base: 4, md: 8 }}
                         >
-                            <Stack
-                                align="center"
-                                justify="space-around"
-                                direction={{ base: 'row' }}
-                                spacing={{ base: 4, md: 8 }}
+                            <Tooltip
+                                label={
+                                    hasCopied ? 'Email Copied!' : 'Copy Email'
+                                }
+                                closeOnClick={false}
+                                hasArrow
                             >
-                                <Tooltip
-                                    label={
-                                        hasCopied
-                                            ? 'Email Copied!'
-                                            : 'Copy Email'
-                                    }
-                                    closeOnClick={false}
-                                    hasArrow
-                                >
-                                    <IconButton
-                                        aria-label="email"
-                                        variant="ghost"
-                                        size="lg"
-                                        fontSize="3xl"
-                                        icon={<MdEmail />}
-                                        _hover={{
-                                            bg: 'green.500',
-                                            color: btnHoverColor,
-                                        }}
-                                        onClick={onCopy}
-                                        isRound
-                                    />
-                                </Tooltip>
+                                <IconButton
+                                    aria-label="email"
+                                    variant="ghost"
+                                    size="lg"
+                                    fontSize="3xl"
+                                    icon={<MdEmail />}
+                                    _hover={{
+                                        bg: 'green.500',
+                                        color: btnHoverColor,
+                                    }}
+                                    onClick={onCopy}
+                                    isRound
+                                />
+                            </Tooltip>
 
-                                <ExternalLink href="https://github.com/ACHultman">
-                                    <IconButton
-                                        aria-label="github"
-                                        variant="ghost"
-                                        size="lg"
-                                        fontSize="3xl"
-                                        icon={<BsGithub />}
-                                        _hover={{
-                                            bg: 'black',
-                                            color: btnHoverColor,
-                                        }}
-                                        isRound
-                                    />
-                                </ExternalLink>
+                            <ExternalLink href="https://github.com/ACHultman">
+                                <IconButton
+                                    aria-label="github"
+                                    variant="ghost"
+                                    size="lg"
+                                    fontSize="3xl"
+                                    icon={<BsGithub />}
+                                    _hover={{
+                                        bg: 'black',
+                                        color: btnHoverColor,
+                                    }}
+                                    isRound
+                                />
+                            </ExternalLink>
 
-                                <ExternalLink href="https://www.linkedin.com/in/adam-hultman/">
-                                    <IconButton
-                                        aria-label="linkedin"
-                                        variant="ghost"
-                                        size="lg"
-                                        icon={<BsLinkedin size="28px" />}
-                                        _hover={{
-                                            bg: 'blue.500',
-                                            color: btnHoverColor,
-                                        }}
-                                        isRound
-                                    />
-                                </ExternalLink>
-                            </Stack>
-
-                            <Box
-                                bg={formBg}
-                                borderRadius="lg"
-                                p={8}
-                                color={formColor}
-                                shadow="dark-lg"
-                            >
-                                <ContactForm />
-                            </Box>
+                            <ExternalLink href="https://www.linkedin.com/in/adam-hultman/">
+                                <IconButton
+                                    aria-label="linkedin"
+                                    variant="ghost"
+                                    size="lg"
+                                    icon={<BsLinkedin size="28px" />}
+                                    _hover={{
+                                        bg: 'blue.500',
+                                        color: btnHoverColor,
+                                    }}
+                                    isRound
+                                />
+                            </ExternalLink>
                         </Stack>
-                    </VStack>
+
+                        <Box
+                            bg={formBg}
+                            borderRadius="lg"
+                            p={8}
+                            color={formColor}
+                            shadow="dark-lg"
+                        >
+                            <ContactForm />
+                        </Box>
+                    </Stack>
+                </VStack>
             </Box>
         </Flex>
     );
