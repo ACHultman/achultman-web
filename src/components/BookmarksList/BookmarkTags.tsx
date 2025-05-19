@@ -1,4 +1,7 @@
-import { Tag, Wrap, WrapItem, useColorModeValue } from '@chakra-ui/react';
+import { Tag, Wrap, WrapItem } from '@chakra-ui/react';
+
+const activeBg = 'green.600';
+const inactiveBg = 'gray.600';
 
 interface Props {
     tags: string[];
@@ -7,9 +10,6 @@ interface Props {
 }
 
 function BookmarkTags({ tags, selectedTag, setSelectedTag }: Props) {
-    const activeBg = useColorModeValue('green.200', 'green.500');
-    const inactiveBg = useColorModeValue('gray.200', 'gray.700');
-
     return (
         <Wrap spacing={2} justify="center">
             <WrapItem>

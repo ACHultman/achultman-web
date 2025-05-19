@@ -23,11 +23,10 @@ function Link({ children, href, ...props }: LinkProps) {
                 as="div"
                 bg={href === currentPath ? bgColor : undefined}
                 _hover={{
-                    textDecoration: 'none',
                     bg: hoverBgColor,
                 }}
                 p={2}
-                rounded={'md'}
+                rounded="md"
                 {...props}
             >
                 {children}

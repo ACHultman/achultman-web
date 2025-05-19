@@ -75,8 +75,8 @@ a:hover {
 }
 
 .logo:hover::after {
-    height: 80px;
-    width: 80px;
+    height: 72px;
+    width: 72px;
     opacity: 1;
     transition: 250ms;
     animation: spin 10s infinite linear;
