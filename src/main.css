@@ -128,3 +128,8 @@ a:hover {
 .rnr-container li {
     margin-bottom: 0.5rem;
 }
+
+.section-loading + .divider,
+.divider + .section-loading {
+    display: none !important;
+}
