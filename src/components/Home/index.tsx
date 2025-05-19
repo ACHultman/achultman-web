@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 const Hero = dynamic(() => import('./Hero'));
 const Timeline = dynamic(() => import('./Timeline'));
 const GitTimeline = dynamic(() => import('./GitTimeline'));
-const Chat = dynamic(() => import('@components/Chat'));
+const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
 const Skills = dynamic(() => import('./Skills'));
 const Contact = dynamic(() => import('@components/Contact'));
 
