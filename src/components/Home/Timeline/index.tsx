@@ -8,7 +8,7 @@ export const MotionListItem = motion(ListItem);
 
 function Timeline() {
     return (
-        <SlideFade in={true} offsetY={80} delay={0.2}>
+        <SlideFade in={true} offsetY={80} delay={0.2} suppressHydrationWarning>
             {Object.entries(TIMELINE)
                 .reverse()
                 .map(([year, entries]) => {

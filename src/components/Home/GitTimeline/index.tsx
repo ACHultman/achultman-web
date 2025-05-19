@@ -64,7 +64,7 @@ function GitTimeline() {
             opacity="0.05"
             overflow="hidden"
         >
-            <SlideFade in={true} offsetY={80} delay={0.2}>
+            <SlideFade in={true} offsetY={80} delay={0.2} suppressHydrationWarning>
                 <Gitgraph
                     options={{
                         author: 'Adam Hultman <adam@hultman.dev>',

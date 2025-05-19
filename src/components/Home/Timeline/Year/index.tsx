@@ -15,6 +15,7 @@ export function Year({ year, entries }: Props) {
         <Box>
             <VStack>
                 <MotionHeading
+                    suppressHydrationWarning
                     mt={10}
                     mb={5}
                     as="h2"

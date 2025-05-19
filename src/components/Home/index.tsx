@@ -1,29 +1,12 @@
 import { Divider, Flex } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
-const loading = () => (
-    <div className="section-loading" style={{ minHeight: 120 }} />
-);
-
-const Hero = dynamic(() => import('./Hero'), {
-    loading,
-});
-const Timeline = dynamic(() => import('./Timeline'), {
-    loading,
-});
-const GitTimeline = dynamic(() => import('./GitTimeline'), {
-    loading,
-});
-const Chat = dynamic(() => import('@components/Chat'), {
-    ssr: false,
-    loading,
-});
-const Skills = dynamic(() => import('./Skills'), {
-    loading,
-});
-const Contact = dynamic(() => import('@components/Contact'), {
-    loading,
-});
+const Hero = dynamic(() => import('./Hero'));
+const Timeline = dynamic(() => import('./Timeline'));
+const GitTimeline = dynamic(() => import('./GitTimeline'));
+const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
+const Skills = dynamic(() => import('./Skills'));
+const Contact = dynamic(() => import('@components/Contact'));
 
 function Home() {
     return (
