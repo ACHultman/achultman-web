@@ -43,9 +43,5 @@ jobs:
                   urls: http://localhost:3000
                   configPath: .lighthouserc.js
 
-            - name: Run A11yWatch accessibility audit
-              uses: a11ywatch/github-action@v2.1.10
-              with:
-                  WEBSITE_URL: 'http://localhost:3000'
-                  SITE_WIDE: true
-
+            - name: Run Pa11y CI
+              run: npx pa11y-ci http://localhost:3000

@@ -47,8 +47,8 @@
     },
     "devDependencies": {
         "@lhci/cli": "^0.11.1",
-        "@playwright/test": "^1.48.1",
         "@next/bundle-analyzer": "^15.3.2",
+        "@playwright/test": "^1.48.1",
         "@types/node": "^18.19.56",
         "@types/nodemailer": "^6.4.16",
         "@types/react": "18.3.12",
@@ -56,6 +56,7 @@
         "axe-cli": "^3.2.1",
         "eslint": "^8.57.1",
         "eslint-config-prettier": "^10.1.5",
+        "pa11y-ci": "^3.1.0",
         "prettier": "^3.3.3",
         "start-server-and-test": "^1.15.4",
         "typescript": "^5.6.3",
