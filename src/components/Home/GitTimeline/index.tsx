@@ -4,7 +4,6 @@ import {
     ListItem,
     theme,
     Box,
-    useBreakpointValue,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Gitgraph, Mode, TemplateName, templateExtend } from '@gitgraph/react';
@@ -55,13 +54,12 @@ function createCommit(
 }
 
 function GitTimeline() {
-    const bgMarginLeftPx = useBreakpointValue({ base: 0, lg: '580px' });
 
     return (
         <Box
             position="absolute"
             alignSelf="center"
-            marginLeft={bgMarginLeftPx}
+            ml={{ base: 0, lg: '580px' }}
             zIndex="-1"
             opacity="0.05"
             overflow="hidden"
