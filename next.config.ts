@@ -90,6 +90,19 @@ module.exports = withBundleAnalyzer({
                 port: '',
                 pathname: '/**',
             },
+            // Notion cover images
+            {
+                protocol: 'https',
+                hostname: 's3.us-west-2.amazonaws.com',
+                port: '',
+                pathname: '/secure.notion-static.com/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'secure.notion-static.com',
+                port: '',
+                pathname: '/**',
+            },
         ],
     },
     // Add Cache-Control header to avoid no-store and enable back/forward cache (bfcache) on static pages

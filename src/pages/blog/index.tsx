@@ -4,7 +4,6 @@ import {
     Heading,
     SlideFade,
     Divider,
-    Image,
     Text,
     Tag,
     Stack,
@@ -12,7 +11,9 @@ import {
     Alert,
     useColorModeValue,
 } from '@chakra-ui/react';
+import NextImage from 'next/image';
 import Link from 'next/link';
+import { NextSeo } from 'next-seo';
 import { motion } from 'framer-motion';
 import { fetchNotions } from '../../services/notion';
 import { BlogPost } from '../../types/notion';
@@ -27,7 +28,13 @@ function Blog({ posts }: Props) {
     const dateColor = useColorModeValue('gray.600', 'gray.400');
 
     return (
-        <Container maxW="container.lg">
+        <>
+            <NextSeo
+                title="Blog | Adam Hultman"
+                description="My collection of technical writing about web development, cybersecurity, and other tech topics."
+                canonical="https://hultman.dev/blog"
+            />
+            <Container maxW="container.lg">
             <SlideFade in={true} offsetY={80}>
                 <Box>
                     <Heading
@@ -67,13 +74,15 @@ function Blog({ posts }: Props) {
                                     whileTap={{ scale: 0.9 }}
                                 >
                                     {post.cover && (
-                                        <Image
-                                            src={post.cover}
-                                            alt={post.title}
-                                            width="100%"
-                                            height={200}
-                                            objectFit="cover"
-                                        />
+                                        <Box position="relative" width="100%" height="200px">
+                                            <NextImage
+                                                src={post.cover}
+                                                alt={post.title}
+                                                fill
+                                                style={{ objectFit: 'cover' }}
+                                                placeholder="empty"
+                                            />
+                                        </Box>
                                     )}
                                     <Box p={6}>
                                         <Heading as="h2" fontSize="xl" mb={2}>

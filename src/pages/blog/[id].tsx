@@ -11,13 +11,13 @@ import {
     Container,
     Divider,
     Heading,
-    Image,
     Link,
     Stack,
     Tag,
     Text,
     VStack,
 } from '@chakra-ui/react';
+import NextImage from 'next/image';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 
@@ -129,15 +129,22 @@ function BlogPost({ post, seo }: Props) {
                         </Stack>
                     )}
                     {page.cover && (
-                        <Image
-                            src={page.cover}
-                            alt={`${page.title} cover image`}
+                        <Box
+                            position="relative"
                             width="100%"
-                            maxHeight={{ base: '300px', md: '400px' }}
-                            objectFit="cover"
+                            height={{ base: '300px', md: '400px' }}
                             mb={6}
                             borderRadius="md"
-                        />
+                            overflow="hidden"
+                        >
+                            <NextImage
+                                src={page.cover}
+                                alt={`${page.title} cover image`}
+                                fill
+                                style={{ objectFit: 'cover' }}
+                                placeholder="empty"
+                            />
+                        </Box>
                     )}
                     <Divider my={6} />
 
