@@ -9,14 +9,13 @@ import {
     ListIcon,
     ListItem,
     SimpleGrid,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import { TbAssembly, TbBrandReactNative, TbCpu, TbGraph } from 'react-icons/tb';
 import {
     SiAmazonwebservices,
     SiAngular,
     SiApollographql,
-    SiAzuredevops,
-    SiCloudflare,
     SiCplusplus,
     SiCss3,
     SiDart,
@@ -34,8 +33,6 @@ import {
     SiJest,
     SiKotlin,
     SiLangchain,
-    SiMicrosoftazure,
-    SiMongodb,
     SiMysql,
     SiNextdotjs,
     SiNodedotjs,
@@ -49,9 +46,6 @@ import {
     SiTypescript,
     SiVisualbasic,
     SiVuedotjs,
-    SiWordpress,
-    SiAmazondynamodb,
-    SiTerraform,
 } from 'react-icons/si';
 import {
     FaClipboardCheck,
@@ -138,14 +132,13 @@ const skillData = [
             { name: 'AWS Lambda', icon: SiAmazonwebservices },
             { name: 'AWS CDK', icon: SiAmazonwebservices },
             { name: 'Amazon ECS', icon: SiAmazonwebservices },
-            { name: 'DynamoDB', icon: SiAmazondynamodb },
-            { name: 'Terraform', icon: SiTerraform },
         ],
     },
 ];
 
 function Skills() {
     const [show, setShow] = useState(false);
+    const iconColor = useColorModeValue('green.800', 'green.200');
 
     return (
         <>
@@ -168,7 +161,7 @@ function Skills() {
                                     <ListItem key={skill.name}>
                                         <ListIcon
                                             as={skill.icon}
-                                            color="green.500"
+                                            color={iconColor}
                                         />
                                         {skill.name}
                                     </ListItem>

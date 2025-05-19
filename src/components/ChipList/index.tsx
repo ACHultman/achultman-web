@@ -1,5 +1,4 @@
 import { Flex, Tag } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 
 interface Props {
     list: string[];
@@ -10,39 +9,26 @@ interface Props {
     tagProps?: React.ComponentProps<typeof Tag>;
 }
 
-const MotionTag = motion(Tag);
-
 function ChipList({ list, onClick, ...opts }: Props) {
     return (
         <Flex wrap="wrap" gap={2} {...opts.flexProps}>
             {list?.map((item, i) => (
-                <MotionTag
+                <Tag
                     key={'tag-' + item + i}
                     size={opts.size || 'md'}
                     colorScheme={opts.colorScheme || 'gray'}
+                    _hover={{ transform: 'scale(1.05)' }}
+                    _active={{ transform: 'scale(0.95)' }}
+                    cursor="pointer"
+                    transition="transform 0.2s"
                     marginY={2}
                     marginRight={2}
+                    padding={4}
                     onClick={() => onClick?.(item)}
-                    initial={{
-                        boxShadow: '0px 0px 0px rgba(56, 161, 105, 0.3)',
-                    }}
-                    animate={{
-                        boxShadow: '0px 0px 20px rgba(56, 161, 105, 0.6)',
-                        transition: {
-                            duration: 5,
-                            repeat: Infinity,
-                            repeatType: 'reverse',
-                        },
-                    }}
-                    whileHover={{
-                        scale: 1.1,
-                        boxShadow: '0px 0px 20px rgba(56, 161, 105, 0.6)',
-                    }}
-                    whileTap={{ scale: 0.8 }}
                     {...opts.tagProps}
                 >
                     {item}
-                </MotionTag>
+                </Tag>
             ))}
         </Flex>
     );

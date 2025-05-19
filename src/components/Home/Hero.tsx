@@ -4,7 +4,6 @@ import Paragraph from '../Paragraph';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
-import theme from 'src/theme';
 
 export const MotionButton = motion<ButtonProps>(Button);
 
@@ -19,10 +18,9 @@ function Hero() {
                 Hey, I’m Adam
             </Heading>
             <Paragraph fontSize="2xl" lineHeight={1.6}>
-                Hey, I’m Adam Full-stack software developer (EIT) with a
-                focus on AI-powered, secure, and scalable platforms. I help
-                teams turn complex challenges into reliable, elegant
-                systems.
+                Full-stack software developer (EIT) with a focus on AI-powered,
+                secure, and scalable platforms. I help teams turn complex
+                challenges into reliable, elegant systems.
             </Paragraph>
             <Paragraph fontSize="2xl" lineHeight={1.6} mt={4}>
                 Let’s build something great together.
@@ -33,7 +31,8 @@ function Hero() {
                         colorScheme="green"
                         size="lg"
                         mt={8}
-                        bg={theme.colors.green[500]}
+                        bg="green.600"
+                        _hover={{ bg: 'green.700' }}
                         color="white"
                         whileHover={{ scale: 1.1 }}
                         leftIcon={<FaEnvelope />}

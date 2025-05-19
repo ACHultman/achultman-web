@@ -53,9 +53,14 @@ function Contact() {
                 backgroundAttachment: 'fixed',
             }}
         >
-            <Box borderRadius="lg" m={{ base: 4, md: 8, lg: 16 }}>
-                <Box>
-                    <VStack spacing={{ base: 4, md: 8, lg: 20 }}>
+            <Box
+                bg={formBg}
+                color={formColor}
+                borderRadius="lg"
+                m={{ base: 4, md: 8, lg: 16 }}
+                p={{ base: 6, md: 8, lg: 10 }}
+            >
+                <VStack spacing={{ base: 4, md: 8, lg: 20 }}>
                         <Heading
                             fontSize={{
                                 base: '4xl',
@@ -143,7 +148,6 @@ function Contact() {
                             </Box>
                         </Stack>
                     </VStack>
-                </Box>
             </Box>
         </Flex>
     );

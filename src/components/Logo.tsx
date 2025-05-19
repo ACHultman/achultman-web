@@ -5,7 +5,7 @@ function Logo() {
     const { colorMode } = useColorMode();
 
     return (
-        <Link href="/">
+        <Link href="/" aria-label="Home">
             <Box className="logo">
                 <svg
                     version="1.1"

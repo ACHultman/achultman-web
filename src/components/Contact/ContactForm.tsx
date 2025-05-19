@@ -195,9 +195,9 @@ function ContactForm() {
                         </Flex>
                     </VStack>
                 ) : (
-                    <MotionButton
+                <MotionButton
                         colorScheme="green"
-                        bg="green.500"
+                        bg="green.600"
                         color="white"
                         width="full"
                         whileHover={{ scale: 1.05 }}
