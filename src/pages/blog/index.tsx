@@ -119,6 +119,7 @@ function Blog({ posts }: Props) {
                 )}
             </SlideFade>
         </Container>
+        </>
     );
 }
 

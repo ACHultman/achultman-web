@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import {
     Box,
     Container,
@@ -60,9 +60,11 @@ function Bookmarks({ bookmarks }: Props) {
 
     return (
         <>
-            <Head>
-                <title>Adam Hultman | Bookmarks</title>
-            </Head>
+            <NextSeo
+                title="Bookmarks | Adam Hultman"
+                description="My favorite articles, websites, and tools."
+                canonical="https://hultman.dev/bookmarks"
+            />
             <Container maxW="container.lg">
                 <SlideFade in={true} offsetY={80}>
                     <Box>

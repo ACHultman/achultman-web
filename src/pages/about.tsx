@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import {
     Box,
     Container,
@@ -32,9 +32,11 @@ function About() {
 
     return (
         <>
-            <Head>
-                <title>Adam Hultman | About</title>
-            </Head>
+            <NextSeo
+                title="About | Adam Hultman"
+                description="Learn about Adam Hultman’s background, experience, and skills as a full-stack software developer specializing in AI, security, and scalable platforms."
+                canonical="https://hultman.dev/about"
+            />
             <Container maxW="container.lg">
                 <SlideFade in={true} offsetY={80}>
                     <Box>
