@@ -109,6 +109,12 @@ module.exports = withBundleAnalyzer({
                 port: '',
                 pathname: '/images/page-cover/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                port: '',
+                pathname: '/**',
+            },
         ],
     },
     // Add Cache-Control header to avoid no-store and enable back/forward cache (bfcache) on static pages
