@@ -1,8 +1,7 @@
 module.exports = {
     ci: {
         collect: {
-            startServerCommand: 'npm run start',
-            url: ['http://localhost:3000'],
+            url: [process.env.VERCEL_PREVIEW_URL],
             settings: {
                 throttlingMethod: 'provided',
                 extraHeaders: JSON.stringify({

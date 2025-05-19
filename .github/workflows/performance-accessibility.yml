@@ -45,6 +45,7 @@ jobs:
             - name: Run Lighthouse CI
               uses: treosh/lighthouse-ci-action@v12
               env:
+                  VERCEL_PREVIEW_URL: https://${{ steps.vercel_preview_url.outputs.preview_url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               with:
                   urls: https://${{ steps.vercel_preview_url.outputs.preview_url }}
