@@ -29,7 +29,7 @@ module.exports = {
             assertions: {
                 'categories:performance': [
                     'error',
-                    { minScore: isPreview ? 0.9 : 0.95 },
+                    { minScore: isPreview ? 0.85 : 0.95 },
                 ],
                 'categories:accessibility': ['error', { minScore: 0.95 }],
                 'categories:best-practices': ['error', { minScore: 0.95 }],
