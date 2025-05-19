@@ -14,10 +14,12 @@ function Layout({ children }: PropsWithChildren) {
         <Container maxW="container.lg" className={robotoMono.className} px={0}>
             <Flex>
                 <Navbar />
-                <Container as="main" maxW="container.lg" mt="106px">
-                    {children}
-                </Container>
-                <Footer />
+                <div>
+                    <Container as="main" maxW="container.lg" mt="106px">
+                        {children}
+                    </Container>
+                    <Footer />
+                </div>
             </Flex>
         </Container>
     );
