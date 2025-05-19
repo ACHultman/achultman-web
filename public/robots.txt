@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Allow: /
 
-Sitemap: https://www.hultman.dev/sitemap.xml
+Sitemap: https://hultman.dev/sitemap.xml
