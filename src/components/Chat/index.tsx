@@ -39,8 +39,9 @@ function Chat() {
         });
     const conversationNode = useRef<HTMLDivElement>(null);
     const bgColor = useColorModeValue('white', 'gray.800');
+    const borderColor = useColorModeValue('gray.300', 'gray.600');
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
-    const suggestionChipColor = useColorModeValue('black', 'gray.200');
+    const suggestionChipColor = useColorModeValue('black', 'white');
 
     const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -105,13 +106,11 @@ function Chat() {
                             tagProps={{
                                 colorScheme: 'green',
                                 size: 'md',
-                                color: suggestionChipColor,
                                 variant: 'outline',
-                                cursor: 'pointer',
-                                padding: 4,
-                                background: `linear-gradient(white, white) padding-box, linear-gradient(to top, #00ff0078, ${bgColor}) border-box`,
+                                bg: bgColor,
+                                color: suggestionChipColor,
+                                border: `1px solid ${borderColor}`,
                                 borderRadius: '30px',
-                                border: '4px solid transparent',
                             }}
                         />
                     )}

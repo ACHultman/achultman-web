@@ -1,13 +1,15 @@
-import { extendTheme } from '@chakra-ui/react';
+import { extendTheme, ThemeConfig } from '@chakra-ui/react';
 
 const fonts = { mono: `'Menlo', monospace` };
 
-const theme = extendTheme({
-    config: {
-        disableTransitionOnChange: false,
-    },
+const config: ThemeConfig = {
     initialColorMode: 'system',
     useSystemColorMode: true,
+    disableTransitionOnChange: true,
+};
+
+const theme = extendTheme({
+    config,
     fonts,
 });
 

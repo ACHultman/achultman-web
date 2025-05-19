@@ -47,3 +47,7 @@ next.config.original.js
 
 docs/cv.md
 tsconfig.tsbuildinfo
+
+
+.lighthouseci
+*lighthouse.*

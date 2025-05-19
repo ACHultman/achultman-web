@@ -1,47 +1,57 @@
-import { Head, Html, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import React from 'react';
+import createEmotionServer from '@emotion/server/create-instance';
+import { ColorModeScript } from '@chakra-ui/react';
+import theme from '../theme';
+import createEmotionCache from '../utils/createEmotionCache';
 
-import { ColorModeScript, theme } from '@chakra-ui/react';
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
+    const originalRenderPage = ctx.renderPage;
 
-function Document() {
+    const cache = createEmotionCache();
+    const { extractCriticalToChunks } = createEmotionServer(cache);
+
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App: any) => (props: any) =>
+          <App emotionCache={cache} {...props} />,
+      });
+
+    const initialProps = await Document.getInitialProps(ctx);
+
+    const emotionStyles = extractCriticalToChunks(initialProps.html);
+    const emotionStyleTags = emotionStyles.styles.map((style) => (
+      <style
+        data-emotion={`${style.key} ${style.ids.join(' ')}`}
+        key={style.key}
+        dangerouslySetInnerHTML={{ __html: style.css }}
+      />
+    ));
+
+    return {
+      ...initialProps,
+      styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+    };
+  }
+
+  render() {
     return (
-        <Html lang="en-US">
-            <Head>
-                <meta charSet="utf-8" />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="180x180"
-                    href="/apple-touch-icon.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="32x32"
-                    href="/favicon-32x32.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="16x16"
-                    href="/favicon-16x16.png"
-                />
-                <link rel="manifest" href="/site.webmanifest" />
-                <link
-                    rel="mask-icon"
-                    href="/safari-pinned-tab.svg"
-                    color="#38A169"
-                />
-                <meta name="msapplication-TileColor" content="#38A169" />
-                <meta name="theme-color" content="#38A169" />
-            </Head>
-            <body>
-                <ColorModeScript
-                    initialColorMode={theme.config.initialColorMode}
-                />
-                <Main />
-                <NextScript />
-            </body>
-        </Html>
+      <Html lang="en-US">
+        <Head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="emotion-insertion-point" content="emotion-insertion-point" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+          {this.props.styles}
+        </Head>
+        <body>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
     );
+  }
 }
-
-export default Document;

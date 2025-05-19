@@ -9,6 +9,8 @@ interface Props {
 
 function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
     const Icon = type === 'empty' ? FaClock : FaInfo;
+    const borderColor = useColorModeValue('gray.100', 'gray.700');
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -19,7 +21,7 @@ function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
                 mt={10}
                 display="flex"
                 alignItems="center"
-                borderColor={useColorModeValue('gray.100', 'gray.700')}
+                borderColor={borderColor}
                 borderWidth="1px"
                 p={4}
                 borderRadius="lg"

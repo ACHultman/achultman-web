@@ -18,7 +18,7 @@ function Link({ children, href, ...props }: LinkProps) {
     const hoverBgColor = useColorModeValue('gray.200', 'gray.700');
 
     return (
-        <NextLink href={href} passHref>
+        <NextLink href={href} passHref prefetch={false}>
             <ChakraLink
                 as="div"
                 bg={href === currentPath ? bgColor : undefined}

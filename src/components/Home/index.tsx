@@ -1,27 +1,44 @@
 import { Divider, Flex } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
 
-import Hero from './Hero';
-import Timeline from './Timeline';
-import GitTimeline from './GitTimeline';
-import Chat from '@components/Chat';
+const loading = () => (
+    <div className="section-loading" style={{ minHeight: 120 }} />
+);
 
-import Skills from './Skills';
-import Contact from '@components/Contact';
+const Hero = dynamic(() => import('./Hero'), {
+    loading,
+});
+const Timeline = dynamic(() => import('./Timeline'), {
+    loading,
+});
+const GitTimeline = dynamic(() => import('./GitTimeline'), {
+    loading,
+});
+const Chat = dynamic(() => import('@components/Chat'), {
+    ssr: false,
+    loading,
+});
+const Skills = dynamic(() => import('./Skills'), {
+    loading,
+});
+const Contact = dynamic(() => import('@components/Contact'), {
+    loading,
+});
 
 function Home() {
     return (
         <>
             <Hero />
-            <Divider my={10} />
+            <Divider className="divider" my={10} />
             <Chat />
-            <Divider my={10} />
+            <Divider className="divider" my={10} />
             <Skills />
-            <Divider my={10} />
+            <Divider className="divider" my={10} />
             <Flex justifyContent="center">
                 <GitTimeline />
                 <Timeline />
             </Flex>
-            <Divider my={10} />
+            <Divider className="divider" my={10} />
             <section id="contact">
                 <Contact />
             </section>

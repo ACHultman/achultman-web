@@ -1,33 +1,46 @@
 import '../main.css';
-
-import { AppProps } from 'next/app';
+import React from 'react';
+import App, { /*AppContext,*/ AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
-import { Analytics } from '@vercel/analytics/react';
 
-import { ChakraProvider } from '@chakra-ui/react';
-import { MotionConfig } from 'framer-motion';
-
-import { Chakra } from '@components/Chakra';
-import Layout from '@components/Layout';
+import createEmotionCache from '../utils/createEmotionCache';
 import theme from '../theme';
 import SEO from '../next-seo.config';
+import Layout from '@components/Layout';
 
-function App({ Component, pageProps }: AppProps) {
+const clientSideEmotionCache = createEmotionCache();
+
+const Analytics = dynamic(
+    () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
+    { ssr: false }
+);
+
+interface MyAppProps extends AppProps {
+    emotionCache?: EmotionCache;
+}
+
+function MyApp({
+    Component,
+    pageProps,
+    emotionCache = clientSideEmotionCache,
+}: MyAppProps) {
+    const colorModeManager = localStorageManager;
+
     return (
-        <>
+        <CacheProvider value={emotionCache}>
             <DefaultSeo {...SEO} />
             <Analytics />
-            <Chakra cookies={pageProps.cookies}>
-                <MotionConfig reducedMotion="user">
-                    <ChakraProvider theme={theme}>
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </ChakraProvider>
-                </MotionConfig>
-            </Chakra>
-        </>
+            <ChakraProvider theme={theme} colorModeManager={colorModeManager}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </ChakraProvider>
+        </CacheProvider>
     );
 }
 
-export default App;
+
+export default MyApp;

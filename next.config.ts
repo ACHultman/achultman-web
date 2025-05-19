@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
     serverExternalPackages: ['next-seo'],
     images: {
         remotePatterns: [
@@ -86,9 +90,48 @@ module.exports = {
                 port: '',
                 pathname: '/**',
             },
+            // Notion cover images
+            {
+                protocol: 'https',
+                hostname: 's3.us-west-2.amazonaws.com',
+                port: '',
+                pathname: '/secure.notion-static.com/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'secure.notion-static.com',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'www.notion.so',
+                port: '',
+                pathname: '/images/page-cover/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                port: '',
+                pathname: '/**',
+            },
         ],
+    },
+    // Add Cache-Control header to avoid no-store and enable back/forward cache (bfcache) on static pages
+    async headers() {
+        return [
+            {
+                source: '/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=0, must-revalidate',
+                    },
+                ],
+            },
+        ];
     },
     compiler: {
         emotion: true,
     },
-};
+});

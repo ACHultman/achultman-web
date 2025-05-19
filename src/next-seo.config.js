@@ -55,6 +55,22 @@ const config = {
             href: '/favicon.svg',
         },
     ],
+    additionalScriptTags: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Person',
+                name: 'Adam Hultman',
+                url: baseUrl,
+                sameAs: [
+                    'https://www.linkedin.com/in/adam-hultman',
+                    'https://github.com/ACHultman',
+                    'https://hultman.dev',
+                ],
+            }),
+        },
+    ],
 };
 
 export default config;

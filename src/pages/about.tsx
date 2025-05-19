@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import {
     Box,
     Container,
@@ -6,6 +6,7 @@ import {
     SlideFade,
     Highlight,
     VStack,
+    useColorModeValue,
 } from '@chakra-ui/react';
 
 import Paragraph from '@components/Paragraph';
@@ -27,11 +28,15 @@ const P = styled(Paragraph)`
 `;
 
 function About() {
+    const markColor = useColorModeValue('green.700', 'green.200');
+
     return (
         <>
-            <Head>
-                <title>Adam Hultman | About</title>
-            </Head>
+            <NextSeo
+                title="About | Adam Hultman"
+                description="Learn about Adam Hultman’s background, experience, and skills as a full-stack software developer specializing in AI, security, and scalable platforms."
+                canonical="https://hultman.dev/about"
+            />
             <Container maxW="container.lg">
                 <SlideFade in={true} offsetY={80}>
                     <Box>
@@ -54,7 +59,7 @@ function About() {
                                             'scalable platforms',
                                             'Cybersecurity & Privacy',
                                         ]}
-                                        styles={{ color: 'green.500' }}
+                                        styles={{ color: markColor, bg: 'transparent' }}
                                     >
                                         I’m a Full-stack software developer
                                         (EIT) with over 5 years of professional
@@ -77,7 +82,7 @@ function About() {
                                             'edge computing',
                                             'collaborator',
                                         ]}
-                                        styles={{ color: 'green.500' }}
+                                        styles={{ color: markColor, bg: 'transparent' }}
                                     >
                                         I have a strong track record of
                                         delivering high-traffic web applications
@@ -99,7 +104,7 @@ function About() {
                                             'cybersecurity',
                                             'analytical skills',
                                         ]}
-                                        styles={{ color: 'green.500' }}
+                                        styles={{ color: markColor, bg: 'transparent' }}
                                     >
                                         Right now, I’m building generative AI
                                         tools focused on speed, usability, and
@@ -120,7 +125,7 @@ function About() {
                                             'adapt',
                                             'grow',
                                         ]}
-                                        styles={{ color: 'green.500' }}
+                                        styles={{ color: markColor, bg: 'transparent' }}
                                     >
                                         Outside of work, I enjoy exploring side
                                         projects, playing piano, and discovering

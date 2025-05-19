@@ -15,6 +15,8 @@ export type Book = {
     author: string;
     link: string;
     cover: string | null;
+    coverWidth?: number;
+    coverHeight?: number;
 };
 
 export type BlogPost = {
@@ -34,7 +36,6 @@ export type Bookmark = {
     title: string;
     link: string;
     description: string;
-    cover: string;
     tags: string[];
     lastEditedTime: string;
 };

@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
-import ExternalLink from '@components/ExternalLink';
 import ContactForm from './ContactForm';
 
 const confetti = {
@@ -53,97 +52,104 @@ function Contact() {
                 backgroundAttachment: 'fixed',
             }}
         >
-            <Box borderRadius="lg" m={{ base: 4, md: 8, lg: 16 }}>
-                <Box>
-                    <VStack spacing={{ base: 4, md: 8, lg: 20 }}>
-                        <Heading
-                            fontSize={{
-                                base: '4xl',
-                                md: '5xl',
-                            }}
-                        >
-                            Get in Touch
-                        </Heading>
+            <Box
+                bg={formBg}
+                color={formColor}
+                borderRadius="lg"
+                m={{ base: 4, md: 8, lg: 16 }}
+                p={{ base: 6, md: 8, lg: 10 }}
+            >
+                <VStack spacing={{ base: 4, md: 8 }}>
+                    <Heading
+                        fontSize={{
+                            base: '4xl',
+                            md: '5xl',
+                        }}
+                        textAlign="center"
+                    >
+                        Get in Touch
+                    </Heading>
 
+                    <Stack
+                        spacing={{ base: 4, md: 8 }}
+                        direction={{ base: 'column' }}
+                        align="center"
+                        justify="center"
+                        w="100%"
+                    >
                         <Stack
-                            spacing={{ base: 4, md: 8 }}
-                            direction={{ base: 'column' }}
                             align="center"
-                            justify="center"
-                            w="100%"
+                            justify="space-around"
+                            direction={{ base: 'row' }}
+                            spacing={{ base: 4, md: 8 }}
                         >
-                            <Stack
-                                align="center"
-                                justify="space-around"
-                                direction={{ base: 'row' }}
-                                spacing={{ base: 4, md: 8 }}
+                            <Tooltip
+                                label={
+                                    hasCopied ? 'Email Copied!' : 'Copy Email'
+                                }
+                                closeOnClick={false}
+                                hasArrow
                             >
-                                <Tooltip
-                                    label={
-                                        hasCopied
-                                            ? 'Email Copied!'
-                                            : 'Copy Email'
-                                    }
-                                    closeOnClick={false}
-                                    hasArrow
-                                >
-                                    <IconButton
-                                        aria-label="email"
-                                        variant="ghost"
-                                        size="lg"
-                                        fontSize="3xl"
-                                        icon={<MdEmail />}
-                                        _hover={{
-                                            bg: 'green.500',
-                                            color: btnHoverColor,
-                                        }}
-                                        onClick={onCopy}
-                                        isRound
-                                    />
-                                </Tooltip>
+                                <IconButton
+                                    aria-label="email"
+                                    variant="ghost"
+                                    size="lg"
+                                    fontSize="3xl"
+                                    icon={<MdEmail />}
+                                    _hover={{
+                                        bg: 'green.500',
+                                        color: btnHoverColor,
+                                    }}
+                                    onClick={onCopy}
+                                    isRound
+                                />
+                            </Tooltip>
 
-                                <ExternalLink href="https://github.com/ACHultman">
-                                    <IconButton
-                                        aria-label="github"
-                                        variant="ghost"
-                                        size="lg"
-                                        fontSize="3xl"
-                                        icon={<BsGithub />}
-                                        _hover={{
-                                            bg: 'black',
-                                            color: btnHoverColor,
-                                        }}
-                                        isRound
-                                    />
-                                </ExternalLink>
+                            <IconButton
+                                as="a"
+                                href="https://github.com/ACHultman"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="github"
+                                variant="ghost"
+                                size="lg"
+                                fontSize="3xl"
+                                icon={<BsGithub />}
+                                _hover={{
+                                    bg: 'black',
+                                    color: btnHoverColor,
+                                }}
+                                isRound
+                            />
 
-                                <ExternalLink href="https://www.linkedin.com/in/adam-hultman/">
-                                    <IconButton
-                                        aria-label="linkedin"
-                                        variant="ghost"
-                                        size="lg"
-                                        icon={<BsLinkedin size="28px" />}
-                                        _hover={{
-                                            bg: 'blue.500',
-                                            color: btnHoverColor,
-                                        }}
-                                        isRound
-                                    />
-                                </ExternalLink>
-                            </Stack>
-
-                            <Box
-                                bg={formBg}
-                                borderRadius="lg"
-                                p={8}
-                                color={formColor}
-                                shadow="dark-lg"
-                            >
-                                <ContactForm />
-                            </Box>
+                            <IconButton
+                                as="a"
+                                href="https://www.linkedin.com/in/adam-hultman/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="linkedin"
+                                variant="ghost"
+                                size="lg"
+                                icon={<BsLinkedin size="28px" />}
+                                _hover={{
+                                    bg: 'blue.500',
+                                    color: btnHoverColor,
+                                }}
+                                isRound
+                            />
                         </Stack>
-                    </VStack>
-                </Box>
+
+                        <Box
+                            bg={formBg}
+                            borderRadius="lg"
+                            p={8}
+                            color={formColor}
+                            shadow="dark-lg"
+                        >
+                            <ContactForm />
+                        </Box>
+                    </Stack>
+                </VStack>
             </Box>
         </Flex>
     );

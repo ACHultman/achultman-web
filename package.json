@@ -9,7 +9,9 @@
         "prettier": "prettier --write .",
         "prettier:check": "prettier --check .",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "analyze": "ANALYZE=true next build",
+        "lhci": "npm run build && npx lhci autorun --config .lighthouserc.js"
     },
     "dependencies": {
         "@9gustin/react-notion-render": "^3.11.3",
@@ -19,6 +21,7 @@
         "@chakra-ui/react": "^2.10.3",
         "@chakra-ui/theme-tools": "^2.1.2",
         "@emotion/react": "^11.13.3",
+        "@emotion/server": "^11.11.0",
         "@emotion/styled": "^11.13.0",
         "@gitgraph/react": "^1.6.0",
         "@notionhq/client": "^2.2.15",
@@ -41,6 +44,8 @@
         "react-icons": "5.3.0"
     },
     "devDependencies": {
+        "@lhci/cli": "^0.14.0",
+        "@next/bundle-analyzer": "^15.3.2",
         "@playwright/test": "^1.48.1",
         "@types/node": "^18.19.56",
         "@types/nodemailer": "^6.4.16",
@@ -48,11 +53,25 @@
         "@types/react-dom": "18.3.1",
         "eslint": "^8.57.1",
         "eslint-config-prettier": "^10.1.5",
+        "pa11y-ci": "^2.4.2",
         "prettier": "^3.3.3",
         "typescript": "^5.6.3"
     },
     "overrides": {
         "@types/react": "18.3.12",
         "@types/react-dom": "18.3.1"
+    },
+    "browserslist": {
+        "production": [
+            "last 2 Chrome versions",
+            "last 2 Firefox versions",
+            "last 2 Safari versions",
+            "not IE 11"
+        ],
+        "development": [
+            "last 1 Chrome version",
+            "last 1 Firefox version",
+            "last 1 Safari version"
+        ]
     }
 }

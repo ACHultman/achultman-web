@@ -5,23 +5,19 @@ function Logo() {
     const { colorMode } = useColorMode();
 
     return (
-        <Link href="/">
+        <Link href="/" aria-label="Home">
             <Box className="logo">
                 <svg
                     version="1.1"
-                    id="Layer_1"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 149.1 81.3"
                     style={{ overflow: 'visible' }}
                     fill={`${colorMode === 'light' ? 'black' : '#38a169'}`}
                     width="25"
                 >
-                    <g
-                        id="Layer_2_00000023258449590368716040000013073676356458985912_"
-                        transform="translate(75 30)"
-                    >
-                        <g id="Layer_1-2">
-                            <g id="SvgjsG14118">
+                    <g transform="translate(75 30)">
+                        <g>
+                            <g>
                                 <path
                                     d="M82.6,28.8c-1.7-0.1-3.4-0.1-5,0C64.7,21,54,10,46.6-3.1c-7.8-13.1-12-28-12.2-43.2
 				c14.2-19.1,10.3-46.1-8.6-60.4s-45.8-10.4-59.9,8.6c-11.3,15.1-11.4,35.9-0.4,51.2c-0.1,15.5-4.4,30.7-12.2,44
