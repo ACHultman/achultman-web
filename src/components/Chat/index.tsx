@@ -3,7 +3,6 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-    SlideFade,
     VStack,
     chakra,
     useColorModeValue,
