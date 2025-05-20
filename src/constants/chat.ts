@@ -3,9 +3,19 @@ export const CHAT_BOT_WELCOME_MESSAGE =
 
 export const INIT_PROMPT_CHOICES = [
     // Projects & Work
-    'What’s Adam working on now?',
-    'Tell me about Adam’s latest project.',
-    'What’s a cool problem Adam recently solved?',
+    'What’s Adam’s background in software engineering?',
+    'Can you walk me through Adam’s career journey?',
+    'What kind of problems does Adam love solving?',
+    'What’s Adam most proud of in his career?',
+    'Has Adam led any teams or projects?',
+    'What technologies does Adam specialize in?',
+    'What’s Adam’s approach to system design?',
+    'How does Adam stay sharp in a fast-changing industry?',
+    'Any lessons Adam’s learned from past jobs?',
+    'What’s Adam looking for in his next role?',
+    'How does Adam approach mentorship or collaboration?',
+    'What industries or products excite Adam the most?',
+    'What’s a challenge Adam overcame in his career?',
 
     // Tech Interests
     'What’s Adam’s current tech obsession?',
