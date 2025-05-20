@@ -22,12 +22,18 @@ function BookmarksList({ bookmarks }: Props) {
 
     return (
         <Box>
-            <BookmarkTags
-                tags={tags}
-                selectedTag={selectedTag}
-                setSelectedTag={setSelectedTag}
-            />
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={8}>
+            <Box display={['none', 'none', 'flex']}>
+                <BookmarkTags
+                    tags={tags}
+                    selectedTag={selectedTag}
+                    setSelectedTag={setSelectedTag}
+                />
+            </Box>
+            <SimpleGrid
+                columns={{ base: 1, md: 2, lg: 3 }}
+                spacing={4}
+                mt={[0, 8]}
+            >
                 {filteredBookmarks.slice(0, limit).map((bm) => (
                     <BookmarkCard key={bm.id} bookmark={bm} />
                 ))}

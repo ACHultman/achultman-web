@@ -3,13 +3,12 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-    SlideFade,
     VStack,
     chakra,
     useColorModeValue,
 } from '@chakra-ui/react';
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { MdSend } from 'react-icons/md';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
@@ -18,8 +17,13 @@ import {
 import ChipList from '@components/ChipList';
 import MessageBox from './MessageBox';
 
-function generateSuggestions(n: number) {
-    return INIT_PROMPT_CHOICES.slice(n, n + 1);
+function generateSuggestions(currentIndex: number): string[] {
+    if (INIT_PROMPT_CHOICES.length === 0) {
+        return [];
+    }
+
+    const nextIndex = currentIndex % INIT_PROMPT_CHOICES.length;
+    return [INIT_PROMPT_CHOICES[nextIndex]];
 }
 
 function Chat() {
@@ -40,14 +44,8 @@ function Chat() {
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'white');
 
-    const [suggestions, setSuggestions] = useState<string[]>([]);
-
-    const assistantMessagesCount = messages.filter(
-        (m) => m.role === 'assistant'
-    ).length;
-    useEffect(() => {
-        setSuggestions(generateSuggestions(assistantMessagesCount));
-    }, [assistantMessagesCount]);
+    const userMessagesCount = messages.filter((m) => m.role === 'user').length;
+    const suggestions = generateSuggestions(userMessagesCount);
 
     const showSuggestions = suggestions.length > 0 && status === 'ready';
 

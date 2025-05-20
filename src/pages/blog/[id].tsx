@@ -93,7 +93,7 @@ function BlogPost({ post, seo }: Props) {
             <Box
                 as="article"
                 className={roboto.className}
-                p={8}
+                p={[2, 4]}
                 css={{ position: 'relative' }}
             >
                 <div className="progress-bar" />

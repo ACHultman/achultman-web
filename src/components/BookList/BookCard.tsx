@@ -1,4 +1,4 @@
-import { Box, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 
 import Paragraph from '../Paragraph';
@@ -32,11 +32,13 @@ function BookCard({ book }: BookCardProps) {
                 width="100%"
             >
                 {cover && coverWidth && coverHeight ? (
-                    <Box
+                    <Flex
                         position="relative"
                         width="100%"
                         overflow="hidden"
                         borderTopRadius={5}
+                        p={2}
+                        justifyContent="center"
                     >
                         <Image
                             src={cover}
@@ -49,7 +51,7 @@ function BookCard({ book }: BookCardProps) {
                                 borderRadius: '5px 5px 0 0',
                             }}
                         />
-                    </Box>
+                    </Flex>
                 ) : (
                     <Box
                         borderTopRadius={5}

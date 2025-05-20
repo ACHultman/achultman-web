@@ -2,12 +2,17 @@ import { Divider, Flex, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 import Hero from './Hero';
+import ChatPlaceholder from './ChatPlaceholder'; // Import the new component
 
 const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
 const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
-const Chat = dynamic(() => import('@components/Chat'), { ssr: false });
-const Skills = dynamic(() => import('./Skills'), { ssr: false });
-const Contact = dynamic(() => import('@components/Contact'), { ssr: false });
+
+const Chat = dynamic(() => import('@components/Chat'), {
+    ssr: false,
+    loading: () => <ChatPlaceholder />,
+});
+const Skills = dynamic(() => import('./Skills'));
+const Contact = dynamic(() => import('@components/Contact'));
 
 function Home() {
     return (
