@@ -32,7 +32,6 @@ const ChatPlaceholder = () => {
             justifyContent="space-between"
             borderRadius="30px"
             overflow="hidden"
-            bg={bgColor}
             py={3}
             px={2}
         >
