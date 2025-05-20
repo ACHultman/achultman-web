@@ -46,7 +46,11 @@ function DropdownMenu({ extraLinks, onClick }: Props) {
                 {extraLinks.map(({ name, route }) => (
                     <Link href={route} key={name} onClick={onClick} p={2} m={2}>
                         <MenuItem
-                            bg={asPath === route ? activeMenuItemBg : undefined}
+                            bg={
+                                asPath === route
+                                    ? activeMenuItemBg
+                                    : 'transparent'
+                            }
                         >
                             {name}
                         </MenuItem>

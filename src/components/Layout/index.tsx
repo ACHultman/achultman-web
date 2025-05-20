@@ -1,4 +1,4 @@
-import { Container, Flex } from '@chakra-ui/react';
+import { Box, Container, Flex } from '@chakra-ui/react';
 import { Roboto_Mono } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import Footer from './Footer';
@@ -11,15 +11,13 @@ const robotoMono = Roboto_Mono({
 
 function Layout({ children }: PropsWithChildren) {
     return (
-        <Container maxW="container.lg" className={robotoMono.className} px={0}>
-            <Flex>
+        <Container maxW="container.xl" className={robotoMono.className} px={0}>
+            <Flex alignItems="center" flexDirection="column">
                 <Navbar />
-                <div>
-                    <Container as="main" maxW="container.lg" mt="106px">
-                        {children}
-                    </Container>
-                    <Footer />
-                </div>
+                <Container as="main" maxW="container.xl" mt="106px">
+                    {children}
+                </Container>
+                <Footer />
             </Flex>
         </Container>
     );

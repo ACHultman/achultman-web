@@ -20,6 +20,7 @@ function Footer() {
             role="contentinfo"
             mx="auto"
             maxW="7xl"
+            w="100%"
             py="12"
             px={{ base: '4', md: '8' }}
         >

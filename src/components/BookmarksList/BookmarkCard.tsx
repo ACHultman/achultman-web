@@ -21,7 +21,6 @@ function BookmarkCard({ bookmark }: Props) {
         <LinkBox as="article">
             <Box
                 h="100%"
-                maxW="400px"
                 borderWidth="1px"
                 borderColor={borderColor}
                 borderRadius={10}
