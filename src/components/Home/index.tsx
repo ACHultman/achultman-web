@@ -1,30 +1,11 @@
-import {
-    Divider,
-    Flex,
-    VStack,
-    Box,
-    useColorModeValue,
-    Skeleton,
-} from '@chakra-ui/react';
+import { Divider, Flex, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 import Hero from './Hero';
+import ChatPlaceholder from './ChatPlaceholder'; // Import the new component
 
 const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
 const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
-
-const ChatPlaceholder = () => {
-    const bgColor = useColorModeValue('gray.100', 'gray.700');
-    return (
-        <Skeleton
-            w="100%"
-            minW="300px"
-            minHeight="268px"
-            borderRadius="30px"
-            bg={bgColor}
-        />
-    );
-};
 
 const Chat = dynamic(() => import('@components/Chat'), {
     ssr: false,
