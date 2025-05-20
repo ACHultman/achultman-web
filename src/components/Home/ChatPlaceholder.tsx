@@ -27,13 +27,13 @@ const ChatPlaceholder = () => {
         <VStack
             w="100%"
             minW="300px"
-            minHeight="268px"
-            spacing={2}
+            gap={2}
             justifyContent="space-between"
             borderRadius="30px"
             overflow="hidden"
-            py={3}
-            px={2}
+            css={{
+                transition: 'height linear 500ms',
+            }}
         >
             <VStack
                 w="100%"
@@ -46,7 +46,7 @@ const ChatPlaceholder = () => {
                 <MessageBox message={CHAT_BOT_WELCOME_MESSAGE} isUser={false} />
             </VStack>
 
-            <VStack w="80%" alignSelf="center" spacing={3} pb={1}>
+            <VStack w="80%" alignSelf="center" spacing={0}>
                 {firstSuggestion && (
                     <ChipList
                         list={[firstSuggestion]}
