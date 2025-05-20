@@ -18,7 +18,7 @@ import ChipList from '@components/ChipList';
 import MessageBox from './MessageBox';
 
 function generateSuggestions(n: number) {
-    return INIT_PROMPT_CHOICES.slice(n, n + 1);
+    return INIT_PROMPT_CHOICES.slice(n - 1, n);
 }
 
 function Chat() {
