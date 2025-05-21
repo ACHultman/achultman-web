@@ -1,4 +1,5 @@
 import {
+    Box,
     IconButton,
     Input,
     InputGroup,
@@ -16,6 +17,7 @@ import {
 } from '../../constants/chat';
 import ChipList from '@components/ChipList';
 import MessageBox from './MessageBox';
+import TypingIndicator from './TypingIndicator';
 
 function generateSuggestions(currentIndex: number): string[] {
     if (INIT_PROMPT_CHOICES.length === 0) {
@@ -47,7 +49,13 @@ function Chat() {
     const userMessagesCount = messages.filter((m) => m.role === 'user').length;
     const suggestions = generateSuggestions(userMessagesCount);
 
+    // Track if the user has ever used a suggestion
+    const hasTriedSuggestion = messages.some(
+        (m) => m.role === 'user' && INIT_PROMPT_CHOICES.includes(m.content)
+    );
+
     const showSuggestions = suggestions.length > 0 && status === 'ready';
+    const isBotThinking = status === 'submitted';
 
     let convoHeight = '20%';
     if (messages.length > 1) {
@@ -83,34 +91,55 @@ function Chat() {
                         isUser={m.role === 'user'}
                     />
                 ))}
+                {isBotThinking && <TypingIndicator />}
             </VStack>
             <chakra.form w="80%" onSubmit={handleSubmit}>
                 {showSuggestions && (
-                    <ChipList
-                        list={suggestions}
-                        onClick={(choice) => {
-                            append({ role: 'user', content: choice });
-                        }}
-                        flexProps={{
-                            alignSelf: 'flex-end',
-                            justifyContent: 'flex-end',
-                            gap: 2,
-                        }}
-                        tagProps={{
-                            colorScheme: 'green',
-                            size: 'md',
-                            variant: 'outline',
-                            bg: bgColor,
-                            color: suggestionChipColor,
-                            border: `1px solid ${borderColor}`,
-                            borderRadius: '30px',
-                        }}
-                    />
+                    <VStack w="100%" align="flex-end" mb={2}>
+                        {!hasTriedSuggestion && (
+                            <Box
+                                fontWeight="bold"
+                                color="green.500"
+                                fontSize="sm"
+                                mb={1}
+                            >
+                                Try one of these!
+                            </Box>
+                        )}
+                        <ChipList
+                            list={suggestions}
+                            onClick={(choice) => {
+                                append({ role: 'user', content: choice });
+                            }}
+                            flexProps={{
+                                alignSelf: 'flex-end',
+                                justifyContent: 'flex-end',
+                                gap: 2,
+                            }}
+                            tagProps={{
+                                colorScheme: 'green',
+                                size: 'md',
+                                variant: 'solid',
+                                bg: bgColor,
+                                color: suggestionChipColor,
+                                border: `2px solid ${borderColor}`,
+                                borderRadius: '30px',
+                                boxShadow: '0 2px 8px rgba(0,128,0,0.08)',
+                                fontWeight: 'bold',
+                                transition: 'all 0.2s',
+                                _hover: { bg: 'green.100', color: 'green.800' },
+                            }}
+                        />
+                    </VStack>
                 )}
                 <InputGroup size="lg" my={4} w="100%">
                     <Input
                         maxLength={80}
-                        placeholder="Type a message..."
+                        placeholder={
+                            showSuggestions
+                                ? 'Pick a suggestion or type your own...'
+                                : 'Type a message...'
+                        }
                         aria-label="Message input"
                         bg={msgInputColor}
                         _focus={{
@@ -118,12 +147,15 @@ function Chat() {
                         }}
                         value={input}
                         onChange={handleInputChange}
+                        opacity={showSuggestions ? 0.7 : 1}
+                        pointerEvents={isBotThinking ? 'none' : 'auto'}
                     />
                     <InputRightElement>
                         <IconButton
                             type="submit"
                             aria-label="Send"
                             icon={<MdSend />}
+                            isDisabled={isBotThinking}
                         />
                     </InputRightElement>
                 </InputGroup>

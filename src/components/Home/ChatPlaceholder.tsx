@@ -5,6 +5,7 @@ import {
     InputRightElement,
     IconButton,
     useColorModeValue,
+    Box,
 } from '@chakra-ui/react';
 import { MdSend } from 'react-icons/md';
 import {
@@ -45,26 +46,35 @@ const ChatPlaceholder = () => {
             >
                 <MessageBox message={CHAT_BOT_WELCOME_MESSAGE} isUser={false} />
             </VStack>
-
             <VStack w="80%" alignSelf="center" spacing={0}>
                 {firstSuggestion && (
-                    <ChipList
-                        list={[firstSuggestion]}
-                        flexProps={{
-                            alignSelf: 'flex-end',
-                            justifyContent: 'flex-end',
-                            gap: 2,
-                        }}
-                        tagProps={{
-                            colorScheme: 'green',
-                            size: 'md',
-                            variant: 'outline',
-                            bg: bgColor,
-                            color: suggestionChipColor,
-                            border: `1px solid ${borderColor}`,
-                            borderRadius: '30px',
-                        }}
-                    />
+                    <VStack w="100%" align="flex-end" mb={2}>
+                        <Box
+                            fontWeight="bold"
+                            color="green.500"
+                            fontSize="sm"
+                            mb={1}
+                        >
+                            Try one of these!
+                        </Box>
+                        <ChipList
+                            list={[firstSuggestion]}
+                            flexProps={{
+                                alignSelf: 'flex-end',
+                                justifyContent: 'flex-end',
+                                gap: 2,
+                            }}
+                            tagProps={{
+                                colorScheme: 'green',
+                                size: 'md',
+                                variant: 'outline',
+                                bg: bgColor,
+                                color: suggestionChipColor,
+                                border: `1px solid ${borderColor}`,
+                                borderRadius: '30px',
+                            }}
+                        />
+                    </VStack>
                 )}
                 <InputGroup size="lg" my={4} w="100%">
                     <Input
