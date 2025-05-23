@@ -172,7 +172,7 @@ export function useChatLogic({ conversationNode }: UseChatLogicProps) {
                         : m
                 )
             );
-        }, 4);
+        }, 1);
 
         return () => clearTimeout(timerId);
     }, [messages, pendingBotMessageDetails, setMessages]);

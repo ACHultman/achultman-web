@@ -20,6 +20,7 @@ function ChatPlaceholder() {
     const borderColor = useColorModeValue('gray.300', 'gray.600');
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'white');
+    const tryMessageColor = useColorModeValue('green.600', 'green.300');
 
     const firstSuggestion =
         INIT_PROMPT_CHOICES.length > 0 ? INIT_PROMPT_CHOICES[0] : '';
@@ -49,7 +50,11 @@ function ChatPlaceholder() {
             <VStack w="80%" alignSelf="center" spacing={0}>
                 {firstSuggestion && (
                     <VStack w="100%" align="flex-end" mb={2}>
-                        <Box fontWeight="bold" color="green.500" fontSize="sm">
+                        <Box
+                            fontWeight="bold"
+                            color={tryMessageColor}
+                            fontSize="sm"
+                        >
                             Try one of these!
                         </Box>
                         <ChipList

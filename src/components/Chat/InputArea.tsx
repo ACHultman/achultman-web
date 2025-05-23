@@ -37,13 +37,18 @@ const InputArea = memo(function InputArea({
     const borderColor = useColorModeValue('gray.300', 'gray.600');
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'white');
+    const tryMessageColor = useColorModeValue('green.600', 'green.300');
 
     return (
         <chakra.form w="80%" onSubmit={onSubmit}>
             {showSuggestions && (
                 <VStack w="100%" align="flex-end" mb={2}>
                     {!hasTriedSuggestion && (
-                        <Box fontWeight="bold" color="green.500" fontSize="sm">
+                        <Box
+                            fontWeight="bold"
+                            color={tryMessageColor}
+                            fontSize="sm"
+                        >
                             Try one of these!
                         </Box>
                     )}
