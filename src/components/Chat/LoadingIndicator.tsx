@@ -2,17 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Box, Text, useColorModeValue } from '@chakra-ui/react';
 
 export const loadingMessages = [
-    'Consulting my digital tea leaves',
-    'Rummaging through my bits and bytes',
-    'Warming up the hamsters',
-    "Don't rush the genius",
-    'Almost there, just polishing the pixels',
-    'Counting to infinity (almost done)',
-    'Asking the magic 8-ball',
-    'Brewing some digital coffee',
+    'Politely threatening the server',
+    'Making up facts at high speed',
+    'Waiting for GPT to stop being dramatic',
+    'Downloading extra charisma',
+    'Reading your mind... oh. Oh no.',
+    'Trying to look busy while doing absolutely nothing',
+    'Pretending this takes effort',
+    'Just one more existential crisis...',
+    'Negotiating with the laws of physics (they’re being difficult)',
+    'Recalibrating my nonsense-to-truth ratio',
+    'Checking if it’s too late to pivot to goat farming',
+    'Patching reality—please hold',
+    'Performing unsanctioned magic',
+    'Rewiring my personality for this response',
+    'Defragging the vibes',
+    'Googling how to Google faster',
 ];
 
-const LoadingIndicator: React.FC = () => {
+function LoadingIndicator() {
     const [message, setMessage] = useState('');
     const [ellipsis, setEllipsis] = useState('.');
 
@@ -56,6 +64,6 @@ const LoadingIndicator: React.FC = () => {
             </Box>
         </Box>
     );
-};
+}
 
 export default LoadingIndicator;
