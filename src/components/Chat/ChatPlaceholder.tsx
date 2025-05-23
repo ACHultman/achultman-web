@@ -15,7 +15,7 @@ import {
 import MessageBox from '@components/Chat/MessageBox';
 import ChipList from '@components/ChipList';
 
-const ChatPlaceholder = () => {
+function ChatPlaceholder() {
     const bgColor = useColorModeValue('white', 'gray.800');
     const borderColor = useColorModeValue('gray.300', 'gray.600');
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
@@ -49,12 +49,7 @@ const ChatPlaceholder = () => {
             <VStack w="80%" alignSelf="center" spacing={0}>
                 {firstSuggestion && (
                     <VStack w="100%" align="flex-end" mb={2}>
-                        <Box
-                            fontWeight="bold"
-                            color="green.500"
-                            fontSize="sm"
-                            mb={1}
-                        >
+                        <Box fontWeight="bold" color="green.500" fontSize="sm">
                             Try one of these!
                         </Box>
                         <ChipList
@@ -98,6 +93,6 @@ const ChatPlaceholder = () => {
             </VStack>
         </VStack>
     );
-};
+}
 
 export default ChatPlaceholder;

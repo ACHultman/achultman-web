@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import MessageBox from './MessageBox';
 import LoadingIndicator from './LoadingIndicator';
+import { Message } from '@ai-sdk/react';
 
 interface MessageListProps {
-    messages: any[]; // Consider defining a more specific type for messages
+    messages: Message[];
     isBotThinking: boolean;
 }
 

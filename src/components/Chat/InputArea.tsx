@@ -16,7 +16,7 @@ interface InputAreaProps {
     input: string;
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onAppend: (message: { role: 'user'; content: string }) => void;
+    onAppend: (messageContent: string) => void;
     showSuggestions: boolean;
     hasTriedSuggestion: boolean;
     suggestions: string[];
@@ -50,7 +50,7 @@ const InputArea = memo(function InputArea({
                     <ChipList
                         list={suggestions}
                         onClick={(choice) => {
-                            onAppend({ role: 'user', content: choice });
+                            onAppend(choice);
                         }}
                         flexProps={{
                             alignSelf: 'flex-end',
