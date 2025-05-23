@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { createOpenAI } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+import { generateText } from 'ai';
 import { serverConfig } from '../../../config';
 
 const openai = createOpenAI({
@@ -33,8 +33,19 @@ export default async function handler(req: NextRequest) {
             '\n\nYou are now in mobile mode. Keep your answers short and concise. Use bullet points if possible.';
     }
 
-    return streamText({
+    // Use generateText instead of streamText
+    const result = await generateText({
         model: openai('gpt-4.1-mini'),
         messages: [{ role: 'system', content: systemMessage }, ...messages],
-    }).toDataStreamResponse();
+    });
+
+    // Return the whole message as JSON (not a stream)
+    return new Response(
+        JSON.stringify({ role: 'assistant', content: result.text }),
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    );
 }

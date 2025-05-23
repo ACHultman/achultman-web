@@ -2,7 +2,7 @@ import { Divider, Flex, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 import Hero from './Hero';
-import ChatPlaceholder from './ChatPlaceholder'; // Import the new component
+import ChatPlaceholder from '../Chat/ChatPlaceholder';
 
 const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
 const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });

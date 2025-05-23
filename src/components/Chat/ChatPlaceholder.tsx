@@ -5,6 +5,7 @@ import {
     InputRightElement,
     IconButton,
     useColorModeValue,
+    Box,
 } from '@chakra-ui/react';
 import { MdSend } from 'react-icons/md';
 import {
@@ -14,11 +15,12 @@ import {
 import MessageBox from '@components/Chat/MessageBox';
 import ChipList from '@components/ChipList';
 
-const ChatPlaceholder = () => {
+function ChatPlaceholder() {
     const bgColor = useColorModeValue('white', 'gray.800');
     const borderColor = useColorModeValue('gray.300', 'gray.600');
     const msgInputColor = useColorModeValue('gray.200', 'gray.600');
     const suggestionChipColor = useColorModeValue('black', 'white');
+    const tryMessageColor = useColorModeValue('green.600', 'green.300');
 
     const firstSuggestion =
         INIT_PROMPT_CHOICES.length > 0 ? INIT_PROMPT_CHOICES[0] : '';
@@ -45,26 +47,34 @@ const ChatPlaceholder = () => {
             >
                 <MessageBox message={CHAT_BOT_WELCOME_MESSAGE} isUser={false} />
             </VStack>
-
             <VStack w="80%" alignSelf="center" spacing={0}>
                 {firstSuggestion && (
-                    <ChipList
-                        list={[firstSuggestion]}
-                        flexProps={{
-                            alignSelf: 'flex-end',
-                            justifyContent: 'flex-end',
-                            gap: 2,
-                        }}
-                        tagProps={{
-                            colorScheme: 'green',
-                            size: 'md',
-                            variant: 'outline',
-                            bg: bgColor,
-                            color: suggestionChipColor,
-                            border: `1px solid ${borderColor}`,
-                            borderRadius: '30px',
-                        }}
-                    />
+                    <VStack w="100%" align="flex-end" mb={2}>
+                        <Box
+                            fontWeight="bold"
+                            color={tryMessageColor}
+                            fontSize="sm"
+                        >
+                            Try one of these!
+                        </Box>
+                        <ChipList
+                            list={[firstSuggestion]}
+                            flexProps={{
+                                alignSelf: 'flex-end',
+                                justifyContent: 'flex-end',
+                                gap: 2,
+                            }}
+                            tagProps={{
+                                colorScheme: 'green',
+                                size: 'md',
+                                variant: 'outline',
+                                bg: bgColor,
+                                color: suggestionChipColor,
+                                border: `1px solid ${borderColor}`,
+                                borderRadius: '30px',
+                            }}
+                        />
+                    </VStack>
                 )}
                 <InputGroup size="lg" my={4} w="100%">
                     <Input
@@ -88,6 +98,6 @@ const ChatPlaceholder = () => {
             </VStack>
         </VStack>
     );
-};
+}
 
 export default ChatPlaceholder;
