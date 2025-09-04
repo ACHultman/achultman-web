@@ -47,7 +47,7 @@
         "rehype-sanitize": "^6.0.0"
     },
     "devDependencies": {
-        "@lhci/cli": "^0.14.0",
+        "@lhci/cli": "^0.15.1",
         "@next/bundle-analyzer": "^15.3.2",
         "@playwright/test": "^1.48.1",
         "@types/node": "^18.19.56",
