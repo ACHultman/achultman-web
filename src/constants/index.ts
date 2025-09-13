@@ -4,14 +4,16 @@ export const ORG_COLORS = {
     se: '#3dcd58',
     assembly: '#523eff',
     looking: '#000000',
+    kopperfield: 'rgb(206, 252, 148)',
 };
 
 export const ORG_MAP: Record<OrgName, Org> = {
-    looking: {
-        title: 'Looking for Work',
-        href: `mailto:${process.env.NEXT_PUBLIC_EMAIL}`,
-        color: 'black',
-        description: 'I am currently looking for work.',
+    kopperfield: {
+        title: 'Kopperfield',
+        href: 'https://www.kopperfield.com/',
+        color: ORG_COLORS.kopperfield,
+        description:
+            'Kopperfield is on a mission to reduce the carbon footprint of every home by building better software for residential electrification.',
     },
     assembly: {
         title: 'Assembly Digital Media',

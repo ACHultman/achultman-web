@@ -28,7 +28,9 @@ export function constructGitGraph(
         if (branchDefinition.subBranches) {
             branchDefinition.subBranches.forEach((subBranchDef) => {
                 const subBranch = processBranch(currentBranch, subBranchDef);
-                currentBranch.merge(subBranch);
+                if (subBranchDef.merge !== false) {
+                    currentBranch.merge(subBranch);
+                }
             });
         }
 
@@ -51,7 +53,9 @@ export function constructGitGraph(
     if (gitTimelineRootData.subBranches) {
         gitTimelineRootData.subBranches.forEach((subBranchDef) => {
             const subBranch = processBranch(main, subBranchDef);
-            main.merge(subBranch);
+            if (subBranchDef.merge !== false) {
+                main.merge(subBranch);
+            }
         });
     }
 }
