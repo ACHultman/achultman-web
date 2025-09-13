@@ -8,6 +8,7 @@ export interface BranchDefinition {
     commits?: CommitData[];
     subBranches?: BranchDefinition[];
     finalCommits?: CommitData[];
+    merge?: boolean; // Indicates whether this branch should be merged
 }
 
 export const gitTimelineRootData: BranchDefinition = {
@@ -62,17 +63,7 @@ export const gitTimelineRootData: BranchDefinition = {
                             body: 'September 2021 - December 2021',
                         },
                     ],
-                    subBranches: [
-                        {
-                            name: 'work/assembly',
-                            commits: [
-                                {
-                                    subject: 'Software Developer',
-                                    body: 'May 2022 - Present',
-                                },
-                            ],
-                        },
-                    ],
+                    subBranches: [],
                 },
             ],
             finalCommits: [
@@ -81,6 +72,25 @@ export const gitTimelineRootData: BranchDefinition = {
                     body: 'August 2022',
                 },
             ],
+        },
+        {
+            name: 'work/assembly',
+            commits: [
+                {
+                    subject: 'Software Developer',
+                    body: 'May 2022 - Present',
+                },
+            ],
+        },
+        {
+            name: 'work/kopperfield',
+            commits: [
+                {
+                    subject: 'Full Stack Engineer',
+                    body: 'July 2025 - Present',
+                },
+            ],
+            merge: false,
         },
     ],
 };

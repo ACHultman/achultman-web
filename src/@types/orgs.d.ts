@@ -1,14 +1,13 @@
-type OrgName = 'uvic' | 'itc' | 'se' | 'assembly' | 'looking';
+type OrgName = 'uvic' | 'itc' | 'se' | 'assembly' | 'kopperfield';
 
 type Org = {
     title: string;
     href: string;
-    color: string;
+    color: keyof typeof ORG_COLORS;
     description: string;
 };
 
 type TimelineItem = {
-    icon: React.FC;
     org: Org;
     subtitle: string;
     dateRange: string;
