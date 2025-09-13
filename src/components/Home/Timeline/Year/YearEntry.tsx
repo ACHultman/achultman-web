@@ -30,7 +30,7 @@ export function YearEntry({ item }: Props) {
                         placement="auto"
                     >
                         <Text
-                            borderBottom={`0.5px dotted ${item.org.color}`}
+                            borderBottom={`0.5px dotted ${String(item.org.color)}`}
                             color={titleColor}
                         >
                             {item.org.title}
