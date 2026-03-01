@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useChat } from '@ai-sdk/react';
 import {
     CHAT_BOT_WELCOME_MESSAGE,

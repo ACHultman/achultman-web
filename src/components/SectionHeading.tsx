@@ -1,7 +1,7 @@
 import { Heading, HeadingProps } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
-interface SectionHeadingProps extends PropsWithChildren<HeadingProps> {}
+type SectionHeadingProps = PropsWithChildren<HeadingProps>;
 
 function SectionHeading({ children, ...props }: SectionHeadingProps) {
     return (

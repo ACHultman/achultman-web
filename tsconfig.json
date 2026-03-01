@@ -11,8 +11,6 @@
         "allowJs": true,
         "skipLibCheck": true,
         "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedIndexedAccess": true,
         "forceConsistentCasingInFileNames": true,

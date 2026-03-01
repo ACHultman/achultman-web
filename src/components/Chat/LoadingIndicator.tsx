@@ -26,7 +26,10 @@ function LoadingIndicator() {
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * loadingMessages.length);
-        setMessage(loadingMessages[randomIndex]);
+        const selectedMessage = loadingMessages[randomIndex];
+        if (selectedMessage) {
+            setMessage(selectedMessage);
+        }
     }, []);
 
     useEffect(() => {
