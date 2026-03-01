@@ -63,7 +63,8 @@ export const searchBlogTool = tool({
                     url: `/blog/${post.id}`,
                 })),
             };
-        } catch {
+        } catch (error) {
+            console.error('Error searching blog posts:', error);
             return {
                 success: false,
                 message: 'Unable to search blog posts at this time.',
@@ -106,7 +107,8 @@ export const getBooksTool = tool({
                     link: book.link,
                 })),
             };
-        } catch {
+        } catch (error) {
+            console.error('Error fetching books:', error);
             return {
                 success: false,
                 message: 'Unable to fetch books at this time.',
@@ -173,7 +175,8 @@ export const searchBookmarksTool = tool({
                     tags: bookmark.tags,
                 })),
             };
-        } catch {
+        } catch (error) {
+            console.error('Error searching bookmarks:', error);
             return {
                 success: false,
                 message: 'Unable to search bookmarks at this time.',
@@ -223,14 +226,7 @@ export const queryCareerTimelineTool = tool({
             });
 
             // Helper function to recursively search git timeline
-            function searchGitBranch(
-                branch: BranchDefinition,
-                path: string = ''
-            ): void {
-                const currentPath = path
-                    ? `${path} → ${branch.name}`
-                    : branch.name;
-
+            function searchGitBranch(branch: BranchDefinition): void {
                 // Search commits
                 branch.commits?.forEach((commit) => {
                     const subjectMatch = commit.subject
@@ -247,7 +243,7 @@ export const queryCareerTimelineTool = tool({
 
                 // Search sub-branches recursively
                 branch.subBranches?.forEach((subBranch) => {
-                    searchGitBranch(subBranch, currentPath);
+                    searchGitBranch(subBranch);
                 });
 
                 // Search final commits
@@ -278,7 +274,8 @@ export const queryCareerTimelineTool = tool({
                 success: true,
                 events: results.slice(0, 10), // Limit to top 10 results
             };
-        } catch {
+        } catch (error) {
+            console.error('Error querying career timeline:', error);
             return {
                 success: false,
                 message: 'Unable to query career timeline at this time.',
