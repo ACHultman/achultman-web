@@ -1,6 +1,7 @@
-import { Badge, Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import NextImage from 'next/image';
 
 import Paragraph from '../Paragraph';
 import Link from 'next/link';
@@ -29,7 +30,7 @@ function TypedSubtitle() {
             position="relative"
             overflow="hidden"
         >
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence>
                 <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 12 }}
@@ -123,25 +124,20 @@ function Hero() {
                 </Box>
                 <Box
                     flexShrink={0}
+                    position="relative"
                     w={{ base: '120px', md: '200px' }}
                     h={{ base: '120px', md: '200px' }}
                     borderRadius="2xl"
                     overflow="hidden"
                     boxShadow="0 0 0 3px var(--chakra-colors-green-500)"
                 >
-                    <Image
+                    <NextImage
                         src="/images/adam.jpg"
                         alt="Adam Hultman"
-                        w="100%"
-                        h="100%"
-                        objectFit="cover"
-                        fallback={
-                            <Box
-                                w="100%"
-                                h="100%"
-                                bg="green.100"
-                            />
-                        }
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        priority
+                        sizes="(max-width: 768px) 120px, 200px"
                     />
                 </Box>
             </Flex>
