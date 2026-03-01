@@ -4,6 +4,8 @@ import { Bookmark } from '../../types/notion';
 import BookmarkCard from './BookmarkCard';
 import BookmarkTags from './BookmarkTags';
 
+const MAX_TAGS = 8;
+
 interface Props {
     bookmarks: Bookmark[];
 }
@@ -11,7 +13,17 @@ interface Props {
 function BookmarksList({ bookmarks }: Props) {
     const [selectedTag, setSelectedTag] = useState<string | null>(null);
     const [limit, setLimit] = useState(12);
-    const tags = Array.from(new Set(bookmarks.flatMap((bm) => bm.tags)));
+
+    // Sort tags by frequency, cap at MAX_TAGS
+    const tagCounts = bookmarks.flatMap((bm) => bm.tags).reduce<Record<string, number>>((acc, tag) => {
+        acc[tag] = (acc[tag] ?? 0) + 1;
+        return acc;
+    }, {});
+    const tags = Object.entries(tagCounts)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, MAX_TAGS)
+        .map(([tag]) => tag);
+
     const filteredBookmarks = selectedTag
         ? bookmarks.filter((bm) => bm.tags.includes(selectedTag))
         : bookmarks;
@@ -21,7 +33,7 @@ function BookmarksList({ bookmarks }: Props) {
     };
 
     return (
-        <Box>
+        <Box w="100%">
             <Box display={['none', 'none', 'flex']}>
                 <BookmarkTags
                     tags={tags}
