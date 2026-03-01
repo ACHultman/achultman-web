@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
+import posthog from 'posthog-js';
 import { BlogPost } from '../../types/notion';
 
 interface PostBoxProps {
@@ -19,9 +20,18 @@ interface PostBoxProps {
 export default function PostBox({ post }: PostBoxProps) {
     const dateColor = useColorModeValue('gray.600', 'gray.400');
 
+    const handlePostClick = () => {
+        posthog.capture('blog_post_clicked', {
+            post_id: post.id,
+            post_title: post.title,
+            post_tags: post.tags,
+        });
+    };
+
     return (
         <LinkBox
             as="article"
+            onClick={handlePostClick}
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"

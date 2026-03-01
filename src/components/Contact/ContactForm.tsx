@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { BsPerson } from 'react-icons/bs';
 import { MdOutlineEmail } from 'react-icons/md';
+import posthog from 'posthog-js';
 import { ContactFormField } from './ContactFormField';
 import { ContactAlert } from './ContactAlert';
 import { ContactError } from './ContactError';
@@ -46,11 +47,17 @@ function ContactForm() {
             });
             if (r.ok) {
                 setSubmitStatus('success');
+                posthog.capture('contact_form_submitted');
             } else {
                 setSubmitStatus('error');
+                posthog.capture('contact_form_failed', {
+                    status_code: r.status,
+                });
             }
-        } catch {
+        } catch (err) {
             setSubmitStatus('error');
+            posthog.captureException(err);
+            posthog.capture('contact_form_failed', { reason: 'network_error' });
         }
     }
 

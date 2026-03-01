@@ -1,5 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react';
+import posthog from 'posthog-js';
 
 interface Props {
     children: ReactNode;
@@ -27,6 +28,13 @@ class ErrorBoundary extends Component<Props, State> {
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         console.error('ErrorBoundary caught an error:', error, errorInfo);
+        posthog.captureException(error, {
+            properties: { componentStack: errorInfo.componentStack },
+        });
+        posthog.capture('error_boundary_triggered', {
+            error_message: error.message,
+            error_name: error.name,
+        });
     }
 
     private handleReset = () => {

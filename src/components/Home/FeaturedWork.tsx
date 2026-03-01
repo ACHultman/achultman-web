@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import posthog from 'posthog-js';
 
 interface Project {
     title: string;
@@ -74,7 +75,9 @@ function ProjectCard({ project }: { project: Project }) {
                 flexDirection="column"
                 transition="box-shadow 0.2s"
                 cursor={project.href ? 'pointer' : 'default'}
-                _hover={{ boxShadow: '0 0 0 1px var(--chakra-colors-green-500)' }}
+                _hover={{
+                    boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
+                }}
                 onClick={() => {
                     if (project.href)
                         window.open(
@@ -99,7 +102,12 @@ function ProjectCard({ project }: { project: Project }) {
                             size="xs"
                             variant="ghost"
                             colorScheme="green"
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                posthog.capture('project_link_clicked', {
+                                    project: project.title,
+                                });
+                            }}
                         />
                     )}
                 </Flex>
@@ -111,7 +119,12 @@ function ProjectCard({ project }: { project: Project }) {
                 </Text>
                 <HStack spacing={2} wrap="wrap">
                     {project.tags.map((tag) => (
-                        <Tag key={tag} size="sm" colorScheme="green" variant="subtle">
+                        <Tag
+                            key={tag}
+                            size="sm"
+                            colorScheme="green"
+                            variant="subtle"
+                        >
                             {tag}
                         </Tag>
                     ))}
@@ -134,7 +147,10 @@ function FeaturedWork() {
                 viewport={{ once: true }}
                 style={{ width: '100%' }}
             >
-                <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={{ base: 4, md: 5 }}>
+                <SimpleGrid
+                    columns={{ base: 1, sm: 2, md: 3 }}
+                    spacing={{ base: 4, md: 5 }}
+                >
                     {PROJECTS.map((project) => (
                         <ProjectCard key={project.title} project={project} />
                     ))}

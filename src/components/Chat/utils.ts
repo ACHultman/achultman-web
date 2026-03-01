@@ -1,11 +1,11 @@
 import { INIT_PROMPT_CHOICES } from '../../constants/chat';
 
 export function generateSuggestions(currentIndex: number): string[] {
-    if (INIT_PROMPT_CHOICES.length === 0) {
-        return [];
-    }
+    const groupSize = 4;
+    const numGroups = Math.floor(INIT_PROMPT_CHOICES.length / groupSize);
+    if (numGroups === 0) return [];
 
-    const nextIndex = currentIndex % INIT_PROMPT_CHOICES.length;
-    const suggestion = INIT_PROMPT_CHOICES[nextIndex];
-    return suggestion ? [suggestion] : [];
+    const groupIndex = Math.floor(currentIndex / groupSize) % numGroups;
+    const start = groupIndex * groupSize;
+    return INIT_PROMPT_CHOICES.slice(start, start + 3);
 }

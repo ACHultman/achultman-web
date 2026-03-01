@@ -16,6 +16,21 @@ const Chat = dynamic(() => import('@components/Chat'), {
 });
 const Contact = dynamic(() => import('@components/Contact'));
 
+function ChatIntro() {
+    return (
+        <VStack align="start" w="100%" spacing={1}>
+            <SectionHeading textAlign="left" my={2}>
+                Ask me anything about Adam
+            </SectionHeading>
+            <Paragraph color="subtle">
+                I&apos;m an AI trained on Adam&apos;s career, projects, and
+                opinions. Recruiters, engineers, managers — I&apos;ve got
+                answers.
+            </Paragraph>
+        </VStack>
+    );
+}
+
 function Home() {
     return (
         <VStack
@@ -26,17 +41,9 @@ function Home() {
             divider={<Divider />}
         >
             <Hero />
-            <FeaturedWork />
-            <VStack align="start" w="100%" spacing={1}>
-                <SectionHeading textAlign="left" my={2}>
-                    Ask me anything about Adam
-                </SectionHeading>
-                <Paragraph>
-                    I&apos;m an AI built on Adam&apos;s career, projects, and
-                    takes — ask whatever, I&apos;ll give you a real answer
-                </Paragraph>
-            </VStack>
+            <ChatIntro />
             <Chat />
+            <FeaturedWork />
             <Flex justifyContent="center">
                 <GitTimeline />
                 <Timeline />
