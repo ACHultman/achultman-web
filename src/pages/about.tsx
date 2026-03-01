@@ -27,6 +27,8 @@ const fadeUp = {
 function About() {
     const calloutBg = useColorModeValue('green.50', 'green.900');
     const calloutBorder = useColorModeValue('green.400', 'green.500');
+    const calloutLabel = useColorModeValue('green.700', 'green.300');
+    const bulletColor = useColorModeValue('green.700', 'green.400');
     const subtleText = useColorModeValue('gray.600', 'gray.400');
     const cardBg = useColorModeValue('gray.50', 'gray.700');
 
@@ -120,7 +122,7 @@ function About() {
                                 <Text
                                     fontWeight="bold"
                                     mb={1}
-                                    color={calloutBorder}
+                                    color={calloutLabel}
                                 >
                                     Right now
                                 </Text>
@@ -162,7 +164,7 @@ function About() {
                                 ].map(({ icon, text }) => (
                                     <HStack key={text} spacing={3} align="start">
                                         <Text
-                                            color="green.500"
+                                            color={bulletColor}
                                             fontSize="sm"
                                             pt={1}
                                             flexShrink={0}

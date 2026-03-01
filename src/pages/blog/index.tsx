@@ -6,6 +6,7 @@ import {
     SimpleGrid,
     Alert,
     Text,
+    useColorModeValue,
 } from '@chakra-ui/react';
 
 import { NextSeo } from 'next-seo';
@@ -18,6 +19,8 @@ interface Props {
 }
 
 function BlogPage({ posts }: Props) {
+    const subtleColor = useColorModeValue('gray.600', 'gray.400');
+
     return (
         <>
             <NextSeo
@@ -34,7 +37,7 @@ function BlogPage({ posts }: Props) {
                     >
                         Blog
                     </Heading>
-                    <Text color="gray.500" fontSize="lg">
+                    <Text color={subtleColor} fontSize="lg">
                         Notes on engineering, AI, security, and building things
                         that last.
                     </Text>

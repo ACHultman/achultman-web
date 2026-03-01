@@ -59,7 +59,7 @@ const card = {
 function ProjectCard({ project }: { project: Project }) {
     const bg = useColorModeValue('white', 'gray.800');
     const border = useColorModeValue('gray.200', 'gray.700');
-    const subtle = useColorModeValue('gray.500', 'gray.400');
+    const subtle = useColorModeValue('gray.600', 'gray.400');
 
     return (
         <motion.div variants={card} style={{ height: '100%' }}>

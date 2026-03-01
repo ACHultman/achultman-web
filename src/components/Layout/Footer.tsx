@@ -9,11 +9,14 @@ import {
     Link,
     Stack,
     Text,
+    useColorModeValue,
 } from '@chakra-ui/react';
 
 import Logo from '../Logo';
 
 function Footer() {
+    const subtleColor = useColorModeValue('gray.600', 'gray.400');
+
     return (
         <Box
             as="footer"
@@ -65,7 +68,7 @@ function Footer() {
                     justify="space-between"
                     pt={5}
                 >
-                    <Text fontSize="sm" color="gray.500">
+                    <Text fontSize="sm" color={subtleColor}>
                         &copy; {new Date().getFullYear()} Adam Hultman
                     </Text>
                     <IconButton
