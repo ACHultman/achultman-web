@@ -7,13 +7,22 @@ This is my personal website, showcasing my timeline, blog, and skills. It's buil
 - **[Architecture Review](./ARCHITECTURE.md)** - Comprehensive architectural analysis and improvements
 - **[Security Best Practices](./SECURITY.md)** - Security guidelines and implementation details
 - **[Roadmap](./roadmap.md)** - Feature roadmap and planned improvements
+- **[Function Calling Features](./FUNCTION_CALLING.md)** - AI chatbot function calling documentation
+- **[Architecture Diagram](./ARCHITECTURE_DIAGRAM.md)** - Visual architecture of function calling
+- **[Testing Guide](./TESTING_GUIDE.md)** - Comprehensive testing instructions
+- **[Demo Examples](./DEMO_EXAMPLES.md)** - Example conversations with AI chatbot
 
 ## Features
 
 - **Blog:** Articles on web development, cybersecurity, and other tech topics.
 - **Books:** A list of books I've read and recommend.
 - **Bookmarks:** A collection of useful links and resources.
-- **AI Chat:** Interactive chatbot powered by OpenAI.
+- **AI Chat with Function Calling:** Interactive chatbot powered by OpenAI GPT-4.1-mini with 5 powerful tools:
+  - 🔍 **Blog Search** - Search blog posts by topic or keywords
+  - 📚 **Book Recommendations** - Get book suggestions from reading list
+  - 🔖 **Bookmark Discovery** - Find curated resources and links
+  - 💼 **Career Timeline** - Query work history and education
+  - 📅 **Current Date/Time** - Get current date and time information
 - **Responsive Design:** Optimized for all screen sizes.
 - **Dark/Light Mode:** App-wide theme switching.
 - **Sitemap:** Automatically generated sitemap for SEO.
@@ -156,18 +165,24 @@ For detailed security practices, see [SECURITY.md](./SECURITY.md).
 ```
 src/
 ├── components/       # React components
-│   ├── Chat/        # AI chatbot components
+│   ├── Chat/        # AI chatbot components with streaming
 │   ├── Contact/     # Contact form
 │   ├── Home/        # Homepage sections
 │   └── Layout/      # Navigation and layout
 ├── pages/           # Next.js pages (Pages Router)
 │   ├── api/         # API routes
+│   │   └── v1/      # Versioned API
+│   │       ├── chat.ts          # AI chat with function calling
+│   │       └── search/          # Search endpoints for tools
 │   └── blog/        # Blog pages
+├── lib/             # Library code
+│   └── chatTools.ts # AI function calling tool definitions
 ├── services/        # External service integrations (Notion)
 ├── hooks/           # Custom React hooks
 ├── utils/           # Utility functions
 ├── types/           # TypeScript type definitions
 ├── constants/       # Application constants
+├── data/            # Static data (timeline)
 ├── config.ts        # Environment configuration
 ├── theme.ts         # Chakra UI theme
 └── middleware.ts    # Rate limiting middleware
@@ -176,10 +191,11 @@ src/
 ## Performance
 
 - **ISR (Incremental Static Regeneration)**: Blog posts revalidate every 12 hours
-- **Edge Runtime**: Chat API runs on Vercel Edge Network
+- **Node.js Runtime**: Chat API uses Node.js for Notion SDK compatibility
 - **Image Optimization**: Next.js Image component with remote patterns
-- **Code Splitting**: Dynamic imports for analytics
-- **Streaming**: Real-time AI responses using OpenAI streaming
+- **Code Splitting**: Dynamic imports for analytics and heavy components
+- **Streaming**: Real-time AI responses using OpenAI streaming with tool execution
+- **Multi-Step Tool Usage**: AI can chain up to 5 tool calls for complex queries
 
 ## License
 
