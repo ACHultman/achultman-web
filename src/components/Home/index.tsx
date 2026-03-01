@@ -19,7 +19,7 @@ const Contact = dynamic(() => import('@components/Contact'));
 function Home() {
     return (
         <VStack
-            spacing={8}
+            spacing={{ base: 6, md: 10 }}
             align="center"
             justify="center"
             w="100%"
