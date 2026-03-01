@@ -1,19 +1,21 @@
+import type { NextSeoProps } from 'next-seo';
+
 const baseUrl =
     typeof window !== 'undefined'
         ? window.location.origin
         : process.env.NEXT_PUBLIC_APP_BASE_URL || 'http://localhost:3000';
 
-const config = {
+const config: NextSeoProps = {
     title: 'Adam Hultman',
     description:
-        'Full-stack software developer (EIT) with 5+ years building AI-enabled, secure, and scalable platforms. B.S.Eng. in Software Engineering (Cybersecurity & Privacy) from the University of Victoria.',
+        'Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
         title: 'Adam Hultman',
         description:
-            'Full-stack software developer (EIT) with 5+ years building AI-enabled, secure, and scalable platforms. B.S.Eng. in Software Engineering (Cybersecurity & Privacy) from the University of Victoria.',
-        site_name: 'Adam Hultman',
+            'Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms.',
+        siteName: 'Adam Hultman',
         images: [
             {
                 url: `${baseUrl}/og_blog_fallback.png`,
@@ -53,22 +55,6 @@ const config = {
         {
             rel: 'icon',
             href: '/favicon.svg',
-        },
-    ],
-    additionalScriptTags: [
-        {
-            type: 'application/ld+json',
-            innerHTML: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'Person',
-                name: 'Adam Hultman',
-                url: baseUrl,
-                sameAs: [
-                    'https://www.linkedin.com/in/adam-hultman',
-                    'https://github.com/ACHultman',
-                    'https://hultman.dev',
-                ],
-            }),
         },
     ],
 };
