@@ -8,7 +8,6 @@ const openai = createOpenAI({
     compatibility: 'strict',
     apiKey: serverConfig.OPENAI_API_KEY,
 });
-export const runtime = 'edge';
 
 const CURR_DATE = new Date().toLocaleDateString('en-US', {
     weekday: 'long',

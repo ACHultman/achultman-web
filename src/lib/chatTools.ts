@@ -1,5 +1,9 @@
 import { tool } from 'ai';
 import { z } from 'zod';
+import { fetchNotions } from '../services/notion';
+import type { BlogPost, Book, Bookmark } from '../types/notion';
+import { TIMELINE } from '../constants/timeline';
+import { gitTimelineRootData, type BranchDefinition } from '../data/gitTimelineData';
 
 /**
  * Search blog posts by topic or keywords
@@ -21,23 +25,44 @@ export const searchBlogTool = tool({
     }),
     execute: async ({ query, limit }) => {
         try {
-            const params = new URLSearchParams({
-                query,
-                limit: limit.toString(),
+            const posts = await fetchNotions('blog', {
+                page_size: 20,
             });
-            const response = await fetch(
-                `/api/v1/search/blog?${params.toString()}`
-            );
 
-            if (!response.ok) {
+            // Filter posts based on query matching title, description, or tags
+            const searchLower = query.toLowerCase();
+            const filteredPosts = posts
+                .filter((post: BlogPost) => {
+                    const titleMatch = post.title
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const descMatch =
+                        post.description?.toLowerCase().includes(searchLower) ||
+                        false;
+                    const tagMatch = post.tags.some((tag) =>
+                        tag.toLowerCase().includes(searchLower)
+                    );
+                    return titleMatch || descMatch || tagMatch;
+                })
+                .slice(0, limit);
+
+            if (filteredPosts.length === 0) {
                 return {
                     success: false,
                     message: `No blog posts found matching "${query}". Adam hasn't written about this topic yet.`,
                 };
             }
 
-            const data = await response.json();
-            return data;
+            return {
+                success: true,
+                posts: filteredPosts.map((post: BlogPost) => ({
+                    title: post.title,
+                    description: post.description,
+                    tags: post.tags,
+                    publishedDate: post.publishedDate,
+                    url: `/blog/${post.id}`,
+                })),
+            };
         } catch {
             return {
                 success: false,
@@ -62,22 +87,25 @@ export const getBooksTool = tool({
     }),
     execute: async ({ limit }) => {
         try {
-            const params = new URLSearchParams({
-                limit: limit.toString(),
+            const books = await fetchNotions('books', {
+                page_size: limit,
             });
-            const response = await fetch(
-                `/api/v1/search/books?${params.toString()}`
-            );
 
-            if (!response.ok) {
+            if (books.length === 0) {
                 return {
                     success: false,
                     message: 'No books available at this time.',
                 };
             }
 
-            const data = await response.json();
-            return data;
+            return {
+                success: true,
+                books: books.map((book: Book) => ({
+                    title: book.title,
+                    author: book.author,
+                    link: book.link,
+                })),
+            };
         } catch {
             return {
                 success: false,
@@ -107,23 +135,44 @@ export const searchBookmarksTool = tool({
     }),
     execute: async ({ query, limit }) => {
         try {
-            const params = new URLSearchParams({
-                query,
-                limit: limit.toString(),
+            const bookmarks = await fetchNotions('bookmarks', {
+                page_size: 30,
             });
-            const response = await fetch(
-                `/api/v1/search/bookmarks?${params.toString()}`
-            );
 
-            if (!response.ok) {
+            // Filter bookmarks based on query matching title, description, or tags
+            const searchLower = query.toLowerCase();
+            const filteredBookmarks = bookmarks
+                .filter((bookmark: Bookmark) => {
+                    const titleMatch = bookmark.title
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const descMatch =
+                        bookmark.description
+                            ?.toLowerCase()
+                            .includes(searchLower) || false;
+                    const tagMatch = bookmark.tags.some((tag) =>
+                        tag.toLowerCase().includes(searchLower)
+                    );
+                    return titleMatch || descMatch || tagMatch;
+                })
+                .slice(0, limit);
+
+            if (filteredBookmarks.length === 0) {
                 return {
                     success: false,
                     message: `No bookmarks found matching "${query}".`,
                 };
             }
 
-            const data = await response.json();
-            return data;
+            return {
+                success: true,
+                bookmarks: filteredBookmarks.map((bookmark: Bookmark) => ({
+                    title: bookmark.title,
+                    link: bookmark.link,
+                    description: bookmark.description,
+                    tags: bookmark.tags,
+                })),
+            };
         } catch {
             return {
                 success: false,
@@ -148,20 +197,87 @@ export const queryCareerTimelineTool = tool({
     }),
     execute: async ({ query }) => {
         try {
-            const params = new URLSearchParams({ query });
-            const response = await fetch(
-                `/api/v1/search/timeline?${params.toString()}`
-            );
+            const searchLower = query.toLowerCase();
+            const results: string[] = [];
 
-            if (!response.ok) {
+            // Search in TIMELINE data
+            Object.entries(TIMELINE).forEach(([year, items]) => {
+                items.forEach((item) => {
+                    const orgMatch = item.org.title
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const subtitleMatch = item.subtitle
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const dateMatch = item.dateRange
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const yearMatch = year.includes(query);
+
+                    if (orgMatch || subtitleMatch || dateMatch || yearMatch) {
+                        results.push(
+                            `${item.org.title}: ${item.subtitle} (${item.dateRange})`
+                        );
+                    }
+                });
+            });
+
+            // Helper function to recursively search git timeline
+            function searchGitBranch(
+                branch: BranchDefinition,
+                path: string = ''
+            ): void {
+                const currentPath = path
+                    ? `${path} → ${branch.name}`
+                    : branch.name;
+
+                // Search commits
+                branch.commits?.forEach((commit) => {
+                    const subjectMatch = commit.subject
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const bodyMatch = commit.body
+                        .toLowerCase()
+                        .includes(searchLower);
+
+                    if (subjectMatch || bodyMatch) {
+                        results.push(`${commit.subject} - ${commit.body}`);
+                    }
+                });
+
+                // Search sub-branches recursively
+                branch.subBranches?.forEach((subBranch) => {
+                    searchGitBranch(subBranch, currentPath);
+                });
+
+                // Search final commits
+                branch.finalCommits?.forEach((commit) => {
+                    const subjectMatch = commit.subject
+                        .toLowerCase()
+                        .includes(searchLower);
+                    const bodyMatch = commit.body
+                        .toLowerCase()
+                        .includes(searchLower);
+
+                    if (subjectMatch || bodyMatch) {
+                        results.push(`${commit.subject} - ${commit.body}`);
+                    }
+                });
+            }
+
+            searchGitBranch(gitTimelineRootData);
+
+            if (results.length === 0) {
                 return {
                     success: false,
                     message: `No career timeline information found matching "${query}".`,
                 };
             }
 
-            const data = await response.json();
-            return data;
+            return {
+                success: true,
+                events: results.slice(0, 10), // Limit to top 10 results
+            };
         } catch {
             return {
                 success: false,
