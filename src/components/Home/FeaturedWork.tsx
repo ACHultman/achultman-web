@@ -68,7 +68,7 @@ function ProjectCard({ project }: { project: Project }) {
                 borderWidth="1px"
                 borderColor={border}
                 borderRadius="xl"
-                p={6}
+                p={{ base: 4, md: 6 }}
                 h="100%"
                 display="flex"
                 flexDirection="column"
@@ -124,7 +124,7 @@ function FeaturedWork() {
                 viewport={{ once: true }}
                 style={{ width: '100%' }}
             >
-                <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
+                <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={{ base: 4, md: 5 }}>
                     {PROJECTS.map((project) => (
                         <ProjectCard key={project.title} project={project} />
                     ))}
