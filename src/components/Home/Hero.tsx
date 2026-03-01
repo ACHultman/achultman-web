@@ -24,7 +24,11 @@ function TypedSubtitle() {
     }, []);
 
     return (
-        <Box h="40px" position="relative" overflow="hidden">
+        <Box
+            h={{ base: '52px', md: '40px' }}
+            position="relative"
+            overflow="hidden"
+        >
             <AnimatePresence exitBeforeEnter>
                 <motion.div
                     key={index}
@@ -35,8 +39,8 @@ function TypedSubtitle() {
                     style={{ position: 'absolute', width: '100%' }}
                 >
                     <Paragraph
-                        fontSize="2xl"
-                        lineHeight={1.4}
+                        fontSize={{ base: 'lg', md: '2xl' }}
+                        lineHeight={1.5}
                         color="green.500"
                         fontWeight="medium"
                         m={0}
@@ -61,13 +65,13 @@ function Hero() {
                 direction={{ base: 'column-reverse', md: 'row' }}
                 align="center"
                 justify="space-between"
-                gap={{ base: 8, md: 12 }}
+                gap={{ base: 6, md: 12 }}
                 w="100%"
             >
                 <Box flex="1">
                     <Heading
                         as="h1"
-                        fontSize={{ base: '28px', md: '40px', lg: '48px' }}
+                        fontSize={{ base: '26px', md: '40px', lg: '48px' }}
                         mb={2}
                     >
                         Hey, I&apos;m Adam.
@@ -84,15 +88,19 @@ function Hero() {
                         Currently @ Kopperfield
                     </Badge>
                     <TypedSubtitle />
-                    <Paragraph fontSize="xl" lineHeight={1.6} mt={5}>
+                    <Paragraph
+                        fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }}
+                        lineHeight={1.7}
+                        mt={4}
+                    >
                         I help teams turn complex challenges into reliable,
                         elegant systems.
                     </Paragraph>
-                    <Flex gap={4} mt={8} wrap="wrap">
+                    <Flex gap={3} mt={6} wrap="wrap">
                         <Link href="#contact">
                             <Button
                                 colorScheme="green"
-                                size="lg"
+                                size={{ base: 'md', md: 'lg' }}
                                 bg="green.600"
                                 _hover={{ bg: 'green.700' }}
                                 color="white"
@@ -103,7 +111,7 @@ function Hero() {
                         </Link>
                         <Link href="/about">
                             <Button
-                                size="lg"
+                                size={{ base: 'md', md: 'lg' }}
                                 variant="outline"
                                 colorScheme="green"
                                 leftIcon={<FaUser />}
@@ -115,8 +123,8 @@ function Hero() {
                 </Box>
                 <Box
                     flexShrink={0}
-                    w={{ base: '140px', md: '200px' }}
-                    h={{ base: '140px', md: '200px' }}
+                    w={{ base: '120px', md: '200px' }}
+                    h={{ base: '120px', md: '200px' }}
                     borderRadius="2xl"
                     overflow="hidden"
                     boxShadow="0 0 0 3px var(--chakra-colors-green-500)"
@@ -132,9 +140,6 @@ function Hero() {
                                 w="100%"
                                 h="100%"
                                 bg="green.100"
-                                display="flex"
-                                alignItems="center"
-                                justifyContent="center"
                             />
                         }
                     />
