@@ -5,6 +5,7 @@ import {
     Divider,
     SimpleGrid,
     Alert,
+    Text,
 } from '@chakra-ui/react';
 
 import { NextSeo } from 'next-seo';
@@ -29,10 +30,14 @@ function BlogPage({ posts }: Props) {
                     <Heading
                         as="h1"
                         fontSize={{ base: '28px', md: '32px', lg: '36px' }}
-                        mb={4}
+                        mb={2}
                     >
                         Blog
                     </Heading>
+                    <Text color="gray.500" fontSize="lg">
+                        Notes on engineering, AI, security, and building things
+                        that last.
+                    </Text>
                 </Box>
                 <Divider my={10} />
 
