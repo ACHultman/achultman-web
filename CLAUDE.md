@@ -20,6 +20,19 @@ To run a single Playwright test file:
 npx playwright test e2e/navbar.desktop.spec.ts
 ```
 
+## Quality checks
+
+Run these before committing UI changes:
+
+```bash
+npm run lint          # No new errors
+npx pa11y-ci --config .pa11yci.js   # Accessibility — must pass 5/5 URLs
+```
+
+Pa11y requires a running dev server (`npm run dev`). It checks WCAG AA contrast and other accessibility rules across all public pages. The config lives in `.pa11yci.js`.
+
+**Contrast rule of thumb:** avoid `gray.500` and raw `green.400`/`green.500` as text colors on light backgrounds — use `useColorModeValue('gray.600', 'gray.400')` for subtle text and `green.700`/`green.400` for green text.
+
 ## Architecture
 
 This is Adam Hultman's personal portfolio site — a **Next.js 15 (Pages Router)** app using **Chakra UI v2** with **Emotion** for styling, deployed to Vercel.
