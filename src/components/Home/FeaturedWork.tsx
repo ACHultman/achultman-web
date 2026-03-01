@@ -41,7 +41,7 @@ const PROJECTS: Project[] = [
         title: 'Kopperfield Platform',
         context: 'Kopperfield · Current',
         description:
-            'Full-stack features for a SaaS platform helping homeowners electrify their homes — from initial quote to installation.',
+            'Permit-ready tools for electricians — load calculations, single-line diagrams, and the paperwork that holds projects up',
         tags: ['React', 'Node.js', 'PostgreSQL'],
     },
 ];
@@ -73,7 +73,16 @@ function ProjectCard({ project }: { project: Project }) {
                 display="flex"
                 flexDirection="column"
                 transition="box-shadow 0.2s"
+                cursor={project.href ? 'pointer' : 'default'}
                 _hover={{ boxShadow: '0 0 0 1px var(--chakra-colors-green-500)' }}
+                onClick={() => {
+                    if (project.href)
+                        window.open(
+                            project.href,
+                            '_blank',
+                            'noopener,noreferrer'
+                        );
+                }}
             >
                 <Flex justify="space-between" align="flex-start" mb={1}>
                     <Heading as="h3" size="md">
@@ -90,6 +99,7 @@ function ProjectCard({ project }: { project: Project }) {
                             size="xs"
                             variant="ghost"
                             colorScheme="green"
+                            onClick={(e) => e.stopPropagation()}
                         />
                     )}
                 </Flex>

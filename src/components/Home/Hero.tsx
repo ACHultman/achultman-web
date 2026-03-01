@@ -8,10 +8,10 @@ import Link from 'next/link';
 import { FaEnvelope, FaUser } from 'react-icons/fa';
 
 const SUBTITLES = [
-    'Full-stack developer.',
-    'AI platform builder.',
-    'Security-minded engineer.',
-    'Occasional pianist.',
+    'Full-stack developer',
+    'AI platform builder',
+    'Security-minded engineer',
+    'Occasional pianist',
 ];
 
 function TypedSubtitle() {
@@ -94,8 +94,8 @@ function Hero() {
                         lineHeight={1.7}
                         mt={4}
                     >
-                        I help teams turn complex challenges into reliable,
-                        elegant systems.
+                        I build things that hold up — clean architecture, AI
+                        where it matters, security from the start
                     </Paragraph>
                     <Flex gap={3} mt={6} wrap="wrap">
                         <Link href="#contact">

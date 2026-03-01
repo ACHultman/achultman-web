@@ -27,13 +27,13 @@ function Home() {
         >
             <Hero />
             <FeaturedWork />
-            <VStack align="start" w="100%" spacing={2}>
+            <VStack align="start" w="100%" spacing={1}>
                 <SectionHeading textAlign="left" my={2}>
-                    Go deeper
+                    Ask me anything about Adam
                 </SectionHeading>
                 <Paragraph>
-                    Curious about any of this? Ask my AI — it knows my career,
-                    stack, and opinions.
+                    I&apos;m an AI built on Adam&apos;s career, projects, and
+                    takes — ask whatever, I&apos;ll give you a real answer
                 </Paragraph>
             </VStack>
             <Chat />

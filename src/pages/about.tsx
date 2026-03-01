@@ -84,22 +84,18 @@ function About() {
                                         fontSize={{ base: 'lg', md: 'xl' }}
                                         lineHeight={1.7}
                                     >
-                                        I&apos;m a software developer who
-                                        genuinely likes hard problems. I&apos;ve
-                                        spent 5+ years building platforms for
-                                        media, clean energy, and AI &mdash;
-                                        usually at the intersection of
-                                        interesting architecture and real user
-                                        impact.
+                                        I&apos;m a software developer who likes
+                                        hard problems &mdash; 5+ years building
+                                        platforms across media, clean energy,
+                                        and AI
                                     </Paragraph>
                                     <Paragraph
                                         fontSize={{ base: 'lg', md: 'xl' }}
                                         lineHeight={1.7}
                                     >
-                                        I hold a Bachelor of Software
-                                        Engineering with a specialization in
-                                        Cybersecurity &amp; Privacy from the
-                                        University of Victoria.
+                                        Software Engineering degree from UVic
+                                        with a focus on Cybersecurity &amp;
+                                        Privacy
                                     </Paragraph>
                                 </VStack>
                             </Flex>
@@ -129,10 +125,11 @@ function About() {
                                     Right now
                                 </Text>
                                 <Paragraph lineHeight={1.7}>
-                                    Building software at Kopperfield to help
-                                    homeowners electrify their homes. Exploring
-                                    LLM tooling patterns and occasionally
-                                    thinking about distributed systems.
+                                    Building permit tools for electricians at
+                                    Kopperfield — load calcs, diagrams, and the
+                                    paperwork that slows projects down. Also
+                                    deep in LLM tooling and thinking about
+                                    distributed systems
                                 </Paragraph>
                             </Box>
                         </MotionBox>
@@ -152,15 +149,15 @@ function About() {
                                 {[
                                     {
                                         icon: '✦',
-                                        text: 'Simplicity is a feature, not a shortcut.',
+                                        text: 'Simple beats clever — almost always',
                                     },
                                     {
                                         icon: '✦',
-                                        text: 'Security belongs in the first commit, not the last.',
+                                        text: 'Security belongs in the first commit, not the last sprint',
                                     },
                                     {
                                         icon: '✦',
-                                        text: 'The best system is one that nobody notices.',
+                                        text: 'The best infrastructure is the kind nobody talks about',
                                     },
                                 ].map(({ icon, text }) => (
                                     <HStack key={text} spacing={3} align="start">
@@ -194,13 +191,18 @@ function About() {
                                 direction={{ base: 'column', sm: 'row' }}
                             >
                                 {[
-                                    { emoji: '📅', label: '5+ years experience' },
+                                    { emoji: '📅', label: '5+ years building things' },
+                                    { emoji: '📍', label: 'Vancouver, BC' },
                                     {
                                         emoji: '🎓',
-                                        label: 'BSEng, Cybersecurity & Privacy (UVic 2022)',
+                                        label: 'BSEng, Security & Privacy (UVic)',
                                     },
-                                    { emoji: '📍', label: 'Vancouver, BC' },
-                                    { emoji: '🎹', label: 'Plays piano' },
+                                    { emoji: '🏃', label: 'Runs' },
+                                    { emoji: '🔐', label: 'Picks locks' },
+                                    { emoji: '🌌', label: 'Astrophysics rabbit holes' },
+                                    { emoji: '🎭', label: 'Goes to stand-ups' },
+                                    { emoji: '✈️', label: 'Travels' },
+                                    { emoji: '🎮', label: 'Games' },
                                 ].map(({ emoji, label }) => (
                                     <Box
                                         key={label}
@@ -241,9 +243,8 @@ function About() {
                                     fontSize={{ base: 'lg', md: 'xl' }}
                                     lineHeight={1.7}
                                 >
-                                    Thanks for reading! Feel free to connect
-                                    with me on LinkedIn or send a message using
-                                    the form below.
+                                    Want to connect? Find me on LinkedIn or
+                                    drop a message below
                                 </Paragraph>
                                 <Contact />
                             </VStack>

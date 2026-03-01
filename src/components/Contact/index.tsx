@@ -1,13 +1,14 @@
 import {
     Box,
     Flex,
+    HStack,
     Heading,
     IconButton,
-    Stack,
+    Text,
     Tooltip,
+    VStack,
     useClipboard,
     useColorModeValue,
-    VStack,
 } from '@chakra-ui/react';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
@@ -36,15 +37,16 @@ function Contact() {
     const bgColor = useColorModeValue('white', 'gray.800');
     const bgImage = useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK);
     const btnHoverColor = useColorModeValue('white', 'gray.700');
-
     const formBg = useColorModeValue('white', 'gray.700');
     const formColor = useColorModeValue('gray.700', 'whiteAlpha.900');
+    const subtleColor = useColorModeValue('gray.500', 'gray.400');
 
     return (
         <Flex
             bg={bgColor}
             align="center"
             justify="center"
+            w="100%"
             css={{
                 backgroundImage: bgImage,
                 backgroundAttachment: 'fixed',
@@ -54,45 +56,45 @@ function Contact() {
                 bg={formBg}
                 color={formColor}
                 borderRadius="lg"
-                m={{ base: 4, md: 8, lg: 16 }}
+                m={{ base: 4, md: 8, lg: 12 }}
                 p={{ base: 6, md: 8, lg: 10 }}
+                w="100%"
+                maxW="760px"
             >
-                <VStack spacing={{ base: 4, md: 8 }}>
-                    <Heading
-                        fontSize={{
-                            base: '2xl',
-                            md: '3xl',
-                        }}
-                        textAlign="center"
+                <Flex
+                    direction={{ base: 'column', lg: 'row' }}
+                    gap={{ base: 8, lg: 14 }}
+                    align="flex-start"
+                >
+                    {/* Left: heading + blurb + socials */}
+                    <VStack
+                        align="start"
+                        spacing={5}
+                        flexShrink={0}
+                        w={{ base: '100%', lg: '200px' }}
                     >
-                        Get in Touch
-                    </Heading>
-
-                    <Stack
-                        spacing={{ base: 4, md: 8 }}
-                        direction={{ base: 'column' }}
-                        align="center"
-                        justify="center"
-                        w="100%"
-                    >
-                        <Stack
-                            align="center"
-                            justify="space-around"
-                            direction={{ base: 'row' }}
-                            spacing={{ base: 4, md: 8 }}
+                        <Heading fontSize={{ base: '2xl', md: '3xl' }}>
+                            Let&apos;s talk
+                        </Heading>
+                        <Text
+                            fontSize="sm"
+                            color={subtleColor}
+                            lineHeight={1.7}
                         >
+                            Open to conversations about interesting work,
+                            collaborations, or just talking shop
+                        </Text>
+                        <HStack spacing={1}>
                             <Tooltip
-                                label={
-                                    hasCopied ? 'Email Copied!' : 'Copy Email'
-                                }
+                                label={hasCopied ? 'Copied!' : 'Copy email'}
                                 closeOnClick={false}
                                 hasArrow
                             >
                                 <IconButton
                                     aria-label="email"
                                     variant="ghost"
-                                    size="lg"
-                                    fontSize="3xl"
+                                    size="md"
+                                    fontSize="2xl"
                                     icon={<MdEmail />}
                                     _hover={{
                                         bg: 'green.500',
@@ -102,7 +104,6 @@ function Contact() {
                                     isRound
                                 />
                             </Tooltip>
-
                             <IconButton
                                 as="a"
                                 href="https://github.com/ACHultman"
@@ -110,8 +111,8 @@ function Contact() {
                                 rel="noopener noreferrer"
                                 aria-label="github"
                                 variant="ghost"
-                                size="lg"
-                                fontSize="3xl"
+                                size="md"
+                                fontSize="2xl"
                                 icon={<BsGithub />}
                                 _hover={{
                                     bg: 'black',
@@ -119,7 +120,6 @@ function Contact() {
                                 }}
                                 isRound
                             />
-
                             <IconButton
                                 as="a"
                                 href="https://www.linkedin.com/in/adam-hultman/"
@@ -127,27 +127,22 @@ function Contact() {
                                 rel="noopener noreferrer"
                                 aria-label="linkedin"
                                 variant="ghost"
-                                size="lg"
-                                icon={<BsLinkedin size="28px" />}
+                                size="md"
+                                icon={<BsLinkedin size="22px" />}
                                 _hover={{
                                     bg: 'blue.500',
                                     color: btnHoverColor,
                                 }}
                                 isRound
                             />
-                        </Stack>
+                        </HStack>
+                    </VStack>
 
-                        <Box
-                            bg={formBg}
-                            borderRadius="lg"
-                            p={8}
-                            color={formColor}
-                            shadow="dark-lg"
-                        >
-                            <ContactForm />
-                        </Box>
-                    </Stack>
-                </VStack>
+                    {/* Right: form */}
+                    <Box flex="1" w={{ base: '100%', lg: 'auto' }}>
+                        <ContactForm />
+                    </Box>
+                </Flex>
             </Box>
         </Flex>
     );
