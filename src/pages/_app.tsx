@@ -11,6 +11,7 @@ import createEmotionCache from '../utils/createEmotionCache';
 import theme from '../theme';
 import SEO from '../next-seo.config';
 import Layout from '@components/Layout';
+import ErrorBoundary from '@components/ErrorBoundary';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -36,9 +37,11 @@ function MyApp({
             <Analytics />
             <SpeedInsights />
             <ChakraProvider theme={theme} colorModeManager={colorModeManager}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
+                <ErrorBoundary>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </ErrorBoundary>
             </ChakraProvider>
         </CacheProvider>
     );
