@@ -5,12 +5,12 @@ import {
     Flex,
     Heading,
     HStack,
-    Image,
     SlideFade,
     Text,
     VStack,
     useColorModeValue,
 } from '@chakra-ui/react';
+import NextImage from 'next/image';
 import { motion } from 'framer-motion';
 
 import Paragraph from '@components/Paragraph';
@@ -63,25 +63,20 @@ function About() {
                             >
                                 <Box
                                     flexShrink={0}
+                                    position="relative"
                                     w={{ base: '160px', md: '200px' }}
                                     h={{ base: '160px', md: '200px' }}
                                     borderRadius="2xl"
                                     overflow="hidden"
                                     boxShadow="0 0 0 3px var(--chakra-colors-green-500)"
                                 >
-                                    <Image
+                                    <NextImage
                                         src="/images/adam.jpg"
                                         alt="Adam Hultman"
-                                        w="100%"
-                                        h="100%"
-                                        objectFit="cover"
-                                        fallback={
-                                            <Box
-                                                w="100%"
-                                                h="100%"
-                                                bg="green.100"
-                                            />
-                                        }
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                        priority
+                                        sizes="(max-width: 768px) 160px, 200px"
                                     />
                                 </Box>
                                 <VStack align="start" spacing={4} flex="1">
