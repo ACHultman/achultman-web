@@ -39,7 +39,7 @@ function Contact() {
     const btnHoverColor = useColorModeValue('white', 'gray.700');
     const formBg = useColorModeValue('white', 'gray.700');
     const formColor = useColorModeValue('gray.700', 'whiteAlpha.900');
-    const subtleColor = useColorModeValue('gray.500', 'gray.400');
+    const subtleColor = useColorModeValue('gray.600', 'gray.400');
 
     return (
         <Flex
