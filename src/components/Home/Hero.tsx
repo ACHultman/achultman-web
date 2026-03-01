@@ -26,7 +26,7 @@ function TypedSubtitle() {
 
     return (
         <Box
-            h={{ base: '52px', md: '40px' }}
+            h={{ base: '32px', md: '40px' }}
             position="relative"
             overflow="hidden"
         >
@@ -63,10 +63,10 @@ function Hero() {
             style={{ width: '100%' }}
         >
             <Flex
-                direction={{ base: 'column-reverse', md: 'row' }}
+                direction="row"
                 align="center"
                 justify="space-between"
-                gap={{ base: 6, md: 12 }}
+                gap={{ base: 4, md: 12 }}
                 w="100%"
             >
                 <Box flex="1">
@@ -97,36 +97,13 @@ function Hero() {
                         I build things that hold up — clean architecture, AI
                         where it matters, security from the start
                     </Paragraph>
-                    <Flex gap={3} mt={6} wrap="wrap">
-                        <Link href="#contact">
-                            <Button
-                                colorScheme="green"
-                                size={{ base: 'md', md: 'lg' }}
-                                bg="green.600"
-                                _hover={{ bg: 'green.700' }}
-                                color="white"
-                                leftIcon={<FaEnvelope />}
-                            >
-                                Say hello
-                            </Button>
-                        </Link>
-                        <Link href="/about">
-                            <Button
-                                size={{ base: 'md', md: 'lg' }}
-                                variant="outline"
-                                colorScheme="green"
-                                leftIcon={<FaUser />}
-                            >
-                                Read my story
-                            </Button>
-                        </Link>
-                    </Flex>
                 </Box>
                 <Box
                     flexShrink={0}
+                    alignSelf={{ base: 'flex-start', md: 'center' }}
                     position="relative"
-                    w={{ base: '120px', md: '200px' }}
-                    h={{ base: '120px', md: '200px' }}
+                    w={{ base: '88px', md: '200px' }}
+                    h={{ base: '88px', md: '200px' }}
                     borderRadius="2xl"
                     overflow="hidden"
                     boxShadow="0 0 0 3px var(--chakra-colors-green-500)"
@@ -137,9 +114,33 @@ function Hero() {
                         fill
                         style={{ objectFit: 'cover' }}
                         priority
-                        sizes="(max-width: 768px) 120px, 200px"
+                        sizes="(max-width: 768px) 88px, 200px"
                     />
                 </Box>
+            </Flex>
+            <Flex gap={3} mt={6} wrap="wrap">
+                <Link href="#contact">
+                    <Button
+                        colorScheme="green"
+                        size={{ base: 'md', md: 'lg' }}
+                        bg="green.600"
+                        _hover={{ bg: 'green.700' }}
+                        color="white"
+                        leftIcon={<FaEnvelope />}
+                    >
+                        Say hello
+                    </Button>
+                </Link>
+                <Link href="/about">
+                    <Button
+                        size={{ base: 'md', md: 'lg' }}
+                        variant="outline"
+                        colorScheme="green"
+                        leftIcon={<FaUser />}
+                    >
+                        Read my story
+                    </Button>
+                </Link>
             </Flex>
         </motion.div>
     );
