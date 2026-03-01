@@ -1,43 +1,146 @@
-import { Box, Button, Center, Heading } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 import Paragraph from '../Paragraph';
 import Link from 'next/link';
-import { FaEnvelope } from 'react-icons/fa';
+import { FaEnvelope, FaUser } from 'react-icons/fa';
+
+const SUBTITLES = [
+    'Full-stack developer.',
+    'AI platform builder.',
+    'Security-minded engineer.',
+    'Occasional pianist.',
+];
+
+function TypedSubtitle() {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIndex((i) => (i + 1) % SUBTITLES.length);
+        }, 2500);
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <Box h="40px" position="relative" overflow="hidden">
+            <AnimatePresence exitBeforeEnter>
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.4 }}
+                    style={{ position: 'absolute', width: '100%' }}
+                >
+                    <Paragraph
+                        fontSize="2xl"
+                        lineHeight={1.4}
+                        color="green.500"
+                        fontWeight="medium"
+                        m={0}
+                    >
+                        {SUBTITLES[index]}
+                    </Paragraph>
+                </motion.div>
+            </AnimatePresence>
+        </Box>
+    );
+}
 
 function Hero() {
     return (
-        <Box>
-            <Heading
-                as="h1"
-                fontSize={{ base: '28px', md: '40px', lg: '48px' }}
-                mb={3}
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            style={{ width: '100%' }}
+        >
+            <Flex
+                direction={{ base: 'column-reverse', md: 'row' }}
+                align="center"
+                justify="space-between"
+                gap={{ base: 8, md: 12 }}
+                w="100%"
             >
-                Hey, I’m Adam
-            </Heading>
-            <Paragraph fontSize="2xl" lineHeight={1.6}>
-                Full-stack software developer (EIT) with a focus on AI-powered,
-                secure, and scalable platforms. I help teams turn complex
-                challenges into reliable, elegant systems.
-            </Paragraph>
-            <Paragraph fontSize="2xl" lineHeight={1.6} mt={4}>
-                Let’s build something great together.
-            </Paragraph>
-            <Center>
-                <Link href="#contact">
-                    <Button
-                        colorScheme="green"
-                        size="lg"
-                        mt={8}
-                        bg="green.600"
-                        _hover={{ bg: 'green.700' }}
-                        color="white"
-                        leftIcon={<FaEnvelope />}
+                <Box flex="1">
+                    <Heading
+                        as="h1"
+                        fontSize={{ base: '28px', md: '40px', lg: '48px' }}
+                        mb={2}
                     >
-                        Contact
-                    </Button>
-                </Link>
-            </Center>
-        </Box>
+                        Hey, I&apos;m Adam.
+                    </Heading>
+                    <Badge
+                        colorScheme="green"
+                        variant="subtle"
+                        fontSize="xs"
+                        mb={3}
+                        px={2}
+                        py={0.5}
+                        borderRadius="full"
+                    >
+                        Currently @ Kopperfield
+                    </Badge>
+                    <TypedSubtitle />
+                    <Paragraph fontSize="xl" lineHeight={1.6} mt={5}>
+                        I help teams turn complex challenges into reliable,
+                        elegant systems.
+                    </Paragraph>
+                    <Flex gap={4} mt={8} wrap="wrap">
+                        <Link href="#contact">
+                            <Button
+                                colorScheme="green"
+                                size="lg"
+                                bg="green.600"
+                                _hover={{ bg: 'green.700' }}
+                                color="white"
+                                leftIcon={<FaEnvelope />}
+                            >
+                                Say hello
+                            </Button>
+                        </Link>
+                        <Link href="/about">
+                            <Button
+                                size="lg"
+                                variant="outline"
+                                colorScheme="green"
+                                leftIcon={<FaUser />}
+                            >
+                                Read my story
+                            </Button>
+                        </Link>
+                    </Flex>
+                </Box>
+                <Box
+                    flexShrink={0}
+                    w={{ base: '140px', md: '200px' }}
+                    h={{ base: '140px', md: '200px' }}
+                    borderRadius="2xl"
+                    overflow="hidden"
+                    boxShadow="0 0 0 3px var(--chakra-colors-green-500)"
+                >
+                    <Image
+                        src="/images/adam.jpg"
+                        alt="Adam Hultman"
+                        w="100%"
+                        h="100%"
+                        objectFit="cover"
+                        fallback={
+                            <Box
+                                w="100%"
+                                h="100%"
+                                bg="green.100"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                            />
+                        }
+                    />
+                </Box>
+            </Flex>
+        </motion.div>
     );
 }
 
