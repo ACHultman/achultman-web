@@ -62,10 +62,22 @@ export default function PostBox({ post }: PostBoxProps) {
                         {post.title}
                     </LinkOverlay>
                 </Heading>
-                <Text color={dateColor} mb={4}>
+                <Text color={dateColor} mb={4} fontSize="sm">
                     {post.publishedDate
                         ? new Date(post.publishedDate).toLocaleDateString()
                         : 'Unpublished'}
+                    {post.description && (
+                        <>
+                            {' · '}
+                            {Math.max(
+                                1,
+                                Math.ceil(
+                                    post.description.split(/\s+/).length / 200
+                                )
+                            )}{' '}
+                            min read
+                        </>
+                    )}
                 </Text>
                 <Text mb={4} noOfLines={3}>
                     {' '}

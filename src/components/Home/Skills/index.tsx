@@ -11,17 +11,13 @@ import {
     SimpleGrid,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { TbAssembly, TbBrandReactNative, TbCpu, TbGraph } from 'react-icons/tb';
+import { TbGraph } from 'react-icons/tb';
 import {
     SiAmazonwebservices,
     SiAngular,
-    SiApollographql,
     SiCplusplus,
-    SiCss3,
-    SiDart,
     SiDatadog,
     SiDocker,
-    SiDwavesystems,
     SiExpress,
     SiFigma,
     SiGit,
@@ -31,7 +27,6 @@ import {
     SiHtml5,
     SiJavascript,
     SiJest,
-    SiKotlin,
     SiLangchain,
     SiMysql,
     SiNextdotjs,
@@ -41,49 +36,35 @@ import {
     SiPostgresql,
     SiPython,
     SiReact,
-    SiSpring,
-    SiTensorflow,
     SiTypescript,
-    SiVisualbasic,
     SiVuedotjs,
 } from 'react-icons/si';
-import {
-    FaClipboardCheck,
-    FaClipboardList,
-    FaEye,
-    FaJava,
-    FaKey,
-    FaRobot,
-} from 'react-icons/fa';
+import { FaEye, FaKey, FaRobot } from 'react-icons/fa';
 import {
     MdArchitecture,
     MdDesignServices,
     MdNetworkPing,
     MdSecurity,
 } from 'react-icons/md';
-import { ArrowDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import Paragraph from '../../Paragraph';
 
 const skillData = [
     {
         title: 'Languages',
         skills: [
-            { name: 'Typescript', icon: SiTypescript },
+            { name: 'TypeScript', icon: SiTypescript },
             { name: 'JavaScript', icon: SiJavascript },
-            { name: 'HTML', icon: SiHtml5 },
-            { name: 'CSS', icon: SiCss3 },
-            { name: 'PHP', icon: SiPhp },
             { name: 'Python', icon: SiPython },
             { name: 'Go', icon: SiGo },
+            { name: 'PHP', icon: SiPhp },
+            { name: 'SQL', icon: SiPostgresql },
             { name: 'C++', icon: SiCplusplus },
-            { name: 'Java', icon: FaJava },
-            { name: 'Dart', icon: SiDart },
-            { name: 'Kotlin', icon: SiKotlin },
-            { name: 'Assembly', icon: TbAssembly },
-            { name: 'Visual Basic', icon: SiVisualbasic },
+            { name: 'HTML / CSS', icon: SiHtml5 },
         ],
     },
     {
-        title: 'Libs. & Frameworks',
+        title: 'Frameworks',
         skills: [
             { name: 'React', icon: SiReact },
             { name: 'Next.js', icon: SiNextdotjs },
@@ -91,47 +72,36 @@ const skillData = [
             { name: 'Express', icon: SiExpress },
             { name: 'Vue', icon: SiVuedotjs },
             { name: 'Angular', icon: SiAngular },
-            { name: 'Spring', icon: SiSpring },
-            { name: 'React Native', icon: TbBrandReactNative },
-            { name: 'Langchain', icon: SiLangchain },
-            { name: 'Apollo', icon: SiApollographql },
+            { name: 'LangChain', icon: SiLangchain },
             { name: 'Playwright', icon: SiPlaywright },
             { name: 'Jest', icon: SiJest },
-            { name: 'Tensorflow', icon: SiTensorflow },
         ],
     },
     {
-        title: 'Coursework',
+        title: 'Knowledge & Theory',
         skills: [
-            { name: 'RTOS', icon: TbCpu },
-            { name: 'UI/UX Design', icon: MdDesignServices },
-            { name: 'Cryptography', icon: FaKey },
             { name: 'Cybersecurity', icon: MdSecurity },
-            { name: 'Computer Vision', icon: FaEye },
-            { name: 'Software Testing', icon: FaClipboardList },
+            { name: 'Cryptography', icon: FaKey },
             { name: 'Machine Learning', icon: FaRobot },
-            { name: 'Quantum Algorithms', icon: SiDwavesystems },
-            { name: 'Computer Networking', icon: MdNetworkPing },
             { name: 'Software Architecture', icon: MdArchitecture },
-            { name: 'Requirements Engineering', icon: FaClipboardCheck },
-            { name: 'Algorithms & Datastructures', icon: TbGraph },
+            { name: 'Computer Networking', icon: MdNetworkPing },
+            { name: 'Algorithms & Data Structures', icon: TbGraph },
+            { name: 'Computer Vision', icon: FaEye },
+            { name: 'UI/UX Design', icon: MdDesignServices },
         ],
     },
     {
-        title: 'Tools',
+        title: 'Tools & Platforms',
         skills: [
-            { name: 'Git', icon: SiGit },
+            { name: 'AWS (Lambda, CDK, ECS)', icon: SiAmazonwebservices },
             { name: 'Docker', icon: SiDocker },
-            { name: 'MySQL', icon: SiMysql },
             { name: 'PostgreSQL', icon: SiPostgresql },
-            { name: 'Figma', icon: SiFigma },
-            { name: 'Datadog', icon: SiDatadog },
+            { name: 'MySQL', icon: SiMysql },
             { name: 'GraphQL', icon: SiGraphql },
-            { name: 'Google Cloud Platform', icon: SiGooglecloud },
-            { name: 'AWS', icon: SiAmazonwebservices },
-            { name: 'AWS Lambda', icon: SiAmazonwebservices },
-            { name: 'AWS CDK', icon: SiAmazonwebservices },
-            { name: 'Amazon ECS', icon: SiAmazonwebservices },
+            { name: 'Google Cloud', icon: SiGooglecloud },
+            { name: 'Git', icon: SiGit },
+            { name: 'Datadog', icon: SiDatadog },
+            { name: 'Figma', icon: SiFigma },
         ],
     },
 ];
@@ -139,12 +109,16 @@ const skillData = [
 function Skills() {
     const [show, setShow] = useState(false);
     const iconColor = useColorModeValue('green.800', 'green.200');
+    const subtleColor = useColorModeValue('gray.600', 'gray.400');
 
     return (
         <>
-            <Heading size="lg" id="skills" pb={4}>
+            <Heading size="lg" id="skills" pb={2}>
                 Skills
             </Heading>
+            <Paragraph mb={4} color={subtleColor}>
+                Here&apos;s what I work with — and what I&apos;ve built deeply into.
+            </Paragraph>
             <Collapse
                 startingHeight={300}
                 in={show}
@@ -178,9 +152,9 @@ function Skills() {
                         onClick={() => setShow(true)}
                         size="sm"
                         mt="1rem"
-                        rightIcon={<ArrowDownIcon />}
+                        rightIcon={<ChevronDownIcon />}
                     >
-                        Show More
+                        Show full list
                     </Button>
                 </Center>
             )}

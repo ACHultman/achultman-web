@@ -20,7 +20,7 @@ const MAIN_LINKS = [
         route: '/',
     },
     {
-        name: 'About Me',
+        name: 'About',
         route: '/about',
     },
     {

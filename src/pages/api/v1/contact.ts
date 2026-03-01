@@ -28,6 +28,16 @@ function isValidEmail(email: string): boolean {
     return emailRegex.test(email);
 }
 
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.NEXT_PUBLIC_EMAIL,
+        pass: serverConfig.EMAIL_PASS,
+    },
+});
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
@@ -58,16 +68,6 @@ export default async function handler(
         const sanitizedName = escapeHtml(name.trim());
         const sanitizedEmail = escapeHtml(email.trim());
         const sanitizedMessage = escapeHtml(message.trim());
-
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                user: process.env.NEXT_PUBLIC_EMAIL,
-                pass: serverConfig.EMAIL_PASS,
-            },
-        });
 
         const mailOptions = {
             from: '"Contact Form" <no-reply@hultman.dev>',

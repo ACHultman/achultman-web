@@ -50,7 +50,7 @@ function GitTimeline() {
             alignSelf="center"
             ml={{ base: 0, lg: '580px' }}
             zIndex="-1"
-            opacity="0.05"
+            opacity="0.12"
             overflow="hidden"
         >
             <SlideFade

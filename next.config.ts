@@ -7,146 +7,46 @@ module.exports = withBundleAnalyzer({
     serverExternalPackages: ['next-seo'],
     images: {
         remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'media.wiley.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.wiley.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.wiley.com.au',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.wiley.com.au.s3.amazonaws.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'learning.oreilly.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'reactjs.org',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'easings.net',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'github.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'repository-images.githubusercontent.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'projects-raspberry.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'blog.tensorflow.org',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'blogger.googleusercontent.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'storage.googleapis.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images-na.ssl-images-amazon.com',
-                port: '',
-                pathname: '/**',
-            },
+            // Book covers — Wiley
+            { protocol: 'https', hostname: 'media.wiley.com', pathname: '/**' },
+            { protocol: 'https', hostname: 'images.wiley.com', pathname: '/**' },
+            { protocol: 'https', hostname: 'images.wiley.com.au', pathname: '/**' },
+            { protocol: 'https', hostname: 'images.wiley.com.au.s3.amazonaws.com', pathname: '/**' },
+            // Book covers — O'Reilly
+            { protocol: 'https', hostname: 'learning.oreilly.com', pathname: '/**' },
+            // Book covers — Amazon
+            { protocol: 'https', hostname: 'images-na.ssl-images-amazon.com', pathname: '/**' },
+            // Bookmark / blog covers — GitHub
+            { protocol: 'https', hostname: 'github.com', pathname: '/**' },
+            { protocol: 'https', hostname: 'repository-images.githubusercontent.com', pathname: '/**' },
+            // Bookmark / blog covers — Google Storage
+            { protocol: 'https', hostname: 'storage.googleapis.com', pathname: '/**' },
             // Notion cover images
-            {
-                protocol: 'https',
-                hostname: 's3.us-west-2.amazonaws.com',
-                port: '',
-                pathname: '/secure.notion-static.com/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'secure.notion-static.com',
-                port: '',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'www.notion.so',
-                port: '',
-                pathname: '/images/page-cover/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.unsplash.com',
-                port: '',
-                pathname: '/**',
-            },
+            { protocol: 'https', hostname: 's3.us-west-2.amazonaws.com', pathname: '/secure.notion-static.com/**' },
+            { protocol: 'https', hostname: 'secure.notion-static.com', pathname: '/**' },
+            { protocol: 'https', hostname: 'www.notion.so', pathname: '/images/page-cover/**' },
+            { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
         ],
     },
     async headers() {
         return [
             {
+                // Security headers on all routes
                 source: '/:path*',
                 headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 'public, max-age=0, must-revalidate',
-                    },
-                    {
-                        key: 'X-Content-Type-Options',
-                        value: 'nosniff',
-                    },
-                    {
-                        key: 'X-Frame-Options',
-                        value: 'DENY',
-                    },
-                    {
-                        key: 'X-XSS-Protection',
-                        value: '1; mode=block',
-                    },
-                    {
-                        key: 'Referrer-Policy',
-                        value: 'strict-origin-when-cross-origin',
-                    },
-                    {
-                        key: 'Permissions-Policy',
-                        value: 'camera=(), microphone=(), geolocation=()',
-                    },
+                    { key: 'X-Content-Type-Options', value: 'nosniff' },
+                    { key: 'X-Frame-Options', value: 'DENY' },
+                    { key: 'X-XSS-Protection', value: '1; mode=block' },
+                    { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+                    { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+                ],
+            },
+            {
+                // Cache-Control only on HTML pages — exclude Next.js static assets
+                // which Next.js sets to immutable automatically
+                source: '/((?!_next/static|_next/image|favicon|images).*)',
+                headers: [
+                    { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
                 ],
             },
         ];

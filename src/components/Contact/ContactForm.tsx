@@ -103,7 +103,7 @@ function ContactForm() {
                     error={errors.message?.message}
                 >
                     <Textarea
-                        placeholder="Your Message"
+                        placeholder="What's on your mind?"
                         rows={6}
                         disabled={submitStatus === 'success'}
                         {...register('message', {

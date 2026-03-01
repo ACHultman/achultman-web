@@ -1,4 +1,4 @@
-import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
 
 import {
     Box,
@@ -9,11 +9,14 @@ import {
     Link,
     Stack,
     Text,
+    useColorModeValue,
 } from '@chakra-ui/react';
 
 import Logo from '../Logo';
 
 function Footer() {
+    const subtleColor = useColorModeValue('gray.600', 'gray.400');
+
     return (
         <Box
             as="footer"
@@ -50,16 +53,22 @@ function Footer() {
                             aria-label="Github"
                             icon={<FaGithub fontSize="20px" />}
                         />
+                        <IconButton
+                            as="a"
+                            href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
+                            aria-label="Email"
+                            icon={<FaEnvelope fontSize="20px" />}
+                        />
                     </ButtonGroup>
                 </Stack>
-                <Divider pt={2} />
+                <Divider />
                 <Stack
                     direction="row"
                     align="center"
                     justify="space-between"
                     pt={5}
                 >
-                    <Text fontSize="md">
+                    <Text fontSize="sm" color={subtleColor}>
                         &copy; {new Date().getFullYear()} Adam Hultman
                     </Text>
                     <IconButton

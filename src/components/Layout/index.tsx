@@ -14,7 +14,7 @@ function Layout({ children }: PropsWithChildren) {
         <Container maxW="container.xl" className={robotoMono.className} px={0}>
             <Flex alignItems="center" flexDirection="column">
                 <Navbar />
-                <Container as="main" maxW="container.xl" mt="106px">
+                <Container as="main" maxW="container.xl" mt={{ base: '80px', md: '106px' }}>
                     {children}
                 </Container>
                 <Footer />

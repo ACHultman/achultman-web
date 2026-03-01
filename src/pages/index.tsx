@@ -8,10 +8,10 @@ function Index() {
         <>
             <NextSeo
                 title="Adam Hultman"
-                description="Full-stack software developer (EIT) with 5+ years building AI-enabled, secure, and scalable platforms."
+                description="Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms."
                 canonical="https://hultman.dev"
             />
-            <Container maxW="container.lg" mt={['5', '10']}>
+            <Container maxW="container.lg" mt={{ base: 2, md: 6 }}>
                 <Home />
             </Container>
         </>
