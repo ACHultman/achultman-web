@@ -7,7 +7,7 @@ import {
     OrderedList,
     useColorModeValue,
 } from '@chakra-ui/react';
-import React, { forwardRef, memo, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { CopyBlock, dracula } from 'react-code-blocks';
 import ReactMarkdown, { Components } from 'react-markdown';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
@@ -94,7 +94,7 @@ interface Props {
 }
 
 const MessageBoxComponent = forwardRef<HTMLDivElement, Props>(
-    ({ message, isUser = false, hidden }: Props, ref) => {
+    ({ message, isUser = false }: Props, ref) => {
         const userColor = useColorModeValue('green.500', 'green.500');
         const botColor = useColorModeValue('gray.100', 'gray.600');
         const shadowLocation = isUser ? '2px 2px 4px 0px' : '-2px 2px 4px 0px';

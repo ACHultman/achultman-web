@@ -4,7 +4,6 @@ import {
     Flex,
     Button,
     useClipboard,
-    useColorModeValue,
 } from '@chakra-ui/react';
 import { MdEmail } from 'react-icons/md';
 import { ContactAlert } from './ContactAlert';
@@ -16,8 +15,6 @@ export function ContactError({
     firstName: string;
     onRetry: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
-    const hoverBg = useColorModeValue('blue.500', 'blue.500');
-    const hoverColor = useColorModeValue('white', 'gray.700');
     const { hasCopied, onCopy } = useClipboard(
         process.env.NEXT_PUBLIC_EMAIL || ''
     );

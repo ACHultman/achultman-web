@@ -11,7 +11,7 @@ export default function useBookmarkTagFilter(
     );
 
     useEffect(() => {
-        let filteredBookmark = rawBookmarks.filter(
+        const filteredBookmark = rawBookmarks.filter(
             (bookmark) => !activeTag || bookmark.tags.includes(activeTag)
         );
         setBookmarks(filteredBookmark);

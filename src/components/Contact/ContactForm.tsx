@@ -28,7 +28,7 @@ function ContactForm() {
         getValues,
     } = useForm<FormData>();
 
-    const displayFirstName = getValues('name')?.split(' ')[0];
+    const displayFirstName = getValues('name')?.split(' ')[0] || 'there';
 
     const [submitStatus, setSubmitStatus] = useState<
         'idle' | 'error' | 'success'

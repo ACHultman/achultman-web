@@ -6,5 +6,6 @@ export function generateSuggestions(currentIndex: number): string[] {
     }
 
     const nextIndex = currentIndex % INIT_PROMPT_CHOICES.length;
-    return [INIT_PROMPT_CHOICES[nextIndex]];
+    const suggestion = INIT_PROMPT_CHOICES[nextIndex];
+    return suggestion ? [suggestion] : [];
 }
