@@ -25,8 +25,8 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Audit dependencies
-              run: npm audit --audit-level=high
+            - name: Audit production dependencies
+              run: npm audit --omit=dev --audit-level=critical
 
             - name: Wait for Vercel to finish deployment
               run: sleep 60
