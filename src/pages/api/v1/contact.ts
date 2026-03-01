@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 import { serverConfig } from '../../../config';
+import { getPostHogClient } from '../../../lib/posthog-server';
 
 type Data = {
     message: string;
@@ -91,9 +92,33 @@ export default async function handler(
 
         await transporter.sendMail(mailOptions);
 
+        // Track successful contact form submission server-side
+        const posthog = getPostHogClient();
+        posthog.capture({
+            distinctId: sanitizedEmail,
+            event: 'server_contact_submitted',
+            properties: {
+                sender_name: sanitizedName,
+                source: 'api',
+            },
+        });
+
         return res.status(200).json({ message: 'Form submission successful' });
     } catch (error) {
         console.error('Error handling contact form submission:', error);
+
+        // Track failed contact form submission server-side
+        const posthog = getPostHogClient();
+        posthog.capture({
+            distinctId: 'anonymous',
+            event: 'server_contact_failed',
+            properties: {
+                error_message:
+                    error instanceof Error ? error.message : String(error),
+                source: 'api',
+            },
+        });
+
         return res.status(500).json({ message: 'Internal server error' });
     }
 }

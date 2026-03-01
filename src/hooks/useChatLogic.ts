@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useChat } from '@ai-sdk/react';
+import posthog from 'posthog-js';
 import {
     CHAT_BOT_WELCOME_MESSAGE,
     INIT_PROMPT_CHOICES,
@@ -60,19 +61,32 @@ export function useChatLogic({ conversationNode }: UseChatLogicProps) {
         async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             if (!input.trim()) return;
+            if (userMessagesCount === 0) {
+                posthog.capture('chat_started');
+            }
+            posthog.capture('chat_message_sent', {
+                message_number: userMessagesCount + 1,
+            });
             await aiHandleSubmit(e);
         },
-        [input, aiHandleSubmit]
+        [input, userMessagesCount, aiHandleSubmit]
     );
 
     const handleSuggestionAppend = useCallback(
         async (msgContent: string) => {
+            if (userMessagesCount === 0) {
+                posthog.capture('chat_started');
+            }
+            posthog.capture('chat_suggestion_used', {
+                suggestion: msgContent,
+                message_number: userMessagesCount + 1,
+            });
             await append({
                 role: 'user',
                 content: msgContent,
             });
         },
-        [append]
+        [userMessagesCount, append]
     );
 
     useEffect(() => {
