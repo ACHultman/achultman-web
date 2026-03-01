@@ -1,5 +1,3 @@
-'use client';
-
 import {
     Box,
     Flex,
@@ -62,8 +60,8 @@ function Contact() {
                 <VStack spacing={{ base: 4, md: 8 }}>
                     <Heading
                         fontSize={{
-                            base: '4xl',
-                            md: '5xl',
+                            base: '2xl',
+                            md: '3xl',
                         }}
                         textAlign="center"
                     >
