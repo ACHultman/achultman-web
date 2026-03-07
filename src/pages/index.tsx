@@ -1,6 +1,7 @@
 import { Container } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
 import Home from '@components/Home';
+import JsonLd from '@components/JsonLd';
 import React from 'react';
 
 function Index() {
@@ -11,6 +12,7 @@ function Index() {
                 description="Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms."
                 canonical="https://hultman.dev"
             />
+            <JsonLd />
             <Container maxW="container.lg" mt={{ base: 2, md: 6 }}>
                 <Home />
             </Container>
