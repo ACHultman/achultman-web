@@ -3,7 +3,7 @@ import type { NextSeoProps } from 'next-seo';
 const baseUrl =
     typeof window !== 'undefined'
         ? window.location.origin
-        : process.env.NEXT_PUBLIC_APP_BASE_URL || 'http://localhost:3000';
+        : process.env.NEXT_PUBLIC_APP_BASE_URL || 'https://hultman.dev';
 
 const config: NextSeoProps = {
     title: 'Adam Hultman',
@@ -28,10 +28,6 @@ const config: NextSeoProps = {
         cardType: 'summary_large_image',
     },
     additionalMetaTags: [
-        {
-            name: 'robots',
-            content: 'index, follow',
-        },
         {
             name: 'theme-color',
             content: '#38A169',
