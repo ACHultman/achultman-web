@@ -27,7 +27,7 @@ function readTime(description: string): string {
 export default function FeaturedPost({ post }: FeaturedPostProps) {
     const bg = useColorModeValue('white', 'gray.800');
     const border = useColorModeValue('gray.200', 'gray.700');
-    const dateColor = useColorModeValue('gray.600', 'gray.500');
+    const dateColor = useColorModeValue('gray.600', 'gray.400');
     const descColor = useColorModeValue('gray.700', 'gray.300');
 
     const handlePostClick = () => {
