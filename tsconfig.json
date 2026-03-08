@@ -6,7 +6,8 @@
         "paths": {
             "@hooks/*": ["src/hooks/*"],
             "@components/*": ["src/components/*"],
-            "@pages/*": ["src/pages/*"]
+            "@pages/*": ["src/pages/*"],
+            "@data/*": ["src/data/*"]
         },
         "allowJs": true,
         "skipLibCheck": true,
