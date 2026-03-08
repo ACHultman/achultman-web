@@ -27,6 +27,10 @@ const MAIN_LINKS = [
         name: 'Blog',
         route: '/blog',
     },
+    {
+        name: 'Labs',
+        route: '/labs',
+    },
 ];
 
 const EXTRA_LINKS = [
