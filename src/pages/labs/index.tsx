@@ -53,6 +53,16 @@ const EXPERIMENTS: Experiment[] = [
     tags: ['AI / ML', 'Visualization', 'LLM'],
   },
   {
+    title: 'AI Prompt Duel',
+    emoji: '⚔️',
+    description:
+      'Two AI models, one prompt — you decide which response is better. Blind evaluation inspired by RLHF and Chatbot Arena.',
+    status: 'Live',
+    href: '/labs/prompt-duel',
+    colorScheme: 'red',
+    tags: ['AI / ML', 'Interactive', 'RLHF'],
+  },
+  {
     title: 'Multi-Agent Workflow',
     emoji: '🤖',
     description:
@@ -61,6 +71,16 @@ const EXPERIMENTS: Experiment[] = [
     href: '/labs/agent-flow',
     colorScheme: 'blue',
     tags: ['Systems', 'Animation', 'AI'],
+  },
+  {
+    title: 'Evidence Strength Visualizer',
+    emoji: '📊',
+    description:
+      'Interactive bubble chart mapping supplement evidence quality vs. popularity. Click to explore claims vs. actual science.',
+    status: 'Live',
+    href: '/labs/evidence-viz',
+    colorScheme: 'teal',
+    tags: ['Health Tech', 'Visualization', 'Data'],
   },
   {
     title: 'Evidence Stack',
