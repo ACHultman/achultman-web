@@ -3,10 +3,11 @@ import {
     Heading,
     Text,
     Tag,
-    Stack,
+    HStack,
     useColorModeValue,
     LinkBox,
     LinkOverlay,
+    Flex,
 } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
@@ -17,8 +18,16 @@ interface PostBoxProps {
     post: BlogPost;
 }
 
+function readTime(description: string): string {
+    const words = description?.split(/\s+/).length ?? 0;
+    return `${Math.max(1, Math.ceil(words / 200))} min read`;
+}
+
 export default function PostBox({ post }: PostBoxProps) {
+    const bg = useColorModeValue('white', 'gray.800');
+    const border = useColorModeValue('gray.200', 'gray.700');
     const dateColor = useColorModeValue('gray.600', 'gray.400');
+    const descColor = useColorModeValue('gray.700', 'gray.300');
 
     const handlePostClick = () => {
         posthog.capture('blog_post_clicked', {
@@ -32,76 +41,93 @@ export default function PostBox({ post }: PostBoxProps) {
         <LinkBox
             as="article"
             onClick={handlePostClick}
+            bg={bg}
             borderWidth="1px"
-            borderRadius="lg"
+            borderColor={border}
+            borderRadius="xl"
             overflow="hidden"
-            boxShadow="md"
             height="100%"
-            transition="all 0.2s ease-in-out"
+            display="flex"
+            flexDirection="column"
+            transition="all 0.25s ease"
             _hover={{
-                shadow: 'xl',
-                transform: 'translateY(-5px)',
-                boxShadow: '0 0 10px rgba(56, 161, 105, 0.6)',
+                boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
+                transform: 'translateY(-3px)',
                 '.post-title-link': {
-                    textDecoration: 'underline',
+                    color: 'green.500',
                 },
-            }}
-            _active={{
-                transform: 'translateY(0)',
-                boxShadow: '0 0 5px rgba(56, 161, 105, 0.6)',
             }}
         >
             {post.cover && (
-                <Box position="relative" width="100%" height="200px">
+                <Box
+                    position="relative"
+                    width="100%"
+                    height="180px"
+                    overflow="hidden"
+                >
                     <NextImage
                         src={post.cover}
                         alt={post.title}
                         fill
                         style={{ objectFit: 'cover' }}
                         placeholder="empty"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                     />
                 </Box>
             )}
-            <Box p={6}>
-                <Heading as="h2" fontSize="xl" mb={2}>
+            <Flex direction="column" flex="1" p={{ base: 5, md: 6 }}>
+                <HStack spacing={2} mb={3} wrap="wrap">
+                    {post.tags.slice(0, 3).map((tag) => (
+                        <Tag
+                            key={tag}
+                            size="sm"
+                            colorScheme="green"
+                            variant="subtle"
+                            borderRadius="full"
+                        >
+                            {tag}
+                        </Tag>
+                    ))}
+                </HStack>
+
+                <Heading as="h2" size="md" mb={2} lineHeight={1.4}>
                     <LinkOverlay
                         as={NextLink}
                         href={`/blog/${post.id}`}
                         className="post-title-link"
+                        transition="color 0.2s"
                     >
                         {post.title}
                     </LinkOverlay>
                 </Heading>
-                <Text color={dateColor} mb={4} fontSize="sm">
+
+                {post.description && (
+                    <Text
+                        color={descColor}
+                        fontSize="sm"
+                        lineHeight={1.7}
+                        noOfLines={3}
+                        mb={4}
+                        flex="1"
+                    >
+                        {post.description}
+                    </Text>
+                )}
+
+                <Text color={dateColor} fontSize="xs" mt="auto">
                     {post.publishedDate
-                        ? new Date(post.publishedDate).toLocaleDateString()
+                        ? new Date(post.publishedDate).toLocaleDateString(
+                              'en-US',
+                              {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric',
+                              }
+                          )
                         : 'Unpublished'}
-                    {post.description && (
-                        <>
-                            {' · '}
-                            {Math.max(
-                                1,
-                                Math.ceil(
-                                    post.description.split(/\s+/).length / 200
-                                )
-                            )}{' '}
-                            min read
-                        </>
-                    )}
+                    {post.description && ` · ${readTime(post.description)}`}
                 </Text>
-                <Text mb={4} noOfLines={3}>
-                    {' '}
-                    {/* Added noOfLines for consistency */}
-                    {post.description}
-                </Text>
-                <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
-                    {post.tags.map((tag) => (
-                        <Tag key={tag} colorScheme="green">
-                            {tag}
-                        </Tag>
-                    ))}
-                </Stack>
-            </Box>
+            </Flex>
         </LinkBox>
     );
 }
