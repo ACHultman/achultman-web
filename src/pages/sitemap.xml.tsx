@@ -3,7 +3,9 @@ import { fetchNotions } from '../services/notion';
 import type { BlogPost } from '../types/notion';
 
 const SITE_URL =
-    process.env.NEXT_PUBLIC_APP_BASE_URL || 'https://hultman.dev';
+    process.env.SITE_URL ||
+    process.env.NEXT_PUBLIC_APP_BASE_URL ||
+    'https://hultman.dev';
 
 function Sitemap() {
     // getServerSideProps will handle the response

@@ -22,6 +22,7 @@ import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 import { useEffect } from 'react';
 
 import RenderBlocks from '../../components/RenderBlocks';
+import BlogPostingJsonLd from '../../components/BlogPostingJsonLd';
 import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
 
@@ -31,12 +32,22 @@ const roboto = Roboto({
     preload: true,
 });
 
+interface BlogPostingJsonLdData {
+    headline: string;
+    datePublished?: string;
+    dateModified?: string;
+    description?: string;
+    image?: string;
+    url: string;
+}
+
 interface Props {
     post: NotionPageWithBlocks<'blog'>;
     seo: NextSeoProps;
+    jsonLd: BlogPostingJsonLdData;
 }
 
-function BlogPost({ post, seo }: Props) {
+function BlogPost({ post, seo, jsonLd }: Props) {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const updateScrollProgress = () => {
@@ -90,6 +101,7 @@ function BlogPost({ post, seo }: Props) {
     return (
         <>
             <NextSeo {...seo} />
+            {jsonLd && <BlogPostingJsonLd {...jsonLd} />}
             <Box
                 as="article"
                 className={roboto.className}
@@ -175,7 +187,13 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ id: string }>) {
     const { id } = params!;
 
-    const baseUrl = process.env.APP_BASE_URL;
+    const baseUrl =
+        process.env.SITE_URL ||
+        process.env.NEXT_PUBLIC_APP_BASE_URL ||
+        (process.env.VERCEL_PROJECT_PRODUCTION_URL
+            ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+            : null) ||
+        'https://hultman.dev';
 
     try {
         const post = await fetchNotion('blog', id);
@@ -192,14 +210,16 @@ export async function getStaticProps({
             ogImageUrl = page.cover;
         }
 
+        const postUrl = `${baseUrl}/blog/${page.id}`;
+
         const seoProps: NextSeoProps = {
             title: page.title,
             description: page.description,
-            canonical: `${baseUrl}/blog/${page.id}`,
+            canonical: postUrl,
             openGraph: {
                 title: page.title,
                 description: page.description,
-                url: `${baseUrl}/blog/${page.id}`,
+                url: postUrl,
                 type: 'article',
                 article: {
                     publishedTime: page.publishedDate || undefined,
@@ -218,10 +238,20 @@ export async function getStaticProps({
             },
         };
 
+        const jsonLd: BlogPostingJsonLdData = {
+            headline: page.title,
+            datePublished: page.publishedDate || undefined,
+            dateModified: page.last_edited_time,
+            description: page.description,
+            image: ogImageUrl,
+            url: postUrl,
+        };
+
         return {
             props: {
                 post,
                 seo: seoProps,
+                jsonLd,
             },
             revalidate: 3600,
         };

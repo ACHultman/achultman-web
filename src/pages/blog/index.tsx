@@ -40,6 +40,12 @@ function BlogPage({ posts }: Props) {
                 title="Blog | Adam Hultman"
                 description="Notes on engineering, AI, security, and building things that last."
                 canonical="https://hultman.dev/blog"
+                openGraph={{
+                    url: 'https://hultman.dev/blog',
+                    title: 'Blog | Adam Hultman',
+                    description:
+                        'Notes on engineering, AI, security, and building things that last.',
+                }}
             />
             <Container maxW="container.lg">
                 <motion.div
