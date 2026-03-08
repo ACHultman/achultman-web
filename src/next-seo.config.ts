@@ -3,23 +3,27 @@ import type { NextSeoProps } from 'next-seo';
 const baseUrl =
     typeof window !== 'undefined'
         ? window.location.origin
-        : process.env.NEXT_PUBLIC_APP_BASE_URL || 'https://hultman.dev';
+        : process.env.SITE_URL ||
+          process.env.NEXT_PUBLIC_APP_BASE_URL ||
+          'https://hultman.dev';
 
 const config: NextSeoProps = {
     title: 'Adam Hultman',
     description:
-        'Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms.',
+        'Full-stack developer building AI-powered, secure, and scalable web platforms.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
         title: 'Adam Hultman',
         description:
-            'Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms.',
+            'Full-stack developer building AI-powered, secure, and scalable web platforms.',
         siteName: 'Adam Hultman',
         images: [
             {
-                url: `${baseUrl}/og_blog_fallback.png`,
-                alt: 'Adam Hultman',
+                url: `${baseUrl}/og_homepage.png`,
+                width: 1200,
+                height: 630,
+                alt: 'Adam Hultman — Full-Stack Developer & AI Engineer',
             },
         ],
     },
