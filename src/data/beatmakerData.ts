@@ -176,7 +176,8 @@ export function parseTextToBeat(text: string): ParsedBeat {
     }
   }
 
-  const preset = GENRE_PATTERNS[matchedGenre] ?? GENRE_PATTERNS['boom-bap'];
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const preset = (GENRE_PATTERNS[matchedGenre] ?? GENRE_PATTERNS['boom-bap'])!;
   let bpm = preset.bpm;
 
   // Apply BPM modifiers
@@ -193,15 +194,19 @@ export function parseTextToBeat(text: string): ParsedBeat {
   for (const [keyword, indices] of Object.entries(INSTRUMENT_KEYWORDS)) {
     if (lower.includes(keyword)) {
       for (const idx of indices) {
+        const row = pattern[idx];
+        if (!row) continue;
         // Add a few more hits to emphasized instruments
-        const emptySteps = pattern[idx]
+        const emptySteps = row
           .map((v, i) => (!v ? i : -1))
-          .filter((i) => i >= 0);
+          .filter((i): i is number => i >= 0);
         const toAdd = Math.min(3, emptySteps.length);
         for (let i = 0; i < toAdd; i++) {
           const randomIdx = emptySteps[Math.floor(Math.random() * emptySteps.length)];
-          pattern[idx][randomIdx] = true;
-          emptySteps.splice(emptySteps.indexOf(randomIdx), 1);
+          if (randomIdx != null) {
+            row[randomIdx] = true;
+            emptySteps.splice(emptySteps.indexOf(randomIdx), 1);
+          }
         }
       }
     }

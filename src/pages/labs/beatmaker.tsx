@@ -74,7 +74,6 @@ function createSynths(Tone: typeof import('tone')) {
       envelope: { attack: 0.001, decay: 0.15, sustain: 0, release: 0.1 },
     }).toDestination(),
     'Hi-Hat': new Tone.MetalSynth({
-      frequency: 400,
       envelope: { attack: 0.001, decay: 0.06, release: 0.01 },
       harmonicity: 5.1,
       modulationIndex: 32,
@@ -208,7 +207,10 @@ export default function BeatMaker() {
   const toggleCell = useCallback((instrument: number, step: number) => {
     setPattern((prev) => {
       const next = prev.map((row) => [...row]);
-      next[instrument][step] = !next[instrument][step];
+      const row = next[instrument];
+      if (row) {
+        row[step] = !row[step];
+      }
       return next;
     });
   }, []);
@@ -229,7 +231,7 @@ export default function BeatMaker() {
     // Instrument note mapping
     const notes = ['C2', 'noise', 'metal', 'C1', 'C4'];
 
-    if (engineRef.current.sequence) {
+    if (engineRef.current?.sequence) {
       engineRef.current.sequence.dispose();
     }
 
@@ -240,17 +242,19 @@ export default function BeatMaker() {
         const pat = patternRef.current;
 
         pat.forEach((row, i) => {
-          if (row[step]) {
-            const synth = engineRef.current!.synths[INSTRUMENTS[i].name];
-            if (INSTRUMENTS[i].name === 'Snare') {
-              synth.triggerAttackRelease('16n', time);
-            } else if (INSTRUMENTS[i].name === 'Hi-Hat') {
-              synth.triggerAttackRelease('C4', '32n', time, 0.3);
-            } else if (INSTRUMENTS[i].name === 'Synth') {
-              synth.triggerAttackRelease(['C4', 'E4', 'G4'], '8n', time, 0.3);
-            } else {
-              synth.triggerAttackRelease(notes[i], '8n', time);
-            }
+          if (!row[step]) return;
+          const inst = INSTRUMENTS[i];
+          if (!inst) return;
+          const synth = engineRef.current?.synths[inst.name];
+          if (!synth) return;
+          if (inst.name === 'Snare') {
+            synth.triggerAttackRelease('16n', time);
+          } else if (inst.name === 'Hi-Hat') {
+            synth.triggerAttackRelease('C4', '32n', time, 0.3);
+          } else if (inst.name === 'Synth') {
+            synth.triggerAttackRelease(['C4', 'E4', 'G4'], '8n', time, 0.3);
+          } else {
+            synth.triggerAttackRelease(notes[i], '8n', time);
           }
         });
       },
@@ -296,7 +300,7 @@ export default function BeatMaker() {
 
   // Random example prompt
   const randomPrompt = useMemo(
-    () => EXAMPLE_PROMPTS[Math.floor(Math.random() * EXAMPLE_PROMPTS.length)],
+    () => EXAMPLE_PROMPTS[Math.floor(Math.random() * EXAMPLE_PROMPTS.length)] ?? EXAMPLE_PROMPTS[0] ?? '',
     []
   );
 
