@@ -232,3 +232,15 @@ export const EXAMPLE_PROMPTS = [
   'jazzy swing beat with piano and brushed snare',
   'slow mellow lofi study beats',
 ];
+
+/** Short pill-chip presets for quick-tap UI */
+export const PRESET_CHIPS: { label: string; prompt: string }[] = [
+  { label: 'Lofi Hip Hop', prompt: 'chill lofi hip hop with jazzy piano' },
+  { label: 'Trap 808', prompt: 'fast trap beat with heavy 808 bass and rapid hi-hats' },
+  { label: 'Deep House', prompt: 'deep house groove for a late-night club set' },
+  { label: 'DnB', prompt: 'drum and bass with rolling breakbeats' },
+  { label: 'Boom Bap', prompt: 'boom bap old school hip hop beat' },
+  { label: 'Techno', prompt: 'minimal techno warehouse rave beat' },
+  { label: 'Reggaeton', prompt: 'reggaeton dembow rhythm with bass' },
+  { label: 'Jazz', prompt: 'jazzy swing beat with piano and brushed snare' },
+];

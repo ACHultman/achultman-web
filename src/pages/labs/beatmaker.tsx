@@ -29,11 +29,11 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import Paragraph from '@components/Paragraph';
 import {
   INSTRUMENTS,
   STEPS,
   EXAMPLE_PROMPTS,
+  PRESET_CHIPS,
   parseTextToBeat,
   type Pattern,
 } from '@data/beatmakerData';
@@ -174,10 +174,15 @@ export default function BeatMaker() {
     patternRef.current = pattern;
   }, [pattern]);
 
+  const [activePreset, setActivePreset] = useState<string | null>(null);
+
   const dimText = useColorModeValue('gray.500', 'gray.400');
   const cardBg = useColorModeValue('white', 'gray.800');
   const inputBg = useColorModeValue('gray.50', 'gray.700');
   const accentColor = useColorModeValue('purple.500', 'purple.300');
+  const chipBg = useColorModeValue('gray.100', 'whiteAlpha.100');
+  const chipColor = useColorModeValue('gray.700', 'gray.300');
+  const chipHoverBg = useColorModeValue('gray.200', 'whiteAlpha.200');
 
 
 
@@ -317,55 +322,47 @@ export default function BeatMaker() {
         description="Describe a beat in plain text and hear it come alive. Interactive browser-based beat sequencer powered by Tone.js."
         canonical="https://hultman.dev/labs/beatmaker"
       />
-      <Container maxW="container.lg" pb={16}>
+      <Container maxW="container.lg" pb={10}>
         <SlideFade in={true} offsetY={80}>
-          {/* Header */}
-          <Flex align="center" mb={6} mt={2}>
+          {/* Header — compact */}
+          <Flex align="center" mb={3} mt={2}>
             <IconButton
               as={NextLink}
               href="/labs"
               aria-label="Back to Labs"
               icon={<ArrowBackIcon />}
               variant="ghost"
-              mr={3}
+              mr={2}
+              size="sm"
             />
-            <Box>
-              <HStack spacing={2} mb={1}>
-                <Heading as="h1" fontSize={{ base: '24px', md: '32px' }}>
-                  🎵 BeatMaker
-                </Heading>
-                <Badge colorScheme="purple" variant="subtle" fontSize="xs">
-                  Live
-                </Badge>
-              </HStack>
-              <Paragraph fontSize="sm" color={dimText}>
-                Describe a beat in words → hear it come alive. Toggle cells to remix.
-              </Paragraph>
-            </Box>
+            <HStack spacing={2}>
+              <Heading as="h1" fontSize={{ base: '20px', md: '28px' }}>
+                🎵 BeatMaker
+              </Heading>
+              <Badge colorScheme="purple" variant="subtle" fontSize="xs">
+                Live
+              </Badge>
+            </HStack>
           </Flex>
 
-          {/* Prompt Input — mobile-first: stacked, full-width */}
-          <Box bg={cardBg} borderRadius="xl" p={{ base: 4, md: 6 }} mb={6} shadow="sm" borderWidth="1px">
-            <Text fontSize="sm" fontWeight="bold" mb={3}>
-              🎤 Describe your beat
-            </Text>
-            <VStack spacing={3} align="stretch">
+          {/* Prompt Input — chat-style compact bar */}
+          <Box bg={cardBg} borderRadius="2xl" p={{ base: 3, md: 4 }} mb={3} shadow="sm" borderWidth="1px">
+            <Flex gap={2} align="flex-end">
               <Input
-                as="textarea"
                 value={prompt}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrompt(e.target.value)}
-                placeholder={randomPrompt}
+                placeholder={randomPrompt ? (randomPrompt.length > 30 ? randomPrompt.slice(0, 30) + '…' : randomPrompt) : 'Describe a beat…'}
                 bg={inputBg}
-                size="lg"
-                borderRadius="lg"
-                minH={{ base: '56px', md: '48px' }}
-                py={3}
+                size="md"
+                borderRadius="full"
+                h="44px"
                 px={4}
-                fontSize={{ base: 'md', md: 'lg' }}
-                resize="none"
-                rows={2}
+                fontSize="sm"
+                flex={1}
+                border="none"
+                _focus={{ boxShadow: '0 0 0 2px var(--chakra-colors-purple-400)', bg: inputBg }}
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
+                  if (e.key === 'Enter') {
                     e.preventDefault();
                     generateBeat(prompt || randomPrompt);
                   }
@@ -373,43 +370,51 @@ export default function BeatMaker() {
               />
               <Button
                 colorScheme="purple"
-                size="lg"
-                w="100%"
-                h={{ base: '52px', md: '48px' }}
+                size="md"
+                h="44px"
+                px={6}
+                borderRadius="full"
+                fontSize="sm"
+                fontWeight="bold"
                 onClick={() => generateBeat(prompt || randomPrompt)}
-                borderRadius="lg"
-                fontSize={{ base: 'md', md: 'lg' }}
+                flexShrink={0}
+                _hover={{ transform: 'scale(1.03)' }}
+                _active={{ transform: 'scale(0.97)' }}
+                transition="all 0.15s ease"
               >
                 Generate 🔥
               </Button>
-            </VStack>
+            </Flex>
 
-            {/* Quick prompts — larger tap targets */}
-            <Wrap mt={4} spacing={{ base: 2, md: 2 }}>
-              {EXAMPLE_PROMPTS.slice(0, 4).map((ex) => (
-                <WrapItem key={ex}>
-                  <Badge
+            {/* Preset chips — pill-shaped, horizontal flow */}
+            <Wrap mt={3} spacing={2}>
+              {PRESET_CHIPS.map((chip) => (
+                <WrapItem key={chip.label}>
+                  <Box
                     as="button"
                     cursor="pointer"
-                    colorScheme="gray"
-                    variant="subtle"
-                    px={{ base: 4, md: 3 }}
-                    py={{ base: 2, md: 1 }}
+                    px={3}
+                    py={1.5}
                     borderRadius="full"
-                    fontSize={{ base: 'sm', md: 'xs' }}
-                    minH="44px"
-                    display="flex"
-                    alignItems="center"
-                    _hover={{ colorScheme: 'purple', transform: 'scale(1.05)' }}
+                    fontSize="xs"
+                    fontWeight="semibold"
+                    bg={activePreset === chip.label ? 'purple.500' : chipBg}
+                    color={activePreset === chip.label ? 'white' : chipColor}
+                    boxShadow={activePreset === chip.label ? '0 0 12px rgba(128,90,213,0.5)' : 'none'}
+                    _hover={{
+                      bg: activePreset === chip.label ? 'purple.600' : chipHoverBg,
+                      transform: 'scale(1.05)',
+                    }}
                     _active={{ transform: 'scale(0.95)' }}
-                    transition="all 0.15s"
+                    transition="all 0.2s ease"
                     onClick={() => {
-                      setPrompt(ex);
-                      generateBeat(ex);
+                      setActivePreset(chip.label);
+                      setPrompt(chip.prompt);
+                      generateBeat(chip.prompt);
                     }}
                   >
-                    {ex.length > 35 ? ex.slice(0, 35) + '…' : ex}
-                  </Badge>
+                    {chip.label}
+                  </Box>
                 </WrapItem>
               ))}
             </Wrap>
@@ -417,12 +422,12 @@ export default function BeatMaker() {
             <AnimatePresence>
               {hasGenerated && generatedLabel && (
                 <MotionBox
-                  initial={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  mt={3}
+                  exit={{ opacity: 0, y: -8 }}
+                  mt={2}
                 >
-                  <Badge colorScheme="purple" fontSize="sm" px={3} py={1} borderRadius="full">
+                  <Badge colorScheme="purple" fontSize="xs" px={3} py={1} borderRadius="full">
                     ✨ {generatedLabel}
                   </Badge>
                 </MotionBox>
@@ -430,21 +435,54 @@ export default function BeatMaker() {
             </AnimatePresence>
           </Box>
 
-          {/* Transport Controls — mobile-first: stacked, large touch targets */}
-          <VStack
+          {/* Transport Controls — compact, inline */}
+          <Flex
             bg={cardBg}
             borderRadius="xl"
-            p={{ base: 4, md: 4 }}
-            mb={4}
+            p={{ base: 3, md: 4 }}
+            mb={3}
             shadow="sm"
             borderWidth="1px"
-            spacing={4}
-            align="stretch"
+            gap={3}
+            align="center"
+            wrap="wrap"
           >
-            {/* BPM slider — full width on mobile */}
-            <HStack spacing={4}>
-              <Text fontSize="sm" fontWeight="bold" whiteSpace="nowrap" minW="80px">
-                🎚️ {bpm} BPM
+            {/* Play/Stop — with pulse animation when active */}
+            <Button
+              onClick={isPlaying ? stopPlayback : startPlayback}
+              colorScheme={isPlaying ? 'red' : 'green'}
+              size="md"
+              borderRadius="full"
+              h="44px"
+              minW="100px"
+              fontSize="md"
+              fontWeight="bold"
+              boxShadow={isPlaying ? '0 0 16px rgba(245,101,101,0.4)' : 'none'}
+              animation={isPlaying ? 'pulse-glow 2s ease-in-out infinite' : 'none'}
+              sx={{
+                '@keyframes pulse-glow': {
+                  '0%, 100%': { boxShadow: '0 0 8px rgba(245,101,101,0.3)' },
+                  '50%': { boxShadow: '0 0 20px rgba(245,101,101,0.6)' },
+                },
+              }}
+            >
+              {isPlaying ? '⏹ Stop' : '▶ Play'}
+            </Button>
+            <Button
+              onClick={clearPattern}
+              variant="ghost"
+              size="sm"
+              borderRadius="full"
+              fontSize="xs"
+              color={dimText}
+            >
+              Clear
+            </Button>
+
+            {/* BPM slider — inline */}
+            <HStack spacing={2} flex={1} minW="140px">
+              <Text fontSize="xs" fontWeight="bold" whiteSpace="nowrap" color={dimText}>
+                {bpm} BPM
               </Text>
               <Slider
                 value={bpm}
@@ -455,77 +493,30 @@ export default function BeatMaker() {
                 colorScheme="purple"
                 flex={1}
               >
-                <SliderTrack h="8px" borderRadius="full">
+                <SliderTrack h="6px" borderRadius="full">
                   <SliderFilledTrack />
                 </SliderTrack>
-                <SliderThumb boxSize={{ base: 7, md: 5 }} />
+                <SliderThumb boxSize={5} />
               </Slider>
             </HStack>
+          </Flex>
 
-            {/* Play/Stop + Clear — large, thumb-friendly */}
-            <Flex gap={3}>
-              <Button
-                onClick={isPlaying ? stopPlayback : startPlayback}
-                colorScheme={isPlaying ? 'red' : 'green'}
-                size="lg"
-                borderRadius="full"
-                h={{ base: '56px', md: '60px' }}
-                flex={1}
-                fontSize="xl"
-              >
-                {isPlaying ? '⏹ Stop' : '▶ Play'}
-              </Button>
-              <Button
-                onClick={clearPattern}
-                variant="outline"
-                size="lg"
-                borderRadius="full"
-                h={{ base: '56px', md: '60px' }}
-                minW={{ base: '80px', md: '80px' }}
-                fontSize="md"
-              >
-                Clear
-              </Button>
-            </Flex>
-
-            {/* Step indicator — hidden on mobile */}
-            <HStack spacing={1} display={{ base: 'none', md: 'flex' }} justify="center">
-              {Array.from({ length: STEPS }, (_, i) => (
-                <Box
-                  key={i}
-                  w="6px"
-                  h="12px"
-                  borderRadius="sm"
-                  bg={
-                    currentStep === i
-                      ? 'purple.400'
-                      : i % 4 === 0
-                      ? 'gray.400'
-                      : 'gray.600'
-                  }
-                  transition="background 0.05s"
-                />
-              ))}
-            </HStack>
-          </VStack>
-
-          {/* Sequencer Grid — mobile-first: min 44px cells, horizontal scroll */}
+          {/* Sequencer Grid — compact */}
           <Box
             bg={cardBg}
             borderRadius="xl"
-            p={{ base: 3, md: 6 }}
+            p={{ base: 2, md: 4 }}
             shadow="sm"
             borderWidth="1px"
           >
-            <Text fontSize="sm" fontWeight="bold" mb={2}>
-              🎛️ Sequencer Grid
-              <Text as="span" fontWeight="normal" color={dimText} ml={2}>
-                — tap cells to toggle
+            <Flex align="center" mb={1.5} gap={2}>
+              <Text fontSize="xs" fontWeight="bold">
+                🎛️ Sequencer
               </Text>
-            </Text>
-            <Text fontSize="xs" color={dimText} mb={3} display={{ base: 'block', md: 'none' }}>
-              ← Swipe to see all steps →
-            </Text>
+              <Text fontSize="xs" color={dimText} display={{ base: 'inline', md: 'none' }}>
+                swipe →
+              </Text>
+            </Flex>
 
             <Box overflowX="auto" pb={2} sx={{
               /* Smooth momentum scroll on iOS */
@@ -605,28 +596,13 @@ export default function BeatMaker() {
             </Box>
           </Box>
 
-          {/* Tips */}
-          <Box mt={6} p={4} borderRadius="lg" bg={inputBg} fontSize="sm" color={dimText}>
-            <Text fontWeight="bold" mb={2}>
-              💡 Tips
-            </Text>
-            <VStack align="start" spacing={1}>
-              <Text>
-                • Try genres: <b>lofi</b>, <b>trap</b>, <b>house</b>, <b>dnb</b>, <b>jazz</b>, <b>techno</b>, <b>reggaeton</b>, <b>boom-bap</b>
-              </Text>
-              <Text>
-                • Add modifiers: <b>slow</b>, <b>fast</b>, <b>bass heavy</b>, <b>with piano</b>
-              </Text>
-              <Text>
-                • Click grid cells to toggle beats on/off — remix the generated pattern
-              </Text>
-              <Text>
-                • Adjust BPM with the slider while playing for tempo changes
-              </Text>
-            </VStack>
+          {/* Tips — collapsible-feeling, compact */}
+          <Box mt={4} p={3} borderRadius="lg" bg={inputBg} fontSize="xs" color={dimText}>
+            <Text fontWeight="bold" mb={1}>💡 Tips</Text>
+            <Text>Try modifiers: <b>slow</b>, <b>fast</b>, <b>bass heavy</b>, <b>with piano</b>. Tap grid cells to remix. Adjust BPM while playing.</Text>
           </Box>
 
-          <Divider my={6} />
+          <Divider my={4} />
 
           <Flex justify="space-between" fontSize="xs" color={dimText}>
             <Text>
