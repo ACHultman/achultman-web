@@ -242,7 +242,7 @@ export default function BeatMaker() {
     }
 
     const seq = new Tone.Sequence(
-      (time, step) => {
+      (time: number, step: number) => {
         setCurrentStep(step);
         stepRef.current = step;
         const pat = patternRef.current;
@@ -353,7 +353,7 @@ export default function BeatMaker() {
               <Input
                 as="textarea"
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrompt(e.target.value)}
                 placeholder={randomPrompt}
                 bg={inputBg}
                 size="lg"
@@ -364,7 +364,7 @@ export default function BeatMaker() {
                 fontSize={{ base: 'md', md: 'lg' }}
                 resize="none"
                 rows={2}
-                onKeyDown={(e) => {
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     generateBeat(prompt || randomPrompt);
@@ -451,7 +451,7 @@ export default function BeatMaker() {
                 min={60}
                 max={200}
                 step={1}
-                onChange={(val) => setBpm(val)}
+                onChange={(val: number) => setBpm(val)}
                 colorScheme="purple"
                 flex={1}
               >
