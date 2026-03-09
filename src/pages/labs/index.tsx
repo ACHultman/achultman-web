@@ -83,6 +83,16 @@ const EXPERIMENTS: Experiment[] = [
     tags: ['Health Tech', 'Visualization', 'Data'],
   },
   {
+    title: 'BeatMaker',
+    emoji: '🎵',
+    description:
+      'Describe a beat in plain text and hear it come alive. Interactive sequencer with Tone.js synthesis — remix genres from lofi to trap.',
+    status: 'Live',
+    href: '/labs/beatmaker',
+    colorScheme: 'purple',
+    tags: ['Audio', 'Interactive', 'Creative'],
+  },
+  {
     title: 'Evidence Stack',
     emoji: '📚',
     description:
