@@ -134,7 +134,7 @@ function Cell({
       boxShadow={playing && active ? `0 0 12px ${color}` : playing ? '0 0 6px rgba(255,255,255,0.3)' : 'none'}
       aria-label={active ? 'Mute step' : 'Activate step'}
       /* Prevent touch delay on mobile */
-      touchAction="manipulation"
+      sx={{ touchAction: 'manipulation' }}
     >
       {playing && (
         <Box
