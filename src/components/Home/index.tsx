@@ -1,5 +1,7 @@
-import { Divider, Flex, VStack } from '@chakra-ui/react';
+import { Button, Divider, Flex, Text, VStack } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { FaArrowRight } from 'react-icons/fa';
 
 import Hero from './Hero';
 import FeaturedWork from './FeaturedWork';
@@ -43,7 +45,40 @@ function Home() {
             <Hero />
             <ChatIntro />
             <Chat />
+            <Flex justify="center" w="100%" py={2}>
+                <Link href="#contact">
+                    <Button
+                        variant="ghost"
+                        colorScheme="green"
+                        rightIcon={<FaArrowRight />}
+                        size="sm"
+                    >
+                        Want to talk to the real Adam?
+                    </Button>
+                </Link>
+            </Flex>
             <FeaturedWork />
+            <Flex
+                direction="column"
+                align="center"
+                w="100%"
+                py={2}
+                gap={1}
+            >
+                <Text fontSize="sm" color="gray.500">
+                    Interested in working together?
+                </Text>
+                <Link href="#contact">
+                    <Button
+                        variant="outline"
+                        colorScheme="green"
+                        rightIcon={<FaArrowRight />}
+                        size="sm"
+                    >
+                        Get in touch
+                    </Button>
+                </Link>
+            </Flex>
             <Flex justifyContent="center">
                 <GitTimeline />
                 <Timeline />

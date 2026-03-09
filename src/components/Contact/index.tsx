@@ -4,6 +4,7 @@ import {
     HStack,
     Heading,
     IconButton,
+    SimpleGrid,
     Text,
     Tooltip,
     VStack,
@@ -84,6 +85,35 @@ function Contact() {
                             Have a project idea, a question, or just want to
                             say hi? I typically reply within a day.
                         </Text>
+                        <SimpleGrid
+                            columns={3}
+                            spacing={3}
+                            w="100%"
+                            textAlign="center"
+                        >
+                            {[
+                                { stat: '5+', label: 'Years exp.' },
+                                { stat: '20+', label: 'Projects' },
+                                { stat: '<24h', label: 'Reply time' },
+                            ].map(({ stat, label }) => (
+                                <Box key={label}>
+                                    <Text
+                                        fontSize="lg"
+                                        fontWeight="bold"
+                                        color="green.500"
+                                    >
+                                        {stat}
+                                    </Text>
+                                    <Text
+                                        fontSize="xs"
+                                        color={subtleColor}
+                                    >
+                                        {label}
+                                    </Text>
+                                </Box>
+                            ))}
+                        </SimpleGrid>
+
                         <HStack spacing={1}>
                             <Tooltip
                                 label={hasCopied ? 'Copied!' : 'Copy email'}

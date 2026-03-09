@@ -122,11 +122,11 @@ function ContactForm() {
                 {submitStatus === 'success' ? (
                     <ContactAlert
                         status="success"
-                        title="Message sent!"
+                        title={`Message sent — thanks, ${displayFirstName}!`}
                         description={
                             <>
-                                Nice to meet you, {displayFirstName}. I&apos;ll
-                                get back to you as soon as I can.
+                                I typically respond within 24 hours. Looking
+                                forward to connecting!
                             </>
                         }
                     />
@@ -147,7 +147,7 @@ function ContactForm() {
                         size="lg"
                         _hover={{ bg: 'green.700' }}
                     >
-                        Send Message
+                        Let&apos;s Connect
                     </Button>
                 )}
             </VStack>
