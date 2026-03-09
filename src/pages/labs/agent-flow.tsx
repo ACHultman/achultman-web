@@ -235,7 +235,7 @@ function AgentFlow() {
   return (
     <>
       <NextSeo
-        title="Multi-Agent Workflow Visualizer | Labs | Adam Hultman"
+        title="Multi-Agent Workflow Visualizer | Labs"
         description="Watch 4 AI agents coordinate in real time — strategy, research, engineering, and ops working in parallel."
         canonical="https://hultman.dev/labs/agent-flow"
       />

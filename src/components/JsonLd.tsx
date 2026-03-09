@@ -8,7 +8,7 @@ const personSchema = {
     '@type': 'Person',
     name: 'Adam Hultman',
     url: SITE_URL,
-    jobTitle: 'Full Stack Software Developer',
+    jobTitle: 'Software Engineer',
     worksFor: {
         '@type': 'Organization',
         name: 'Kopperfield',
@@ -39,7 +39,7 @@ const personSchema = {
         name: 'University of Victoria',
     },
     description:
-        'Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms.',
+        'Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications.',
 };
 
 const websiteSchema = {
@@ -48,7 +48,7 @@ const websiteSchema = {
     name: 'Adam Hultman',
     url: SITE_URL,
     description:
-        'Full-stack software developer with 5+ years building AI-powered, secure, and scalable platforms.',
+        'Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications.',
     author: {
         '@type': 'Person',
         name: 'Adam Hultman',

@@ -35,8 +35,8 @@ function About() {
     return (
         <>
             <NextSeo
-                title="About | Adam Hultman"
-                description="Learn about Adam Hultman's background, experience, and skills as a full-stack software developer specializing in AI, security, and scalable platforms."
+                title="About"
+                description="Learn about Adam Hultman — software engineer in Vancouver with 5+ years building AI-powered platforms, security-first architecture, and developer tools."
                 canonical="https://hultman.dev/about"
             />
             <Container maxW="container.lg">

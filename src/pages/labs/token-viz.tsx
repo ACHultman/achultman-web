@@ -173,7 +173,7 @@ function TokenViz() {
   return (
     <>
       <NextSeo
-        title="Token Probability Visualizer | Labs | Adam Hultman"
+        title="Token Probability Visualizer | Labs"
         description="Visualize how large language models choose tokens. See probability distributions for each generated word."
         canonical="https://hultman.dev/labs/token-viz"
       />

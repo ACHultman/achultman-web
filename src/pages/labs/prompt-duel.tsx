@@ -234,7 +234,7 @@ function PromptDuelPage() {
   return (
     <>
       <NextSeo
-        title="AI Prompt Duel | Labs | Adam Hultman"
+        title="AI Prompt Duel | Labs"
         description="Compare AI model responses side-by-side and vote for the best one. Explore how different models handle code, creative writing, reasoning, and health advice."
         canonical="https://hultman.dev/labs/prompt-duel"
       />

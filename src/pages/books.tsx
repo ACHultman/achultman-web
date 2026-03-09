@@ -86,7 +86,7 @@ function Books({ books }: Props) {
     return (
         <>
             <NextSeo
-                title="Adam Hultman | Books"
+                title="Books"
                 description="A list of my favorite tech books."
                 openGraph={{
                     title: 'Adam Hultman | Books',

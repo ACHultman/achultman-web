@@ -75,7 +75,7 @@ function ContactForm() {
                         </InputLeftElement>
                         <Input
                             type="text"
-                            placeholder="Your Name"
+                            placeholder="First name is fine"
                             disabled={submitStatus === 'success'}
                             {...register('name', {
                                 required: 'Name is required',
@@ -110,8 +110,8 @@ function ContactForm() {
                     error={errors.message?.message}
                 >
                     <Textarea
-                        placeholder="What's on your mind?"
-                        rows={6}
+                        placeholder="What's on your mind? No need to be formal."
+                        rows={4}
                         disabled={submitStatus === 'success'}
                         {...register('message', {
                             required: 'Message is required',
@@ -142,7 +142,10 @@ function ContactForm() {
                         color="white"
                         width="full"
                         isLoading={isSubmitting}
+                        loadingText="Sending…"
                         type="submit"
+                        size="lg"
+                        _hover={{ bg: 'green.700' }}
                     >
                         Send Message
                     </Button>

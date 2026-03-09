@@ -8,15 +8,16 @@ const baseUrl =
           'https://hultman.dev';
 
 const config: NextSeoProps = {
-    title: 'Adam Hultman',
+    titleTemplate: '%s | Adam Hultman',
+    defaultTitle: 'Adam Hultman — Software Engineer, Vancouver',
     description:
-        'Full-stack developer building AI-powered, secure, and scalable web platforms.',
+        'Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications. 5+ years of full-stack experience.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
-        title: 'Adam Hultman',
+        title: 'Adam Hultman — Software Engineer, Vancouver',
         description:
-            'Full-stack developer building AI-powered, secure, and scalable web platforms.',
+            'Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications.',
         siteName: 'Adam Hultman',
         images: [
             {
