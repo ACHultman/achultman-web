@@ -244,7 +244,7 @@ function Labs() {
   return (
     <>
       <NextSeo
-        title="Labs | Adam Hultman"
+        title="Labs"
         description="Interactive experiments in AI, health tech, and developer tools. Try live demos of LLM token probabilities, supplement interaction checking, and multi-agent workflows."
         canonical="https://hultman.dev/labs"
       />

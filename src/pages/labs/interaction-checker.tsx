@@ -156,7 +156,7 @@ function InteractionChecker() {
   return (
     <>
       <NextSeo
-        title="Supplement Interaction Checker | Labs | Adam Hultman"
+        title="Supplement Interaction Checker | Labs"
         description="Check for interactions between common medications and supplements. Powered by evidence-based data."
         canonical="https://hultman.dev/labs/interaction-checker"
       />

@@ -518,7 +518,7 @@ function EvidenceViz() {
   return (
     <>
       <NextSeo
-        title="Evidence Strength Visualizer | Labs | Adam Hultman"
+        title="Evidence Strength Visualizer | Labs"
         description="Interactive visualization of scientific evidence quality for popular supplements. Explore study counts, quality ratings, and evidence grades."
         canonical="https://hultman.dev/labs/evidence-viz"
       />

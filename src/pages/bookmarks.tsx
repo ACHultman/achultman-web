@@ -36,7 +36,7 @@ function Bookmarks({ bookmarks }: Props) {
     return (
         <>
             <NextSeo
-                title="Bookmarks | Adam Hultman"
+                title="Bookmarks"
                 description="My favorite articles, websites, and tools."
                 canonical="https://hultman.dev/bookmarks"
             />

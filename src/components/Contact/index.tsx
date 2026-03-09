@@ -81,8 +81,8 @@ function Contact() {
                             color={subtleColor}
                             lineHeight={1.7}
                         >
-                            Open to conversations about interesting work,
-                            collaborations, or just talking shop
+                            Have a project idea, a question, or just want to
+                            say hi? I typically reply within a day.
                         </Text>
                         <HStack spacing={1}>
                             <Tooltip

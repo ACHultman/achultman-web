@@ -37,7 +37,7 @@ function BlogPage({ posts }: Props) {
     return (
         <>
             <NextSeo
-                title="Blog | Adam Hultman"
+                title="Blog"
                 description="Notes on engineering, AI, security, and building things that last."
                 canonical="https://hultman.dev/blog"
                 openGraph={{
