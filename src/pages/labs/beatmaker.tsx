@@ -24,7 +24,6 @@ import {
   WrapItem,
   Grid,
   GridItem,
-  useBreakpointValue,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
@@ -114,6 +113,8 @@ function Cell({
       as="button"
       onClick={onClick}
       w="100%"
+      minW="44px"
+      minH="44px"
       pt="100%"
       position="relative"
       borderRadius="md"
@@ -124,11 +125,16 @@ function Cell({
       _hover={{
         bg: active ? color : inactiveHover,
         opacity: 1,
-        transform: 'scale(1.1)',
+        transform: 'scale(1.05)',
+      }}
+      _active={{
+        transform: 'scale(0.95)',
       }}
       transition="all 0.1s ease"
       boxShadow={playing && active ? `0 0 12px ${color}` : playing ? '0 0 6px rgba(255,255,255,0.3)' : 'none'}
       aria-label={active ? 'Mute step' : 'Activate step'}
+      /* Prevent touch delay on mobile */
+      touchAction="manipulation"
     >
       {playing && (
         <Box
@@ -173,7 +179,7 @@ export default function BeatMaker() {
   const inputBg = useColorModeValue('gray.50', 'gray.700');
   const accentColor = useColorModeValue('purple.500', 'purple.300');
 
-  const _cellSize = useBreakpointValue({ base: '18px', sm: '24px', md: '32px', lg: '38px' });
+
 
   // ─── Generate beat from text ─────────────────────────────────────────
   // ─── Stop playback ────────────────────────────────────────────────────
@@ -338,37 +344,48 @@ export default function BeatMaker() {
             </Box>
           </Flex>
 
-          {/* Prompt Input */}
-          <Box bg={cardBg} borderRadius="xl" p={6} mb={6} shadow="sm" borderWidth="1px">
+          {/* Prompt Input — mobile-first: stacked, full-width */}
+          <Box bg={cardBg} borderRadius="xl" p={{ base: 4, md: 6 }} mb={6} shadow="sm" borderWidth="1px">
             <Text fontSize="sm" fontWeight="bold" mb={3}>
               🎤 Describe your beat
             </Text>
-            <HStack spacing={3}>
+            <VStack spacing={3} align="stretch">
               <Input
+                as="textarea"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder={randomPrompt}
                 bg={inputBg}
                 size="lg"
                 borderRadius="lg"
+                minH={{ base: '56px', md: '48px' }}
+                py={3}
+                px={4}
+                fontSize={{ base: 'md', md: 'lg' }}
+                resize="none"
+                rows={2}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') generateBeat(prompt || randomPrompt);
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    generateBeat(prompt || randomPrompt);
+                  }
                 }}
               />
               <Button
                 colorScheme="purple"
                 size="lg"
-                px={8}
+                w="100%"
+                h={{ base: '52px', md: '48px' }}
                 onClick={() => generateBeat(prompt || randomPrompt)}
                 borderRadius="lg"
-                flexShrink={0}
+                fontSize={{ base: 'md', md: 'lg' }}
               >
                 Generate 🔥
               </Button>
-            </HStack>
+            </VStack>
 
-            {/* Quick prompts */}
-            <Wrap mt={3} spacing={2}>
+            {/* Quick prompts — larger tap targets */}
+            <Wrap mt={4} spacing={{ base: 2, md: 2 }}>
               {EXAMPLE_PROMPTS.slice(0, 4).map((ex) => (
                 <WrapItem key={ex}>
                   <Badge
@@ -376,18 +393,22 @@ export default function BeatMaker() {
                     cursor="pointer"
                     colorScheme="gray"
                     variant="subtle"
-                    px={3}
-                    py={1}
+                    px={{ base: 4, md: 3 }}
+                    py={{ base: 2, md: 1 }}
                     borderRadius="full"
-                    fontSize="xs"
+                    fontSize={{ base: 'sm', md: 'xs' }}
+                    minH="44px"
+                    display="flex"
+                    alignItems="center"
                     _hover={{ colorScheme: 'purple', transform: 'scale(1.05)' }}
+                    _active={{ transform: 'scale(0.95)' }}
                     transition="all 0.15s"
                     onClick={() => {
                       setPrompt(ex);
                       generateBeat(ex);
                     }}
                   >
-                    {ex.length > 40 ? ex.slice(0, 40) + '…' : ex}
+                    {ex.length > 35 ? ex.slice(0, 35) + '…' : ex}
                   </Badge>
                 </WrapItem>
               ))}
@@ -409,43 +430,20 @@ export default function BeatMaker() {
             </AnimatePresence>
           </Box>
 
-          {/* Transport Controls */}
-          <Flex
+          {/* Transport Controls — mobile-first: stacked, large touch targets */}
+          <VStack
             bg={cardBg}
             borderRadius="xl"
-            p={4}
+            p={{ base: 4, md: 4 }}
             mb={4}
             shadow="sm"
             borderWidth="1px"
-            align="center"
-            justify="space-between"
-            wrap="wrap"
-            gap={4}
+            spacing={4}
+            align="stretch"
           >
-            <HStack spacing={3}>
-              <Button
-                onClick={isPlaying ? stopPlayback : startPlayback}
-                colorScheme={isPlaying ? 'red' : 'green'}
-                size="lg"
-                borderRadius="full"
-                w="60px"
-                h="60px"
-                fontSize="2xl"
-              >
-                {isPlaying ? '⏹' : '▶'}
-              </Button>
-              <Button
-                onClick={clearPattern}
-                variant="outline"
-                size="sm"
-                borderRadius="full"
-              >
-                Clear
-              </Button>
-            </HStack>
-
-            <HStack spacing={4} flex={1} maxW="300px" minW="200px">
-              <Text fontSize="sm" fontWeight="bold" whiteSpace="nowrap">
+            {/* BPM slider — full width on mobile */}
+            <HStack spacing={4}>
+              <Text fontSize="sm" fontWeight="bold" whiteSpace="nowrap" minW="80px">
                 🎚️ {bpm} BPM
               </Text>
               <Slider
@@ -455,16 +453,43 @@ export default function BeatMaker() {
                 step={1}
                 onChange={(val) => setBpm(val)}
                 colorScheme="purple"
+                flex={1}
               >
-                <SliderTrack>
+                <SliderTrack h="8px" borderRadius="full">
                   <SliderFilledTrack />
                 </SliderTrack>
-                <SliderThumb boxSize={5} />
+                <SliderThumb boxSize={{ base: 7, md: 5 }} />
               </Slider>
             </HStack>
 
-            {/* Step indicator */}
-            <HStack spacing={1} display={{ base: 'none', md: 'flex' }}>
+            {/* Play/Stop + Clear — large, thumb-friendly */}
+            <Flex gap={3}>
+              <Button
+                onClick={isPlaying ? stopPlayback : startPlayback}
+                colorScheme={isPlaying ? 'red' : 'green'}
+                size="lg"
+                borderRadius="full"
+                h={{ base: '56px', md: '60px' }}
+                flex={1}
+                fontSize="xl"
+              >
+                {isPlaying ? '⏹ Stop' : '▶ Play'}
+              </Button>
+              <Button
+                onClick={clearPattern}
+                variant="outline"
+                size="lg"
+                borderRadius="full"
+                h={{ base: '56px', md: '60px' }}
+                minW={{ base: '80px', md: '80px' }}
+                fontSize="md"
+              >
+                Clear
+              </Button>
+            </Flex>
+
+            {/* Step indicator — hidden on mobile */}
+            <HStack spacing={1} display={{ base: 'none', md: 'flex' }} justify="center">
               {Array.from({ length: STEPS }, (_, i) => (
                 <Box
                   key={i}
@@ -482,85 +507,102 @@ export default function BeatMaker() {
                 />
               ))}
             </HStack>
-          </Flex>
+          </VStack>
 
-          {/* Sequencer Grid */}
+          {/* Sequencer Grid — mobile-first: min 44px cells, horizontal scroll */}
           <Box
             bg={cardBg}
             borderRadius="xl"
             p={{ base: 3, md: 6 }}
             shadow="sm"
             borderWidth="1px"
-            overflowX="auto"
           >
-            <Text fontSize="sm" fontWeight="bold" mb={4}>
+            <Text fontSize="sm" fontWeight="bold" mb={2}>
               🎛️ Sequencer Grid
               <Text as="span" fontWeight="normal" color={dimText} ml={2}>
-                — click cells to toggle
+                — tap cells to toggle
               </Text>
             </Text>
+            <Text fontSize="xs" color={dimText} mb={3} display={{ base: 'block', md: 'none' }}>
+              ← Swipe to see all steps →
+            </Text>
 
-            <VStack spacing={2} align="stretch">
-              {INSTRUMENTS.map((inst, instIdx) => (
-                <Flex key={inst.name} align="center" gap={2}>
-                  {/* Instrument label */}
-                  <Flex
-                    minW={{ base: '60px', md: '90px' }}
-                    align="center"
-                    justify="flex-end"
-                    pr={2}
-                  >
-                    <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="medium" whiteSpace="nowrap">
-                      <Text as="span" display={{ base: 'none', sm: 'inline' }}>
-                        {inst.emoji}{' '}
+            <Box overflowX="auto" pb={2} sx={{
+              /* Smooth momentum scroll on iOS */
+              WebkitOverflowScrolling: 'touch',
+              /* Hide scrollbar on mobile for cleaner look */
+              '&::-webkit-scrollbar': { height: '4px' },
+              '&::-webkit-scrollbar-thumb': { bg: 'gray.400', borderRadius: 'full' },
+            }}>
+              <VStack spacing={{ base: 2, md: 2 }} align="stretch" minW={{ base: `${STEPS * 46 + 70}px`, md: 'auto' }}>
+                {INSTRUMENTS.map((inst, instIdx) => (
+                  <Flex key={inst.name} align="center" gap={2}>
+                    {/* Instrument label — sticky on scroll */}
+                    <Flex
+                      minW={{ base: '56px', md: '90px' }}
+                      maxW={{ base: '56px', md: '90px' }}
+                      align="center"
+                      justify="flex-end"
+                      pr={1}
+                      position="sticky"
+                      left={0}
+                      zIndex={1}
+                      bg={cardBg}
+                    >
+                      <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="medium" whiteSpace="nowrap">
+                        <Text as="span" display={{ base: 'inline', sm: 'inline' }}>
+                          {inst.emoji}
+                        </Text>
+                        <Text as="span" display={{ base: 'none', md: 'inline' }}>
+                          {' '}{inst.name}
+                        </Text>
                       </Text>
-                      {inst.name}
-                    </Text>
-                  </Flex>
+                    </Flex>
 
-                  {/* Steps */}
+                    {/* Steps — fixed cell sizes for touch targets */}
+                    <Grid
+                      templateColumns={{ base: `repeat(${STEPS}, 44px)`, md: `repeat(${STEPS}, 1fr)` }}
+                      gap={{ base: '2px', md: '3px' }}
+                      flex={{ base: 'none', md: 1 }}
+                    >
+                      {Array.from({ length: STEPS }, (_, stepIdx) => (
+                        <GridItem key={stepIdx}>
+                          <Cell
+                            active={pattern[instIdx]?.[stepIdx] ?? false}
+                            playing={currentStep === stepIdx}
+                            color={inst.color}
+                            onClick={() => toggleCell(instIdx, stepIdx)}
+                          />
+                        </GridItem>
+                      ))}
+                    </Grid>
+                  </Flex>
+                ))}
+
+                {/* Beat markers */}
+                <Flex align="center" gap={2}>
+                  <Box minW={{ base: '56px', md: '90px' }} maxW={{ base: '56px', md: '90px' }} position="sticky" left={0} zIndex={1} bg={cardBg} />
                   <Grid
-                    templateColumns={`repeat(${STEPS}, 1fr)`}
+                    templateColumns={{ base: `repeat(${STEPS}, 44px)`, md: `repeat(${STEPS}, 1fr)` }}
                     gap={{ base: '2px', md: '3px' }}
-                    flex={1}
+                    flex={{ base: 'none', md: 1 }}
                   >
-                    {Array.from({ length: STEPS }, (_, stepIdx) => (
-                      <GridItem key={stepIdx}>
-                        <Cell
-                          active={pattern[instIdx]?.[stepIdx] ?? false}
-                          playing={currentStep === stepIdx}
-                          color={inst.color}
-                          onClick={() => toggleCell(instIdx, stepIdx)}
-                        />
+                    {Array.from({ length: STEPS }, (_, i) => (
+                      <GridItem key={i}>
+                        <Text
+                          fontSize={{ base: '10px', md: '8px' }}
+                          textAlign="center"
+                          color={i % 4 === 0 ? dimText : 'transparent'}
+                          fontWeight={i % 4 === 0 ? 'bold' : 'normal'}
+                        >
+                          {i % 4 === 0 ? i / 4 + 1 : '·'}
+                        </Text>
                       </GridItem>
                     ))}
                   </Grid>
                 </Flex>
-              ))}
-
-              {/* Beat markers */}
-              <Flex align="center" gap={2}>
-                <Box minW={{ base: '60px', md: '90px' }} />
-                <Grid
-                  templateColumns={`repeat(${STEPS}, 1fr)`}
-                  gap={{ base: '2px', md: '3px' }}
-                  flex={1}
-                >
-                  {Array.from({ length: STEPS }, (_, i) => (
-                    <GridItem key={i}>
-                      <Text
-                        fontSize="8px"
-                        textAlign="center"
-                        color={i % 4 === 0 ? dimText : 'transparent'}
-                        fontWeight={i % 4 === 0 ? 'bold' : 'normal'}
-                      >
-                        {i % 4 === 0 ? i / 4 + 1 : '·'}
-                      </Text>
-                    </GridItem>
-                  ))}
-                </Grid>
-              </Flex>
-            </VStack>
+              </VStack>
+            </Box>
           </Box>
 
           {/* Tips */}
