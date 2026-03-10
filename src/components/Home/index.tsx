@@ -65,7 +65,7 @@ function Home() {
                 py={2}
                 gap={1}
             >
-                <Text fontSize="sm" color="gray.500">
+                <Text fontSize="sm" color="gray.600">
                     Interested in working together?
                 </Text>
                 <Link href="#contact">
