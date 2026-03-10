@@ -100,7 +100,7 @@ function Contact() {
                                     <Text
                                         fontSize="lg"
                                         fontWeight="bold"
-                                        color="green.500"
+                                        color="green.700"
                                     >
                                         {stat}
                                     </Text>
