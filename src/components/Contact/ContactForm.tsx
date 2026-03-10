@@ -3,6 +3,7 @@ import {
     Input,
     InputGroup,
     InputLeftElement,
+    Select,
     Textarea,
     VStack,
 } from '@chakra-ui/react';
@@ -18,8 +19,18 @@ import { ContactError } from './ContactError';
 type FormData = {
     name: string;
     email: string;
-    message: string;
+    intent: string;
+    message?: string;
 };
+
+const INTENT_OPTIONS = [
+    { value: '', label: 'What can I help with? (optional)' },
+    { value: 'hiring', label: "Hiring inquiry — I'm looking for a developer" },
+    { value: 'freelance', label: 'Freelance project — I have a project in mind' },
+    { value: 'collaboration', label: 'Collaboration — open source or side project' },
+    { value: 'chat', label: "Just saying hi — let's connect" },
+    { value: 'other', label: 'Something else' },
+];
 
 function ContactForm() {
     const {
@@ -35,7 +46,7 @@ function ContactForm() {
         'idle' | 'error' | 'success'
     >('idle');
 
-    async function onSubmitForm({ name, email, message }: FormData) {
+    async function onSubmitForm({ name, email, intent, message }: FormData) {
         let r: Response;
         try {
             r = await fetch('/api/v1/contact', {
@@ -43,11 +54,13 @@ function ContactForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, message }),
+                body: JSON.stringify({ name, email, message: message || `[Intent: ${intent || 'unspecified'}]` }),
             });
             if (r.ok) {
                 setSubmitStatus('success');
-                posthog.capture('contact_form_submitted');
+                posthog.capture('contact_form_submitted', {
+                    intent: intent || 'unspecified',
+                });
             } else {
                 setSubmitStatus('error');
                 posthog.capture('contact_form_failed', {
@@ -104,18 +117,28 @@ function ContactForm() {
                     </InputGroup>
                 </ContactFormField>
 
+                <ContactFormField label="What's this about?">
+                    <Select
+                        disabled={submitStatus === 'success'}
+                        {...register('intent')}
+                    >
+                        {INTENT_OPTIONS.map(({ value, label }) => (
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
+                        ))}
+                    </Select>
+                </ContactFormField>
+
                 <ContactFormField
-                    label="Message"
-                    isRequired
+                    label="Message (optional)"
                     error={errors.message?.message}
                 >
                     <Textarea
-                        placeholder="What's on your mind? No need to be formal."
+                        placeholder="What's on your mind? No need to be formal — even a short note works."
                         rows={4}
                         disabled={submitStatus === 'success'}
-                        {...register('message', {
-                            required: 'Message is required',
-                        })}
+                        {...register('message')}
                     />
                 </ContactFormField>
 
