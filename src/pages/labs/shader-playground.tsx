@@ -49,7 +49,6 @@ export default function ShaderPlayground() {
   const lastFpsUpdateRef = useRef<number>(Date.now());
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const bgColor = useColorModeValue('gray.50', 'gray.900');
   const cardBg = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.600', 'gray.400');
 

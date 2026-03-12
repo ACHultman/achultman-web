@@ -10,12 +10,10 @@ import {
   useColorModeValue,
   SlideFade,
   Divider,
-  Flex,
   IconButton,
   Link,
   Button,
   SimpleGrid,
-  Tooltip,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
@@ -133,8 +131,10 @@ export default function NeuralNetPlayground() {
     layerIdx: number;
   }[] = [];
   for (let l = 0; l < config.weights.length; l++) {
-    for (let j = 0; j < config.weights[l].length; j++) {
-      for (let i = 0; i < config.weights[l][j].length; i++) {
+    const layerW = config.weights[l]!;
+    for (let j = 0; j < layerW.length; j++) {
+      const neuronW = layerW[j]!;
+      for (let i = 0; i < neuronW.length; i++) {
         const from = nodePositions[l]![i]!;
         const to = nodePositions[l + 1]![j]!;
         connections.push({
@@ -142,7 +142,7 @@ export default function NeuralNetPlayground() {
           y1: from.y,
           x2: to.x,
           y2: to.y,
-          weight: config.weights[l][j][i],
+          weight: neuronW[i]!,
           layerIdx: l,
         });
       }

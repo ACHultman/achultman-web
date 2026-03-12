@@ -77,7 +77,6 @@ export default function SortArenaPage() {
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const bgColor = useColorModeValue('white', 'gray.800');
   const cardBg = useColorModeValue('gray.50', 'gray.700');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
   const subtleText = useColorModeValue('gray.600', 'gray.400');
