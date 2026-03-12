@@ -271,7 +271,7 @@ export default function RegexDebuggerPage() {
                             fontSize="sm"
                             fontWeight="medium"
                             bg={bgColor}
-                            transition="all 0.2s ease"
+                            style={{ transition: 'all 0.2s ease' }}
                             animate={
                               !currentStepData?.matched &&
                               idx === activePosition
