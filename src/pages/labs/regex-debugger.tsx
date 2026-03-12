@@ -155,7 +155,7 @@ export default function RegexDebuggerPage() {
           {/* Header */}
           <Box>
             <HStack mb={4}>
-              <Link as={NextLink} href="/">
+              <Link as={NextLink} href="/labs">
                 <IconButton
                   aria-label="Go back"
                   icon={<ArrowBackIcon />}

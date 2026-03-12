@@ -20,6 +20,9 @@ import {
   Tooltip,
   Wrap,
   WrapItem,
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import Paragraph from '@components/Paragraph';
@@ -27,6 +30,8 @@ import {
   SHADER_PRESETS,
   SHADER_CATEGORIES,
   DEFAULT_VERTEX_SHADER,
+  QUICK_PROMPT_CHIPS,
+  matchShaderPrompt,
 } from '@data/shaderData';
 
 const MotionBox = motion(Box);
@@ -38,6 +43,9 @@ export default function ShaderPlayground() {
   const [fps, setFps] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [promptInput, setPromptInput] = useState('');
+  const [promptMatch, setPromptMatch] = useState<string | null>(null);
+  const [promptError, setPromptError] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
@@ -268,6 +276,20 @@ export default function ShaderPlayground() {
     setIsFullscreen((prev: boolean) => !prev);
   };
 
+  const handlePromptSubmit = () => {
+    const result = matchShaderPrompt(promptInput);
+    if (result) {
+      setCode(result.preset.fragmentShader);
+      setSelectedPreset(result.index);
+      setPromptMatch(result.matched);
+      setPromptError(false);
+      setError(null);
+    } else {
+      setPromptMatch(null);
+      setPromptError(true);
+    }
+  };
+
   const lineCount = code.split('\n').length;
 
   return (
@@ -277,7 +299,7 @@ export default function ShaderPlayground() {
           {/* Header */}
           <Box>
             <HStack spacing={3} mb={4}>
-              <Link as={NextLink} href="/">
+              <Link as={NextLink} href="/labs">
                 <IconButton
                   aria-label="Go back"
                   icon={<ArrowBackIcon />}
@@ -298,6 +320,95 @@ export default function ShaderPlayground() {
               Write GLSL fragment shaders and see them render in real time.
               GPU-powered procedural art in your browser.
             </Paragraph>
+          </Box>
+
+          {/* Natural Language Prompt */}
+          <Box>
+            <HStack spacing={2} mb={3}>
+              <Text fontSize="lg">&#10024;</Text>
+              <Text fontWeight="semibold" color={textColor}>
+                Describe a shader
+              </Text>
+            </HStack>
+            <Flex gap={2} mb={3}>
+              <InputGroup flex={1}>
+                <InputLeftElement
+                  pointerEvents="none"
+                  color="gray.500"
+                  fontSize="sm"
+                >
+                  &gt;
+                </InputLeftElement>
+                <Input
+                  value={promptInput}
+                  onChange={(e: { target: { value: string } }) =>
+                    setPromptInput(e.target.value)
+                  }
+                  onKeyDown={(e: { key: string }) => {
+                    if (e.key === 'Enter') handlePromptSubmit();
+                  }}
+                  placeholder="Describe what you want to see... (e.g., 'ocean waves', 'fire', 'galaxy')"
+                  fontFamily="mono"
+                  fontSize="sm"
+                  _focus={{
+                    borderColor: 'pink.400',
+                    boxShadow: '0 0 0 1px var(--chakra-colors-pink-400)',
+                  }}
+                />
+              </InputGroup>
+              <Button
+                colorScheme="pink"
+                onClick={handlePromptSubmit}
+                flexShrink={0}
+              >
+                Generate
+              </Button>
+            </Flex>
+            <Wrap spacing={2} mb={2}>
+              {QUICK_PROMPT_CHIPS.map((chip) => (
+                <WrapItem key={chip}>
+                  <Badge
+                    colorScheme="pink"
+                    variant="subtle"
+                    cursor="pointer"
+                    px={3}
+                    py={1}
+                    borderRadius="full"
+                    fontSize="xs"
+                    onClick={() => {
+                      setPromptInput(chip);
+                      const result = matchShaderPrompt(chip);
+                      if (result) {
+                        setCode(result.preset.fragmentShader);
+                        setSelectedPreset(result.index);
+                        setPromptMatch(result.matched);
+                        setPromptError(false);
+                        setError(null);
+                      }
+                    }}
+                    _hover={{ opacity: 0.8, transform: 'scale(1.05)' }}
+                    transition="all 0.15s"
+                  >
+                    {chip}
+                  </Badge>
+                </WrapItem>
+              ))}
+            </Wrap>
+            {promptMatch && (
+              <MotionBox
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <Badge colorScheme="green" fontSize="sm" px={2} py={1}>
+                  Matched: {promptMatch}
+                </Badge>
+              </MotionBox>
+            )}
+            {promptError && (
+              <Text fontSize="sm" color="gray.500">
+                No match found — try different words
+              </Text>
+            )}
           </Box>
 
           {/* Preset Selector */}

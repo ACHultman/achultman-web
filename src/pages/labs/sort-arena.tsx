@@ -316,7 +316,7 @@ export default function SortArenaPage() {
         <VStack spacing={6} align="stretch">
           {/* Header */}
           <HStack spacing={4}>
-            <Link as={NextLink} href="/">
+            <Link as={NextLink} href="/labs">
               <IconButton
                 aria-label="Go back"
                 icon={<ArrowBackIcon />}

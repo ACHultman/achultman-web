@@ -67,6 +67,124 @@ export function forwardPass(
   return activations;
 }
 
+// --- Backpropagation training step ---
+
+export function trainStep(
+  config: NetworkConfig,
+  dataset: Dataset,
+  learningRate: number = 0.5,
+  batchSize: number = 4
+): { config: NetworkConfig; loss: number } {
+  const numLayers = config.weights.length;
+
+  // Initialize gradient accumulators (same shape as weights/biases)
+  const weightGrads: number[][][] = config.weights.map((layer) =>
+    layer!.map((neuron) => neuron!.map(() => 0))
+  );
+  const biasGrads: number[][] = config.biases.map((layer) =>
+    layer!.map(() => 0)
+  );
+
+  let totalLoss = 0;
+
+  // Sample batchSize random points
+  for (let b = 0; b < batchSize; b++) {
+    const idx = Math.floor(Math.random() * dataset.points.length);
+    const point = dataset.points[idx]!;
+    const target = point.label;
+
+    // --- Forward pass (store pre-activation z and activation a) ---
+    const activations: number[][] = [[point.x, point.y]];
+    const zValues: number[][] = []; // pre-activation values
+
+    let current = [point.x, point.y];
+    for (let l = 0; l < numLayers; l++) {
+      const layerW = config.weights[l]!;
+      const layerB = config.biases[l]!;
+      const nextA: number[] = [];
+      const nextZ: number[] = [];
+      for (let j = 0; j < layerW.length; j++) {
+        let sum = layerB[j]!;
+        for (let i = 0; i < current.length; i++) {
+          sum += current[i]! * layerW[j]![i]!;
+        }
+        nextZ.push(sum);
+        nextA.push(sigmoid(sum));
+      }
+      zValues.push(nextZ);
+      activations.push(nextA);
+      current = nextA;
+    }
+
+    // Output value
+    const output = activations[activations.length - 1]![0]!;
+    // Clamp for numerical stability
+    const clampedOutput = Math.max(1e-7, Math.min(1 - 1e-7, output));
+    totalLoss +=
+      -(target * Math.log(clampedOutput) +
+        (1 - target) * Math.log(1 - clampedOutput));
+
+    // --- Backpropagation ---
+    // deltas[l][j] = dLoss/dz for layer l, neuron j
+    const deltas: number[][] = [];
+    for (let l = 0; l < numLayers; l++) {
+      deltas.push(config.weights[l]!.map(() => 0));
+    }
+
+    // Output layer delta: dL/dz = (a - target) for sigmoid + BCE loss
+    const outputLayerIdx = numLayers - 1;
+    deltas[outputLayerIdx]![0] = output - target;
+
+    // Hidden layer deltas (backpropagate)
+    for (let l = numLayers - 2; l >= 0; l--) {
+      const nextLayerW = config.weights[l + 1]!;
+      for (let j = 0; j < config.weights[l]!.length; j++) {
+        const a = activations[l + 1]![j]!;
+        const sigmoidDeriv = a * (1 - a);
+        let sum = 0;
+        for (let k = 0; k < nextLayerW.length; k++) {
+          sum += deltas[l + 1]![k]! * nextLayerW[k]![j]!;
+        }
+        deltas[l]![j] = sum * sigmoidDeriv;
+      }
+    }
+
+    // Accumulate gradients
+    for (let l = 0; l < numLayers; l++) {
+      const prevActivation = activations[l]!;
+      for (let j = 0; j < config.weights[l]!.length; j++) {
+        const d = deltas[l]![j]!;
+        biasGrads[l]![j]! += d;
+        for (let i = 0; i < config.weights[l]![j]!.length; i++) {
+          weightGrads[l]![j]![i]! += d * prevActivation[i]!;
+        }
+      }
+    }
+  }
+
+  // Average gradients and update weights/biases (pure — create new arrays)
+  const newWeights = config.weights.map((layer, l) =>
+    layer!.map((neuron, j) =>
+      neuron!.map(
+        (w, i) => w - (learningRate * weightGrads[l]![j]![i]!) / batchSize
+      )
+    )
+  );
+
+  const newBiases = config.biases.map((layer, l) =>
+    layer!.map((b, j) => b - (learningRate * biasGrads[l]![j]!) / batchSize)
+  );
+
+  return {
+    config: {
+      ...config,
+      weights: newWeights,
+      biases: newBiases,
+    },
+    loss: totalLoss / batchSize,
+  };
+}
+
 // --- Decision boundary ---
 
 export interface BoundaryCell {

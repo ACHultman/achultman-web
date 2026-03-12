@@ -291,6 +291,79 @@ void main() {
   }
 }`,
   },
+  {
+    name: 'Sunset Gradient',
+    description:
+      'Warm animated sunset gradient transitioning from orange to purple',
+    category: 'effects',
+    fragmentShader: `precision mediump float;
+uniform float u_time;
+uniform vec2 u_resolution;
+void main() {
+  vec2 uv = gl_FragCoord.xy / u_resolution;
+  float wave = sin(uv.x * 3.0 + u_time * 0.5) * 0.05;
+  float t = uv.y + wave;
+  vec3 top = vec3(0.1, 0.0, 0.2);
+  vec3 mid = vec3(0.8, 0.2, 0.4);
+  vec3 bottom = vec3(1.0, 0.6, 0.1);
+  vec3 col = mix(bottom, mid, smoothstep(0.0, 0.5, t));
+  col = mix(col, top, smoothstep(0.5, 1.0, t));
+  float sun = 1.0 - smoothstep(0.04, 0.06, length(uv - vec2(0.5 + sin(u_time * 0.2) * 0.1, 0.35)));
+  col += sun * vec3(1.0, 0.9, 0.5);
+  gl_FragColor = vec4(col, 1.0);
+}`,
+  },
+  {
+    name: 'Starfield',
+    description:
+      'Twinkling starfield with layered parallax depth and shooting stars',
+    category: 'effects',
+    fragmentShader: `precision mediump float;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float star(vec2 uv, vec2 center, float brightness) {
+  float d = length(uv - center);
+  return brightness * smoothstep(0.02, 0.0, d);
+}
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / u_resolution;
+  vec3 col = vec3(0.01, 0.01, 0.04);
+  col += vec3(0.02, 0.0, 0.05) * (1.0 - uv.y);
+  for (int layer = 0; layer < 3; layer++) {
+    float scale = 10.0 + float(layer) * 8.0;
+    float speed = 0.02 + float(layer) * 0.01;
+    vec2 st = uv * scale + vec2(u_time * speed, 0.0);
+    vec2 i_st = floor(st);
+    vec2 f_st = fract(st);
+    for (int y = -1; y <= 1; y++) {
+      for (int x = -1; x <= 1; x++) {
+        vec2 neighbor = vec2(float(x), float(y));
+        vec2 cell = i_st + neighbor;
+        float r = hash(cell);
+        if (r > 0.7) {
+          vec2 pos = neighbor + vec2(hash(cell + 1.0), hash(cell + 2.0)) - f_st;
+          float twinkle = sin(u_time * (2.0 + r * 4.0) + r * 6.28) * 0.5 + 0.5;
+          float brightness = (r - 0.7) * 3.3 * (0.5 + 0.5 * twinkle);
+          float d = length(pos);
+          col += brightness * smoothstep(0.03, 0.0, d) * vec3(0.8 + r * 0.2, 0.8 + hash(cell + 3.0) * 0.2, 1.0);
+        }
+      }
+    }
+  }
+  float shootX = fract(u_time * 0.15);
+  float shootY = 0.8 - shootX * 0.5;
+  float shootTrail = smoothstep(0.0, 0.08, shootX) * smoothstep(0.3, 0.08, shootX);
+  float shootD = length(uv - vec2(shootX, shootY));
+  col += vec3(1.0, 1.0, 0.9) * smoothstep(0.01, 0.0, shootD) * shootTrail;
+  gl_FragColor = vec4(col, 1.0);
+}`,
+  },
 ];
 
 export const DEFAULT_VERTEX_SHADER = `attribute vec2 a_position;
@@ -304,3 +377,186 @@ export const SHADER_CATEGORIES: { name: string; color: string }[] = [
   { name: 'noise', color: 'teal' },
   { name: 'effects', color: 'cyan' },
 ];
+
+export interface ShaderPrompt {
+  keywords: string[];
+  presetIndex: number;
+  description: string;
+  modifications?: { find: string; replace: string }[];
+}
+
+export const SHADER_PROMPTS: ShaderPrompt[] = [
+  {
+    keywords: ['plasma', 'waves', 'psychedelic', 'colorful waves'],
+    presetIndex: 0,
+    description: 'Plasma Wave — classic colorful plasma effect',
+  },
+  {
+    keywords: ['mandelbrot', 'fractal zoom', 'complex plane'],
+    presetIndex: 1,
+    description: 'Mandelbrot Set — classic fractal explorer',
+  },
+  {
+    keywords: ['noise', 'organic', 'flowing', 'clouds'],
+    presetIndex: 2,
+    description: 'Simplex Noise — organic flowing patterns',
+  },
+  {
+    keywords: ['rings', 'circles', 'hypnotic', 'tunnel'],
+    presetIndex: 3,
+    description: 'Hypnotic Rings — pulsing concentric circles',
+  },
+  {
+    keywords: ['voronoi', 'cells', 'cellular', 'bubbles'],
+    presetIndex: 4,
+    description: 'Voronoi Cells — animated cellular patterns',
+  },
+  {
+    keywords: ['sphere', '3d', 'ray marching', 'lighting'],
+    presetIndex: 5,
+    description: 'Ray Marching Sphere — 3D lit sphere',
+  },
+  {
+    keywords: ['matrix', 'rain', 'digital', 'hacker', 'code rain'],
+    presetIndex: 6,
+    description: 'Matrix Rain — digital rain effect',
+  },
+  {
+    keywords: ['julia', 'fractal morph', 'animated fractal'],
+    presetIndex: 7,
+    description: 'Fractal Julia — morphing Julia set',
+  },
+  {
+    keywords: ['fire', 'flames', 'burning'],
+    presetIndex: 0,
+    description: 'Fire — plasma wave with warm fiery colors',
+    modifications: [
+      {
+        find: 'vec3 col = vec3(sin(v), sin(v + 2.094), sin(v + 4.189)) * 0.5 + 0.5;',
+        replace:
+          'vec3 col = vec3(sin(v) * 0.5 + 0.7, sin(v + 0.5) * 0.3 + 0.3, sin(v + 1.0) * 0.1 + 0.05);',
+      },
+    ],
+  },
+  {
+    keywords: ['ocean', 'water', 'sea', 'underwater'],
+    presetIndex: 2,
+    description: 'Ocean — simplex noise with deep blue tones',
+    modifications: [
+      {
+        find: 'vec3 col1 = vec3(0.1, 0.3, 0.6);',
+        replace: 'vec3 col1 = vec3(0.0, 0.1, 0.4);',
+      },
+      {
+        find: 'vec3 col2 = vec3(0.9, 0.5, 0.2);',
+        replace: 'vec3 col2 = vec3(0.1, 0.5, 0.8);',
+      },
+    ],
+  },
+  {
+    keywords: ['sunset', 'sky', 'gradient'],
+    presetIndex: 8,
+    description: 'Sunset Gradient — warm sky with animated sun',
+  },
+  {
+    keywords: ['stars', 'space', 'galaxy', 'night sky'],
+    presetIndex: 9,
+    description: 'Starfield — twinkling stars with parallax layers',
+  },
+  {
+    keywords: ['disco', 'party', 'strobe'],
+    presetIndex: 3,
+    description: 'Disco — fast hypnotic rings with strobe energy',
+    modifications: [
+      {
+        find: 'float rings = sin(d * 30.0 - u_time * 3.0);',
+        replace: 'float rings = sin(d * 40.0 - u_time * 8.0);',
+      },
+      {
+        find: 'float pulse = sin(u_time * 2.0) * 0.5 + 0.5;',
+        replace: 'float pulse = sin(u_time * 6.0) * 0.5 + 0.5;',
+      },
+    ],
+  },
+  {
+    keywords: ['lava', 'magma', 'volcanic'],
+    presetIndex: 4,
+    description: 'Lava — voronoi cells with molten red-orange palette',
+    modifications: [
+      {
+        find: 'vec3 col = 0.5 + 0.5 * cos(u_time + minPoint.xyx * 6.28 + vec3(0.0, 2.0, 4.0));',
+        replace:
+          'vec3 col = vec3(0.8, 0.2, 0.0) + 0.3 * cos(u_time + minPoint.xyx * 6.28 + vec3(0.0, 0.5, 1.0));',
+      },
+      {
+        find: 'col += 0.02 / minDist * vec3(0.2, 0.1, 0.3);',
+        replace: 'col += 0.03 / minDist * vec3(0.6, 0.2, 0.0);',
+      },
+    ],
+  },
+  {
+    keywords: ['neon', 'glow', 'cyberpunk'],
+    presetIndex: 0,
+    description: 'Neon — plasma wave with electric neon glow',
+    modifications: [
+      {
+        find: 'vec3 col = vec3(sin(v), sin(v + 2.094), sin(v + 4.189)) * 0.5 + 0.5;',
+        replace:
+          'vec3 col = vec3(sin(v) * 0.5 + 0.5, 0.05, sin(v + 3.14) * 0.5 + 0.5) * 1.3;',
+      },
+    ],
+  },
+];
+
+export const QUICK_PROMPT_CHIPS: string[] = [
+  'ocean',
+  'fire',
+  'galaxy',
+  'matrix',
+  'fractal',
+  'neon',
+];
+
+export function matchShaderPrompt(
+  input: string
+): { preset: ShaderPreset; index: number; matched: string } | null {
+  const normalized = input.toLowerCase().trim();
+  if (!normalized) return null;
+
+  let bestScore = 0;
+  let bestPrompt: ShaderPrompt | null = null;
+
+  for (const prompt of SHADER_PROMPTS) {
+    let score = 0;
+    for (const keyword of prompt.keywords) {
+      if (normalized.includes(keyword)) {
+        // Longer keyword matches are worth more
+        score += keyword.length;
+      }
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      bestPrompt = prompt;
+    }
+  }
+
+  if (!bestPrompt || bestScore === 0) return null;
+
+  const basePreset = SHADER_PRESETS[bestPrompt.presetIndex]!;
+  let shaderSource = basePreset.fragmentShader;
+
+  if (bestPrompt.modifications) {
+    for (const mod of bestPrompt.modifications) {
+      shaderSource = shaderSource.replace(mod.find, mod.replace);
+    }
+  }
+
+  const preset: ShaderPreset = {
+    ...basePreset,
+    name: bestPrompt.description.split(' — ')[0]!,
+    description: bestPrompt.description,
+    fragmentShader: shaderSource,
+  };
+
+  return { preset, index: bestPrompt.presetIndex, matched: bestPrompt.description };
+}
