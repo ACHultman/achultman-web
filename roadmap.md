@@ -1,105 +1,126 @@
+# Roadmap
 
-Below is a high-level roadmap for getting all your Lighthouse assertions back green
-(performance ≥ 0.95, best-practices ≥ 0.95, SEO ≥ 0.95) across `/`, `/about`, `/blog`, `/books`
-and `/bookmarks`. Because this spans multiple pages and many categories (Performance,
-Best-Practices, SEO), it’s best to tackle it in a few focused sweeps rather than try to
-“fix everything” in one giant PR.
+> Last groomed: 2026-03-12
 
---------------------------------------------------------------------------------------
+---
 
-## 1. Performance ≥ 0.95
+## Completed (Previous Roadmap)
 
-### A. Optimize Images with next/image
+These items from the original Lighthouse-focused roadmap have been shipped:
 
-* Blog & Books pages are still rendering raw `<Image src={…} />` from Chakra, so you’re
-  shipping full-size images & no lazy-loading.
-* **Action:** Switch all cover images (post covers, book covers) to Next.js’s `<Image>`
-  with explicit `width`/`height` and `placeholder="blur"` (or `"empty"`) to get
-  automatic resizing, modern formats, and lazy-loading.
-* **Lift:** This alone usually nets you 0.05–0.10 in the Performance score.
+- [x] **next/image migration** — Blog covers, book cards, hero, about page, and featured posts all use `next/image` with lazy-loading and automatic resizing (6 files).
+- [x] **Per-page NextSeo** — Every public page (`/`, `/about`, `/blog`, `/blog/[id]`, `/books`, `/bookmarks`, `/labs`) has its own `<NextSeo>` with title, description, and canonical URL.
+- [x] **Sitemap generation** — Dynamic server-side `sitemap.xml.tsx` produces entries for all static pages + all Notion blog posts with `lastmod` dates.
+- [x] **robots.txt** — Static `public/robots.txt` pointing to `https://hultman.dev/sitemap.xml`.
+- [x] **External link safety** — `rel="noopener noreferrer"` is used consistently across external links (Footer, ExternalLink, FeaturedWork, ToolCard, Timeline, Contact, Chat, Labs).
+- [x] **Lighthouse CI** — `.lighthouserc.js` asserts performance ≥ 0.85, accessibility ≥ 0.95, best-practices ≥ 0.95, SEO ≥ 0.95 across 5 pages.
+- [x] **Accessibility testing** — Pa11y-CI checks WCAG AA compliance on all public pages.
+- [x] **Labs page** — 6 interactive AI experiments (agent-flow, beatmaker, evidence-viz, interaction-checker, prompt-duel, token-viz).
 
-### B. Defer Third-Party Scripts
+---
 
-* You include Vercel Analytics (or any other scripts) up front.
-* **Action:** Wrap any non-critical `<Script>` tags with `strategy="lazyOnload"` (or at
-  least `afterInteractive`), so they don’t block First Contentful Paint.
+## Phase 1 — Performance Push (Target: Lighthouse perf ≥ 0.95)
 
-### C. Preload & Preconnect Critical Assets
+### 1A. Defer third-party scripts
+- Vercel Analytics (`@vercel/analytics`) and Speed Insights (`@vercel/speed-insights`) load eagerly.
+- PostHog (`posthog-js`) may also block FCP.
+- **Action:** Use `next/script` with `strategy="lazyOnload"` for non-critical analytics scripts so they don't block First Contentful Paint.
+- **Lift:** +0.03–0.07 Performance.
 
-* Fonts (e.g. Google Fonts) and the site’s hero images (if any) should be preloaded.
-* **Action:** In your custom `<Head>` (via `_document.tsx` or `next-seo.config.js`
-  `extraLinkTags`), add `<link rel="preconnect">` to font origins and `<link
-  rel="preload" as="font">` for the primary font files.
+### 1B. Preconnect & preload critical fonts
+- If Google Fonts or custom fonts are fetched at runtime, add `<link rel="preconnect">` and `<link rel="preload" as="font">` in `_document.tsx`.
+- **Lift:** +0.01–0.03 Performance (reduces font-swap CLS).
 
-### D. Remove Unused CSS/JS
+### 1C. Bundle audit & code splitting
+- Chakra UI v2 ships the full component library. Run `npm run analyze` to identify heavy chunks.
+- **Action:** Dynamically import rarely-used heavy components (e.g., labs experiments are already `ssr: false` — verify they are also chunked properly).
+- Consider tree-shaking Framer Motion (12.x ships ESM — ensure only used features are bundled).
+- **Lift:** +0.02–0.05 Performance.
 
-* Chakra ships the full component library even if you only use a handful of components.
-* **Action:** Audit bundle size (`next build && ANALYZE=true next build`) and consider:
-  1. Dynamically importing very heavy components (`dynamic(import(…), { ssr: false })`).
-  2. Moving rarely-used widgets (e.g. `<SlideFade>`, `<Highlight>`) into client-only bundles.
+### 1D. Raise Lighthouse CI threshold
+- Once scores consistently hit ≥ 0.95, bump `.lighthouserc.js` performance assertion from `0.85` → `0.95`.
 
---------------------------------------------------------------------------------------
+---
 
-## 2. Best-Practices ≥ 0.95
+## Phase 2 — Test Coverage Expansion
 
-### A. External Links Need `rel="noopener noreferrer"`
+### 2A. Page-level E2E tests
+- Current E2E tests only cover the navbar (desktop + mobile).
+- **Action:** Add E2E tests for core user journeys:
+  - Home page loads and key sections visible (Hero, Skills, GitTimeline, Contact).
+  - Blog listing loads posts from Notion, clicking a post navigates to `/blog/[id]`.
+  - Books and Bookmarks pages render cards.
+  - About page renders and contact form submits.
+  - 404 page renders for unknown routes.
 
-* Any `<a href="…" target="_blank">` (e.g. in bookmarks, blog links) should include
-  `rel="noopener noreferrer"`.
-* **Action:** Audit your Link components and Chakra’s `<LinkOverlay>` to ensure you add
-  `rel="noopener noreferrer"` whenever `isExternal` or `target="_blank"` is used.
+### 2B. Labs E2E tests
+- No tests exist for any of the 6 lab experiments.
+- **Action:** Add smoke tests that verify each labs page loads without errors and key interactive elements are present.
 
-### B. All Images Must Have alt Text
+### 2C. API route tests
+- No tests for `api/v1/blog`, `api/v1/chat`, `api/v1/contact`, `api/v1/post/[id]`.
+- **Action:** Add integration tests (or lightweight E2E) validating status codes, response shapes, and rate limiting behavior.
 
-* Even decorative or fallback images.
-* **Action:** Give every `<Image>`/`<img>` a non-empty `alt` attribute (for decorative
-  images, `alt=""`).
+---
 
-### C. No Console Errors/Warnings
+## Phase 3 — SEO & Discoverability
 
-* Make sure `console.error(...)` is silenced in production and no React prop-type or
-  accessibility warnings fire at runtime.
-* **Action:** Clean up any lingering warnings during SSR or hydration.
+### 3A. Add labs pages to sitemap
+- The sitemap currently covers `/`, `/about`, `/bookmarks`, `/books`, `/blog`, and blog posts — but **not** `/labs` or individual lab pages.
+- **Action:** Add `/labs` (and optionally individual experiment pages) to the static paths in `sitemap.xml.tsx`.
 
---------------------------------------------------------------------------------------
+### 3B. Structured data (JSON-LD)
+- `BlogPostingJsonLd.tsx` and `JsonLd.tsx` components exist — verify they're rendered on all blog post pages.
+- **Action:** Add `WebSite` and `Person` JSON-LD to the home page for richer search results (knowledge panel, sitelinks).
 
-## 3. SEO ≥ 0.95
+### 3C. OpenGraph images per page
+- The default OG image (`og_homepage.png`) is used site-wide.
+- **Action:** Generate or design page-specific OG images for `/about`, `/blog`, `/books`, `/labs` to improve social sharing click-through.
 
-You already have a solid site-wide DefaultSeo setup (via `src/next-seo.config.js`), but
-you need page-specific overrides so that each route has its own `<title>`, `<meta
-name="description">`, and `<link rel="canonical">` pointing at the exact URL.
+---
 
-### A. Per-Page Meta Tags with NextSeo
+## Phase 4 — Infrastructure & DX
 
-* Blog index currently has no `<Head>` or `<NextSeo>` ⇒ it falls back to site-wide
-  title/description only.
-* **Action:** In each page component (`/`, `/about`, `/blog`, `/books`, `/bookmarks`),
-  add a small `<NextSeo … />` (from `next-seo`) with:
-  * `title:` e.g. "Blog | Adam Hultman"
-  * `description:` a one-sentence summary (e.g. "My collection of technical writing about …")
-  * `canonical:` e.g. `https://hultman.dev/blog`
-  * (optionally) an OpenGraph image override if you have a page-specific hero graphic.
+### 4A. Upgrade to Chakra UI v3
+- Currently on Chakra UI v2 (2.10.3). v3 drops Emotion in favor of Panda CSS, improving bundle size and performance.
+- **Action:** Track Chakra v3 stable release and plan migration. This is a breaking change — scope it as a dedicated effort.
 
-### B. Sitemap & robots.txt
+### 4B. Stricter TypeScript
+- Audit `tsconfig.json` for `strict: true` and related flags (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`).
+- **Action:** Incrementally enable stricter checks to catch more bugs at compile time.
 
-* While not strictly in Lighthouse, having a `/robots.txt` and a generated `/sitemap.xml`
-  not only helps real-world SEO but often nudges the Lighthouse SEO score upward.
-* **Action:** Drop a static `public/robots.txt` and use `next-sitemap` (or similar) to
-  generate `/sitemap.xml` at build time.
+### 4C. Error monitoring
+- No error tracking service is configured (no Sentry, no LogRocket).
+- **Action:** Add lightweight error monitoring (e.g., Sentry free tier) to catch production issues early.
 
---------------------------------------------------------------------------------------
+---
 
-## 4. Incremental Rollout Plan
+## Phase 5 — Content & Features
 
-Because this is a multi-page, multi-category effort, tackle it iteratively:
+### 5A. Blog enhancements
+- Add reading time estimate to blog posts.
+- Add related posts / next-prev navigation at the bottom of blog post pages.
+- Add RSS feed (`/feed.xml`) for blog subscribers.
 
-| Phase | Scope                                   | Expected Lift                   |
-|:-----:|:----------------------------------------|:--------------------------------|
-| 1     | Blog & Books `<Image>` → next/image      | +0.05–0.10 Performance          |
-| 2     | Defer analytics scripts & preload fonts  | +0.03–0.07 Performance          |
-| 3     | Audit external links & add alt tags      | +0.01–0.03 Best-Practices       |
-| 4     | Add `<NextSeo>` to each page             | +0.02–0.05 SEO                  |
-| 5     | Sitemap & robots.txt                     | +0.00–0.02 SEO + real-world SEO |
+### 5B. Labs improvements
+- Add a "featured" or "new" badge system to highlight recent experiments.
+- Consider adding analytics to track which experiments get the most engagement.
+- Add share buttons / OG metadata per experiment for social sharing.
 
-_After landing each phase, rerun `npm run lhci` to see the scores climb. By the end of
-Phase 4 you should be comfortably above 0.95 in all asserted categories._
+### 5C. Resume / CV page
+- Add a `/resume` page (or downloadable PDF) for recruiters and hiring managers.
+
+---
+
+## Priority & Sequencing
+
+| Priority | Phase | Key Outcome |
+|:--------:|:------|:------------|
+| **P0** | 1A–1C | Lighthouse perf ≥ 0.95 |
+| **P1** | 2A–2B | E2E coverage beyond navbar |
+| **P1** | 3A | Labs in sitemap |
+| **P2** | 3B–3C | Richer search presence |
+| **P2** | 4A | Chakra v3 migration |
+| **P3** | 5A–5C | Content & feature polish |
+
+_Revisit and re-groom quarterly or after major feature launches._
