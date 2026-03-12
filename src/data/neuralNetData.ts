@@ -36,15 +36,67 @@ export interface Dataset {
 
 // --- Activation ---
 
+export type ActivationFn = 'sigmoid' | 'relu' | 'tanh';
+
 function sigmoid(x: number): number {
   return 1 / (1 + Math.exp(-x));
+}
+
+function sigmoidDeriv(a: number): number {
+  return a * (1 - a);
+}
+
+function relu(x: number): number {
+  return Math.max(0, x);
+}
+
+function reluDeriv(x: number): number {
+  return x > 0 ? 1 : 0;
+}
+
+function tanhFn(x: number): number {
+  return Math.tanh(x);
+}
+
+function tanhDeriv(x: number): number {
+  const t = Math.tanh(x);
+  return 1 - t * t;
+}
+
+function applyActivation(x: number, activation: ActivationFn): number {
+  switch (activation) {
+    case 'relu':
+      return relu(x);
+    case 'tanh':
+      return tanhFn(x);
+    case 'sigmoid':
+    default:
+      return sigmoid(x);
+  }
+}
+
+function applyActivationDeriv(
+  z: number,
+  a: number,
+  activation: ActivationFn
+): number {
+  switch (activation) {
+    case 'relu':
+      return reluDeriv(z);
+    case 'tanh':
+      return tanhDeriv(z);
+    case 'sigmoid':
+    default:
+      return sigmoidDeriv(a);
+  }
 }
 
 // --- Forward pass ---
 
 export function forwardPass(
   inputs: number[],
-  config: NetworkConfig
+  config: NetworkConfig,
+  activation: ActivationFn = 'sigmoid'
 ): number[][] {
   const activations: number[][] = [inputs];
 
@@ -53,12 +105,16 @@ export function forwardPass(
     const layerWeights = config.weights[l];
     const layerBiases = config.biases[l];
     const next: number[] = [];
+    // Use sigmoid for the output layer always (needed for BCE loss),
+    // use selected activation for hidden layers
+    const isOutputLayer = l === config.weights.length - 1;
+    const layerActivation = isOutputLayer ? 'sigmoid' : activation;
     for (let j = 0; j < layerWeights!.length; j++) {
       let sum = layerBiases![j]!;
       for (let i = 0; i < current.length; i++) {
         sum += current[i]! * layerWeights![j]![i]!;
       }
-      next.push(sigmoid(sum));
+      next.push(applyActivation(sum, layerActivation));
     }
     activations.push(next);
     current = next;
@@ -73,8 +129,9 @@ export function trainStep(
   config: NetworkConfig,
   dataset: Dataset,
   learningRate: number = 0.5,
-  batchSize: number = 4
-): { config: NetworkConfig; loss: number } {
+  batchSize: number = 4,
+  activation: ActivationFn = 'sigmoid'
+): { config: NetworkConfig; loss: number; gradients: number[][][] } {
   const numLayers = config.weights.length;
 
   // Initialize gradient accumulators (same shape as weights/biases)
@@ -103,13 +160,16 @@ export function trainStep(
       const layerB = config.biases[l]!;
       const nextA: number[] = [];
       const nextZ: number[] = [];
+      // Output layer always uses sigmoid for BCE loss compatibility
+      const isOutputLayer = l === numLayers - 1;
+      const layerActivation = isOutputLayer ? 'sigmoid' : activation;
       for (let j = 0; j < layerW.length; j++) {
         let sum = layerB[j]!;
         for (let i = 0; i < current.length; i++) {
           sum += current[i]! * layerW[j]![i]!;
         }
         nextZ.push(sum);
-        nextA.push(sigmoid(sum));
+        nextA.push(applyActivation(sum, layerActivation));
       }
       zValues.push(nextZ);
       activations.push(nextA);
@@ -138,14 +198,17 @@ export function trainStep(
     // Hidden layer deltas (backpropagate)
     for (let l = numLayers - 2; l >= 0; l--) {
       const nextLayerW = config.weights[l + 1]!;
+      const isOutputLayer = l === numLayers - 1;
+      const layerActivation = isOutputLayer ? 'sigmoid' : activation;
       for (let j = 0; j < config.weights[l]!.length; j++) {
+        const z = zValues[l]![j]!;
         const a = activations[l + 1]![j]!;
-        const sigmoidDeriv = a * (1 - a);
+        const deriv = applyActivationDeriv(z, a, layerActivation);
         let sum = 0;
         for (let k = 0; k < nextLayerW.length; k++) {
           sum += deltas[l + 1]![k]! * nextLayerW[k]![j]!;
         }
-        deltas[l]![j] = sum * sigmoidDeriv;
+        deltas[l]![j] = sum * deriv;
       }
     }
 
@@ -161,6 +224,13 @@ export function trainStep(
       }
     }
   }
+
+  // Compute averaged absolute gradient magnitudes (same shape as weights)
+  const gradients: number[][][] = weightGrads.map((layer) =>
+    layer!.map((neuron) =>
+      neuron!.map((g) => Math.abs(g) / batchSize)
+    )
+  );
 
   // Average gradients and update weights/biases (pure — create new arrays)
   const newWeights = config.weights.map((layer, l) =>
@@ -182,6 +252,7 @@ export function trainStep(
       biases: newBiases,
     },
     loss: totalLoss / batchSize,
+    gradients,
   };
 }
 
@@ -195,14 +266,15 @@ export interface BoundaryCell {
 
 export function generateDecisionBoundary(
   config: NetworkConfig,
-  resolution: number = 30
+  resolution: number = 30,
+  activation: ActivationFn = 'sigmoid'
 ): BoundaryCell[] {
   const cells: BoundaryCell[] = [];
   for (let i = 0; i < resolution; i++) {
     for (let j = 0; j < resolution; j++) {
       const x = (i / (resolution - 1)) * 2 - 1; // range [-1, 1]
       const y = (j / (resolution - 1)) * 2 - 1;
-      const activations = forwardPass([x, y], config);
+      const activations = forwardPass([x, y], config, activation);
       const output = activations[activations.length - 1]![0]!;
       cells.push({ x, y, value: output });
     }
@@ -212,10 +284,14 @@ export function generateDecisionBoundary(
 
 // --- Utility: compute accuracy ---
 
-export function computeAccuracy(config: NetworkConfig, dataset: Dataset): number {
+export function computeAccuracy(
+  config: NetworkConfig,
+  dataset: Dataset,
+  activation: ActivationFn = 'sigmoid'
+): number {
   let correct = 0;
   for (const point of dataset.points) {
-    const activations = forwardPass([point.x, point.y], config);
+    const activations = forwardPass([point.x, point.y], config, activation);
     const output = activations[activations.length - 1]![0]!;
     const predicted = output >= 0.5 ? 1 : 0;
     if (predicted === point.label) correct++;

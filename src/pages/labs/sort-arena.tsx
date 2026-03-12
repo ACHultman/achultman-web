@@ -29,7 +29,9 @@ import { motion } from 'framer-motion';
 import Paragraph from '@components/Paragraph';
 import {
   ALGORITHMS,
+  ALGORITHM_COMPLEXITY,
   ARRAY_PRESETS,
+  detectComplexityCase,
   generateRandomArray,
   generateBubbleSortSteps,
   generateSelectionSortSteps,
@@ -76,6 +78,34 @@ export default function SortArenaPage() {
   const [stepIndices, setStepIndices] = useState<Record<string, number>>({});
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const [soundEnabled, setSoundEnabled] = useState(false);
+
+  const initAudioContext = useCallback(() => {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    }
+  }, []);
+
+  const playTone = useCallback((value: number, duration: number = 50) => {
+    if (!audioCtxRef.current || !soundEnabled) return;
+    const osc = audioCtxRef.current.createOscillator();
+    const gain = audioCtxRef.current.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtxRef.current.destination);
+    // Map value (0-100) to frequency (200-800 Hz)
+    osc.frequency.value = 200 + (value / 100) * 600;
+    osc.type = 'sine';
+    gain.gain.value = 0.05;
+    osc.start();
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtxRef.current.currentTime + duration / 1000);
+    osc.stop(audioCtxRef.current.currentTime + duration / 1000);
+  }, [soundEnabled]);
+
+  const toggleSound = useCallback(() => {
+    initAudioContext();
+    setSoundEnabled((prev) => !prev);
+  }, [initAudioContext]);
 
   const cardBg = useColorModeValue('gray.50', 'gray.700');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
@@ -130,9 +160,15 @@ export default function SortArenaPage() {
     setRaceResults([]);
   };
 
+  const soundEnabledRef = useRef(soundEnabled);
+  useEffect(() => {
+    soundEnabledRef.current = soundEnabled;
+  }, [soundEnabled]);
+
   const startRace = () => {
     if (selectedAlgorithms.length === 0) return;
 
+    initAudioContext();
     setRaceComplete(false);
     setRaceResults([]);
 
@@ -172,6 +208,23 @@ export default function SortArenaPage() {
       });
 
       setStepIndices({ ...currentIndices });
+
+      // Play tones for active comparing/swapping elements
+      if (soundEnabledRef.current && audioCtxRef.current) {
+        selectedAlgorithms.forEach((alg: string) => {
+          const step = newStepsMap[alg]?.[currentIndices[alg]!];
+          if (!step) return;
+          if (step.comparing) {
+            const val = step.array[step.comparing[0]!];
+            if (val !== undefined) playTone(val);
+          } else if (step.swapping) {
+            const val0 = step.array[step.swapping[0]!];
+            const val1 = step.array[step.swapping[1]!];
+            if (val0 !== undefined) playTone(val0);
+            if (val1 !== undefined) playTone(val1, 80);
+          }
+        });
+      }
 
       if (Object.values(finished).every(Boolean) || allDone) {
         if (intervalRef.current) {
@@ -415,7 +468,7 @@ export default function SortArenaPage() {
                 </Flex>
               </Box>
 
-              {/* Race button */}
+              {/* Race button + Sound toggle */}
               <HStack>
                 <Button
                   colorScheme="green"
@@ -434,6 +487,16 @@ export default function SortArenaPage() {
                     Stop
                   </Button>
                 )}
+                <Tooltip label={soundEnabled ? 'Mute sound' : 'Enable sound'} hasArrow>
+                  <Button
+                    size="lg"
+                    variant={soundEnabled ? 'solid' : 'outline'}
+                    colorScheme={soundEnabled ? 'purple' : 'gray'}
+                    onClick={toggleSound}
+                  >
+                    {soundEnabled ? '🔊 Sound' : '🔇 Sound'}
+                  </Button>
+                </Tooltip>
               </HStack>
             </VStack>
           </Box>
@@ -472,12 +535,29 @@ export default function SortArenaPage() {
                         <Th>Average</Th>
                         <Th>Worst</Th>
                         <Th>Space</Th>
+                        <Th>Detected Case</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
                       {raceResults.map((result: RaceResult, idx: number) => {
                         const algo = ALGORITHMS[result.algorithm]!;
                         const isWinner = raceResults.length === 2 && winnerIdx === idx;
+                        const complexity = ALGORITHM_COMPLEXITY[result.algorithm];
+                        const detectedCase = detectComplexityCase(result.algorithm, array);
+                        const caseLabel =
+                          detectedCase === 'best'
+                            ? 'Best case'
+                            : detectedCase === 'worst'
+                              ? 'Worst case!'
+                              : 'Average case';
+                        const caseBadgeColor =
+                          detectedCase === 'best'
+                            ? 'green'
+                            : detectedCase === 'worst'
+                              ? 'red'
+                              : 'gray';
+                        const caseComplexity =
+                          complexity?.[detectedCase === 'avg' ? 'avg' : detectedCase] ?? '';
                         return (
                           <Tr key={result.algorithm} fontWeight={isWinner ? 'bold' : 'normal'}>
                             <Td>
@@ -497,6 +577,16 @@ export default function SortArenaPage() {
                             <Td>{algo.complexity.average}</Td>
                             <Td>{algo.complexity.worst}</Td>
                             <Td>{algo.complexity.space}</Td>
+                            <Td>
+                              <VStack spacing={0} align="start">
+                                <Badge colorScheme={caseBadgeColor} variant="solid" fontSize="xs">
+                                  {caseLabel}
+                                </Badge>
+                                <Text fontSize="xs" color={subtleText}>
+                                  {caseComplexity}
+                                </Text>
+                              </VStack>
+                            </Td>
                           </Tr>
                         );
                       })}

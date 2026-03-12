@@ -39,6 +39,7 @@ import {
   type BoundaryCell,
   type Dataset,
   type DataPoint,
+  type ActivationFn,
 } from '@data/neuralNetData';
 
 const MotionBox = motion(Box);
@@ -68,6 +69,21 @@ export default function NeuralNetPlayground() {
   const [prevAccuracy, setPrevAccuracy] = useState<number | null>(null);
   const [accuracyPulse, setAccuracyPulse] = useState(false);
 
+  // Activation function state
+  const [activationFn, setActivationFn] = useState<ActivationFn>('sigmoid');
+
+  // Gradient flow heatmap state
+  const [showGradients, setShowGradients] = useState(false);
+  const [gradientMagnitudes, setGradientMagnitudes] = useState<
+    number[][][] | null
+  >(null);
+
+  // Paint mode state
+  const [drawMode, setDrawMode] = useState(false);
+  const [paintClass, setPaintClass] = useState<0 | 1>(1);
+  const isDrawingRef = useRef(false);
+  const lastPaintPosRef = useRef<{ x: number; y: number } | null>(null);
+
   // Refs for training loop to avoid stale closures
   const trainingRef = useRef(false);
   const configRef = useRef(config);
@@ -75,6 +91,7 @@ export default function NeuralNetPlayground() {
   const lossHistoryRef = useRef<number[]>([]);
   const stepsPerFrameRef = useRef(stepsPerFrame);
   const learningRateRef = useRef(learningRate);
+  const activationFnRef = useRef<ActivationFn>(activationFn);
   const rafRef = useRef<number | null>(null);
   const stepsSinceBoundaryUpdate = useRef(0);
 
@@ -88,6 +105,9 @@ export default function NeuralNetPlayground() {
   useEffect(() => {
     learningRateRef.current = learningRate;
   }, [learningRate]);
+  useEffect(() => {
+    activationFnRef.current = activationFn;
+  }, [activationFn]);
 
   // Combine base dataset with custom points
   const dataset: Dataset = useMemo(() => {
@@ -100,13 +120,13 @@ export default function NeuralNetPlayground() {
   }, [datasetKey, customPoints]);
 
   const boundary = useMemo(
-    () => generateDecisionBoundary(config, 30),
-    [config]
+    () => generateDecisionBoundary(config, 30, activationFn),
+    [config, activationFn]
   );
 
   const accuracy = useMemo(
-    () => computeAccuracy(config, dataset),
-    [config, dataset]
+    () => computeAccuracy(config, dataset, activationFn),
+    [config, dataset, activationFn]
   );
 
   const totalParams = useMemo(() => countParams(config), [config]);
@@ -143,6 +163,7 @@ export default function NeuralNetPlayground() {
 
     let currentConfig = configRef.current;
     let totalLoss = 0;
+    let latestGradients: number[][][] | null = null;
     const steps = stepsPerFrameRef.current;
 
     for (let s = 0; s < steps; s++) {
@@ -150,10 +171,12 @@ export default function NeuralNetPlayground() {
         currentConfig,
         fullDs,
         learningRateRef.current,
-        Math.min(8, fullDs.points.length)
+        Math.min(8, fullDs.points.length),
+        activationFnRef.current
       );
       currentConfig = result.config;
       totalLoss += result.loss;
+      latestGradients = result.gradients;
     }
 
     const avgLoss = totalLoss / steps;
@@ -175,6 +198,9 @@ export default function NeuralNetPlayground() {
     setConfig(currentConfig);
     setEpoch(epochRef.current);
     setLossHistory(newHistory);
+    if (latestGradients) {
+      setGradientMagnitudes(latestGradients);
+    }
 
     if (trainingRef.current) {
       rafRef.current = requestAnimationFrame(trainingLoop);

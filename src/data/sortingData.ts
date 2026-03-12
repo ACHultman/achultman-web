@@ -457,6 +457,57 @@ export function generateRandomArray(size: number): number[] {
   return Array.from({ length: size }, () => Math.floor(Math.random() * 96) + 5);
 }
 
+export const ALGORITHM_COMPLEXITY: Record<
+  string,
+  { best: string; avg: string; worst: string }
+> = {
+  bubbleSort: { best: 'O(n)', avg: 'O(n\u00B2)', worst: 'O(n\u00B2)' },
+  selectionSort: { best: 'O(n\u00B2)', avg: 'O(n\u00B2)', worst: 'O(n\u00B2)' },
+  insertionSort: { best: 'O(n)', avg: 'O(n\u00B2)', worst: 'O(n\u00B2)' },
+  mergeSort: { best: 'O(n log n)', avg: 'O(n log n)', worst: 'O(n log n)' },
+  quickSort: { best: 'O(n log n)', avg: 'O(n log n)', worst: 'O(n\u00B2)' },
+  heapSort: { best: 'O(n log n)', avg: 'O(n log n)', worst: 'O(n log n)' },
+};
+
+/**
+ * Detect which complexity case the current input likely triggers for a given algorithm.
+ * Returns 'best' | 'avg' | 'worst'.
+ */
+export function detectComplexityCase(
+  algorithmKey: string,
+  inputArray: number[]
+): 'best' | 'avg' | 'worst' {
+  const n = inputArray.length;
+  if (n <= 1) return 'best';
+
+  const isSorted = inputArray.every((v, i) => i === 0 || v >= inputArray[i - 1]!);
+  const isReversed = inputArray.every((v, i) => i === 0 || v <= inputArray[i - 1]!);
+
+  switch (algorithmKey) {
+    case 'bubbleSort':
+      if (isSorted) return 'best';
+      if (isReversed) return 'worst';
+      return 'avg';
+    case 'selectionSort':
+      // Selection sort is always O(n^2) regardless of input
+      return 'avg';
+    case 'insertionSort':
+      if (isSorted) return 'best';
+      if (isReversed) return 'worst';
+      return 'avg';
+    case 'mergeSort':
+    case 'heapSort':
+      // Always O(n log n)
+      return 'avg';
+    case 'quickSort':
+      // Naive quicksort with last element pivot hits worst case on sorted/reversed
+      if (isSorted || isReversed) return 'worst';
+      return 'avg';
+    default:
+      return 'avg';
+  }
+}
+
 export const ARRAY_PRESETS: { name: string; array: number[] }[] = [
   { name: 'Random 20', array: generateRandomArray(20) },
   {
@@ -470,5 +521,17 @@ export const ARRAY_PRESETS: { name: string; array: number[] }[] = [
   {
     name: 'Few Unique',
     array: [10, 30, 10, 50, 30, 10, 50, 30, 10, 50, 30, 10, 50, 30, 10, 30, 50, 10, 30, 50],
+  },
+  {
+    name: 'QSort Killer',
+    array: [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+  },
+  {
+    name: 'Organ Pipe',
+    array: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5],
+  },
+  {
+    name: 'Sawtooth',
+    array: [10, 25, 40, 55, 70, 10, 25, 40, 55, 70, 10, 25, 40, 55, 70, 10, 25, 40, 55, 70],
   },
 ];
