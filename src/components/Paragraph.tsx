@@ -1,7 +1,7 @@
 import { Text, TextProps, useColorModeValue } from '@chakra-ui/react';
 
 interface Props extends TextProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 function Paragraph({ children, ...props }: Props) {

@@ -125,6 +125,56 @@ const EXPERIMENTS: Experiment[] = [
     colorScheme: 'orange',
     tags: ['Agents', 'Platform', 'Open Source'],
   },
+  {
+    title: 'Neural Network Playground',
+    emoji: '🧠',
+    description:
+      'Build and visualize neural networks in real time. Watch forward propagation, see decision boundaries form, and understand backprop intuitively.',
+    status: 'Live',
+    href: '/labs/neural-net',
+    colorScheme: 'cyan',
+    tags: ['ML', 'Visualization', 'Interactive'],
+  },
+  {
+    title: 'Regex Debugger',
+    emoji: '🔍',
+    description:
+      'Step through regex matching character by character. See exactly why your pattern matches — or doesn\'t.',
+    status: 'Live',
+    href: '/labs/regex-debugger',
+    colorScheme: 'orange',
+    tags: ['Developer Tool', 'Interactive', 'Education'],
+  },
+  {
+    title: 'Sorting Algorithm Arena',
+    emoji: '🏎️',
+    description:
+      'Race sorting algorithms head-to-head with animated bar charts. Compare bubble sort vs quicksort in real time.',
+    status: 'Live',
+    href: '/labs/sort-arena',
+    colorScheme: 'pink',
+    tags: ['CS Fundamentals', 'Animation', 'Interactive'],
+  },
+  {
+    title: 'Binary Exploit Visualizer',
+    emoji: '🔓',
+    description:
+      'Step through buffer overflows, format string attacks, and ROP chains. Interactive memory corruption education.',
+    status: 'Live',
+    href: '/labs/exploit-viz',
+    colorScheme: 'red',
+    tags: ['Security', 'Systems', 'Education'],
+  },
+  {
+    title: 'Shader Playground',
+    emoji: '✨',
+    description:
+      'Write GLSL fragment shaders and watch them render in real time. GPU-powered procedural art in your browser.',
+    status: 'Live',
+    href: '/labs/shader-playground',
+    colorScheme: 'pink',
+    tags: ['Graphics', 'WebGL', 'Creative'],
+  },
 ];
 
 const STATUS_COLORS: Record<string, string> = {
