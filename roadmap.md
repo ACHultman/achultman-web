@@ -19,43 +19,19 @@ These items from the original Lighthouse-focused roadmap have been shipped:
 
 ---
 
-## Phase 1 — Performance Push (Target: Lighthouse perf ≥ 0.95)
+## Completed (Phase 1 — Performance Push)
 
-### 1A. Defer third-party scripts
-- Vercel Analytics (`@vercel/analytics`) and Speed Insights (`@vercel/speed-insights`) load eagerly.
-- PostHog (`posthog-js`) may also block FCP.
-- **Action:** Use `next/script` with `strategy="lazyOnload"` for non-critical analytics scripts so they don't block First Contentful Paint.
-- **Lift:** +0.03–0.07 Performance.
-
-### 1B. Preconnect & preload critical fonts
-- If Google Fonts or custom fonts are fetched at runtime, add `<link rel="preconnect">` and `<link rel="preload" as="font">` in `_document.tsx`.
-- **Lift:** +0.01–0.03 Performance (reduces font-swap CLS).
-
-### 1C. Bundle audit & code splitting
-- Chakra UI v2 ships the full component library. Run `npm run analyze` to identify heavy chunks.
-- **Action:** Dynamically import rarely-used heavy components (e.g., labs experiments are already `ssr: false` — verify they are also chunked properly).
-- Consider tree-shaking Framer Motion (12.x ships ESM — ensure only used features are bundled).
-- **Lift:** +0.02–0.05 Performance.
-
-### 1D. Raise Lighthouse CI threshold
-- Once scores consistently hit ≥ 0.95, bump `.lighthouserc.js` performance assertion from `0.85` → `0.95`.
+- [x] **1A. Defer third-party scripts** — Speed Insights dynamically imported (`ssr: false`) alongside Analytics to avoid blocking FCP.
+- [x] **1B. Preconnect & preload critical fonts** — Google Fonts preconnect already in `_document.tsx`; added `dns-prefetch` for PostHog ingest domain. Blog uses `next/font/google` (Roboto) which self-hosts and preloads automatically.
+- [x] **1C. Bundle audit & code splitting** — Verified: Timeline, GitTimeline, Chat, Contact are all lazy-loaded with `ssr: false`. Framer Motion 12.x ships ESM and tree-shakes properly. `@gitgraph/react` is chunked via dynamic import.
+- [x] **1D. Raise Lighthouse CI threshold** — Bumped `.lighthouserc.js` performance assertion from `0.85` → `0.95`.
 
 ---
 
-## Phase 2 — Test Coverage Expansion
+## Completed (Phase 2 — Test Coverage Expansion)
 
-### 2A. Page-level E2E tests
-- Current E2E tests only cover the navbar (desktop + mobile).
-- **Action:** Add E2E tests for core user journeys:
-  - Home page loads and key sections visible (Hero, Skills, GitTimeline, Contact).
-  - Blog listing loads posts from Notion, clicking a post navigates to `/blog/[id]`.
-  - Books and Bookmarks pages render cards.
-  - About page renders and contact form submits.
-  - 404 page renders for unknown routes.
-
-### 2B. Labs E2E tests
-- No tests exist for any of the 6 lab experiments.
-- **Action:** Add smoke tests that verify each labs page loads without errors and key interactive elements are present.
+- [x] **2A. Page-level E2E tests** — `e2e/pages.desktop.spec.ts` covers Home (Hero, Chat, FeaturedWork, Contact), Blog listing, Books, Bookmarks, About (heading + form), and 404 page.
+- [x] **2B. Labs E2E tests** — `e2e/labs.desktop.spec.ts` smoke-tests the labs index and all 6 individual experiments (loads without JS errors, heading visible).
 
 ### 2C. API route tests
 - No tests for `api/v1/blog`, `api/v1/chat`, `api/v1/contact`, `api/v1/post/[id]`.
@@ -63,19 +39,21 @@ These items from the original Lighthouse-focused roadmap have been shipped:
 
 ---
 
-## Phase 3 — SEO & Discoverability
+## Completed (Phase 3 — SEO & Discoverability)
 
-### 3A. Add labs pages to sitemap
-- The sitemap currently covers `/`, `/about`, `/bookmarks`, `/books`, `/blog`, and blog posts — but **not** `/labs` or individual lab pages.
-- **Action:** Add `/labs` (and optionally individual experiment pages) to the static paths in `sitemap.xml.tsx`.
-
-### 3B. Structured data (JSON-LD)
-- `BlogPostingJsonLd.tsx` and `JsonLd.tsx` components exist — verify they're rendered on all blog post pages.
-- **Action:** Add `WebSite` and `Person` JSON-LD to the home page for richer search results (knowledge panel, sitelinks).
+- [x] **3A. Add labs pages to sitemap** — Added `/labs` and all 6 individual experiment pages to static paths in `sitemap.xml.tsx`.
+- [x] **3B. Structured data (JSON-LD)** — `JsonLd` component with `Person` and `WebSite` schemas is rendered on the home page. `BlogPostingJsonLd` is rendered on all blog post pages.
 
 ### 3C. OpenGraph images per page
 - The default OG image (`og_homepage.png`) is used site-wide.
 - **Action:** Generate or design page-specific OG images for `/about`, `/blog`, `/books`, `/labs` to improve social sharing click-through.
+
+---
+
+## Completed (Phase 5 — Content & Features, partial)
+
+- [x] **5A. Blog reading time** — `estimateReadingTime()` utility extracts word count from Notion blocks; displayed as "X min read" on blog post pages.
+- [x] **5A. RSS feed** — Server-rendered `/feed.xml` with RSS 2.0 + Atom self-link. Autodiscovery `<link rel="alternate">` added to global SEO config.
 
 ---
 
@@ -95,12 +73,10 @@ These items from the original Lighthouse-focused roadmap have been shipped:
 
 ---
 
-## Phase 5 — Content & Features
+## Remaining Phase 5 — Content & Features
 
-### 5A. Blog enhancements
-- Add reading time estimate to blog posts.
+### 5A. Blog enhancements (remaining)
 - Add related posts / next-prev navigation at the bottom of blog post pages.
-- Add RSS feed (`/feed.xml`) for blog subscribers.
 
 ### 5B. Labs improvements
 - Add a "featured" or "new" badge system to highlight recent experiments.
@@ -114,13 +90,16 @@ These items from the original Lighthouse-focused roadmap have been shipped:
 
 ## Priority & Sequencing
 
-| Priority | Phase | Key Outcome |
-|:--------:|:------|:------------|
-| **P0** | 1A–1C | Lighthouse perf ≥ 0.95 |
-| **P1** | 2A–2B | E2E coverage beyond navbar |
-| **P1** | 3A | Labs in sitemap |
-| **P2** | 3B–3C | Richer search presence |
-| **P2** | 4A | Chakra v3 migration |
-| **P3** | 5A–5C | Content & feature polish |
+| Priority | Phase | Key Outcome | Status |
+|:--------:|:------|:------------|:-------|
+| **P0** | 1A–1D | Lighthouse perf ≥ 0.95 | **Done** |
+| **P1** | 2A–2B | E2E coverage beyond navbar | **Done** |
+| **P1** | 3A–3B | Labs in sitemap + JSON-LD | **Done** |
+| **P1** | 5A | Reading time + RSS feed | **Done** |
+| **P2** | 2C | API route tests | Planned |
+| **P2** | 3C | Page-specific OG images | Planned |
+| **P2** | 4A | Chakra v3 migration | Planned |
+| **P3** | 4B–4C | Stricter TS + error monitoring | Planned |
+| **P3** | 5B–5C | Labs improvements + Resume page | Planned |
 
 _Revisit and re-groom quarterly or after major feature launches._

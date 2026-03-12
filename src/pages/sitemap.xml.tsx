@@ -14,7 +14,20 @@ function Sitemap() {
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     try {
-        const staticPaths = ['', '/about', '/bookmarks', '/books', '/blog'];
+        const staticPaths = [
+            '',
+            '/about',
+            '/bookmarks',
+            '/books',
+            '/blog',
+            '/labs',
+            '/labs/interaction-checker',
+            '/labs/token-viz',
+            '/labs/prompt-duel',
+            '/labs/agent-flow',
+            '/labs/evidence-viz',
+            '/labs/beatmaker',
+        ];
         const posts: BlogPost[] = await fetchNotions('blog', {
             page_size: 100,
         });

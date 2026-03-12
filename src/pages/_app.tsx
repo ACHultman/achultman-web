@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import createEmotionCache from '../utils/createEmotionCache';
 import theme from '../theme';
@@ -17,6 +16,14 @@ const clientSideEmotionCache = createEmotionCache();
 
 const Analytics = dynamic(
     () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
+    { ssr: false }
+);
+
+const SpeedInsights = dynamic(
+    () =>
+        import('@vercel/speed-insights/next').then(
+            (mod) => mod.SpeedInsights
+        ),
     { ssr: false }
 );
 

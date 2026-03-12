@@ -57,6 +57,11 @@ const config: NextSeoProps = {
             rel: 'icon',
             href: '/favicon.svg',
         },
+        {
+            rel: 'alternate',
+            type: 'application/rss+xml',
+            href: '/feed.xml',
+        },
     ],
 };
 
