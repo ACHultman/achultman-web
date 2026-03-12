@@ -151,7 +151,7 @@ export default function NeuralNetPlayground() {
 
   const getNodeColor = (layerIdx: number, neuronIdx: number): string => {
     if (!activations || activations.length <= layerIdx) return '#888';
-    const val = activations[layerIdx][neuronIdx];
+    const val = activations[layerIdx]![neuronIdx];
     if (val === undefined) return '#888';
     // Blue (0) to red (1)
     const r = Math.round(val * 220 + 35);
