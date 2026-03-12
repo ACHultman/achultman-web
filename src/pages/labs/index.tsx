@@ -195,6 +195,16 @@ const EXPERIMENTS: Experiment[] = [
     colorScheme: 'blue',
     tags: ['Languages', 'Interactive', 'Parsing'],
   },
+  {
+    title: 'GPU Pipeline Visualizer',
+    emoji: '🎮',
+    description:
+      'Step through the GPU rendering pipeline stage by stage — from vertex assembly through rasterization to the final framebuffer.',
+    status: 'Live',
+    href: '/labs/gpu-pipeline',
+    colorScheme: 'purple',
+    tags: ['Graphics', 'Interactive', 'GPU'],
+  },
 ];
 
 const STATUS_COLORS: Record<string, string> = {
