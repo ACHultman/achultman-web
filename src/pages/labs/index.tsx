@@ -93,12 +93,12 @@ const EXPERIMENTS: Experiment[] = [
     tags: ['Audio', 'Interactive', 'Creative'],
   },
   {
-    title: 'Evidence Stack',
-    emoji: '📚',
+    title: 'Dosegrade',
+    emoji: '💊',
     description:
       'Evidence-graded supplement guidance. No affiliate links, no hype — just research.',
     status: 'Live',
-    href: 'https://evidence-stack.vercel.app',
+    href: 'https://dosegrade.com',
     isExternal: true,
     colorScheme: 'teal',
     tags: ['Health Tech', 'Full App', 'AI'],
