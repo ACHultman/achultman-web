@@ -423,6 +423,8 @@ export default function NeuralNetPlayground() {
     y2: number;
     weight: number;
     layerIdx: number;
+    toNeuron: number;
+    fromNeuron: number;
   }[] = [];
   for (let l = 0; l < config.weights.length; l++) {
     const layerW = config.weights[l]!;
@@ -438,6 +440,8 @@ export default function NeuralNetPlayground() {
           y2: to.y,
           weight: neuronW[i]!,
           layerIdx: l,
+          toNeuron: j,
+          fromNeuron: i,
         });
       }
     }
@@ -472,6 +476,41 @@ export default function NeuralNetPlayground() {
       return `rgb(${r},${g},${b})`;
     }
   };
+
+  // Gradient heatmap color: blue → yellow → red
+  const gradientColor = (magnitude: number, maxMag: number): string => {
+    if (maxMag === 0) return 'rgb(50,50,200)';
+    const t = Math.min(magnitude / maxMag, 1);
+    if (t < 0.5) {
+      // blue to yellow
+      const s = t / 0.5;
+      const r = Math.round(50 + s * 205);
+      const g = Math.round(50 + s * 205);
+      const b = Math.round(200 - s * 200);
+      return `rgb(${r},${g},${b})`;
+    } else {
+      // yellow to red
+      const s = (t - 0.5) / 0.5;
+      const r = Math.round(255);
+      const g = Math.round(255 - s * 215);
+      const b = Math.round(0);
+      return `rgb(${r},${g},${b})`;
+    }
+  };
+
+  // Compute max gradient magnitude for normalization
+  const maxGradient = useMemo(() => {
+    if (!gradientMagnitudes) return 0;
+    let max = 0;
+    for (const layer of gradientMagnitudes) {
+      for (const neuron of layer!) {
+        for (const g of neuron!) {
+          if (g! > max) max = g!;
+        }
+      }
+    }
+    return max;
+  }, [gradientMagnitudes]);
 
   // Loss sparkline
   const lossSparkline = useMemo(() => {
@@ -546,6 +585,32 @@ export default function NeuralNetPlayground() {
             ))}
           </HStack>
 
+          {/* Activation Function Selector */}
+          <HStack spacing={3} flexWrap="wrap">
+            <Text fontSize="sm" color={dimText} fontWeight="medium">
+              Activation:
+            </Text>
+            {(['sigmoid', 'relu', 'tanh'] as ActivationFn[]).map((fn) => (
+              <Badge
+                key={fn}
+                colorScheme={activationFn === fn ? 'purple' : 'gray'}
+                variant={activationFn === fn ? 'solid' : 'subtle'}
+                fontSize="sm"
+                px={3}
+                py={1}
+                borderRadius="full"
+                cursor="pointer"
+                onClick={() => {
+                  setActivationFn(fn);
+                  activationFnRef.current = fn;
+                }}
+                _hover={{ opacity: 0.8 }}
+              >
+                {fn === 'tanh' ? 'tanh' : fn === 'relu' ? 'ReLU' : 'Sigmoid'}
+              </Badge>
+            ))}
+          </HStack>
+
           {/* Hero Action */}
           <Flex justify="center" gap={3} flexWrap="wrap">
             <Button
@@ -579,11 +644,23 @@ export default function NeuralNetPlayground() {
                 <Text fontWeight="bold" fontSize="sm" color={dimText}>
                   Network Architecture
                 </Text>
-                {isTraining && (
-                  <Badge colorScheme="green" variant="subtle" fontSize="xs">
-                    Training...
+                <HStack spacing={2}>
+                  <Badge
+                    colorScheme={showGradients ? 'yellow' : 'gray'}
+                    variant={showGradients ? 'solid' : 'subtle'}
+                    fontSize="xs"
+                    cursor="pointer"
+                    onClick={() => setShowGradients((v) => !v)}
+                    _hover={{ opacity: 0.8 }}
+                  >
+                    {showGradients ? 'Gradients ON' : 'Show Gradients'}
                   </Badge>
-                )}
+                  {isTraining && (
+                    <Badge colorScheme="green" variant="subtle" fontSize="xs">
+                      Training...
+                    </Badge>
+                  )}
+                </HStack>
               </HStack>
               <Box overflow="auto">
                 <svg
@@ -617,6 +694,45 @@ export default function NeuralNetPlayground() {
                     const active =
                       animatingLayer !== null && c.layerIdx < animatingLayer;
                     const trainingGlow = isTraining && absW > 2;
+
+                    // Gradient overlay mode
+                    const gradMag =
+                      showGradients && gradientMagnitudes
+                        ? gradientMagnitudes[c.layerIdx]?.[c.toNeuron]?.[
+                            c.fromNeuron
+                          ] ?? 0
+                        : null;
+                    const useGradientColor =
+                      showGradients && gradMag !== null && isTraining;
+
+                    const stroke = useGradientColor
+                      ? gradientColor(gradMag, maxGradient)
+                      : c.weight > 0
+                        ? '#38A169'
+                        : '#E53E3E';
+                    const strokeWidth = useGradientColor
+                      ? Math.min(
+                          1.5 +
+                            (maxGradient > 0
+                              ? (gradMag / maxGradient) * 5
+                              : 0),
+                          7
+                        )
+                      : Math.min(absW * 2.5, 6);
+                    const opacity = useGradientColor
+                      ? Math.max(
+                          0.1,
+                          Math.min(
+                            maxGradient > 0 ? gradMag / maxGradient : 0.1,
+                            1
+                          )
+                        )
+                      : isTraining
+                        ? Math.min(0.3 + absW * 0.15, 0.95)
+                        : active
+                          ? 0.9
+                          : 0.25;
+
                     return (
                       <line
                         key={idx}
@@ -624,15 +740,9 @@ export default function NeuralNetPlayground() {
                         y1={c.y1}
                         x2={c.x2}
                         y2={c.y2}
-                        stroke={c.weight > 0 ? '#38A169' : '#E53E3E'}
-                        strokeWidth={Math.min(absW * 2.5, 6)}
-                        opacity={
-                          isTraining
-                            ? Math.min(0.3 + absW * 0.15, 0.95)
-                            : active
-                              ? 0.9
-                              : 0.25
-                        }
+                        stroke={stroke}
+                        strokeWidth={strokeWidth}
+                        opacity={opacity}
                         strokeLinecap="round"
                         filter={trainingGlow ? 'url(#glow)' : undefined}
                       />
@@ -754,8 +864,16 @@ export default function NeuralNetPlayground() {
                   width={270}
                   height={270}
                   viewBox="0 0 270 270"
-                  style={{ borderRadius: 8, display: 'block' }}
+                  style={{
+                    borderRadius: 8,
+                    display: 'block',
+                    userSelect: 'none',
+                  }}
                   onClick={handleBoundaryClick}
+                  onMouseDown={handleBoundaryMouseDown}
+                  onMouseMove={handleBoundaryMouseMove}
+                  onMouseUp={handleBoundaryMouseUp}
+                  onMouseLeave={handleBoundaryMouseUp}
                 >
                   {/* Grid cells */}
                   {boundary.map((cell: BoundaryCell, idx: number) => {
