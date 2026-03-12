@@ -93,12 +93,12 @@ const EXPERIMENTS: Experiment[] = [
     tags: ['Audio', 'Interactive', 'Creative'],
   },
   {
-    title: 'Evidence Stack',
-    emoji: '📚',
+    title: 'Dosegrade',
+    emoji: '💊',
     description:
       'Evidence-graded supplement guidance. No affiliate links, no hype — just research.',
     status: 'Live',
-    href: 'https://evidence-stack.vercel.app',
+    href: 'https://dosegrade.com',
     isExternal: true,
     colorScheme: 'teal',
     tags: ['Health Tech', 'Full App', 'AI'],
@@ -124,6 +124,96 @@ const EXPERIMENTS: Experiment[] = [
     isExternal: true,
     colorScheme: 'orange',
     tags: ['Agents', 'Platform', 'Open Source'],
+  },
+  {
+    title: 'Neural Network Playground',
+    emoji: '🧠',
+    description:
+      'Build and visualize neural networks in real time. Watch forward propagation, see decision boundaries form, and understand backprop intuitively.',
+    status: 'Live',
+    href: '/labs/neural-net',
+    colorScheme: 'cyan',
+    tags: ['ML', 'Visualization', 'Interactive'],
+  },
+  {
+    title: 'Regex Debugger',
+    emoji: '🔍',
+    description:
+      'Step through regex matching character by character. See exactly why your pattern matches — or doesn\'t.',
+    status: 'Live',
+    href: '/labs/regex-debugger',
+    colorScheme: 'orange',
+    tags: ['Developer Tool', 'Interactive', 'Education'],
+  },
+  {
+    title: 'Sorting Algorithm Arena',
+    emoji: '🏎️',
+    description:
+      'Race sorting algorithms head-to-head with animated bar charts. Compare bubble sort vs quicksort in real time.',
+    status: 'Live',
+    href: '/labs/sort-arena',
+    colorScheme: 'pink',
+    tags: ['CS Fundamentals', 'Animation', 'Interactive'],
+  },
+  {
+    title: 'Binary Exploit Visualizer',
+    emoji: '🔓',
+    description:
+      'Step through buffer overflows, format string attacks, and ROP chains. Interactive memory corruption education.',
+    status: 'Live',
+    href: '/labs/exploit-viz',
+    colorScheme: 'red',
+    tags: ['Security', 'Systems', 'Education'],
+  },
+  {
+    title: 'Shader Playground',
+    emoji: '✨',
+    description:
+      'Write GLSL fragment shaders and watch them render in real time. GPU-powered procedural art in your browser.',
+    status: 'Live',
+    href: '/labs/shader-playground',
+    colorScheme: 'pink',
+    tags: ['Graphics', 'WebGL', 'Creative'],
+  },
+  {
+    title: 'Distributed Systems Simulator',
+    emoji: '🌐',
+    description:
+      'Simulate Raft consensus and gossip protocols. Kill nodes, partition networks, and watch leader election and data propagation in real time.',
+    status: 'Live',
+    href: '/labs/distributed',
+    colorScheme: 'blue',
+    tags: ['Systems', 'Interactive', 'Simulation'],
+  },
+  {
+    title: 'AST Explorer',
+    emoji: '🌳',
+    description:
+      'Write JavaScript and watch a hand-built recursive-descent parser tokenize and produce an abstract syntax tree in real time.',
+    status: 'Live',
+    href: '/labs/ast-explorer',
+    colorScheme: 'blue',
+    tags: ['Languages', 'Interactive', 'Parsing'],
+  },
+  {
+    title: 'GPU Pipeline Visualizer',
+    emoji: '🎮',
+    description:
+      'Step through the GPU rendering pipeline stage by stage — from vertex assembly through rasterization to the final framebuffer.',
+    status: 'Live',
+    href: '/labs/gpu-pipeline',
+    colorScheme: 'purple',
+    tags: ['Graphics', 'Interactive', 'GPU'],
+  },
+  {
+    title: 'Compression Visualizer',
+    emoji: '🗜️',
+    description:
+      'Step through Huffman coding and Run-Length Encoding to see how text compression works. Watch trees build and bits encode.',
+    status: 'Live',
+    href: '/labs/compression',
+    colorScheme: 'orange',
+    tags: ['Algorithms', 'Interactive', 'Education'],
   },
 ];
 
