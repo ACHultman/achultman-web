@@ -239,6 +239,9 @@ export default function NeuralNetPlayground() {
       setLossHistory([]);
       lossHistoryRef.current = [];
       setPrevAccuracy(null);
+      setGradientMagnitudes(null);
+      setActivationFn('sigmoid');
+      activationFnRef.current = 'sigmoid';
       if (animationRef.current) clearTimeout(animationRef.current);
     },
     [stopTraining]
@@ -258,6 +261,7 @@ export default function NeuralNetPlayground() {
     lossHistoryRef.current = [];
     stepsSinceBoundaryUpdate.current = 0;
     setPrevAccuracy(null);
+    setGradientMagnitudes(null);
 
     // Auto-start training after a brief moment
     setTimeout(() => {
@@ -280,6 +284,7 @@ export default function NeuralNetPlayground() {
     setLossHistory([]);
     lossHistoryRef.current = [];
     setPrevAccuracy(null);
+    setGradientMagnitudes(null);
   }, [config, stopTraining]);
 
   const handleForwardPass = useCallback(() => {
