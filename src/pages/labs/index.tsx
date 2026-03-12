@@ -185,6 +185,16 @@ const EXPERIMENTS: Experiment[] = [
     colorScheme: 'blue',
     tags: ['Systems', 'Interactive', 'Simulation'],
   },
+  {
+    title: 'AST Explorer',
+    emoji: '🌳',
+    description:
+      'Write JavaScript and watch a hand-built recursive-descent parser tokenize and produce an abstract syntax tree in real time.',
+    status: 'Live',
+    href: '/labs/ast-explorer',
+    colorScheme: 'blue',
+    tags: ['Languages', 'Interactive', 'Parsing'],
+  },
 ];
 
 const STATUS_COLORS: Record<string, string> = {
