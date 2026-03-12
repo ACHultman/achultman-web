@@ -327,10 +327,143 @@ export const SPIRAL_DATASET: Dataset = {
   })(),
 };
 
+// Moons dataset: two crescent shapes offset from each other
+export const MOONS_DATASET: Dataset = {
+  name: 'Moons',
+  points: (() => {
+    const pts: DataPoint[] = [];
+    // Upper moon (class 0)
+    for (let i = 0; i < 30; i++) {
+      const angle = (i / 30) * Math.PI;
+      const r = 0.5 + Math.sin(i * 11) * 0.05;
+      pts.push({
+        x: Math.cos(angle) * r,
+        y: Math.sin(angle) * r,
+        label: 0,
+      });
+    }
+    // Lower moon (class 1), shifted right and flipped
+    for (let i = 0; i < 30; i++) {
+      const angle = (i / 30) * Math.PI + Math.PI;
+      const r = 0.5 + Math.sin(i * 13) * 0.05;
+      pts.push({
+        x: Math.cos(angle) * r + 0.5,
+        y: Math.sin(angle) * r + 0.3,
+        label: 1,
+      });
+    }
+    return pts;
+  })(),
+};
+
+// Checkerboard dataset: 2x2 grid pattern
+export const CHECKERBOARD_DATASET: Dataset = {
+  name: 'Checkerboard',
+  points: (() => {
+    const pts: DataPoint[] = [];
+    // 4 quadrants, ~20 points each
+    for (let i = 0; i < 20; i++) {
+      const px = -0.7 + Math.sin(i * 7) * 0.2;
+      const py = -0.7 + Math.sin(i * 11) * 0.2;
+      pts.push({ x: px, y: py, label: 0 }); // bottom-left
+    }
+    for (let i = 0; i < 20; i++) {
+      const px = 0.5 + Math.sin(i * 7) * 0.2;
+      const py = -0.7 + Math.sin(i * 13) * 0.2;
+      pts.push({ x: px, y: py, label: 1 }); // bottom-right
+    }
+    for (let i = 0; i < 20; i++) {
+      const px = -0.7 + Math.sin(i * 9) * 0.2;
+      const py = 0.5 + Math.sin(i * 11) * 0.2;
+      pts.push({ x: px, y: py, label: 1 }); // top-left
+    }
+    for (let i = 0; i < 20; i++) {
+      const px = 0.5 + Math.sin(i * 9) * 0.2;
+      const py = 0.5 + Math.sin(i * 7) * 0.2;
+      pts.push({ x: px, y: py, label: 0 }); // top-right
+    }
+    return pts;
+  })(),
+};
+
+// Gaussian Clusters dataset: 4 clusters, 2 per class
+export const GAUSSIAN_CLUSTERS_DATASET: Dataset = {
+  name: 'Gaussian Clusters',
+  points: (() => {
+    const pts: DataPoint[] = [];
+    // Cluster 0a: top-left (class 0)
+    for (let i = 0; i < 20; i++) {
+      pts.push({
+        x: -0.6 + Math.sin(i * 17) * 0.15,
+        y: 0.6 + Math.sin(i * 23) * 0.15,
+        label: 0,
+      });
+    }
+    // Cluster 0b: bottom-right (class 0)
+    for (let i = 0; i < 20; i++) {
+      pts.push({
+        x: 0.6 + Math.sin(i * 19) * 0.15,
+        y: -0.6 + Math.sin(i * 29) * 0.15,
+        label: 0,
+      });
+    }
+    // Cluster 1a: top-right (class 1)
+    for (let i = 0; i < 20; i++) {
+      pts.push({
+        x: 0.6 + Math.sin(i * 13) * 0.15,
+        y: 0.6 + Math.sin(i * 31) * 0.15,
+        label: 1,
+      });
+    }
+    // Cluster 1b: bottom-left (class 1)
+    for (let i = 0; i < 20; i++) {
+      pts.push({
+        x: -0.6 + Math.sin(i * 37) * 0.15,
+        y: -0.6 + Math.sin(i * 41) * 0.15,
+        label: 1,
+      });
+    }
+    return pts;
+  })(),
+};
+
+// Donut dataset: thick ring (class 1) vs center (class 0)
+export const DONUT_DATASET: Dataset = {
+  name: 'Donut',
+  points: (() => {
+    const pts: DataPoint[] = [];
+    // Center cluster (class 0)
+    for (let i = 0; i < 30; i++) {
+      const angle = (i / 30) * Math.PI * 2;
+      const r = 0.1 + Math.sin(i * 7) * 0.08 + (i % 3) * 0.04;
+      pts.push({
+        x: Math.cos(angle) * r,
+        y: Math.sin(angle) * r,
+        label: 0,
+      });
+    }
+    // Thick ring (class 1)
+    for (let i = 0; i < 50; i++) {
+      const angle = (i / 50) * Math.PI * 2;
+      const r = 0.55 + Math.sin(i * 11) * 0.15;
+      pts.push({
+        x: Math.cos(angle) * r,
+        y: Math.sin(angle) * r,
+        label: 1,
+      });
+    }
+    return pts;
+  })(),
+};
+
 export const DATASETS: Record<string, Dataset> = {
   xor: XOR_DATASET,
   circle: CIRCLE_DATASET,
   spiral: SPIRAL_DATASET,
+  moons: MOONS_DATASET,
+  checkerboard: CHECKERBOARD_DATASET,
+  gaussianClusters: GAUSSIAN_CLUSTERS_DATASET,
+  donut: DONUT_DATASET,
 };
 
 // --- Preset Networks with pre-trained weights ---
@@ -415,8 +548,136 @@ const SPIRAL_NETWORK: NetworkConfig = {
   ],
 };
 
+// Moons Classifier: 2-4-2-1
+// Two crescent shapes separated by a curved boundary
+const MOONS_NETWORK: NetworkConfig = {
+  name: 'Moons Classifier',
+  layers: [2, 4, 2, 1],
+  weights: [
+    // Layer 0->1 (4 neurons, each 2 inputs)
+    [
+      [4.0, 3.5],
+      [-3.5, 4.0],
+      [3.0, -3.8],
+      [-4.2, -2.5],
+    ],
+    // Layer 1->2 (2 neurons, each 4 inputs)
+    [
+      [3.5, -4.0, 2.8, -3.0],
+      [-3.0, 3.5, -2.5, 4.0],
+    ],
+    // Layer 2->3 (1 neuron, 2 inputs)
+    [
+      [5.0, -5.0],
+    ],
+  ],
+  biases: [
+    [-1.0, 0.5, -0.8, 0.3],
+    [-0.5, 0.8],
+    [-0.3],
+  ],
+};
+
+// Checkerboard Classifier: 2-8-4-1
+// Needs more capacity for the XOR-like 2x2 grid pattern
+const CHECKERBOARD_NETWORK: NetworkConfig = {
+  name: 'Checkerboard Classifier',
+  layers: [2, 8, 4, 1],
+  weights: [
+    // Layer 0->1 (8 neurons, each 2 inputs)
+    [
+      [4.5, 0.5],
+      [-4.5, 0.5],
+      [0.5, 4.5],
+      [0.5, -4.5],
+      [3.8, 3.8],
+      [-3.8, 3.8],
+      [3.8, -3.8],
+      [-3.8, -3.8],
+    ],
+    // Layer 1->2 (4 neurons, each 8 inputs)
+    [
+      [2.5, -2.5, 2.5, -2.5, 1.5, -1.5, 1.5, -1.5],
+      [-2.5, 2.5, -2.5, 2.5, -1.5, 1.5, -1.5, 1.5],
+      [1.8, -1.8, -1.8, 1.8, 3.0, -3.0, -3.0, 3.0],
+      [-1.8, 1.8, 1.8, -1.8, -3.0, 3.0, 3.0, -3.0],
+    ],
+    // Layer 2->3 (1 neuron, 4 inputs)
+    [
+      [4.5, -4.5, 4.0, -4.0],
+    ],
+  ],
+  biases: [
+    [-1.5, -1.5, -1.5, -1.5, -0.5, -0.5, -0.5, -0.5],
+    [0.5, -0.5, 0.3, -0.3],
+    [-0.2],
+  ],
+};
+
+// Gaussian Clusters Classifier: 2-6-4-1
+// Four clusters with diagonal class assignment
+const GAUSSIAN_CLUSTERS_NETWORK: NetworkConfig = {
+  name: 'Gaussian Clusters Classifier',
+  layers: [2, 6, 4, 1],
+  weights: [
+    // Layer 0->1 (6 neurons, each 2 inputs)
+    [
+      [4.0, 0.2],
+      [-4.0, -0.2],
+      [0.2, 4.0],
+      [-0.2, -4.0],
+      [3.5, 3.5],
+      [-3.5, 3.5],
+    ],
+    // Layer 1->2 (4 neurons, each 6 inputs)
+    [
+      [2.0, -2.0, 2.0, -2.0, -3.0, 3.0],
+      [-2.0, 2.0, -2.0, 2.0, 3.0, -3.0],
+      [1.5, -1.5, -1.5, 1.5, 2.5, 2.5],
+      [-1.5, 1.5, 1.5, -1.5, -2.5, -2.5],
+    ],
+    // Layer 2->3 (1 neuron, 4 inputs)
+    [
+      [-5.0, 5.0, -4.5, 4.5],
+    ],
+  ],
+  biases: [
+    [-1.0, -1.0, -1.0, -1.0, -0.5, -0.5],
+    [0.5, -0.5, 0.3, -0.3],
+    [0.2],
+  ],
+};
+
+// Donut Classifier: 2-4-1
+// Radial boundary — similar to circle but with thicker ring
+const DONUT_NETWORK: NetworkConfig = {
+  name: 'Donut Classifier',
+  layers: [2, 4, 1],
+  weights: [
+    // Layer 0->1 (4 neurons, each 2 inputs)
+    [
+      [5.0, 0.5],    // responds to +x
+      [-5.0, -0.5],  // responds to -x
+      [0.5, 5.0],    // responds to +y
+      [-0.5, -5.0],  // responds to -y
+    ],
+    // Layer 1->2 (1 neuron, 4 inputs)
+    [
+      [5.5, 5.5, 5.5, 5.5],
+    ],
+  ],
+  biases: [
+    [-1.5, -1.5, -1.5, -1.5],
+    [-7.0],
+  ],
+};
+
 export const PRESET_NETWORKS: { config: NetworkConfig; datasetKey: string }[] = [
   { config: XOR_NETWORK, datasetKey: 'xor' },
   { config: CIRCLE_NETWORK, datasetKey: 'circle' },
   { config: SPIRAL_NETWORK, datasetKey: 'spiral' },
+  { config: MOONS_NETWORK, datasetKey: 'moons' },
+  { config: CHECKERBOARD_NETWORK, datasetKey: 'checkerboard' },
+  { config: GAUSSIAN_CLUSTERS_NETWORK, datasetKey: 'gaussianClusters' },
+  { config: DONUT_NETWORK, datasetKey: 'donut' },
 ];
