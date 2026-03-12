@@ -440,7 +440,6 @@ function VertexTable({
 // ── Technical view (right panel) ───────────────────────────────────────────
 
 function TechnicalView({ step }: { step: PipelineStep }) {
-  const codeBg = useColorModeValue('gray.900', 'gray.900');
   const labelColor = useColorModeValue('gray.600', 'gray.400');
 
   switch (step.stage) {
