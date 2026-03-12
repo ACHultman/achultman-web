@@ -103,7 +103,7 @@ export default function SortArenaPage() {
         return prev.length === 1 ? prev : prev.filter((a: string) => a !== key);
       }
       if (prev.length >= 2) {
-        return [prev[1], key];
+        return [prev[1]!, key];
       }
       return [...prev, key];
     });
@@ -248,15 +248,15 @@ export default function SortArenaPage() {
             </Badge>
             {raceComplete && raceResults.length > 1 && (
               <>
-                {raceResults[0].algorithm === algKey &&
-                  raceResults[0].totalSteps <= raceResults[1].totalSteps && (
+                {raceResults[0]!.algorithm === algKey &&
+                  raceResults[0]!.totalSteps <= raceResults[1]!.totalSteps && (
                     <Badge colorScheme="green" variant="solid" fontSize="xs">
                       Winner!
                     </Badge>
                   )}
                 {raceResults.length > 1 &&
-                  raceResults[1].algorithm === algKey &&
-                  raceResults[1].totalSteps < raceResults[0].totalSteps && (
+                  raceResults[1]!.algorithm === algKey &&
+                  raceResults[1]!.totalSteps < raceResults[0]!.totalSteps && (
                     <Badge colorScheme="green" variant="solid" fontSize="xs">
                       Winner!
                     </Badge>
@@ -305,7 +305,7 @@ export default function SortArenaPage() {
 
   const winnerIdx =
     raceResults.length === 2
-      ? raceResults[0].totalSteps <= raceResults[1].totalSteps
+      ? raceResults[0]!.totalSteps <= raceResults[1]!.totalSteps
         ? 0
         : 1
       : null;
@@ -440,7 +440,7 @@ export default function SortArenaPage() {
 
           {/* Visualization */}
           {selectedAlgorithms.length === 1 ? (
-            renderVisualization(selectedAlgorithms[0])
+            renderVisualization(selectedAlgorithms[0]!)
           ) : (
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
               {selectedAlgorithms.map((alg: string) => renderVisualization(alg))}
