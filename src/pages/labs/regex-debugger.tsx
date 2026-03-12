@@ -134,7 +134,7 @@ export default function RegexDebuggerPage() {
   const matchedPositions = new Set<number>();
   const failedPositions = new Set<number>();
   for (let i = 0; i <= currentStep && i < steps.length; i++) {
-    const s = steps[i];
+    const s = steps[i]!;
     if (s.matched && s.position >= 0 && s.char) {
       matchedPositions.add(s.position);
     }
