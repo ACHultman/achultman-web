@@ -106,7 +106,7 @@ function majority(nodeCount: number): number {
 export function stepRaft(state: RaftState): RaftState {
   const newStep = state.stepCount + 1;
   const newLog = [...state.eventLog];
-  let nodes = state.nodes.map((n) => ({ ...n, votesReceived: [...n.votesReceived] }));
+  const nodes = state.nodes.map((n) => ({ ...n, votesReceived: [...n.votesReceived] }));
   let messages = state.messages.map((m) => ({ ...m }));
 
   // 1. Advance message progress
@@ -464,7 +464,7 @@ export function createGossipState(nodeCount: number): GossipState {
 
 export function stepGossip(state: GossipState): GossipState {
   const newStep = state.step + 1;
-  let nodes = state.nodes.map((n) => ({ ...n, data: { ...n.data } }));
+  const nodes = state.nodes.map((n) => ({ ...n, data: { ...n.data } }));
   let messages = state.messages.map((m) => ({
     ...m,
     progress: m.progress + 0.5,

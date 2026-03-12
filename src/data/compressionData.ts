@@ -46,25 +46,6 @@ function countFrequencies(input: string): Map<string, number> {
   return freq;
 }
 
-function buildHuffmanTree(freq: Map<string, number>): HuffmanNode | null {
-  const nodes: HuffmanNode[] = [...freq.entries()].map(([char, f]) => ({
-    char,
-    freq: f,
-    left: null,
-    right: null,
-  }));
-  if (nodes.length === 0) return null;
-  if (nodes.length === 1) return nodes[0]!;
-
-  while (nodes.length > 1) {
-    nodes.sort((a, b) => a.freq - b.freq);
-    const left = nodes.shift()!;
-    const right = nodes.shift()!;
-    nodes.push({ char: null, freq: left.freq + right.freq, left, right });
-  }
-  return nodes[0]!;
-}
-
 function assignCodes(node: HuffmanNode | null, prefix: string, map: Map<string, string>): void {
   if (!node) return;
   if (node.char !== null) {

@@ -357,7 +357,7 @@ export function generatePipelineSteps(
   const transformedVertices: Vertex[] = allVertices.map((v) => {
     const pos4: Vec4 = [v.position[0], v.position[1], v.position[2], 1];
     const clip = mat4Vec4(mvp, pos4);
-    const [sx, sy, sz] = clipToScreen(clip);
+    const [sx, sy] = clipToScreen(clip);
     return {
       position: [...v.position] as [number, number, number],
       color: [...v.color] as [number, number, number],

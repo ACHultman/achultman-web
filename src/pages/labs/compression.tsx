@@ -397,7 +397,7 @@ function EncodedBitsDisplay({
       map.set(ch, CHAR_COLORS[i % CHAR_COLORS.length]!);
     });
     return map;
-  }, [input]);
+  }, [input, CHAR_COLORS]);
 
   // Build code map from nodes
   const codeMap = useMemo(() => {

@@ -269,7 +269,7 @@ export default function NeuralNetPlayground() {
       setIsTraining(true);
       rafRef.current = requestAnimationFrame(trainingLoop);
     }, 100);
-  }, [config.layers, config, stopTraining, trainingLoop]);
+  }, [config, stopTraining, trainingLoop]);
 
   const handleRandomize = useCallback(() => {
     stopTraining();
@@ -307,7 +307,7 @@ export default function NeuralNetPlayground() {
       animationRef.current = setTimeout(animateNext, 400);
     };
     animateNext();
-  }, [isAnimating, isTraining, dataset, config]);
+  }, [isAnimating, isTraining, dataset, config, activationFn]);
 
   // Utility to get data coords from SVG mouse event
   const getDataCoordsFromEvent = useCallback(

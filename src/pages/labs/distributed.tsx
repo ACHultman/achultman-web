@@ -41,7 +41,6 @@ import {
   updateGossipNode,
   type RaftState,
   type RaftNode,
-  type Message,
   type GossipState,
   type GossipNode as GossipNodeType,
   type NodeState,
