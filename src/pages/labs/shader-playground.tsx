@@ -24,15 +24,16 @@ import {
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react';
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, LockIcon } from '@chakra-ui/icons';
 import Paragraph from '@components/Paragraph';
 import {
   SHADER_PRESETS,
   SHADER_CATEGORIES,
   DEFAULT_VERTEX_SHADER,
   QUICK_PROMPT_CHIPS,
-  matchShaderPrompt,
+  generateShader,
 } from '@data/shaderData';
+import type { GeneratedShader } from '@data/shaderData';
 
 const MotionBox = motion(Box);
 
@@ -44,7 +45,9 @@ export default function ShaderPlayground() {
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [promptInput, setPromptInput] = useState('');
-  const [promptMatch, setPromptMatch] = useState<string | null>(null);
+  const [promptResult, setPromptResult] = useState<GeneratedShader | null>(
+    null
+  );
   const [promptError, setPromptError] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -255,6 +258,8 @@ export default function ShaderPlayground() {
     setSelectedPreset(index);
     setCode(SHADER_PRESETS[index]!.fragmentShader);
     setError(null);
+    setPromptResult(null);
+    setPromptError(false);
   };
 
   const handleTogglePause = () => {
@@ -277,16 +282,28 @@ export default function ShaderPlayground() {
   };
 
   const handlePromptSubmit = () => {
-    const result = matchShaderPrompt(promptInput);
+    const result = generateShader(promptInput);
     if (result) {
-      setCode(result.preset.fragmentShader);
-      setSelectedPreset(result.index);
-      setPromptMatch(result.matched);
+      setCode(result.code);
+      setSelectedPreset(-1);
+      setPromptResult(result);
       setPromptError(false);
       setError(null);
     } else {
-      setPromptMatch(null);
+      setPromptResult(null);
       setPromptError(true);
+    }
+  };
+
+  const handleChipClick = (chip: string) => {
+    setPromptInput(chip);
+    const result = generateShader(chip);
+    if (result) {
+      setCode(result.code);
+      setSelectedPreset(-1);
+      setPromptResult(result);
+      setPromptError(false);
+      setError(null);
     }
   };
 
@@ -347,7 +364,7 @@ export default function ShaderPlayground() {
                   onKeyDown={(e: { key: string }) => {
                     if (e.key === 'Enter') handlePromptSubmit();
                   }}
-                  placeholder="Describe what you want to see... (e.g., 'ocean waves', 'fire', 'galaxy')"
+                  placeholder="Describe what you want to see... (e.g., 'neon heart', 'ocean waves', 'glowing torus')"
                   fontFamily="mono"
                   fontSize="sm"
                   _focus={{
@@ -364,49 +381,55 @@ export default function ShaderPlayground() {
                 Generate
               </Button>
             </Flex>
-            <Wrap spacing={2} mb={2}>
-              {QUICK_PROMPT_CHIPS.map((chip) => (
-                <WrapItem key={chip}>
-                  <Badge
-                    colorScheme="pink"
-                    variant="subtle"
-                    cursor="pointer"
-                    px={3}
-                    py={1}
-                    borderRadius="full"
-                    fontSize="xs"
-                    onClick={() => {
-                      setPromptInput(chip);
-                      const result = matchShaderPrompt(chip);
-                      if (result) {
-                        setCode(result.preset.fragmentShader);
-                        setSelectedPreset(result.index);
-                        setPromptMatch(result.matched);
-                        setPromptError(false);
-                        setError(null);
-                      }
-                    }}
-                    _hover={{ opacity: 0.8, transform: 'scale(1.05)' }}
-                    transition="all 0.15s"
-                  >
-                    {chip}
-                  </Badge>
-                </WrapItem>
-              ))}
-            </Wrap>
-            {promptMatch && (
+            <Flex justify="space-between" align="center" mb={2}>
+              <Wrap spacing={2}>
+                {QUICK_PROMPT_CHIPS.map((chip) => (
+                  <WrapItem key={chip}>
+                    <Badge
+                      colorScheme="pink"
+                      variant="subtle"
+                      cursor="pointer"
+                      px={3}
+                      py={1}
+                      borderRadius="full"
+                      fontSize="xs"
+                      onClick={() => handleChipClick(chip)}
+                      _hover={{ opacity: 0.8, transform: 'scale(1.05)' }}
+                      transition="all 0.15s"
+                    >
+                      {chip}
+                    </Badge>
+                  </WrapItem>
+                ))}
+              </Wrap>
+              <HStack spacing={1} flexShrink={0} ml={2}>
+                <LockIcon boxSize={3} color="gray.500" />
+                <Text fontSize="xs" color="gray.500">
+                  Runs locally
+                </Text>
+              </HStack>
+            </Flex>
+            {promptResult && (
               <MotionBox
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                <Badge colorScheme="green" fontSize="sm" px={2} py={1}>
-                  Matched: {promptMatch}
+                <Badge
+                  colorScheme={promptResult.isGenerated ? 'cyan' : 'green'}
+                  fontSize="sm"
+                  px={2}
+                  py={1}
+                >
+                  {promptResult.isGenerated
+                    ? `Generated shader: ${promptResult.description}`
+                    : `Matched: ${promptResult.description}`}
                 </Badge>
               </MotionBox>
             )}
             {promptError && (
               <Text fontSize="sm" color="gray.500">
-                No match found — try different words
+                No match found — try different words like shapes (sphere, heart,
+                torus) or effects (fire, waves, noise)
               </Text>
             )}
           </Box>
