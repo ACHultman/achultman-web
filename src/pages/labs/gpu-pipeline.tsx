@@ -621,7 +621,7 @@ export default function GpuPipelinePage() {
   useEffect(() => {
     if (isPlaying) {
       playRef.current = setInterval(() => {
-        setStepIdx((prev) => {
+        setStepIdx((prev: number) => {
           if (prev >= steps.length - 1) {
             setIsPlaying(false);
             return prev;

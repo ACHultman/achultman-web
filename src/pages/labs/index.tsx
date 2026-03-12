@@ -205,6 +205,16 @@ const EXPERIMENTS: Experiment[] = [
     colorScheme: 'purple',
     tags: ['Graphics', 'Interactive', 'GPU'],
   },
+  {
+    title: 'Compression Visualizer',
+    emoji: '🗜️',
+    description:
+      'Step through Huffman coding and Run-Length Encoding to see how text compression works. Watch trees build and bits encode.',
+    status: 'Live',
+    href: '/labs/compression',
+    colorScheme: 'orange',
+    tags: ['Algorithms', 'Interactive', 'Education'],
+  },
 ];
 
 const STATUS_COLORS: Record<string, string> = {

@@ -409,27 +409,6 @@ export function generatePipelineSteps(
   });
 
   // ── 4. Rasterization ────────────────────────────────────────────────────
-  const screenTris: ScreenTri[] = transformedTriangles.map((tri) => {
-    const v0 = tri.vertices[0];
-    const v1 = tri.vertices[1];
-    const v2 = tri.vertices[2];
-    const [sx0, sy0, sz0] = clipToScreen(v0.clipPosition!);
-    const [sx1, sy1, sz1] = clipToScreen(v1.clipPosition!);
-    const [sx2, sy2, sz2] = clipToScreen(v2.clipPosition!);
-    return {
-      sx: [sx0!, sy0! !== undefined ? sx0! : 0, sx1!, sx2!] as unknown as [number, number, number],
-      sy: [sy0!, sy1!, sy2!] as [number, number, number],
-      sz: [sz0!, sz1!, sz2!] as [number, number, number],
-      colors: [[...v0.color], [...v1.color], [...v2.color]] as [
-        [number, number, number],
-        [number, number, number],
-        [number, number, number],
-      ],
-      triangleId: tri.id,
-    };
-  });
-
-  // Fix the screenTris — rebuild properly
   const properScreenTris: ScreenTri[] = transformedTriangles.map((tri) => {
     const coords = tri.vertices.map((v) => clipToScreen(v.clipPosition!));
     return {
