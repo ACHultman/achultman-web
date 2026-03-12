@@ -73,7 +73,7 @@ export default function DistributedPage() {
   const [partitionFirst, setPartitionFirst] = useState<number | null>(null);
   const [clientValue, setClientValue] = useState('');
   const raftIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const logEndRef = useRef<HTMLDivElement | null>(null);
+  // logEndRef removed — no auto-scroll
 
   // ─── Gossip State ────────────────────────────────────────────
   const [gossipState, setGossipState] = useState<GossipState>(() =>
@@ -115,10 +115,7 @@ export default function DistributedPage() {
     };
   }, [raftPlaying, raftSpeed]);
 
-  // Auto-scroll event log
-  useEffect(() => {
-    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [raftState.eventLog.length]);
+  // No auto-scroll — let the user control the log position
 
   const handleRaftNodeClick = (nodeId: number) => {
     if (partitionMode) {
@@ -694,7 +691,6 @@ export default function DistributedPage() {
                           </Text>
                         ))
                       )}
-                      <div ref={logEndRef} />
                     </Box>
                   </Box>
 
