@@ -25,6 +25,7 @@ import RenderBlocks from '../../components/RenderBlocks';
 import BlogPostingJsonLd from '../../components/BlogPostingJsonLd';
 import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
+import { estimateReadingTime } from '../../utils/readingTime';
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -45,9 +46,10 @@ interface Props {
     post: NotionPageWithBlocks<'blog'>;
     seo: NextSeoProps;
     jsonLd: BlogPostingJsonLdData;
+    readingTime: number;
 }
 
-function BlogPost({ post, seo, jsonLd }: Props) {
+function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const updateScrollProgress = () => {
@@ -136,7 +138,7 @@ function BlogPost({ post, seo, jsonLd }: Props) {
                         : 'Unpublished'}
                 </Text>
                 <Text color="gray.500" mb={4}>
-                    By Adam Hultman
+                    By Adam Hultman · {readingTime} min read
                 </Text>
                 {page.tags && page.tags.length > 0 && (
                     <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
@@ -247,11 +249,14 @@ export async function getStaticProps({
             url: postUrl,
         };
 
+        const readingTime = estimateReadingTime(post.blocks.results);
+
         return {
             props: {
                 post,
                 seo: seoProps,
                 jsonLd,
+                readingTime,
             },
             revalidate: 3600,
         };
