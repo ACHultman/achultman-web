@@ -291,7 +291,7 @@ export default function NeuralNetPlayground() {
     if (isAnimating || isTraining) return;
     const point =
       dataset.points[Math.floor(Math.random() * dataset.points.length)]!;
-    const result = forwardPass([point.x, point.y], config);
+    const result = forwardPass([point.x, point.y], config, activationFn);
     setIsAnimating(true);
 
     let layer = 0;
@@ -309,28 +309,83 @@ export default function NeuralNetPlayground() {
     animateNext();
   }, [isAnimating, isTraining, dataset, config]);
 
-  // Click on decision boundary to add a custom point
-  const handleBoundaryClick = useCallback(
-    (e: React.MouseEvent<SVGSVGElement>) => {
+  // Utility to get data coords from SVG mouse event
+  const getDataCoordsFromEvent = useCallback(
+    (e: React.MouseEvent<SVGSVGElement>): { cx: number; cy: number } => {
       const svg = e.currentTarget;
       const rect = svg.getBoundingClientRect();
       const px = e.clientX - rect.left;
       const py = e.clientY - rect.top;
       const svgSize = 270;
-      // Map pixel to [-1, 1] range
       const x = (px / svgSize) * 2 - 1;
       const y = 1 - (py / svgSize) * 2;
-      // Shift-click for class 0, regular click for class 1
-      const label = e.shiftKey ? 0 : 1;
-
-      // Clamp
-      const cx = Math.max(-1, Math.min(1, x));
-      const cy = Math.max(-1, Math.min(1, y));
-
-      setCustomPoints((prev: DataPoint[]) => [...prev, { x: cx, y: cy, label }]);
+      return {
+        cx: Math.max(-1, Math.min(1, x)),
+        cy: Math.max(-1, Math.min(1, y)),
+      };
     },
     []
   );
+
+  // Click on decision boundary to add a custom point
+  const handleBoundaryClick = useCallback(
+    (e: React.MouseEvent<SVGSVGElement>) => {
+      // In draw mode, mousedown/mousemove handles it
+      if (drawMode) return;
+      const { cx, cy } = getDataCoordsFromEvent(e);
+      // Shift-click for class 0, regular click for class 1
+      const label = e.shiftKey ? 0 : 1;
+      setCustomPoints((prev: DataPoint[]) => [
+        ...prev,
+        { x: cx, y: cy, label },
+      ]);
+    },
+    [drawMode, getDataCoordsFromEvent]
+  );
+
+  // Paint mode: mouse down
+  const handleBoundaryMouseDown = useCallback(
+    (e: React.MouseEvent<SVGSVGElement>) => {
+      if (!drawMode) return;
+      e.preventDefault();
+      isDrawingRef.current = true;
+      const { cx, cy } = getDataCoordsFromEvent(e);
+      lastPaintPosRef.current = { x: cx, y: cy };
+      setCustomPoints((prev: DataPoint[]) => [
+        ...prev,
+        { x: cx, y: cy, label: paintClass },
+      ]);
+    },
+    [drawMode, paintClass, getDataCoordsFromEvent]
+  );
+
+  // Paint mode: mouse move (throttled by distance)
+  const handleBoundaryMouseMove = useCallback(
+    (e: React.MouseEvent<SVGSVGElement>) => {
+      if (!drawMode || !isDrawingRef.current) return;
+      const { cx, cy } = getDataCoordsFromEvent(e);
+      const last = lastPaintPosRef.current;
+      if (last) {
+        // Distance in data coords; 15px ~ 15/270*2 ≈ 0.111 in data space
+        const dx = cx - last.x;
+        const dy = cy - last.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 0.11) return; // throttle: ~15px minimum distance
+      }
+      lastPaintPosRef.current = { x: cx, y: cy };
+      setCustomPoints((prev: DataPoint[]) => [
+        ...prev,
+        { x: cx, y: cy, label: paintClass },
+      ]);
+    },
+    [drawMode, paintClass, getDataCoordsFromEvent]
+  );
+
+  // Paint mode: mouse up
+  const handleBoundaryMouseUp = useCallback(() => {
+    isDrawingRef.current = false;
+    lastPaintPosRef.current = null;
+  }, []);
 
   // Cleanup on unmount
   useEffect(() => {

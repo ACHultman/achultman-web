@@ -23,6 +23,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  useToast,
 } from '@chakra-ui/react';
 import { ArrowBackIcon, LockIcon } from '@chakra-ui/icons';
 import Paragraph from '@components/Paragraph';
@@ -42,6 +43,7 @@ export default function ShaderPlayground() {
   const [code, setCode] = useState(SHADER_PRESETS[0]!.fragmentShader);
   const [error, setError] = useState<string | null>(null);
   const [fps, setFps] = useState(0);
+  const [compileTimeMs, setCompileTimeMs] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [promptInput, setPromptInput] = useState('');
@@ -49,6 +51,19 @@ export default function ShaderPlayground() {
     null
   );
   const [promptError, setPromptError] = useState(false);
+
+  // Audio-reactive state
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [audioError, setAudioError] = useState<string | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const audioStreamRef = useRef<MediaStream | null>(null);
+  const audioBassRef = useRef<number>(0);
+  const audioMidRef = useRef<number>(0);
+  const audioTrebleRef = useRef<number>(0);
+
+  // Shareable URL debounce
+  const urlDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
@@ -60,8 +75,136 @@ export default function ShaderPlayground() {
   const lastFpsUpdateRef = useRef<number>(Date.now());
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const toast = useToast();
   const cardBg = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.600', 'gray.400');
+
+  // --- Shareable URL: decode hash on mount ---
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      try {
+        const decoded = decodeURIComponent(atob(hash));
+        setCode(decoded);
+        setSelectedPreset(-1);
+      } catch {
+        // Invalid hash, ignore
+      }
+    }
+  }, []);
+
+  // --- Shareable URL: encode hash on code change (debounced) ---
+  useEffect(() => {
+    if (urlDebounceRef.current) clearTimeout(urlDebounceRef.current);
+    urlDebounceRef.current = setTimeout(() => {
+      try {
+        const encoded = btoa(encodeURIComponent(code));
+        window.history.replaceState(null, '', `#${encoded}`);
+      } catch {
+        // Encoding failed, ignore
+      }
+    }, 1000);
+    return () => {
+      if (urlDebounceRef.current) clearTimeout(urlDebounceRef.current);
+    };
+  }, [code]);
+
+  // --- Audio: update frequency data each frame ---
+  const updateAudioData = useCallback(() => {
+    const analyser = analyserRef.current;
+    if (!analyser) return;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(dataArray);
+
+    // Determine frequency bin boundaries based on sample rate
+    const sampleRate = audioContextRef.current?.sampleRate || 44100;
+    const binHz = sampleRate / (analyser.fftSize);
+
+    const bin200 = Math.min(Math.floor(200 / binHz), bufferLength);
+    const bin2000 = Math.min(Math.floor(2000 / binHz), bufferLength);
+
+    // Bass: 0-200Hz
+    let bassSum = 0;
+    const bassCount = Math.max(bin200, 1);
+    for (let i = 0; i < bassCount; i++) {
+      bassSum += dataArray[i]!;
+    }
+    audioBassRef.current = bassSum / (bassCount * 255);
+
+    // Mid: 200-2000Hz
+    let midSum = 0;
+    const midCount = Math.max(bin2000 - bin200, 1);
+    for (let i = bin200; i < bin2000; i++) {
+      midSum += dataArray[i]!;
+    }
+    audioMidRef.current = midSum / (midCount * 255);
+
+    // Treble: 2000Hz+
+    let trebleSum = 0;
+    const trebleCount = Math.max(bufferLength - bin2000, 1);
+    for (let i = bin2000; i < bufferLength; i++) {
+      trebleSum += dataArray[i]!;
+    }
+    audioTrebleRef.current = trebleSum / (trebleCount * 255);
+  }, []);
+
+  // --- Audio: toggle ---
+  const handleToggleAudio = useCallback(async () => {
+    if (audioEnabled) {
+      // Disable audio
+      if (audioStreamRef.current) {
+        audioStreamRef.current.getTracks().forEach((t) => t.stop());
+        audioStreamRef.current = null;
+      }
+      if (audioContextRef.current) {
+        await audioContextRef.current.close();
+        audioContextRef.current = null;
+      }
+      analyserRef.current = null;
+      audioBassRef.current = 0;
+      audioMidRef.current = 0;
+      audioTrebleRef.current = 0;
+      setAudioEnabled(false);
+      setAudioError(null);
+      return;
+    }
+
+    // Enable audio — AudioContext created on user gesture
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const ctx = new AudioContext();
+      const source = ctx.createMediaStreamSource(stream);
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.8;
+      source.connect(analyser);
+
+      audioContextRef.current = ctx;
+      analyserRef.current = analyser;
+      audioStreamRef.current = stream;
+      setAudioEnabled(true);
+      setAudioError(null);
+    } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : 'Microphone access denied';
+      setAudioError(msg);
+      setAudioEnabled(false);
+    }
+  }, [audioEnabled]);
+
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioStreamRef.current) {
+        audioStreamRef.current.getTracks().forEach((t) => t.stop());
+      }
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
 
   const compileShader = useCallback(
     (
@@ -88,6 +231,7 @@ export default function ShaderPlayground() {
 
   const buildProgram = useCallback(
     (gl: WebGLRenderingContext, fragSource: string): WebGLProgram | null => {
+      const t0 = performance.now();
       const vs = compileShader(gl, DEFAULT_VERTEX_SHADER, gl.VERTEX_SHADER);
       if (!vs) return null;
       const fs = compileShader(gl, fragSource, gl.FRAGMENT_SHADER);
@@ -115,6 +259,8 @@ export default function ShaderPlayground() {
       gl.deleteShader(vs);
       gl.deleteShader(fs);
       setError(null);
+      const t1 = performance.now();
+      setCompileTimeMs(Math.round(t1 - t0));
       return prog;
     },
     [compileShader]
@@ -204,6 +350,15 @@ export default function ShaderPlayground() {
       if (timeLoc) g.uniform1f(timeLoc, elapsed);
       if (resLoc) g.uniform2f(resLoc, cvs.width, cvs.height);
 
+      // Audio uniforms — always set if locations exist (defaults to 0 when audio off)
+      updateAudioData();
+      const bassLoc = g.getUniformLocation(p, 'u_bass');
+      const midLoc = g.getUniformLocation(p, 'u_mid');
+      const trebleLoc = g.getUniformLocation(p, 'u_treble');
+      if (bassLoc) g.uniform1f(bassLoc, audioBassRef.current);
+      if (midLoc) g.uniform1f(midLoc, audioMidRef.current);
+      if (trebleLoc) g.uniform1f(trebleLoc, audioTrebleRef.current);
+
       // Set attribute
       const posLoc = g.getAttribLocation(p, 'a_position');
       g.enableVertexAttribArray(posLoc);
@@ -262,6 +417,13 @@ export default function ShaderPlayground() {
     setPromptError(false);
   };
 
+  const handleResetPreset = () => {
+    if (selectedPreset >= 0 && selectedPreset < SHADER_PRESETS.length) {
+      setCode(SHADER_PRESETS[selectedPreset]!.fragmentShader);
+      setError(null);
+    }
+  };
+
   const handleTogglePause = () => {
     if (isPaused) {
       // Resuming: adjust start time so elapsed continues from where it was
@@ -279,6 +441,30 @@ export default function ShaderPlayground() {
       document.exitFullscreen?.();
     }
     setIsFullscreen((prev: boolean) => !prev);
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      const encoded = btoa(encodeURIComponent(code));
+      const url = `${window.location.origin}${window.location.pathname}#${encoded}`;
+      await navigator.clipboard.writeText(url);
+      toast({
+        title: 'Copied!',
+        description: 'Shareable link copied to clipboard',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    } catch {
+      toast({
+        title: 'Failed to copy',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    }
   };
 
   const handlePromptSubmit = () => {
@@ -482,13 +668,33 @@ export default function ShaderPlayground() {
                 <Text fontWeight="semibold" fontSize="sm" color={textColor}>
                   Fragment Shader
                 </Text>
-                <Button
-                  size="xs"
-                  colorScheme="pink"
-                  onClick={() => recompile(code)}
-                >
-                  Compile
-                </Button>
+                <HStack spacing={1}>
+                  <Button
+                    size="xs"
+                    variant="outline"
+                    onClick={handleResetPreset}
+                    isDisabled={
+                      selectedPreset < 0 ||
+                      selectedPreset >= SHADER_PRESETS.length
+                    }
+                  >
+                    Reset
+                  </Button>
+                  <Button
+                    size="xs"
+                    variant="outline"
+                    onClick={handleCopyLink}
+                  >
+                    Copy Link
+                  </Button>
+                  <Button
+                    size="xs"
+                    colorScheme="pink"
+                    onClick={() => recompile(code)}
+                  >
+                    Compile
+                  </Button>
+                </HStack>
               </HStack>
               <Flex
                 bg="gray.900"
@@ -543,6 +749,20 @@ export default function ShaderPlayground() {
                   overflowY="auto"
                 />
               </Flex>
+              {/* Audio uniforms helper */}
+              {audioEnabled && (
+                <MotionBox
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  mt={2}
+                >
+                  <Text fontSize="xs" fontFamily="mono" color="gray.500">
+                    Audio uniforms available: uniform float u_bass; // 0-1 low
+                    freq | uniform float u_mid; // 0-1 mid freq | uniform float
+                    u_treble; // 0-1 high freq
+                  </Text>
+                </MotionBox>
+              )}
             </Box>
 
             {/* Preview Canvas */}
@@ -555,8 +775,21 @@ export default function ShaderPlayground() {
                   <Badge colorScheme="green" fontSize="xs">
                     {fps} FPS
                   </Badge>
+                  {compileTimeMs !== null && (
+                    <Badge colorScheme="purple" fontSize="xs">
+                      {compileTimeMs}ms compile
+                    </Badge>
+                  )}
                 </HStack>
                 <HStack spacing={1}>
+                  <Button
+                    size="xs"
+                    variant="outline"
+                    colorScheme={audioEnabled ? 'red' : 'cyan'}
+                    onClick={handleToggleAudio}
+                  >
+                    {audioEnabled ? 'Audio Off' : 'Audio Reactive'}
+                  </Button>
                   <Button
                     size="xs"
                     variant="outline"
@@ -592,6 +825,12 @@ export default function ShaderPlayground() {
                   }}
                 />
               </Box>
+              {/* Audio error */}
+              {audioError && (
+                <Text fontSize="xs" color="red.400" mt={1}>
+                  Microphone error: {audioError}
+                </Text>
+              )}
             </Box>
           </Flex>
 
@@ -622,33 +861,71 @@ export default function ShaderPlayground() {
             <Text fontWeight="semibold" mb={2}>
               Uniforms
             </Text>
-            <HStack spacing={6}>
-              <HStack>
-                <Text fontSize="sm" fontFamily="mono" color={textColor}>
-                  u_time:
-                </Text>
-                <Badge colorScheme="pink" fontFamily="mono">
-                  {pausedTimeRef.current.toFixed(2)}s
-                </Badge>
-                <Button
-                  size="xs"
-                  variant="ghost"
-                  colorScheme={isPaused ? 'green' : 'yellow'}
-                  onClick={handleTogglePause}
-                >
-                  {isPaused ? 'Resume' : 'Pause'}
-                </Button>
-              </HStack>
-              <HStack>
-                <Text fontSize="sm" fontFamily="mono" color={textColor}>
-                  u_resolution:
-                </Text>
-                <Badge colorScheme="purple" fontFamily="mono">
-                  {canvasRef.current?.width || 0} x{' '}
-                  {canvasRef.current?.height || 0}
-                </Badge>
-              </HStack>
-            </HStack>
+            <Wrap spacing={6}>
+              <WrapItem>
+                <HStack>
+                  <Text fontSize="sm" fontFamily="mono" color={textColor}>
+                    u_time:
+                  </Text>
+                  <Badge colorScheme="pink" fontFamily="mono">
+                    {pausedTimeRef.current.toFixed(2)}s
+                  </Badge>
+                  <Button
+                    size="xs"
+                    variant="ghost"
+                    colorScheme={isPaused ? 'green' : 'yellow'}
+                    onClick={handleTogglePause}
+                  >
+                    {isPaused ? 'Resume' : 'Pause'}
+                  </Button>
+                </HStack>
+              </WrapItem>
+              <WrapItem>
+                <HStack>
+                  <Text fontSize="sm" fontFamily="mono" color={textColor}>
+                    u_resolution:
+                  </Text>
+                  <Badge colorScheme="purple" fontFamily="mono">
+                    {canvasRef.current?.width || 0} x{' '}
+                    {canvasRef.current?.height || 0}
+                  </Badge>
+                </HStack>
+              </WrapItem>
+              {audioEnabled && (
+                <>
+                  <WrapItem>
+                    <HStack>
+                      <Text fontSize="sm" fontFamily="mono" color={textColor}>
+                        u_bass:
+                      </Text>
+                      <Badge colorScheme="orange" fontFamily="mono">
+                        {audioBassRef.current.toFixed(3)}
+                      </Badge>
+                    </HStack>
+                  </WrapItem>
+                  <WrapItem>
+                    <HStack>
+                      <Text fontSize="sm" fontFamily="mono" color={textColor}>
+                        u_mid:
+                      </Text>
+                      <Badge colorScheme="yellow" fontFamily="mono">
+                        {audioMidRef.current.toFixed(3)}
+                      </Badge>
+                    </HStack>
+                  </WrapItem>
+                  <WrapItem>
+                    <HStack>
+                      <Text fontSize="sm" fontFamily="mono" color={textColor}>
+                        u_treble:
+                      </Text>
+                      <Badge colorScheme="cyan" fontFamily="mono">
+                        {audioTrebleRef.current.toFixed(3)}
+                      </Badge>
+                    </HStack>
+                  </WrapItem>
+                </>
+              )}
+            </Wrap>
           </Box>
 
           <Divider />
@@ -685,6 +962,9 @@ export default function ShaderPlayground() {
                   frame. Here we provide <code>u_time</code> (seconds since
                   start) for animation and <code>u_resolution</code> (canvas
                   dimensions in pixels) so the shader can normalize coordinates.
+                  When audio mode is enabled, <code>u_bass</code>,{' '}
+                  <code>u_mid</code>, and <code>u_treble</code> provide
+                  real-time FFT frequency data from your microphone.
                 </Text>
               </Box>
               <Box bg={cardBg} p={4} borderRadius="md" shadow="sm">
