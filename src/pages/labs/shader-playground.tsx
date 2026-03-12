@@ -155,7 +155,7 @@ export default function ShaderPlayground() {
     if (audioEnabled) {
       // Disable audio
       if (audioStreamRef.current) {
-        audioStreamRef.current.getTracks().forEach((t) => t.stop());
+        audioStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
         audioStreamRef.current = null;
       }
       if (audioContextRef.current) {
@@ -198,7 +198,7 @@ export default function ShaderPlayground() {
   useEffect(() => {
     return () => {
       if (audioStreamRef.current) {
-        audioStreamRef.current.getTracks().forEach((t) => t.stop());
+        audioStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
       }
       if (audioContextRef.current) {
         audioContextRef.current.close();

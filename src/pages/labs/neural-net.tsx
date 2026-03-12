@@ -650,7 +650,7 @@ export default function NeuralNetPlayground() {
                     variant={showGradients ? 'solid' : 'subtle'}
                     fontSize="xs"
                     cursor="pointer"
-                    onClick={() => setShowGradients((v) => !v)}
+                    onClick={() => setShowGradients((v: boolean) => !v)}
                     _hover={{ opacity: 0.8 }}
                   >
                     {showGradients ? 'Gradients ON' : 'Show Gradients'}
@@ -840,19 +840,45 @@ export default function NeuralNetPlayground() {
                   Decision Boundary
                 </Text>
                 <Tooltip
-                  label="Click to add class 1 points. Shift-click for class 0."
+                  label={
+                    drawMode
+                      ? 'Hold mouse and drag to paint points'
+                      : 'Click to add class 1 points. Shift-click for class 0.'
+                  }
                   fontSize="xs"
                 >
                   <Badge
-                    colorScheme="purple"
-                    variant="subtle"
+                    colorScheme={drawMode ? 'orange' : 'purple'}
+                    variant={drawMode ? 'solid' : 'subtle'}
                     fontSize="xs"
-                    cursor="help"
+                    cursor="pointer"
+                    onClick={() => setDrawMode((v: boolean) => !v)}
+                    _hover={{ opacity: 0.8 }}
                   >
-                    Click to add points
+                    {drawMode ? 'Draw Mode ON' : 'Draw Mode'}
                   </Badge>
                 </Tooltip>
               </HStack>
+              {drawMode && (
+                <HStack spacing={2} mb={2} justify="center">
+                  <Button
+                    size="xs"
+                    colorScheme={paintClass === 0 ? 'blue' : 'gray'}
+                    variant={paintClass === 0 ? 'solid' : 'outline'}
+                    onClick={() => setPaintClass(0)}
+                  >
+                    Draw Class 0
+                  </Button>
+                  <Button
+                    size="xs"
+                    colorScheme={paintClass === 1 ? 'red' : 'gray'}
+                    variant={paintClass === 1 ? 'solid' : 'outline'}
+                    onClick={() => setPaintClass(1)}
+                  >
+                    Draw Class 1
+                  </Button>
+                </HStack>
+              )}
               <Box
                 position="relative"
                 mx="auto"

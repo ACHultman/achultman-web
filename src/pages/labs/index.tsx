@@ -175,6 +175,16 @@ const EXPERIMENTS: Experiment[] = [
     colorScheme: 'pink',
     tags: ['Graphics', 'WebGL', 'Creative'],
   },
+  {
+    title: 'Distributed Systems Simulator',
+    emoji: '🌐',
+    description:
+      'Simulate Raft consensus and gossip protocols. Kill nodes, partition networks, and watch leader election and data propagation in real time.',
+    status: 'Live',
+    href: '/labs/distributed',
+    colorScheme: 'blue',
+    tags: ['Systems', 'Interactive', 'Simulation'],
+  },
 ];
 
 const STATUS_COLORS: Record<string, string> = {
