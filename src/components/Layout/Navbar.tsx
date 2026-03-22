@@ -39,6 +39,10 @@ const MAIN_LINKS = [
 
 const EXTRA_LINKS = [
     {
+        name: 'Arcade',
+        route: '/games',
+    },
+    {
         name: 'Bookmarks',
         route: '/bookmarks',
     },
