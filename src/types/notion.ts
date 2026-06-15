@@ -29,6 +29,9 @@ export type BlogPost = {
     url: string;
     created_time: string;
     last_edited_time: string;
+    // Estimated reading time in minutes, computed from the post's blocks.
+    // Optional because the database query alone does not include block content.
+    readingTime?: number;
 };
 
 export type Bookmark = {

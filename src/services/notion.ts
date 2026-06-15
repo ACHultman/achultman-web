@@ -21,6 +21,7 @@ import {
     pageIsPageObjectResponse,
     isBlockObjectResponse,
 } from '../utils/notion';
+import { estimateReadingTime } from '../utils/readingTime';
 
 const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
 
@@ -136,6 +137,55 @@ export async function fetchNotions<T extends DatabaseName>(
         console.error('Error fetching notions:', error);
         return [];
     }
+}
+
+/**
+ * Estimate a single blog post's reading time by fetching its top-level
+ * blocks. Falls back to 1 minute if the block fetch fails so the listing
+ * never breaks on a transient Notion error.
+ */
+async function fetchBlogPostReadingTime(id: string): Promise<number> {
+    try {
+        const blockChildrenResponse = await notion.blocks.children.list({
+            block_id: id,
+        });
+        const blocks = blockChildrenResponse.results.filter(
+            isBlockObjectResponse
+        );
+        return estimateReadingTime(blocks);
+    } catch (error) {
+        console.error('Error fetching reading time for', id, error);
+        return 1;
+    }
+}
+
+/**
+ * Fetch blog posts and enrich each with a real `readingTime` derived from
+ * its content. The plain database query does not return block content, so
+ * the listing cannot compute reading time without this extra lookup.
+ *
+ * Block fetches run in small batches to stay within Notion's rate limit.
+ */
+export async function fetchBlogPostsWithReadingTime(
+    options: NotionFetchOptions = {}
+): Promise<BlogPost[]> {
+    const posts = await fetchNotions('blog', options);
+
+    const BATCH_SIZE = 5;
+    const enriched: BlogPost[] = [];
+
+    for (let i = 0; i < posts.length; i += BATCH_SIZE) {
+        const batch = posts.slice(i, i + BATCH_SIZE);
+        const batchResults = await Promise.all(
+            batch.map(async (post) => ({
+                ...post,
+                readingTime: await fetchBlogPostReadingTime(post.id),
+            }))
+        );
+        enriched.push(...batchResults);
+    }
+
+    return enriched;
 }
 
 export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
