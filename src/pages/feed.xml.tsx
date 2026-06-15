@@ -1,11 +1,9 @@
 import { GetServerSideProps } from 'next';
 import { fetchNotions } from '../services/notion';
 import type { BlogPost } from '../types/notion';
+import { getBaseUrl } from '../utils/baseUrl';
 
-const SITE_URL =
-    process.env.SITE_URL ||
-    process.env.NEXT_PUBLIC_APP_BASE_URL ||
-    'https://hultman.dev';
+const SITE_URL = getBaseUrl();
 
 function escapeXml(str: string): string {
     return str

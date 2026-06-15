@@ -26,6 +26,7 @@ import BlogPostingJsonLd from '../../components/BlogPostingJsonLd';
 import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
 import { estimateReadingTime } from '../../utils/readingTime';
+import { getBaseUrl } from '../../utils/baseUrl';
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -189,13 +190,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ id: string }>) {
     const { id } = params!;
 
-    const baseUrl =
-        process.env.SITE_URL ||
-        process.env.NEXT_PUBLIC_APP_BASE_URL ||
-        (process.env.VERCEL_PROJECT_PRODUCTION_URL
-            ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-            : null) ||
-        'https://hultman.dev';
+    const baseUrl = getBaseUrl();
 
     try {
         const post = await fetchNotion('blog', id);

@@ -1,11 +1,7 @@
 import type { NextSeoProps } from 'next-seo';
+import { getBaseUrl } from './utils/baseUrl';
 
-const baseUrl =
-    typeof window !== 'undefined'
-        ? window.location.origin
-        : process.env.SITE_URL ||
-          process.env.NEXT_PUBLIC_APP_BASE_URL ||
-          'https://hultman.dev';
+const baseUrl = getBaseUrl();
 
 const config: NextSeoProps = {
     titleTemplate: '%s | Adam Hultman',
