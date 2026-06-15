@@ -19,11 +19,6 @@ interface FeaturedPostProps {
     post: BlogPost;
 }
 
-function readTime(description: string): string {
-    const words = description?.split(/\s+/).length ?? 0;
-    return `${Math.max(1, Math.ceil(words / 200))} min read`;
-}
-
 export default function FeaturedPost({ post }: FeaturedPostProps) {
     const bg = useColorModeValue('white', 'gray.800');
     const border = useColorModeValue('gray.200', 'gray.700');
@@ -96,12 +91,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                         </Badge>
                     </HStack>
 
-                    <Heading
-                        as="h2"
-                        size="lg"
-                        mb={3}
-                        lineHeight={1.3}
-                    >
+                    <Heading as="h2" size="lg" mb={3} lineHeight={1.3}>
                         <LinkOverlay
                             as={NextLink}
                             href={`/blog/${post.id}`}
@@ -149,8 +139,8 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                                   }
                               )
                             : 'Unpublished'}
-                        {post.description &&
-                            ` · ${readTime(post.description)}`}
+                        {post.readingTime != null &&
+                            ` · ${post.readingTime} min read`}
                     </Text>
                 </Flex>
             </Flex>

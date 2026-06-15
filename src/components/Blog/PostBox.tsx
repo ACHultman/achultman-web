@@ -18,11 +18,6 @@ interface PostBoxProps {
     post: BlogPost;
 }
 
-function readTime(description: string): string {
-    const words = description?.split(/\s+/).length ?? 0;
-    return `${Math.max(1, Math.ceil(words / 200))} min read`;
-}
-
 export default function PostBox({ post }: PostBoxProps) {
     const bg = useColorModeValue('white', 'gray.800');
     const border = useColorModeValue('gray.200', 'gray.700');
@@ -125,7 +120,8 @@ export default function PostBox({ post }: PostBoxProps) {
                               }
                           )
                         : 'Unpublished'}
-                    {post.description && ` · ${readTime(post.description)}`}
+                    {post.readingTime != null &&
+                        ` · ${post.readingTime} min read`}
                 </Text>
             </Flex>
         </LinkBox>

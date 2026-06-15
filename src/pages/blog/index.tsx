@@ -11,7 +11,7 @@ import {
 import { motion } from 'framer-motion';
 
 import { NextSeo } from 'next-seo';
-import { fetchNotions } from '../../services/notion';
+import { fetchBlogPostsWithReadingTime } from '../../services/notion';
 import { BlogPost as BlogPostType } from '../../types/notion';
 import PostBox from '../../components/Blog/PostBox';
 import FeaturedPost from '../../components/Blog/FeaturedPost';
@@ -121,7 +121,7 @@ function BlogPage({ posts }: Props) {
 
 export async function getStaticProps() {
     try {
-        const posts = await fetchNotions('blog', {
+        const posts = await fetchBlogPostsWithReadingTime({
             page_size: 100,
             sorts: [{ property: 'Published', direction: 'descending' }],
         });
