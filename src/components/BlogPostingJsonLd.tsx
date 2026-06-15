@@ -25,17 +25,25 @@ export default function BlogPostingJsonLd({
         ...(datePublished && { datePublished }),
         ...(dateModified && { dateModified }),
         ...(description && { description }),
-        ...(image && { image }),
+        // Google prefers an array for the image field.
+        ...(image && { image: [image] }),
         url,
         author: {
             '@type': 'Person',
             name: 'Adam Hultman',
             url: 'https://hultman.dev',
         },
+        // Rich Results expects an Organization publisher with a logo.
         publisher: {
-            '@type': 'Person',
+            '@type': 'Organization',
             name: 'Adam Hultman',
             url: 'https://hultman.dev',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://hultman.dev/android-chrome-512x512.png',
+                width: 512,
+                height: 512,
+            },
         },
         mainEntityOfPage: {
             '@type': 'WebPage',
@@ -48,7 +56,9 @@ export default function BlogPostingJsonLd({
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(schema),
+                    // Escape "<" so a "</script>" in any Notion-sourced field
+                    // can't break out of the script tag.
+                    __html: JSON.stringify(schema).replace(/</g, '\\u003c'),
                 }}
                 key="blogposting-jsonld"
             />

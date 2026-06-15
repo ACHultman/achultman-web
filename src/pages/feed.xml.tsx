@@ -18,7 +18,27 @@ function Feed() {
     return null;
 }
 
+function buildFeedXml(itemsXml: string): string {
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Adam Hultman — Blog</title>
+    <link>${SITE_URL}/blog</link>
+    <description>Notes on engineering, AI, security, and building things that last.</description>
+    <language>en-us</language>
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
+${itemsXml}
+  </channel>
+</rss>`;
+}
+
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+    res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8');
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=43200, stale-while-revalidate=86400'
+    );
+
     try {
         const posts: BlogPost[] = await fetchNotions('blog', {
             page_size: 100,
@@ -38,31 +58,15 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     </item>`;
         });
 
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Adam Hultman — Blog</title>
-    <link>${SITE_URL}/blog</link>
-    <description>Notes on engineering, AI, security, and building things that last.</description>
-    <language>en-us</language>
-    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
-${items.join('\n')}
-  </channel>
-</rss>`;
-
-        res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8');
-        res.setHeader(
-            'Cache-Control',
-            'public, s-maxage=43200, stale-while-revalidate=86400'
-        );
-        res.write(xml);
-        res.end();
-
-        return { props: {} };
+        res.write(buildFeedXml(items.join('\n')));
     } catch (error) {
         console.error('Error generating RSS feed:', error);
-        return { props: {} };
+        // Emit a valid, item-less feed rather than a blank body on failure.
+        res.write(buildFeedXml(''));
     }
+
+    res.end();
+    return { props: {} };
 };
 
 export default Feed;
