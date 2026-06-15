@@ -52,8 +52,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
             return `    <item>
       <title>${escapeXml(post.title)}</title>
-      <link>${SITE_URL}/blog/${post.id}</link>
-      <guid isPermaLink="true">${SITE_URL}/blog/${post.id}</guid>
+      <link>${SITE_URL}/blog/${post.slug}</link>
+      <guid isPermaLink="true">${SITE_URL}/blog/${post.slug}</guid>
       <pubDate>${pubDate}</pubDate>${post.description ? `\n      <description>${escapeXml(post.description)}</description>` : ''}
     </item>`;
         });

@@ -23,6 +23,7 @@ import {
     isBlockObjectResponse,
 } from '../utils/notion';
 import { estimateReadingTime } from '../utils/readingTime';
+import { slugify } from '../utils/slug';
 
 const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
 
@@ -74,9 +75,15 @@ function formatBlogPostData(page: PageObjectResponse): BlogPost | null {
         return null;
     }
 
+    const title = getTitle(page);
+    // Prefer an explicit Notion "Slug" property (stable, author-controlled);
+    // otherwise derive one from the title so every post gets a clean URL.
+    const slug = getRichText(page, 'Slug') || slugify(title);
+
     return {
         id: page.id,
-        title: getTitle(page),
+        slug,
+        title,
         publishedDate: getDateField(page, 'Published'),
         tags: getTags(page, 'Tags'),
         description: getRichText(page, 'AI custom autofill'),

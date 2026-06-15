@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         });
 
         const postUrls: SitemapUrl[] = posts.map((post) => ({
-            loc: `${SITE_URL}/blog/${post.id}`,
+            loc: `${SITE_URL}/blog/${post.slug}`,
             lastmod: post.last_edited_time.slice(0, 10),
         }));
 

@@ -96,7 +96,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                     <Heading as="h2" size="lg" mb={3} lineHeight={1.3}>
                         <LinkOverlay
                             as={NextLink}
-                            href={`/blog/${post.id}`}
+                            href={`/blog/${post.slug}`}
                             className="featured-title-link"
                             transition="color 0.2s"
                         >
