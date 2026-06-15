@@ -46,38 +46,32 @@ function Home() {
             <ChatIntro />
             <Chat />
             <Flex justify="center" w="100%" py={2}>
-                <Link href="#contact">
-                    <Button
-                        variant="ghost"
-                        colorScheme="green"
-                        rightIcon={<FaArrowRight />}
-                        size="sm"
-                    >
-                        Want to talk to the real Adam?
-                    </Button>
-                </Link>
+                <Button
+                    as={Link}
+                    href="#contact"
+                    variant="ghost"
+                    colorScheme="green"
+                    rightIcon={<FaArrowRight />}
+                    size="sm"
+                >
+                    Want to talk to the real Adam?
+                </Button>
             </Flex>
             <FeaturedWork />
-            <Flex
-                direction="column"
-                align="center"
-                w="100%"
-                py={2}
-                gap={1}
-            >
+            <Flex direction="column" align="center" w="100%" py={2} gap={1}>
                 <Text fontSize="sm" color="gray.600">
                     Interested in working together?
                 </Text>
-                <Link href="#contact">
-                    <Button
-                        variant="outline"
-                        colorScheme="green"
-                        rightIcon={<FaArrowRight />}
-                        size="sm"
-                    >
-                        Get in touch
-                    </Button>
-                </Link>
+                <Button
+                    as={Link}
+                    href="#contact"
+                    variant="outline"
+                    colorScheme="green"
+                    rightIcon={<FaArrowRight />}
+                    size="sm"
+                >
+                    Get in touch
+                </Button>
             </Flex>
             <Flex justifyContent="center">
                 <GitTimeline />

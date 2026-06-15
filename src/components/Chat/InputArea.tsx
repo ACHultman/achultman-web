@@ -88,8 +88,9 @@ const InputArea = memo(function InputArea({
                     }
                     aria-label="Message input"
                     bg={msgInputColor}
-                    _focus={{
-                        outline: 'none',
+                    _focusVisible={{
+                        borderColor: 'green.500',
+                        boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
                     }}
                     value={input}
                     onChange={onInputChange}
