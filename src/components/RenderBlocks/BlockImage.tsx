@@ -2,14 +2,20 @@ import { WithContentValidationProps } from '@9gustin/react-notion-render/dist/ho
 import { Image } from '@chakra-ui/react';
 
 function BlockImage({ block }: WithContentValidationProps) {
-    if (!block.content) {
+    const src = block.content?.external?.url || block.content?.file?.url;
+
+    // Guard against a malformed/deleted image block rendering a broken <img>.
+    if (!src) {
         return null;
     }
 
     return (
         <Image
-            src={block.content.external?.url || block.content.file?.url || ''}
-            alt={block.content.caption?.[0]?.plain_text || ''}
+            src={src}
+            alt={block.content?.caption?.[0]?.plain_text || ''}
+            loading="lazy"
+            borderRadius="md"
+            my={4}
         />
     );
 }

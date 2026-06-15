@@ -13,6 +13,7 @@ import NextImage from 'next/image';
 import NextLink from 'next/link';
 import posthog from 'posthog-js';
 import { BlogPost } from '../../types/notion';
+import { formatNotionDate } from '../../utils/date';
 
 interface PostBoxProps {
     post: BlogPost;
@@ -23,6 +24,7 @@ export default function PostBox({ post }: PostBoxProps) {
     const border = useColorModeValue('gray.200', 'gray.700');
     const dateColor = useColorModeValue('gray.600', 'gray.400');
     const descColor = useColorModeValue('gray.700', 'gray.300');
+    const titleHover = useColorModeValue('green.700', 'green.400');
 
     const handlePostClick = () => {
         posthog.capture('blog_post_clicked', {
@@ -49,7 +51,7 @@ export default function PostBox({ post }: PostBoxProps) {
                 boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
                 transform: 'translateY(-3px)',
                 '.post-title-link': {
-                    color: 'green.500',
+                    color: titleHover,
                 },
             }}
         >
@@ -62,7 +64,7 @@ export default function PostBox({ post }: PostBoxProps) {
                 >
                     <NextImage
                         src={post.cover}
-                        alt={post.title}
+                        alt=""
                         fill
                         style={{ objectFit: 'cover' }}
                         placeholder="empty"
@@ -111,14 +113,7 @@ export default function PostBox({ post }: PostBoxProps) {
 
                 <Text color={dateColor} fontSize="xs" mt="auto">
                     {post.publishedDate
-                        ? new Date(post.publishedDate).toLocaleDateString(
-                              'en-US',
-                              {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: 'numeric',
-                              }
-                          )
+                        ? formatNotionDate(post.publishedDate)
                         : 'Unpublished'}
                     {post.readingTime != null &&
                         ` · ${post.readingTime} min read`}

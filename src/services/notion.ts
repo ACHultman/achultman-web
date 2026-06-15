@@ -2,6 +2,7 @@ import { Client } from '@notionhq/client';
 import type {
     PageObjectResponse,
     QueryDatabaseParameters,
+    ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 import { serverConfig } from '../config';
 import {
@@ -140,16 +141,43 @@ export async function fetchNotions<T extends DatabaseName>(
 }
 
 /**
- * Estimate a single blog post's reading time by fetching its top-level
- * blocks. Falls back to 1 minute if the block fetch fails so the listing
- * never breaks on a transient Notion error.
+ * List a page's top-level child blocks, following pagination.
+ *
+ * Notion returns at most 100 blocks per call; long posts would otherwise be
+ * silently truncated in both rendering and reading-time estimation. Bounded by
+ * `maxPages` to keep on-demand renders fast. Nested children (toggles, columns)
+ * are still not recursed — that would require a call per parent block.
+ */
+async function listAllBlockChildren(
+    blockId: string,
+    maxPages = 5
+): Promise<ListBlockChildrenResponse> {
+    const first = await notion.blocks.children.list({ block_id: blockId });
+    const results = [...first.results];
+
+    let cursor = first.next_cursor;
+    let page = 1;
+    while (cursor && page < maxPages) {
+        const next = await notion.blocks.children.list({
+            block_id: blockId,
+            start_cursor: cursor,
+        });
+        results.push(...next.results);
+        cursor = next.next_cursor;
+        page++;
+    }
+
+    return { ...first, results, has_more: false, next_cursor: null };
+}
+
+/**
+ * Estimate a single blog post's reading time from its content. Falls back to
+ * 1 minute if the block fetch fails so the listing never breaks on a transient
+ * Notion error.
  */
 async function fetchBlogPostReadingTime(id: string): Promise<number> {
     try {
-        const blockChildrenResponse = await notion.blocks.children.list({
-            block_id: id,
-        });
-        const blocks = blockChildrenResponse.results.filter(
+        const blocks = (await listAllBlockChildren(id)).results.filter(
             isBlockObjectResponse
         );
         return estimateReadingTime(blocks);
@@ -202,9 +230,7 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
             return null;
         }
 
-        const blockChildrenResponse = await notion.blocks.children.list({
-            block_id: id,
-        });
+        const blockChildrenResponse = await listAllBlockChildren(id);
         const filteredBlocks = blockChildrenResponse.results.filter(
             isBlockObjectResponse
         );

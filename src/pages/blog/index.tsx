@@ -1,5 +1,4 @@
 import {
-    Box,
     Container,
     Heading,
     SimpleGrid,
@@ -45,6 +44,14 @@ function BlogPage({ posts }: Props) {
                     title: 'Blog | Adam Hultman',
                     description:
                         'Notes on engineering, AI, security, and building things that last.',
+                    images: [
+                        {
+                            url: 'https://hultman.dev/og_homepage.png',
+                            width: 1200,
+                            height: 630,
+                            alt: 'Adam Hultman — Blog',
+                        },
+                    ],
                 }}
             />
             <Container maxW="container.lg">
@@ -130,9 +137,11 @@ export async function getStaticProps() {
             props: {
                 posts,
             },
-            revalidate: 43200, // 12 hours
+            // Match the post page so Notion signed cover URLs (~1h TTL) and
+            // newly published posts don't stay stale for half a day.
+            revalidate: 3600, // 1 hour
         };
-    } catch (error) {
+    } catch {
         return {
             props: {
                 posts: [],
