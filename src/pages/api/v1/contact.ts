@@ -7,6 +7,16 @@ type Data = {
     message: string;
 };
 
+// Cap the request body so oversized payloads are rejected before the
+// field-level length checks ever parse them into memory.
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '16kb',
+        },
+    },
+};
+
 /**
  * Sanitizes user input to prevent XSS attacks by escaping HTML special characters
  */

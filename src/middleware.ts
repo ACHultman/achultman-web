@@ -3,7 +3,7 @@ import { ipAddress } from '@vercel/functions';
 import { Ratelimit } from '@upstash/ratelimit';
 import { kv } from '@vercel/kv';
 
-// Rate limit: 5 requests per 10 seconds per IP
+// General rate limit for read-only API routes: 5 requests per 10 seconds per IP
 const ratelimit = new Ratelimit({
     redis: kv,
     limiter: Ratelimit.slidingWindow(5, '10 s'),
@@ -11,11 +11,21 @@ const ratelimit = new Ratelimit({
     prefix: '@upstash/ratelimit',
 });
 
+// Tighter limit for the chat endpoint — the only route with real (OpenAI)
+// cost, and the one worth protecting most aggressively from abuse.
+const chatRatelimit = new Ratelimit({
+    redis: kv,
+    limiter: Ratelimit.slidingWindow(5, '60 s'),
+    analytics: true,
+    prefix: '@upstash/ratelimit:chat',
+});
+
 export const config = {
     matcher: '/api/:path*',
 };
 
 const LOCAL_IP = '127.0.0.1';
+const CHAT_PATH = '/api/v1/chat';
 
 /**
  * Middleware to apply rate limiting to API routes
@@ -29,9 +39,11 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
+    const isChat = request.nextUrl.pathname.startsWith(CHAT_PATH);
+    const limiter = isChat ? chatRatelimit : ratelimit;
+
     try {
-        const { success, limit, remaining, reset } =
-            await ratelimit.limit(ip);
+        const { success, limit, remaining, reset } = await limiter.limit(ip);
 
         const response = success
             ? NextResponse.next()
@@ -51,7 +63,18 @@ export default async function middleware(request: NextRequest) {
         return response;
     } catch (error) {
         console.error('Rate limiting error:', error);
-        // Allow request to proceed if rate limiting fails
+        // Fail closed for the billable chat endpoint so an Upstash outage
+        // can't open an unmetered window on the OpenAI key; fail open for the
+        // read-only Notion routes where availability matters more.
+        if (isChat) {
+            return NextResponse.json(
+                {
+                    error: 'Service unavailable',
+                    message: 'Please try again later',
+                },
+                { status: 503 }
+            );
+        }
         return NextResponse.next();
     }
 }

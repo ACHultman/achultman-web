@@ -20,8 +20,50 @@ const systemInitMessage = serverConfig.OPENAI_SYSTEM_INIT_MSG.replace(
     CURR_DATE
 );
 
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 1000;
+
+function isValidMessage(
+    message: unknown
+): message is { role: 'user' | 'assistant'; content: string } {
+    if (typeof message !== 'object' || message === null) {
+        return false;
+    }
+    const record = message as Record<string, unknown>;
+    return (
+        (record.role === 'user' || record.role === 'assistant') &&
+        typeof record.content === 'string' &&
+        record.content.length > 0 &&
+        record.content.length <= MAX_MESSAGE_LENGTH
+    );
+}
+
 export default async function handler(req: NextRequest) {
-    const { messages } = await req.json();
+    // The client maxLength is cosmetic — validate server-side to keep this
+    // public, billable endpoint from being abused to drain the OpenAI key.
+    if (req.method !== 'POST') {
+        return new Response('Method Not Allowed', {
+            status: 405,
+            headers: { Allow: 'POST' },
+        });
+    }
+
+    let body: unknown;
+    try {
+        body = await req.json();
+    } catch {
+        return new Response('Invalid JSON body', { status: 400 });
+    }
+
+    const messages = (body as { messages?: unknown })?.messages;
+    if (
+        !Array.isArray(messages) ||
+        messages.length === 0 ||
+        messages.length > MAX_MESSAGES ||
+        !messages.every(isValidMessage)
+    ) {
+        return new Response('Invalid request', { status: 400 });
+    }
 
     const userAgent = req.headers.get('user-agent');
     const isMobile = /mobile/i.test(userAgent || '');
