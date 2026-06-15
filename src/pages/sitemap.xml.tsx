@@ -10,58 +10,73 @@ function Sitemap() {
     return null;
 }
 
+const STATIC_PATHS = [
+    '',
+    '/about',
+    '/bookmarks',
+    '/books',
+    '/blog',
+    '/labs',
+    '/labs/interaction-checker',
+    '/labs/token-viz',
+    '/labs/prompt-duel',
+    '/labs/agent-flow',
+    '/labs/evidence-viz',
+    '/labs/beatmaker',
+];
+
+interface SitemapUrl {
+    loc: string;
+    lastmod: string;
+}
+
+function buildSitemapXml(urls: SitemapUrl[]): string {
+    return (
+        `<?xml version="1.0" encoding="UTF-8"?>\n` +
+        `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+        urls
+            .map(
+                ({ loc, lastmod }) =>
+                    `<url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`
+            )
+            .join('\n') +
+        `\n</urlset>`
+    );
+}
+
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+    const today = new Date().toISOString().slice(0, 10);
+    const staticUrls: SitemapUrl[] = STATIC_PATHS.map((path) => ({
+        loc: `${SITE_URL}${path}`,
+        lastmod: today,
+    }));
+
+    res.setHeader('Content-Type', 'text/xml');
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=43200, stale-while-revalidate=86400'
+    );
+
     try {
-        const staticPaths = [
-            '',
-            '/about',
-            '/bookmarks',
-            '/books',
-            '/blog',
-            '/labs',
-            '/labs/interaction-checker',
-            '/labs/token-viz',
-            '/labs/prompt-duel',
-            '/labs/agent-flow',
-            '/labs/evidence-viz',
-            '/labs/beatmaker',
-        ];
         const posts: BlogPost[] = await fetchNotions('blog', {
             page_size: 100,
         });
 
-        const urls = staticPaths.map((path) => ({
-            loc: `${SITE_URL}${path}`,
-            lastmod: new Date().toISOString().split('T')[0],
-        }));
-
-        const postUrls = posts.map((post) => ({
+        const postUrls: SitemapUrl[] = posts.map((post) => ({
             loc: `${SITE_URL}/blog/${post.id}`,
-            lastmod: post.last_edited_time.split('T')[0],
+            lastmod: post.last_edited_time.slice(0, 10),
         }));
 
-        const allUrls = [...urls, ...postUrls];
-
-        const xml =
-            `<?xml version="1.0" encoding="UTF-8"?>\n` +
-            `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-            allUrls
-                .map(
-                    ({ loc, lastmod }) =>
-                        `<url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`
-                )
-                .join('\n') +
-            `\n</urlset>`;
-
-        res.setHeader('Content-Type', 'text/xml');
-        res.write(xml);
-        res.end();
-
-        return { props: {} };
+        res.write(buildSitemapXml([...staticUrls, ...postUrls]));
     } catch (error) {
         console.error('Error generating sitemap:', error);
-        return { props: {} };
+        // Still emit a valid sitemap of static paths so a transient Notion
+        // outage doesn't drop every URL from a crawl.
+        res.write(buildSitemapXml(staticUrls));
     }
+
+    res.end();
+    return { props: {} };
 };
 
 export default Sitemap;

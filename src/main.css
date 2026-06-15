@@ -149,3 +149,17 @@ a:hover {
 .divider + .section-loading {
     display: none !important;
 }
+
+/* Respect users who prefer reduced motion — neutralize CSS animations and
+   transitions (e.g. the infinitely spinning logo). JS-driven animations are
+   gated separately via framer-motion's useReducedMotion. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

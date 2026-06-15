@@ -9,19 +9,21 @@ interface Props {
 function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
     const Icon = type === 'empty' ? FaClock : FaInfo;
     const borderColor = useColorModeValue('gray.100', 'gray.700');
+    const textColor = useColorModeValue('gray.600', 'gray.400');
 
     return (
         <Box
             mt={10}
             display="flex"
             alignItems="center"
+            color={textColor}
             borderColor={borderColor}
             borderWidth="1px"
             p={4}
             borderRadius="lg"
         >
-            <Icon style={{ color: '#718096' }} />
-            <Text color="gray.500" fontSize="lg" ml={2}>
+            <Icon style={{ color: 'currentcolor' }} />
+            <Text color={textColor} fontSize="lg" ml={2}>
                 {message}
             </Text>
         </Box>

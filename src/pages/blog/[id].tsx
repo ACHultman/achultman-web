@@ -10,13 +10,14 @@ import {
     Container,
     Divider,
     Heading,
-    Link,
     Stack,
     Tag,
     Text,
     VStack,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import NextImage from 'next/image';
+import NextLink from 'next/link';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 import { useEffect } from 'react';
@@ -27,6 +28,7 @@ import { fetchNotion, fetchNotions } from '../../services/notion';
 import { NotionPageWithBlocks } from '../../types/notion';
 import { estimateReadingTime } from '../../utils/readingTime';
 import { getBaseUrl } from '../../utils/baseUrl';
+import { formatNotionDate } from '../../utils/date';
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -51,6 +53,8 @@ interface Props {
 }
 
 function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
+    const metaColor = useColorModeValue('gray.600', 'gray.400');
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const updateScrollProgress = () => {
@@ -87,11 +91,13 @@ function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
                                 Sorry, this post could not be found. Please try
                                 again later.
                             </Alert>
-                            <Link href="/blog">
-                                <Button leftIcon={<ArrowLeftIcon />}>
-                                    Back to blog
-                                </Button>
-                            </Link>
+                            <Button
+                                as={NextLink}
+                                href="/blog"
+                                leftIcon={<ArrowLeftIcon />}
+                            >
+                                Back to blog
+                            </Button>
                         </VStack>
                     </Center>
                 </Container>
@@ -123,22 +129,19 @@ function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
                 <Text
                     as="time"
                     dateTime={page.publishedDate || undefined}
-                    color="gray.500"
+                    color={metaColor}
                     mb={2}
                     display="block"
                 >
                     {page.publishedDate
-                        ? new Date(page.publishedDate).toLocaleDateString(
-                              'en-US',
-                              {
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric',
-                              }
-                          )
+                        ? formatNotionDate(page.publishedDate, {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                          })
                         : 'Unpublished'}
                 </Text>
-                <Text color="gray.500" mb={4}>
+                <Text color={metaColor} mb={4}>
                     By Adam Hultman · {readingTime} min read
                 </Text>
                 {page.tags && page.tags.length > 0 && (
@@ -174,11 +177,13 @@ function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
                 <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
 
                 <Box mt={8} textAlign="center">
-                    <Link href="/blog">
-                        <Button leftIcon={<ArrowLeftIcon />}>
-                            Back to Blog List
-                        </Button>
-                    </Link>
+                    <Button
+                        as={NextLink}
+                        href="/blog"
+                        leftIcon={<ArrowLeftIcon />}
+                    >
+                        Back to Blog List
+                    </Button>
                 </Box>
             </Box>
         </>
@@ -201,26 +206,42 @@ export async function getStaticProps({
 
         const { page } = post;
 
-        let ogImageUrl = `${baseUrl}/og_blog_fallback.png`;
+        // Notion uploads are short-lived signed S3 URLs; using one as the OG /
+        // JSON-LD image means social cards 404 once the signature expires.
+        // Only durable covers (external gallery, Unsplash) are safe to share —
+        // otherwise fall back to the static image.
+        const fallbackOgImage = `${baseUrl}/og_blog_fallback.png`;
+        const isExpiringUrl = (url: string) => url.includes('amazonaws.com');
+        const ogImageUrl =
+            page.cover && !isExpiringUrl(page.cover)
+                ? page.cover
+                : fallbackOgImage;
 
-        if (page.cover) {
-            ogImageUrl = page.cover;
-        }
+        // Omit empty descriptions entirely rather than emitting empty meta /
+        // og:description tags (worse for SEO than no tag).
+        const description = page.description || undefined;
+
+        // dateModified must be >= datePublished or Rich Results rejects the
+        // schema; clamp in case a post is given a future Published date.
+        const dateModified =
+            page.publishedDate && page.last_edited_time < page.publishedDate
+                ? page.publishedDate
+                : page.last_edited_time;
 
         const postUrl = `${baseUrl}/blog/${page.id}`;
 
         const seoProps: NextSeoProps = {
             title: page.title,
-            description: page.description,
+            description,
             canonical: postUrl,
             openGraph: {
                 title: page.title,
-                description: page.description,
+                description,
                 url: postUrl,
                 type: 'article',
                 article: {
                     publishedTime: page.publishedDate || undefined,
-                    modifiedTime: page.last_edited_time,
+                    modifiedTime: dateModified,
                     authors: ['Adam Hultman'],
                     tags: page.tags,
                 },
@@ -238,8 +259,8 @@ export async function getStaticProps({
         const jsonLd: BlogPostingJsonLdData = {
             headline: page.title,
             datePublished: page.publishedDate || undefined,
-            dateModified: page.last_edited_time,
-            description: page.description,
+            dateModified,
+            description,
             image: ogImageUrl,
             url: postUrl,
         };
@@ -263,7 +284,9 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
     try {
-        const posts = await fetchNotions('blog');
+        // Prebuild all posts (default page_size is only 10), so older posts
+        // are served statically instead of cold-rendering on first visit.
+        const posts = await fetchNotions('blog', { page_size: 100 });
         const paths = posts.map((post) => ({
             params: { id: post.id },
         }));

@@ -21,10 +21,13 @@ export function getTitle(
     page: PageObjectResponse,
     defaultValue: string = 'Untitled'
 ): string {
-    if (page.properties.Name?.type === 'title') {
-        return page.properties.Name.title[0]?.plain_text || defaultValue;
-    }
-    return defaultValue;
+    // Find the title property by type rather than hardcoding the name "Name" —
+    // a renamed title column would otherwise make every post "Untitled".
+    const titleProp = Object.values(page.properties).find(
+        (prop): prop is Extract<typeof prop, { type: 'title' }> =>
+            prop.type === 'title'
+    );
+    return titleProp?.title[0]?.plain_text || defaultValue;
 }
 
 export function getCover(page: PageObjectResponse): string | null {

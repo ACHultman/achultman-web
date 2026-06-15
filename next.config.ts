@@ -69,6 +69,18 @@ module.exports = withBundleAnalyzer({
                 hostname: 's3.us-west-2.amazonaws.com',
                 pathname: '/secure.notion-static.com/**',
             },
+            // Newer Notion workspaces serve uploaded files from this host —
+            // missing it 400s uploaded covers the same way app.notion.com did.
+            {
+                protocol: 'https',
+                hostname: 'prod-files-secure.s3.us-east-1.amazonaws.com',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 's3.us-east-1.amazonaws.com',
+                pathname: '/secure.notion-static.com/**',
+            },
             {
                 protocol: 'https',
                 hostname: 'secure.notion-static.com',
@@ -99,7 +111,10 @@ module.exports = withBundleAnalyzer({
                 headers: [
                     { key: 'X-Content-Type-Options', value: 'nosniff' },
                     { key: 'X-Frame-Options', value: 'DENY' },
-                    { key: 'X-XSS-Protection', value: '1; mode=block' },
+                    {
+                        key: 'Strict-Transport-Security',
+                        value: 'max-age=63072000; includeSubDomains; preload',
+                    },
                     {
                         key: 'Referrer-Policy',
                         value: 'strict-origin-when-cross-origin',

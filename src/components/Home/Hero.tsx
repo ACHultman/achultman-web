@@ -1,5 +1,12 @@
-import { Badge, Box, Button, Flex, Heading } from '@chakra-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
+import {
+    Badge,
+    Box,
+    Button,
+    Flex,
+    Heading,
+    useColorModeValue,
+} from '@chakra-ui/react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import NextImage from 'next/image';
 
@@ -15,14 +22,21 @@ const SUBTITLES = [
 ];
 
 function TypedSubtitle() {
+    const prefersReducedMotion = useReducedMotion();
+    const subtitleColor = useColorModeValue('green.700', 'green.400');
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
+        // Don't auto-rotate for users who prefer reduced motion — an
+        // indefinitely moving text element is a WCAG 2.2.2 concern.
+        if (prefersReducedMotion) {
+            return;
+        }
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % SUBTITLES.length);
         }, 2500);
         return () => clearInterval(timer);
-    }, []);
+    }, [prefersReducedMotion]);
 
     return (
         <Box
@@ -42,7 +56,7 @@ function TypedSubtitle() {
                     <Paragraph
                         fontSize={{ base: 'lg', md: '2xl' }}
                         lineHeight={1.5}
-                        color="green.500"
+                        color={subtitleColor}
                         fontWeight="medium"
                         m={0}
                     >
@@ -119,28 +133,28 @@ function Hero() {
                 </Box>
             </Flex>
             <Flex gap={3} mt={6} wrap="wrap">
-                <Link href="#contact">
-                    <Button
-                        colorScheme="green"
-                        size={{ base: 'md', md: 'lg' }}
-                        bg="green.600"
-                        _hover={{ bg: 'green.700' }}
-                        color="white"
-                        leftIcon={<FaEnvelope />}
-                    >
-                        Say hello
-                    </Button>
-                </Link>
-                <Link href="/about">
-                    <Button
-                        size={{ base: 'md', md: 'lg' }}
-                        variant="outline"
-                        colorScheme="green"
-                        leftIcon={<FaUser />}
-                    >
-                        Read my story
-                    </Button>
-                </Link>
+                <Button
+                    as={Link}
+                    href="#contact"
+                    colorScheme="green"
+                    size={{ base: 'md', md: 'lg' }}
+                    bg="green.600"
+                    _hover={{ bg: 'green.700' }}
+                    color="white"
+                    leftIcon={<FaEnvelope />}
+                >
+                    Say hello
+                </Button>
+                <Button
+                    as={Link}
+                    href="/about"
+                    size={{ base: 'md', md: 'lg' }}
+                    variant="outline"
+                    colorScheme="green"
+                    leftIcon={<FaUser />}
+                >
+                    Read my story
+                </Button>
             </Flex>
         </motion.div>
     );

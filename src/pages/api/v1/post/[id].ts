@@ -6,6 +6,11 @@ import { pageIsPageObjectResponse } from '../../../../utils/notion';
 
 const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
 
+// Notion page IDs are UUIDs (with or without hyphens). Validate before
+// forwarding to the Notion SDK so arbitrary input doesn't reach it.
+const NOTION_ID_PATTERN =
+    /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i;
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -17,7 +22,7 @@ export default async function handler(
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    if (typeof id !== 'string') {
+    if (typeof id !== 'string' || !NOTION_ID_PATTERN.test(id)) {
         return res.status(400).json({ message: 'Invalid request' });
     }
 
