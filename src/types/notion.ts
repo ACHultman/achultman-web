@@ -21,6 +21,7 @@ export type Book = {
 
 export type BlogPost = {
     id: string;
+    slug: string;
     title: string;
     publishedDate: string | null;
     tags: string[];

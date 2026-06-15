@@ -90,7 +90,7 @@ export default function PostBox({ post }: PostBoxProps) {
                 <Heading as="h2" size="md" mb={2} lineHeight={1.4}>
                     <LinkOverlay
                         as={NextLink}
-                        href={`/blog/${post.id}`}
+                        href={`/blog/${post.slug}`}
                         className="post-title-link"
                         transition="color 0.2s"
                     >

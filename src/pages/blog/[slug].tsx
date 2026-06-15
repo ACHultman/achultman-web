@@ -24,11 +24,18 @@ import { useEffect } from 'react';
 
 import RenderBlocks from '../../components/RenderBlocks';
 import BlogPostingJsonLd from '../../components/BlogPostingJsonLd';
+import BreadcrumbJsonLd from '../../components/BreadcrumbJsonLd';
+import RelatedPosts from '../../components/Blog/RelatedPosts';
 import { fetchNotion, fetchNotions } from '../../services/notion';
-import { NotionPageWithBlocks } from '../../types/notion';
+import {
+    BlogPost as BlogPostType,
+    NotionPageWithBlocks,
+} from '../../types/notion';
 import { estimateReadingTime } from '../../utils/readingTime';
 import { getBaseUrl } from '../../utils/baseUrl';
 import { formatNotionDate } from '../../utils/date';
+import { isNotionId } from '../../utils/slug';
+import { getRelatedPosts } from '../../utils/relatedPosts';
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -45,14 +52,28 @@ interface BlogPostingJsonLdData {
     url: string;
 }
 
+interface BreadcrumbItem {
+    name: string;
+    url: string;
+}
+
 interface Props {
     post: NotionPageWithBlocks<'blog'>;
     seo: NextSeoProps;
     jsonLd: BlogPostingJsonLdData;
     readingTime: number;
+    breadcrumb: BreadcrumbItem[];
+    relatedPosts: BlogPostType[];
 }
 
-function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
+function BlogPost({
+    post,
+    seo,
+    jsonLd,
+    readingTime,
+    breadcrumb,
+    relatedPosts,
+}: Props) {
     const metaColor = useColorModeValue('gray.600', 'gray.400');
 
     useEffect(() => {
@@ -111,6 +132,7 @@ function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
         <>
             <NextSeo {...seo} />
             {jsonLd && <BlogPostingJsonLd {...jsonLd} />}
+            <BreadcrumbJsonLd items={breadcrumb} />
             <Box
                 as="article"
                 className={roboto.className}
@@ -176,6 +198,8 @@ function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
                 {/* Notion API client and block renderer do not have identical types */}
                 <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
 
+                <RelatedPosts posts={relatedPosts} />
+
                 <Box mt={8} textAlign="center">
                     <Button
                         as={NextLink}
@@ -192,30 +216,49 @@ function BlogPost({ post, seo, jsonLd, readingTime }: Props) {
 
 export async function getStaticProps({
     params,
-}: GetStaticPropsContext<{ id: string }>) {
-    const { id } = params!;
+}: GetStaticPropsContext<{ slug: string }>) {
+    const { slug } = params!;
 
     const baseUrl = getBaseUrl();
 
     try {
-        const post = await fetchNotion('blog', id);
+        // Back-compat: old /blog/<uuid> links 301 to the post's slug URL.
+        // Only published posts redirect — drafts reached by id 404.
+        if (isNotionId(slug)) {
+            const byId = await fetchNotion('blog', slug);
+            if (byId?.page?.publishedDate) {
+                return {
+                    redirect: {
+                        destination: `/blog/${byId.page.slug}`,
+                        permanent: true,
+                    },
+                };
+            }
+            return { notFound: true };
+        }
 
+        // Resolve the slug via the published-only listing. This doubles as
+        // draft protection: unpublished posts aren't in the listing, so their
+        // slugs simply 404.
+        const allPosts = await fetchNotions('blog', { page_size: 100 });
+        const match = allPosts.find((candidate) => candidate.slug === slug);
+        if (!match) {
+            return { notFound: true };
+        }
+
+        const post = await fetchNotion('blog', match.id);
         if (!post || !post.page) {
             return { notFound: true };
         }
 
         const { page } = post;
+        const postUrl = `${baseUrl}/blog/${page.slug}`;
 
-        // Notion uploads are short-lived signed S3 URLs; using one as the OG /
-        // JSON-LD image means social cards 404 once the signature expires.
-        // Only durable covers (external gallery, Unsplash) are safe to share —
-        // otherwise fall back to the static image.
-        const fallbackOgImage = `${baseUrl}/og_blog_fallback.png`;
-        const isExpiringUrl = (url: string) => url.includes('amazonaws.com');
-        const ogImageUrl =
-            page.cover && !isExpiringUrl(page.cover)
-                ? page.cover
-                : fallbackOgImage;
+        // Always use a generated, branded share card. It's reliable (never
+        // expires like Notion signed URLs) and consistent across every post.
+        const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(
+            page.title
+        )}`;
 
         // Omit empty descriptions entirely rather than emitting empty meta /
         // og:description tags (worse for SEO than no tag).
@@ -227,8 +270,6 @@ export async function getStaticProps({
             page.publishedDate && page.last_edited_time < page.publishedDate
                 ? page.publishedDate
                 : page.last_edited_time;
-
-        const postUrl = `${baseUrl}/blog/${page.id}`;
 
         const seoProps: NextSeoProps = {
             title: page.title,
@@ -265,6 +306,14 @@ export async function getStaticProps({
             url: postUrl,
         };
 
+        const breadcrumb = [
+            { name: 'Home', url: `${baseUrl}/` },
+            { name: 'Blog', url: `${baseUrl}/blog` },
+            { name: page.title, url: postUrl },
+        ];
+
+        const relatedPosts = getRelatedPosts(match, allPosts);
+
         const readingTime = estimateReadingTime(post.blocks.results);
 
         return {
@@ -273,11 +322,13 @@ export async function getStaticProps({
                 seo: seoProps,
                 jsonLd,
                 readingTime,
+                breadcrumb,
+                relatedPosts,
             },
             revalidate: 3600,
         };
     } catch (error) {
-        console.error(`Error fetching blog post with id ${id}:`, error);
+        console.error(`Error fetching blog post with slug ${slug}:`, error);
         return { notFound: true };
     }
 }
@@ -287,9 +338,18 @@ export async function getStaticPaths() {
         // Prebuild all posts (default page_size is only 10), so older posts
         // are served statically instead of cold-rendering on first visit.
         const posts = await fetchNotions('blog', { page_size: 100 });
-        const paths = posts.map((post) => ({
-            params: { id: post.id },
-        }));
+
+        // Dedupe by slug so colliding title-derived slugs don't produce
+        // duplicate paths (which would fail the build).
+        const seen = new Set<string>();
+        const paths = [];
+        for (const post of posts) {
+            if (seen.has(post.slug)) {
+                continue;
+            }
+            seen.add(post.slug);
+            paths.push({ params: { slug: post.slug } });
+        }
 
         return {
             paths,
