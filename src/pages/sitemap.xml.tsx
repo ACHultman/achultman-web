@@ -14,7 +14,7 @@ function Sitemap() {
 // happens to be requested. False daily updates waste crawl attention and make
 // the signal less useful to search engines.
 const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
-    { path: '', lastmod: '2026-09-04' },
+    { path: '', lastmod: '2026-09-05' },
     { path: '/about', lastmod: '2026-09-04' },
     { path: '/privacy', lastmod: '2026-09-04' },
     { path: '/blog', lastmod: '2026-06-15' },
