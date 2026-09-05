@@ -24,6 +24,9 @@ test.describe('Home page', () => {
             })
         ).toBeVisible();
         await expect(page.getByText('The 30-day pilot')).toBeVisible();
+        await expect(
+            page.getByText(/ongoing product work starts at \$5,000 per month/i)
+        ).toBeVisible();
 
         // Contact section
         await expect(page.locator('#contact')).toBeAttached();

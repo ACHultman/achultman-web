@@ -181,9 +181,12 @@ function Home() {
                             USD, 30 days, one defined workflow
                         </Text>
                         <Text mt={6} color={offerMuted} lineHeight="1.7">
-                            At the end, we review the numbers together. Continue
-                            only if the next month is worth it. You keep the
-                            code and operating notes.
+                            At the end, we review the numbers together. If the
+                            pilot proves useful, ongoing product work starts at
+                            $5,000 per month. I keep improving the tool,
+                            watching failures and adapting it as the surrounding
+                            systems change. The agreement stays month to month,
+                            and you keep the code and operating notes.
                         </Text>
                         <Button
                             as={Link}

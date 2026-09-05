@@ -61,7 +61,7 @@ const serviceSchema = {
     serviceType: 'AI workflow automation consulting and product engineering',
     url: `${SITE_URL}/#offer`,
     description:
-        'A fixed 30-day engagement to build and test a small AI tool around one costly manual workflow.',
+        'A fixed 30-day engagement to build and test a small AI tool around one costly manual workflow. Ongoing product work is offered month to month after a useful pilot.',
     provider: {
         '@type': 'Person',
         name: 'Adam Hultman',
