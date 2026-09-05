@@ -6,10 +6,11 @@ interface Props {
     type?: 'empty';
 }
 
-function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
+function Message({ message = 'No items yet.', type = 'empty' }: Props) {
     const Icon = type === 'empty' ? FaClock : FaInfo;
-    const borderColor = useColorModeValue('gray.100', 'gray.700');
-    const textColor = useColorModeValue('gray.600', 'gray.400');
+    const borderColor = useColorModeValue('paper.200', 'ink.700');
+    const textColor = useColorModeValue('ink.700', 'paper.200');
+    const iconColor = useColorModeValue('moss.700', 'moss.200');
 
     return (
         <Box
@@ -22,7 +23,7 @@ function Message({ message = 'Such an empty place!', type = 'empty' }: Props) {
             p={4}
             borderRadius="lg"
         >
-            <Icon style={{ color: 'currentcolor' }} />
+            <Box as={Icon} color={iconColor} />
             <Text color={textColor} fontSize="lg" ml={2}>
                 {message}
             </Text>

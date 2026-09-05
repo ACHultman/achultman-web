@@ -1,48 +1,45 @@
-import { Container, Flex, Link } from '@chakra-ui/react';
-import { Roboto_Mono } from 'next/font/google';
+import { Box, Container, Flex, Link as ChakraLink } from '@chakra-ui/react';
+import { Fraunces, Manrope } from 'next/font/google';
 import { PropsWithChildren } from 'react';
+
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-const robotoMono = Roboto_Mono({
+const manrope = Manrope({
     subsets: ['latin'],
     display: 'swap',
+    variable: '--font-body',
+});
+
+const fraunces = Fraunces({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-display',
 });
 
 function Layout({ children }: PropsWithChildren) {
     return (
-        <Container maxW="container.xl" className={robotoMono.className} px={0}>
-            <Link
-                href="#main"
-                position="absolute"
-                left="-9999px"
-                _focus={{
-                    left: '50%',
-                    top: '8px',
-                    transform: 'translateX(-50%)',
-                    zIndex: 'skipLink',
-                    px: 4,
-                    py: 2,
-                    bg: 'green.600',
-                    color: 'white',
-                    borderRadius: 'md',
-                }}
-            >
+        <Box
+            className={`site-shell ${manrope.variable} ${fraunces.variable}`}
+            minH="100dvh"
+        >
+            <ChakraLink className="skip-link" href="#main">
                 Skip to content
-            </Link>
-            <Flex alignItems="center" flexDirection="column">
+            </ChakraLink>
+            <Flex alignItems="center" flexDirection="column" minH="100dvh">
                 <Navbar />
                 <Container
-                    as="main"
                     id="main"
+                    as="main"
                     maxW="container.xl"
-                    mt={{ base: '80px', md: '106px' }}
+                    px={0}
+                    flex="1"
                 >
                     {children}
                 </Container>
                 <Footer />
             </Flex>
-        </Container>
+        </Box>
     );
 }
 

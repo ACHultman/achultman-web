@@ -1,29 +1,37 @@
+import { Box, Button, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
-import { Box, Heading, Text, Button } from '@chakra-ui/react';
-import { MdHome } from 'react-icons/md';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function Custom404() {
+    const muted = useColorModeValue('ink.600', 'paper.300');
+
     return (
         <Box
             display="flex"
             flexDirection="column"
-            alignItems="center"
+            alignItems="flex-start"
             justifyContent="center"
-            height="64vh"
-            textAlign="center"
-            p={4}
+            minH="64vh"
+            maxW="760px"
+            px={{ base: 4, md: 8 }}
         >
-            <Heading as="h1" size="2xl" mb={4}>
-                404 - Page Not Found
+            <Text className="section-label">404 · wrong turn</Text>
+            <Heading as="h1" mt={4} fontSize={{ base: '54px', md: '76px' }}>
+                This path ends here.
             </Heading>
-            <Text fontSize="lg" mb={6}>
-                Oops! The page you&apos;re looking for doesn&apos;t exist.
+            <Text fontSize={{ base: 'lg', md: 'xl' }} color={muted} mt={5} mb={8}>
+                The page may have moved, or the link may never have existed.
             </Text>
-            <Link href="/">
-                <Button colorScheme="green" leftIcon={<MdHome />}>
-                    Go back home
-                </Button>
-            </Link>
+            <Button
+                as={Link}
+                href="/"
+                leftIcon={<FaArrowLeft size="12px" />}
+                bg="ink.900"
+                color="paper.50"
+                _hover={{ bg: 'moss.700', textDecoration: 'none' }}
+            >
+                Back to the homepage
+            </Button>
         </Box>
     );
 }

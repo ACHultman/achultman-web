@@ -1,5 +1,5 @@
 import '../main.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
@@ -31,6 +31,25 @@ interface MyAppProps extends AppProps {
     emotionCache?: EmotionCache;
 }
 
+function SiteTelemetry() {
+    const [shouldLoad, setShouldLoad] = useState(false);
+
+    useEffect(() => {
+        setShouldLoad(
+            !['localhost', '127.0.0.1'].includes(window.location.hostname)
+        );
+    }, []);
+
+    if (!shouldLoad) return null;
+
+    return (
+        <>
+            <Analytics />
+            <SpeedInsights />
+        </>
+    );
+}
+
 function MyApp({
     Component,
     pageProps,
@@ -41,8 +60,7 @@ function MyApp({
     return (
         <CacheProvider value={emotionCache}>
             <DefaultSeo {...SEO} />
-            <Analytics />
-            <SpeedInsights />
+            <SiteTelemetry />
             <ChakraProvider theme={theme} colorModeManager={colorModeManager}>
                 <ErrorBoundary>
                     <Layout>

@@ -1,94 +1,87 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+}
+
+.site-shell {
+    font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.site-shell .chakra-heading {
+    font-family: var(--font-display), Georgia, serif;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.028;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.62'/%3E%3C/svg%3E");
+}
+
 *::-webkit-scrollbar {
-    width: 0.4rem;
+    width: 0.45rem;
 }
 
 *::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgb(148, 152, 160);
-    border-radius: 2rem;
+    background: #eee9dc;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #38a169;
-    outline: 1px solid slategrey;
-    border-radius: 2rem;
+    background: #687b57;
+    border-radius: 1rem;
 }
 
-a:hover {
-    text-decoration: underline;
+a {
+    text-underline-offset: 4px;
 }
 
-.logo {
-    position: relative;
-    cursor: pointer;
-    transition: transform 200ms;
+.site-shell .skip-link {
+    position: fixed !important;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 1500;
+    padding: 0.65rem 0.9rem;
+    background: #1d211b !important;
+    color: #f7f4ec !important;
+    border-radius: 4px;
+    transform: translateY(-160%);
+    transition: transform 160ms ease;
 }
 
-.logo:hover {
-    transform: scale(0.9);
+.site-shell .skip-link:focus {
+    transform: translateY(0);
 }
 
-.logo:active {
-    transform: scale(0.8);
+.section-label {
+    color: #536647;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
 }
 
-/* Inner cricle  */
+.section-label--light {
+    color: #bdcbaa;
+}
 
-.logo::before {
-    content: '';
-    display: inline-block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.organic-ring {
     position: absolute;
-    height: 30px;
-    width: 30px;
-    opacity: 0;
-    background: linear-gradient(#38a1692a, #38a16904);
-    border-radius: 50%;
-    transition: all 250ms;
-}
-
-.logo:hover::before {
-    height: 60px;
-    width: 60px;
-    opacity: 1;
-    transition: all 250ms;
-}
-
-/* Outter cricle  */
-
-.logo::after {
-    content: '';
-    display: inline-block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    opacity: 0;
-    border-width: thin;
-    border: 1px #38a169d7;
-    border-style: dashed;
-    border-radius: 50%;
-    transition: all 250ms;
-}
-
-.logo:hover::after {
-    height: 72px;
-    width: 72px;
-    opacity: 1;
-    transition: 250ms;
-    animation: spin 10s infinite linear;
-}
-
-@keyframes spin {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
+    width: 30rem;
+    height: 30rem;
+    right: -12rem;
+    top: -16rem;
+    border: 1px solid rgba(189, 203, 170, 0.18);
+    border-radius: 47% 53% 44% 56% / 56% 42% 58% 44%;
+    box-shadow:
+        0 0 0 4rem rgba(189, 203, 170, 0.025),
+        0 0 0 8rem rgba(189, 203, 170, 0.018);
+    transform: rotate(12deg);
 }
 
 .progress-bar {
@@ -96,19 +89,15 @@ a:hover {
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: var(--chakra-colors-green-500); /* Or your desired color */
-    transform-origin: 0%;
-    z-index: var(--chakra-zIndices-banner); /* Or a high z-index */
+    z-index: var(--chakra-zIndices-banner);
+    height: 3px;
+    background: #687b57;
     transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: 0%;
 }
 
-/* blog */
-
-.blog-postbox:hover {
-    *:hover {
-        text-decoration: none;
-    }
+.blog-postbox:hover * {
+    text-decoration: none;
 }
 
 .rnr-container {
@@ -118,8 +107,8 @@ a:hover {
 
 .rnr-container h1,
 .rnr-container h2 {
+    border-bottom: 1px dotted #687b57;
     text-decoration: none;
-    border-bottom: 1px dotted #38a169;
 }
 
 .rnr-container p,
@@ -154,12 +143,16 @@ a:hover {
    transitions (e.g. the infinitely spinning logo). JS-driven animations are
    gated separately via framer-motion's useReducedMotion. */
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
     *,
     *::before,
     *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
     }
 }

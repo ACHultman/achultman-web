@@ -1,86 +1,308 @@
-import { Button, Divider, Flex, Text, VStack } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
+import {
+    Box,
+    Button,
+    Flex,
+    Grid,
+    Heading,
+    Link as ChakraLink,
+    Text,
+    useColorModeValue,
+    VStack,
+} from '@chakra-ui/react';
 import Link from 'next/link';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaCheck } from 'react-icons/fa';
 
-import Hero from './Hero';
+import Contact from '../Contact';
+import { captureLeadIntent } from '../../lib/analytics';
 import FeaturedWork from './FeaturedWork';
-import ChatPlaceholder from '../Chat/ChatPlaceholder';
-import SectionHeading from '../SectionHeading';
-import Paragraph from '../Paragraph';
+import Hero from './Hero';
 
-const Timeline = dynamic(() => import('./Timeline'), { ssr: false });
-const GitTimeline = dynamic(() => import('./GitTimeline'), { ssr: false });
+const FIT_SIGNALS = [
+    'Your team repeats the same judgement-heavy work every week.',
+    'The workflow crosses spreadsheets, inboxes and a system of record.',
+    'Your current software handles the easy cases. People still close the gap.',
+    'You can name an owner and measure the hours, delay or risk involved.',
+];
 
-const Chat = dynamic(() => import('@components/Chat'), {
-    ssr: false,
-    loading: () => <ChatPlaceholder />,
-});
-const Contact = dynamic(() => import('@components/Contact'));
-
-function ChatIntro() {
-    return (
-        <VStack align="start" w="100%" spacing={1}>
-            <SectionHeading textAlign="left" my={2}>
-                Ask me anything about Adam
-            </SectionHeading>
-            <Paragraph color="subtle">
-                I&apos;m an AI trained on Adam&apos;s career, projects, and
-                opinions. Recruiters, engineers, managers — I&apos;ve got
-                answers.
-            </Paragraph>
-        </VStack>
-    );
-}
+const PILOT_STEPS = [
+    {
+        number: '01',
+        title: 'Watch the work',
+        detail: 'Walk through the workflow with the people who run it. Record the edge cases and establish a baseline.',
+    },
+    {
+        number: '02',
+        title: 'Build the first working version',
+        detail: 'Connect the tools you already use. Keep a person in control of high-risk decisions.',
+    },
+    {
+        number: '03',
+        title: "Put it in the team's hands",
+        detail: 'Start with a small user group. Track failures and compare the result with the baseline.',
+    },
+];
 
 function Home() {
+    const muted = useColorModeValue('ink.600', 'paper.300');
+    const surface = useColorModeValue('paper.100', 'ink.900');
+    const border = useColorModeValue('paper.200', 'ink.700');
+    const darkPanel = useColorModeValue('ink.900', 'ink.950');
+
     return (
-        <VStack
-            spacing={{ base: 6, md: 10 }}
-            align="center"
-            justify="center"
-            w="100%"
-            divider={<Divider />}
-        >
+        <Box w="100%">
             <Hero />
-            <ChatIntro />
-            <Chat />
-            <Flex justify="center" w="100%" py={2}>
-                <Button
-                    as={Link}
-                    href="#contact"
-                    variant="ghost"
-                    colorScheme="green"
-                    rightIcon={<FaArrowRight />}
-                    size="sm"
+
+            <Box
+                as="section"
+                id="fit"
+                py={{ base: 16, md: 24 }}
+                borderTop="1px solid"
+                borderColor={border}
+            >
+                <Grid
+                    templateColumns={{ base: '1fr', lg: '0.8fr 1.2fr' }}
+                    gap={{ base: 10, lg: 20 }}
                 >
-                    Want to talk to the real Adam?
-                </Button>
-            </Flex>
+                    <Box>
+                        <Text className="section-label">Who this is for</Text>
+                        <Heading
+                            as="h2"
+                            mt={4}
+                            fontSize={{ base: '42px', md: '58px' }}
+                            lineHeight="1"
+                        >
+                            You can point to the work that keeps getting stuck.
+                        </Heading>
+                        <Text
+                            mt={7}
+                            color={muted}
+                            lineHeight="1.75"
+                            maxW="520px"
+                        >
+                            I work best with B2B software and service teams of
+                            15–150 people. They have enough process for the
+                            manual work to hurt, and they can still make a
+                            decision quickly.
+                        </Text>
+                    </Box>
+
+                    <VStack align="stretch" spacing={0}>
+                        {FIT_SIGNALS.map((signal) => (
+                            <Flex
+                                key={signal}
+                                gap={5}
+                                py={6}
+                                borderBottom="1px solid"
+                                borderColor={border}
+                                align="flex-start"
+                            >
+                                <Box
+                                    mt="3px"
+                                    w="26px"
+                                    h="26px"
+                                    flexShrink={0}
+                                    display="grid"
+                                    placeItems="center"
+                                    borderRadius="50%"
+                                    bg={surface}
+                                    color="moss.600"
+                                >
+                                    <FaCheck size="10px" />
+                                </Box>
+                                <Text fontSize={{ base: 'lg', md: 'xl' }}>
+                                    {signal}
+                                </Text>
+                            </Flex>
+                        ))}
+                    </VStack>
+                </Grid>
+            </Box>
+
             <FeaturedWork />
-            <Flex direction="column" align="center" w="100%" py={2} gap={1}>
-                <Text fontSize="sm" color="gray.600">
-                    Interested in working together?
-                </Text>
-                <Button
-                    as={Link}
-                    href="#contact"
-                    variant="outline"
-                    colorScheme="green"
-                    rightIcon={<FaArrowRight />}
-                    size="sm"
+
+            <Box
+                as="section"
+                id="offer"
+                bg={darkPanel}
+                color="paper.50"
+                mx={{ base: -4, md: -8 }}
+                px={{ base: 6, md: 12, lg: 16 }}
+                py={{ base: 14, md: 20 }}
+                borderRadius={{ base: '0', md: '4px 52px 4px 52px' }}
+                position="relative"
+                overflow="hidden"
+            >
+                <Box className="organic-ring" aria-hidden="true" />
+                <Grid
+                    templateColumns={{ base: '1fr', lg: '1.05fr 0.95fr' }}
+                    gap={{ base: 12, lg: 20 }}
+                    position="relative"
                 >
-                    Get in touch
-                </Button>
-            </Flex>
-            <Flex justifyContent="center">
-                <GitTimeline />
-                <Timeline />
-            </Flex>
-            <section id="contact">
+                    <Box>
+                        <Text className="section-label section-label--light">
+                            The 30-day pilot
+                        </Text>
+                        <Heading
+                            as="h2"
+                            mt={4}
+                            fontSize={{ base: '44px', md: '62px' }}
+                            maxW="620px"
+                            color="paper.50"
+                        >
+                            Start with one month of work.
+                        </Heading>
+                        <Text
+                            mt={7}
+                            maxW="570px"
+                            color="paper.300"
+                            lineHeight="1.75"
+                            fontSize="lg"
+                        >
+                            Bring one workflow. I&apos;ll build the smallest
+                            version your team can use within a month, then
+                            measure whether it saves enough work to continue.
+                        </Text>
+                    </Box>
+
+                    <Box
+                        borderTop="1px solid"
+                        borderBottom="1px solid"
+                        borderColor="whiteAlpha.300"
+                        py={8}
+                        alignSelf="end"
+                    >
+                        <Flex justify="space-between" gap={4} align="baseline">
+                            <Text fontWeight="600">Fixed pilot</Text>
+                            <Text
+                                fontFamily="heading"
+                                fontSize={{ base: '3xl', md: '4xl' }}
+                            >
+                                from $5,000
+                            </Text>
+                        </Flex>
+                        <Text mt={2} color="paper.300" fontSize="sm">
+                            USD · 30 days · one defined workflow
+                        </Text>
+                        <Text mt={6} color="paper.200" lineHeight="1.7">
+                            At the end, we review the numbers together. Continue
+                            only if the next month is worth it. You keep the
+                            code and operating notes.
+                        </Text>
+                        <Button
+                            as={Link}
+                            href="#contact"
+                            onClick={() => captureLeadIntent('offer')}
+                            mt={7}
+                            rightIcon={<FaArrowRight size="12px" />}
+                            bg="paper.50"
+                            color="ink.900"
+                            _hover={{
+                                bg: 'moss.200',
+                                transform: 'translateY(-2px)',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            Send the workflow
+                        </Button>
+                    </Box>
+                </Grid>
+            </Box>
+
+            <Box as="section" id="process" py={{ base: 16, md: 24 }}>
+                <Grid
+                    templateColumns={{ base: '1fr', lg: '0.8fr 1.2fr' }}
+                    gap={{ base: 10, lg: 20 }}
+                >
+                    <Box>
+                        <Text className="section-label">
+                            How the month works
+                        </Text>
+                        <Heading
+                            as="h2"
+                            mt={4}
+                            fontSize={{ base: '42px', md: '58px' }}
+                        >
+                            Four weeks with the people doing the work.
+                        </Heading>
+                    </Box>
+                    <VStack align="stretch" spacing={0}>
+                        {PILOT_STEPS.map((step) => (
+                            <Grid
+                                key={step.number}
+                                templateColumns="42px 1fr"
+                                gap={4}
+                                py={7}
+                                borderBottom="1px solid"
+                                borderColor={border}
+                            >
+                                <Text
+                                    color="moss.600"
+                                    fontSize="sm"
+                                    fontWeight="700"
+                                    sx={{ fontVariantNumeric: 'tabular-nums' }}
+                                >
+                                    {step.number}
+                                </Text>
+                                <Box>
+                                    <Heading as="h3" fontSize="2xl">
+                                        {step.title}
+                                    </Heading>
+                                    <Text mt={2} color={muted} lineHeight="1.7">
+                                        {step.detail}
+                                    </Text>
+                                </Box>
+                            </Grid>
+                        ))}
+                    </VStack>
+                </Grid>
+            </Box>
+
+            <Box
+                as="section"
+                py={{ base: 14, md: 20 }}
+                borderTop="1px solid"
+                borderColor={border}
+            >
+                <Grid
+                    templateColumns={{ base: '1fr', md: '1fr 1fr' }}
+                    gap={{ base: 8, md: 16 }}
+                    alignItems="end"
+                >
+                    <Heading
+                        as="h2"
+                        fontSize={{ base: '38px', md: '50px' }}
+                        maxW="580px"
+                    >
+                        I still write the code.
+                    </Heading>
+                    <Box>
+                        <Text color={muted} lineHeight="1.75">
+                            I&apos;m Adam. I have spent six years building
+                            software for media and residential electrification,
+                            plus a fair amount of applied AI. I studied security
+                            and privacy at UVic, and I still like working
+                            directly with the people who use what I build.
+                        </Text>
+                        <ChakraLink
+                            as={Link}
+                            href="/about"
+                            display="inline-flex"
+                            alignItems="center"
+                            gap={2}
+                            mt={5}
+                            fontWeight="700"
+                            color="moss.700"
+                        >
+                            More about Adam <FaArrowRight size="11px" />
+                        </ChakraLink>
+                    </Box>
+                </Grid>
+            </Box>
+
+            <Box id="contact" scrollMarginTop="110px">
                 <Contact />
-            </section>
-        </VStack>
+            </Box>
+        </Box>
     );
 }
 

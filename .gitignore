@@ -37,6 +37,9 @@ yarn-error.log*
 # email
 signature.html
 
+# private client-acquisition workspace (the repository is public)
+/growth/
+
 # playwright
 test-results/
 # Sentry
