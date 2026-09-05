@@ -1,24 +1,21 @@
 import { GetStaticPropsContext } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
-import { Roboto } from 'next/font/google';
 import {
     Alert,
     AlertIcon,
     Box,
-    Button,
     Center,
     Container,
     Divider,
     Heading,
+    Link,
     Stack,
-    Tag,
     Text,
     VStack,
     useColorModeValue,
 } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
-import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 import { useEffect } from 'react';
 
@@ -36,12 +33,10 @@ import { getBaseUrl } from '../../utils/baseUrl';
 import { formatNotionDate } from '../../utils/date';
 import { isNotionId } from '../../utils/slug';
 import { getRelatedPosts } from '../../utils/relatedPosts';
-
-const roboto = Roboto({
-    subsets: ['latin'],
-    weight: ['400', '500', '700'],
-    preload: true,
-});
+import {
+    isEditorialBlogPost,
+    isRetiredBlogSlug,
+} from '../../utils/editorialBlog';
 
 interface BlogPostingJsonLdData {
     headline: string;
@@ -64,6 +59,7 @@ interface Props {
     readingTime: number;
     breadcrumb: BreadcrumbItem[];
     relatedPosts: BlogPostType[];
+    archived: boolean;
 }
 
 function BlogPost({
@@ -73,8 +69,10 @@ function BlogPost({
     readingTime,
     breadcrumb,
     relatedPosts,
+    archived,
 }: Props) {
     const metaColor = useColorModeValue('gray.600', 'gray.400');
+    const ruleColor = useColorModeValue('gray.300', 'gray.700');
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -112,13 +110,9 @@ function BlogPost({
                                 Sorry, this post could not be found. Please try
                                 again later.
                             </Alert>
-                            <Button
-                                as={NextLink}
-                                href="/blog"
-                                leftIcon={<ArrowLeftIcon />}
-                            >
-                                Back to blog
-                            </Button>
+                            <Link as={NextLink} href="/blog" color="green.600">
+                                Back to working notes
+                            </Link>
                         </VStack>
                     </Center>
                 </Container>
@@ -135,45 +129,73 @@ function BlogPost({
             <BreadcrumbJsonLd items={breadcrumb} />
             <Box
                 as="article"
-                className={roboto.className}
-                p={[2, 4]}
+                maxW="760px"
+                mx="auto"
+                px={{ base: 5, md: 8 }}
+                py={{ base: 8, md: 14 }}
                 css={{ position: 'relative' }}
             >
                 <div className="progress-bar" />
 
                 <Heading
                     as="h1"
-                    fontSize={{ base: '28px', md: '32px', lg: '36px' }}
-                    mb={4}
+                    fontSize={{ base: '38px', md: '52px' }}
+                    lineHeight="1.04"
+                    letterSpacing="-0.04em"
+                    mb={6}
+                    sx={{ textWrap: 'balance' }}
                 >
                     {page.title}
                 </Heading>
-                <Text
-                    as="time"
-                    dateTime={page.publishedDate || undefined}
+                <Stack
+                    direction={{ base: 'column', sm: 'row' }}
+                    spacing={{ base: 1, sm: 3 }}
                     color={metaColor}
-                    mb={2}
-                    display="block"
+                    fontSize="sm"
+                    mb={6}
                 >
-                    {page.publishedDate
-                        ? formatNotionDate(page.publishedDate, {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                          })
-                        : 'Unpublished'}
-                </Text>
-                <Text color={metaColor} mb={4}>
-                    By Adam Hultman · {readingTime} min read
-                </Text>
-                {page.tags && page.tags.length > 0 && (
-                    <Stack wrap="wrap" direction="row" spacing={2} mb={4}>
-                        {page.tags.map((tag) => (
-                            <Tag key={tag} colorScheme="green">
-                                {tag}
-                            </Tag>
-                        ))}
-                    </Stack>
+                    <Text as="time" dateTime={page.publishedDate || undefined}>
+                        {page.publishedDate
+                            ? formatNotionDate(page.publishedDate, {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                              })
+                            : 'Unpublished'}
+                    </Text>
+                    <Text
+                        aria-hidden="true"
+                        display={{ base: 'none', sm: 'block' }}
+                    >
+                        ·
+                    </Text>
+                    <Text>{readingTime} min read</Text>
+                    {page.tags && page.tags.length > 0 && (
+                        <>
+                            <Text
+                                aria-hidden="true"
+                                display={{ base: 'none', sm: 'block' }}
+                            >
+                                ·
+                            </Text>
+                            <Text>{page.tags.join(' · ')}</Text>
+                        </>
+                    )}
+                </Stack>
+                {archived && (
+                    <Box
+                        borderLeftWidth="2px"
+                        borderColor="green.500"
+                        pl={4}
+                        py={1}
+                        mb={8}
+                    >
+                        <Text color={metaColor} fontSize="sm" lineHeight="1.7">
+                            Archived note. This page remains available for old
+                            links, but it is no longer part of the edited
+                            collection.
+                        </Text>
+                    </Box>
                 )}
                 {page.cover && (
                     <Box
@@ -181,7 +203,7 @@ function BlogPost({
                         width="100%"
                         height={{ base: '300px', md: '400px' }}
                         mb={6}
-                        borderRadius="md"
+                        borderRadius="sm"
                         overflow="hidden"
                     >
                         <NextImage
@@ -193,21 +215,22 @@ function BlogPost({
                         />
                     </Box>
                 )}
-                <Divider my={6} />
+                <Divider my={8} borderColor={ruleColor} />
 
                 {/* Notion API client and block renderer do not have identical types */}
                 <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
 
                 <RelatedPosts posts={relatedPosts} />
 
-                <Box mt={8} textAlign="center">
-                    <Button
+                <Box mt={12}>
+                    <Link
                         as={NextLink}
                         href="/blog"
-                        leftIcon={<ArrowLeftIcon />}
+                        color="green.600"
+                        fontWeight="600"
                     >
-                        Back to Blog List
-                    </Button>
+                        ← Back to working notes
+                    </Link>
                 </Box>
             </Box>
         </>
@@ -275,6 +298,7 @@ export async function getStaticProps({
             title: page.title,
             description,
             canonical: postUrl,
+            noindex: isRetiredBlogSlug(page.slug),
             openGraph: {
                 title: page.title,
                 description,
@@ -312,7 +336,10 @@ export async function getStaticProps({
             { name: page.title, url: postUrl },
         ];
 
-        const relatedPosts = getRelatedPosts(match, allPosts);
+        const relatedPosts = getRelatedPosts(
+            match,
+            allPosts.filter(isEditorialBlogPost)
+        );
 
         const readingTime = estimateReadingTime(post.blocks.results);
 
@@ -324,6 +351,7 @@ export async function getStaticProps({
                 readingTime,
                 breadcrumb,
                 relatedPosts,
+                archived: isRetiredBlogSlug(page.slug),
             },
             revalidate: 3600,
         };

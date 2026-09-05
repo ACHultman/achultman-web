@@ -1,14 +1,11 @@
 import {
     Box,
-    Flex,
+    Grid,
     Heading,
     Text,
-    Tag,
-    HStack,
     useColorModeValue,
     LinkBox,
     LinkOverlay,
-    Badge,
 } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
@@ -21,8 +18,7 @@ interface FeaturedPostProps {
 }
 
 export default function FeaturedPost({ post }: FeaturedPostProps) {
-    const bg = useColorModeValue('white', 'gray.800');
-    const border = useColorModeValue('gray.200', 'gray.700');
+    const border = useColorModeValue('gray.300', 'gray.700');
     const dateColor = useColorModeValue('gray.600', 'gray.400');
     const descColor = useColorModeValue('gray.700', 'gray.300');
     const titleHover = useColorModeValue('green.700', 'green.400');
@@ -40,28 +36,31 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
         <LinkBox
             as="article"
             onClick={handlePostClick}
-            bg={bg}
-            borderWidth="1px"
+            borderTopWidth="1px"
+            borderBottomWidth="1px"
             borderColor={border}
-            borderRadius="xl"
-            overflow="hidden"
-            transition="all 0.25s ease"
+            py={{ base: 5, md: 6 }}
             _hover={{
-                boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
-                transform: 'translateY(-3px)',
                 '.featured-title-link': {
                     color: titleHover,
                 },
             }}
         >
-            <Flex direction={{ base: 'column', md: 'row' }}>
+            <Grid
+                templateColumns={{
+                    base: '1fr',
+                    md: 'minmax(0, 0.95fr) minmax(0, 1.05fr)',
+                }}
+                gap={{ base: 6, md: 8 }}
+                alignItems="center"
+            >
                 {post.cover && (
                     <Box
                         position="relative"
-                        width={{ base: '100%', md: '45%' }}
-                        minH={{ base: '200px', md: '280px' }}
-                        flexShrink={0}
+                        width="100%"
+                        minH={{ base: '220px', md: '310px' }}
                         overflow="hidden"
+                        borderRadius="md"
                     >
                         <NextImage
                             src={post.cover}
@@ -70,30 +69,31 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                             style={{ objectFit: 'cover' }}
                             placeholder="empty"
                             priority
-                            sizes="(max-width: 768px) 100vw, 45vw"
+                            sizes="(max-width: 768px) 100vw, 34vw"
                         />
                     </Box>
                 )}
-                <Flex
-                    direction="column"
-                    justify="center"
-                    p={{ base: 6, md: 8 }}
-                    flex="1"
-                >
-                    <HStack spacing={2} mb={3}>
-                        <Badge
-                            colorScheme="green"
-                            variant="subtle"
-                            fontSize="xs"
-                            px={2}
-                            py={0.5}
-                            borderRadius="full"
-                        >
-                            Latest
-                        </Badge>
-                    </HStack>
+                <Box>
+                    <Text
+                        color={dateColor}
+                        fontSize="xs"
+                        letterSpacing="0.08em"
+                        textTransform="uppercase"
+                        mb={4}
+                    >
+                        Latest note
+                        {post.publishedDate &&
+                            ` · ${formatNotionDate(post.publishedDate)}`}
+                    </Text>
 
-                    <Heading as="h2" size="lg" mb={3} lineHeight={1.3}>
+                    <Heading
+                        as="h2"
+                        fontSize={{ base: '30px', md: '38px' }}
+                        mb={4}
+                        lineHeight="1.08"
+                        letterSpacing="-0.035em"
+                        sx={{ textWrap: 'balance' }}
+                    >
                         <LinkOverlay
                             as={NextLink}
                             href={`/blog/${post.slug}`}
@@ -107,38 +107,23 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                     {post.description && (
                         <Text
                             color={descColor}
-                            fontSize={{ base: 'sm', md: 'md' }}
+                            fontSize={{ base: 'md', md: 'lg' }}
                             lineHeight={1.7}
-                            noOfLines={4}
-                            mb={5}
+                            maxW="48ch"
+                            mb={6}
+                            sx={{ textWrap: 'pretty' }}
                         >
                             {post.description}
                         </Text>
                     )}
 
-                    <HStack spacing={2} wrap="wrap" mb={4}>
-                        {post.tags.map((tag) => (
-                            <Tag
-                                key={tag}
-                                size="sm"
-                                colorScheme="green"
-                                variant="subtle"
-                                borderRadius="full"
-                            >
-                                {tag}
-                            </Tag>
-                        ))}
-                    </HStack>
-
-                    <Text color={dateColor} fontSize="xs">
-                        {post.publishedDate
-                            ? formatNotionDate(post.publishedDate)
-                            : 'Unpublished'}
+                    <Text color={dateColor} fontSize="sm">
+                        {post.tags.join(' · ')}
                         {post.readingTime != null &&
                             ` · ${post.readingTime} min read`}
                     </Text>
-                </Flex>
-            </Flex>
+                </Box>
+            </Grid>
         </LinkBox>
     );
 }

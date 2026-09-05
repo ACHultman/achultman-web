@@ -1,49 +1,40 @@
 import {
+    Box,
     Container,
+    Grid,
     Heading,
-    SimpleGrid,
-    Alert,
     Text,
     useColorModeValue,
     VStack,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 
 import { NextSeo } from 'next-seo';
 import { fetchBlogPostsWithReadingTime } from '../../services/notion';
 import { BlogPost as BlogPostType } from '../../types/notion';
 import PostBox from '../../components/Blog/PostBox';
 import FeaturedPost from '../../components/Blog/FeaturedPost';
+import { isEditorialBlogPost } from '../../utils/editorialBlog';
 
 interface Props {
     posts: BlogPostType[];
 }
 
-const container = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const item = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-};
-
 function BlogPage({ posts }: Props) {
     const subtleColor = useColorModeValue('gray.600', 'gray.400');
+    const ruleColor = useColorModeValue('gray.300', 'gray.700');
     const [featured, ...rest] = posts;
 
     return (
         <>
             <NextSeo
-                title="Blog"
-                description="Notes on engineering, AI, security, and building things that last."
+                title="Working notes"
+                description="Field notes from building AI-assisted products, coordinating agents, and keeping software trustworthy in production."
                 canonical="https://hultman.dev/blog"
                 openGraph={{
                     url: 'https://hultman.dev/blog',
-                    title: 'Blog | Adam Hultman',
+                    title: 'Working notes | Adam Hultman',
                     description:
-                        'Notes on engineering, AI, security, and building things that last.',
+                        'Field notes from building AI-assisted products, coordinating agents, and keeping software trustworthy in production.',
                     images: [
                         {
                             url: 'https://hultman.dev/og_homepage.png',
@@ -54,73 +45,80 @@ function BlogPage({ posts }: Props) {
                     ],
                 }}
             />
-            <Container maxW="container.lg">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+            <Container maxW="container.xl" py={{ base: 8, md: 14 }}>
+                <Grid
+                    templateColumns={{
+                        base: '1fr',
+                        lg: 'minmax(0, 1fr) minmax(0, 2fr)',
+                    }}
+                    columnGap={{ base: 0, lg: 16 }}
+                    rowGap={{ base: 10, lg: 0 }}
+                    alignItems="start"
                 >
-                    <VStack align="start" spacing={2} mb={10}>
+                    <Box
+                        as="header"
+                        position={{ base: 'static', lg: 'sticky' }}
+                        top={{ lg: 28 }}
+                        borderTopWidth="1px"
+                        borderColor={ruleColor}
+                        pt={5}
+                    >
                         <Heading
                             as="h1"
                             fontSize={{
-                                base: '28px',
-                                md: '36px',
-                                lg: '42px',
+                                base: '42px',
+                                md: '56px',
+                                lg: '64px',
                             }}
+                            lineHeight="0.98"
+                            letterSpacing="-0.045em"
+                            maxW="8ch"
                         >
-                            Blog
+                            Working notes
                         </Heading>
                         <Text
                             color={subtleColor}
                             fontSize={{ base: 'md', md: 'lg' }}
+                            lineHeight="1.7"
+                            maxW="34ch"
+                            mt={6}
                         >
-                            Notes on engineering, AI, security, and building
-                            things that last.
+                            What I learn while building AI-assisted products,
+                            coordinating agents, and keeping software
+                            trustworthy in production.
                         </Text>
-                    </VStack>
-                </motion.div>
+                        <Text
+                            color={subtleColor}
+                            fontSize="sm"
+                            lineHeight="1.65"
+                            maxW="34ch"
+                            mt={8}
+                        >
+                            A small, edited collection. I keep pieces that still
+                            reflect how I work and retire the rest.
+                        </Text>
+                    </Box>
 
-                {posts.length === 0 ? (
-                    <Alert status="info" borderRadius="lg">
-                        No posts found. Please check back later.
-                    </Alert>
-                ) : (
-                    <VStack spacing={12} align="stretch">
-                        {featured && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.15 }}
+                    <Box as="section" aria-label="Published notes">
+                        {posts.length === 0 ? (
+                            <Text
+                                borderTopWidth="1px"
+                                borderColor={ruleColor}
+                                pt={6}
+                                color={subtleColor}
                             >
-                                <FeaturedPost post={featured} />
-                            </motion.div>
+                                New notes are being edited now.
+                            </Text>
+                        ) : (
+                            <VStack spacing={0} align="stretch">
+                                {featured && <FeaturedPost post={featured} />}
+                                {rest.map((post) => (
+                                    <PostBox key={post.id} post={post} />
+                                ))}
+                            </VStack>
                         )}
-
-                        {rest.length > 0 && (
-                            <motion.div
-                                variants={container}
-                                initial="hidden"
-                                animate="visible"
-                            >
-                                <SimpleGrid
-                                    columns={{ base: 1, md: 2 }}
-                                    spacing={{ base: 6, md: 8 }}
-                                >
-                                    {rest.map((post) => (
-                                        <motion.div
-                                            key={post.id}
-                                            variants={item}
-                                            style={{ height: '100%' }}
-                                        >
-                                            <PostBox post={post} />
-                                        </motion.div>
-                                    ))}
-                                </SimpleGrid>
-                            </motion.div>
-                        )}
-                    </VStack>
-                )}
+                    </Box>
+                </Grid>
             </Container>
         </>
     );
@@ -135,7 +133,7 @@ export async function getStaticProps() {
 
         return {
             props: {
-                posts,
+                posts: posts.filter(isEditorialBlogPost),
             },
             // Match the post page so Notion signed cover URLs (~1h TTL) and
             // newly published posts don't stay stale for half a day.
