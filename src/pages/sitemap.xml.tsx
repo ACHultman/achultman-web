@@ -10,20 +10,23 @@ function Sitemap() {
     return null;
 }
 
-const STATIC_PATHS = [
-    '',
-    '/about',
-    '/bookmarks',
-    '/books',
-    '/blog',
-    '/privacy',
-    '/labs',
-    '/labs/interaction-checker',
-    '/labs/token-viz',
-    '/labs/prompt-duel',
-    '/labs/agent-flow',
-    '/labs/evidence-viz',
-    '/labs/beatmaker',
+// These dates represent meaningful content changes, not the time the sitemap
+// happens to be requested. False daily updates waste crawl attention and make
+// the signal less useful to search engines.
+const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
+    { path: '', lastmod: '2026-09-04' },
+    { path: '/about', lastmod: '2026-09-04' },
+    { path: '/privacy', lastmod: '2026-09-04' },
+    { path: '/blog', lastmod: '2026-06-15' },
+    { path: '/books', lastmod: '2026-03-09' },
+    { path: '/bookmarks', lastmod: '2026-03-09' },
+    { path: '/labs', lastmod: '2026-03-11' },
+    { path: '/labs/interaction-checker', lastmod: '2026-03-09' },
+    { path: '/labs/token-viz', lastmod: '2026-03-09' },
+    { path: '/labs/prompt-duel', lastmod: '2026-03-09' },
+    { path: '/labs/agent-flow', lastmod: '2026-03-09' },
+    { path: '/labs/evidence-viz', lastmod: '2026-03-09' },
+    { path: '/labs/beatmaker', lastmod: '2026-03-09' },
 ];
 
 interface SitemapUrl {
@@ -46,10 +49,9 @@ function buildSitemapXml(urls: SitemapUrl[]): string {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-    const today = new Date().toISOString().slice(0, 10);
-    const staticUrls: SitemapUrl[] = STATIC_PATHS.map((path) => ({
+    const staticUrls: SitemapUrl[] = STATIC_PATHS.map(({ path, lastmod }) => ({
         loc: `${SITE_URL}${path}`,
-        lastmod: today,
+        lastmod,
     }));
 
     res.setHeader('Content-Type', 'text/xml');
