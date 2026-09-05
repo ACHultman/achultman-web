@@ -7,6 +7,7 @@ import {
     Grid,
     Heading,
     Input,
+    Link as ChakraLink,
     SimpleGrid,
     Text,
     useColorModeValue,
@@ -68,7 +69,13 @@ const money = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 0,
 });
 
-function WorkflowCostCalculator() {
+interface WorkflowCostCalculatorProps {
+    showMethodLink?: boolean;
+}
+
+function WorkflowCostCalculator({
+    showMethodLink = true,
+}: WorkflowCostCalculatorProps) {
     const [people, setPeople] = useState('');
     const [weeklyHours, setWeeklyHours] = useState('');
     const [hourlyCost, setHourlyCost] = useState('');
@@ -90,6 +97,9 @@ function WorkflowCostCalculator() {
             }),
         [hourlyCost, people, timeReturnedPercent, weeklyHours]
     );
+    const inputValues = [people, weeklyHours, hourlyCost, timeReturnedPercent];
+    const hasAnyInput = inputValues.some((value) => value.trim() !== '');
+    const hasAllInputs = inputValues.every((value) => value.trim() !== '');
 
     useEffect(() => {
         if (!result || hasTrackedCalculation.current) return;
@@ -123,6 +133,18 @@ function WorkflowCostCalculator() {
                 Use a typical week. Conservative numbers are more useful than a
                 business case built to win an argument.
             </Text>
+            {showMethodLink ? (
+                <ChakraLink
+                    as={Link}
+                    href="/workflow-automation-roi-calculator"
+                    display="inline-block"
+                    mt={4}
+                    color="moss.700"
+                    fontWeight="700"
+                >
+                    See the formula and assumptions
+                </ChakraLink>
+            ) : null}
 
             <Grid
                 mt={{ base: 10, md: 14 }}
@@ -290,6 +312,19 @@ function WorkflowCostCalculator() {
                                 Send the workflow
                             </Button>
                         </>
+                    ) : hasAnyInput ? (
+                        <Box minH={{ base: '180px', md: '250px' }}>
+                            <Text fontFamily="heading" fontSize="3xl">
+                                {hasAllInputs
+                                    ? 'Check the ranges.'
+                                    : 'Add the remaining numbers.'}
+                            </Text>
+                            <Text mt={5} color={muted} lineHeight="1.75">
+                                {hasAllInputs
+                                    ? 'Use 1-100 people, 0.5-80 weekly hours, $1-$1,000 per hour and 1%-100% time returned.'
+                                    : 'The estimate appears after all four fields have a value.'}
+                            </Text>
+                        </Box>
                     ) : (
                         <Box minH={{ base: '180px', md: '250px' }}>
                             <Text fontFamily="heading" fontSize="3xl">

@@ -36,7 +36,7 @@ test.describe('Home page', () => {
             expect.arrayContaining([
                 expect.objectContaining({
                     '@type': 'Service',
-                    name: '30-day AI workflow pilot',
+                    name: '30-day AI workflow automation pilot',
                     offers: expect.objectContaining({
                         price: '5000',
                         priceCurrency: 'USD',
@@ -110,6 +110,60 @@ test.describe('Home page', () => {
                 utmCampaign: 'workflow-pilot',
             },
         });
+    });
+});
+
+test.describe('Workflow automation ROI calculator', () => {
+    test('renders search metadata, assumptions and working calculations', async ({
+        page,
+    }) => {
+        await page.goto('/workflow-automation-roi-calculator');
+
+        await expect(page).toHaveTitle(
+            'Workflow Automation ROI Calculator | Adam Hultman'
+        );
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://hultman.dev/workflow-automation-roi-calculator'
+        );
+        await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+            'content',
+            'Estimate monthly workflow cost, capacity returned and payback on a $5,000 automation pilot. Free calculator with a transparent formula.'
+        );
+        await expect(
+            page.getByRole('heading', {
+                level: 1,
+                name: "Estimate a workflow's return.",
+            })
+        ).toBeVisible();
+        await expect(
+            page.getByRole('heading', {
+                name: 'What the calculator counts.',
+            })
+        ).toBeVisible();
+
+        await page.getByLabel('People doing the work').fill('2');
+        await page.getByLabel('Hours each person spends weekly').fill('6');
+        await page.getByLabel('Loaded hourly cost (USD)').fill('75');
+        await page.getByLabel('Time a useful tool could return (%)').fill('50');
+
+        await expect(page.getByText('$3,897')).toBeVisible();
+        await expect(page.getByText('$1,949')).toBeVisible();
+        await expect(page.getByText('2.6 months')).toBeVisible();
+
+        const structuredData = await page
+            .locator('script[type="application/ld+json"]')
+            .allTextContents();
+        const schemas = structuredData.map((schema) => JSON.parse(schema));
+        expect(schemas).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    '@type': 'WebApplication',
+                    name: 'Workflow Automation ROI Calculator',
+                    isAccessibleForFree: true,
+                }),
+            ])
+        );
     });
 });
 

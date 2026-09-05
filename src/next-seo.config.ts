@@ -5,15 +5,15 @@ const baseUrl = getBaseUrl();
 
 const config: NextSeoProps = {
     titleTemplate: '%s | Adam Hultman',
-    defaultTitle: 'Adam Hultman | AI product engineer for operations teams',
+    defaultTitle: 'AI workflow automation consultant | Adam Hultman',
     description:
-        'I build small AI tools for costly manual workflows. Fixed 30-day pilots for B2B operations teams.',
+        'Custom AI tools for costly B2B workflows. Fixed 30-day pilots from $5,000, built around existing systems and measured against a clear baseline.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
-        title: 'Adam Hultman | AI product engineer for operations teams',
+        title: 'AI workflow automation consultant | Adam Hultman',
         description:
-            'Fixed 30-day pilots that turn costly manual workflows into small AI tools built around the team using them.',
+            'Custom AI tools for costly B2B workflows. Fixed 30-day pilots from $5,000, measured against a clear baseline.',
         siteName: 'Adam Hultman',
         images: [
             {

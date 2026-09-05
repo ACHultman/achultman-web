@@ -22,8 +22,12 @@ module.exports = {
     },
     urls: [
         baseUrl,
-        ...['about', 'blog', 'books', 'bookmarks'].map(
-            (path) => `${baseUrl}/${path}`
-        ),
+        ...[
+            'workflow-automation-roi-calculator',
+            'about',
+            'blog',
+            'books',
+            'bookmarks',
+        ].map((path) => `${baseUrl}/${path}`),
     ],
 };
