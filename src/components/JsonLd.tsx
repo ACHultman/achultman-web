@@ -57,8 +57,8 @@ const websiteSchema = {
 const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: '30-day AI workflow pilot',
-    serviceType: 'AI workflow product engineering',
+    name: '30-day AI workflow automation pilot',
+    serviceType: 'AI workflow automation consulting and product engineering',
     url: `${SITE_URL}/#offer`,
     description:
         'A fixed 30-day engagement to build and test a small AI tool around one costly manual workflow.',
