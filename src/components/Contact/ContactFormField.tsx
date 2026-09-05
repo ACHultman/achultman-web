@@ -1,4 +1,10 @@
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
+import {
+    FormControl,
+    FormErrorMessage,
+    FormLabel,
+    Text,
+    useColorModeValue,
+} from '@chakra-ui/react';
 
 export interface ContactFormFieldProps {
     label: string;
@@ -13,10 +19,16 @@ export function ContactFormField({
     children,
     error,
 }: ContactFormFieldProps) {
+    const requiredColor = useColorModeValue('#a61b13', '#ff8a80');
+
     return (
         <FormControl isRequired={isRequired} isInvalid={!!error}>
             <FormLabel
-                requiredIndicator={<span style={{ color: '#dd3636' }}>*</span>}
+                requiredIndicator={
+                    <Text as="span" color={requiredColor}>
+                        *
+                    </Text>
+                }
             >
                 {label}
             </FormLabel>

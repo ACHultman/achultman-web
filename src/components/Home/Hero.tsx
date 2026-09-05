@@ -1,162 +1,197 @@
 import {
-    Badge,
     Box,
     Button,
     Flex,
     Heading,
+    HStack,
+    Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import NextImage from 'next/image';
-
-import Paragraph from '../Paragraph';
 import Link from 'next/link';
-import { FaEnvelope, FaUser } from 'react-icons/fa';
+import { FaArrowDown, FaArrowRight } from 'react-icons/fa';
+import { captureLeadIntent } from '../../lib/analytics';
 
-const SUBTITLES = [
-    'Full-stack developer',
-    'AI platform builder',
-    'Security-minded engineer',
-    'Occasional pianist',
-];
+const MotionBox = motion.create(Box);
 
-function TypedSubtitle() {
-    const prefersReducedMotion = useReducedMotion();
-    const subtitleColor = useColorModeValue('green.700', 'green.400');
-    const [index, setIndex] = useState(0);
-
-    useEffect(() => {
-        // Don't auto-rotate for users who prefer reduced motion — an
-        // indefinitely moving text element is a WCAG 2.2.2 concern.
-        if (prefersReducedMotion) {
-            return;
-        }
-        const timer = setInterval(() => {
-            setIndex((i) => (i + 1) % SUBTITLES.length);
-        }, 2500);
-        return () => clearInterval(timer);
-    }, [prefersReducedMotion]);
+function Hero() {
+    const muted = useColorModeValue('ink.600', 'paper.300');
+    const portraitBg = useColorModeValue('moss.100', 'moss.900');
+    const noteBg = useColorModeValue('paper.50', 'ink.900');
+    const noteBorder = useColorModeValue('ink.900', 'paper.100');
 
     return (
         <Box
-            h={{ base: '32px', md: '40px' }}
-            position="relative"
-            overflow="hidden"
-        >
-            <AnimatePresence>
-                <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.4 }}
-                    style={{ position: 'absolute', width: '100%' }}
-                >
-                    <Paragraph
-                        fontSize={{ base: 'lg', md: '2xl' }}
-                        lineHeight={1.5}
-                        color={subtitleColor}
-                        fontWeight="medium"
-                        m={0}
-                    >
-                        {SUBTITLES[index]}
-                    </Paragraph>
-                </motion.div>
-            </AnimatePresence>
-        </Box>
-    );
-}
-
-function Hero() {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ width: '100%' }}
+            as="section"
+            minH={{ base: 'auto', lg: 'calc(100dvh - 88px)' }}
+            display="flex"
+            alignItems="center"
+            py={{ base: 14, md: 20, lg: 24 }}
         >
             <Flex
-                direction="row"
+                direction={{ base: 'column', lg: 'row' }}
+                gap={{ base: 14, lg: 20 }}
                 align="center"
-                justify="space-between"
-                gap={{ base: 4, md: 12 }}
                 w="100%"
             >
-                <Box flex="1">
+                <MotionBox
+                    flex="1.2"
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <HStack spacing={3} mb={7}>
+                        <Box
+                            w="8px"
+                            h="8px"
+                            borderRadius="50%"
+                            bg="moss.500"
+                            boxShadow="0 0 0 5px rgba(104, 122, 89, 0.14)"
+                        />
+                        <Text
+                            fontSize="sm"
+                            fontWeight="600"
+                            letterSpacing="0.04em"
+                            color={muted}
+                        >
+                            Independent product engineer · Vancouver / remote
+                        </Text>
+                    </HStack>
+
                     <Heading
                         as="h1"
-                        fontSize={{ base: '26px', md: '40px', lg: '48px' }}
-                        mb={2}
+                        maxW="780px"
+                        fontSize={{ base: '48px', sm: '60px', md: '76px' }}
+                        lineHeight={{ base: 0.98, md: 0.94 }}
+                        letterSpacing="-0.045em"
+                        fontWeight="400"
+                        sx={{ textWrap: 'balance' }}
                     >
-                        Hey, I&apos;m Adam.
+                        I turn stubborn workflows into software that pays for
+                        itself.
                     </Heading>
-                    <Badge
-                        colorScheme="green"
-                        variant="subtle"
-                        fontSize="xs"
-                        mb={3}
-                        px={2}
-                        py={0.5}
-                        borderRadius="full"
+
+                    <Text
+                        mt={{ base: 7, md: 9 }}
+                        maxW="630px"
+                        fontSize={{ base: 'lg', md: 'xl' }}
+                        lineHeight="1.75"
+                        color={muted}
+                        sx={{ textWrap: 'pretty' }}
                     >
-                        Currently @ Kopperfield
-                    </Badge>
-                    <TypedSubtitle />
-                    <Paragraph
-                        fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }}
-                        lineHeight={1.7}
-                        mt={4}
-                    >
-                        I build things that hold up — clean architecture, AI
-                        where it matters, security from the start
-                    </Paragraph>
-                </Box>
-                <Box
-                    flexShrink={0}
-                    alignSelf={{ base: 'flex-start', md: 'center' }}
+                        I work with operations teams that have one costly manual
+                        process. In 30 days, I build a small tool around the way
+                        the team already works.
+                    </Text>
+
+                    <Flex mt={9} gap={4} wrap="wrap" align="center">
+                        <Button
+                            as={Link}
+                            href="#contact"
+                            onClick={() => captureLeadIntent('hero')}
+                            size="lg"
+                            rightIcon={<FaArrowRight size="13px" />}
+                            bg="ink.900"
+                            color="paper.50"
+                            px={7}
+                            _hover={{
+                                bg: 'moss.700',
+                                transform: 'translateY(-2px)',
+                                textDecoration: 'none',
+                            }}
+                            _active={{ transform: 'translateY(0)' }}
+                        >
+                            Bring me the workflow
+                        </Button>
+                        <Button
+                            as={Link}
+                            href="#work"
+                            size="lg"
+                            variant="ghost"
+                            rightIcon={<FaArrowDown size="12px" />}
+                            color={muted}
+                            _hover={{
+                                bg: 'transparent',
+                                color: 'moss.600',
+                            }}
+                        >
+                            See the work
+                        </Button>
+                    </Flex>
+
+                    <Text mt={8} fontSize="sm" color={muted}>
+                        I take one 30-day pilot at a time and do the work
+                        myself.
+                    </Text>
+                </MotionBox>
+
+                <MotionBox
+                    flex="0.8"
+                    w={{ base: '100%', sm: '76%', lg: 'auto' }}
+                    maxW={{ base: '460px', lg: '390px' }}
+                    alignSelf={{ base: 'center', lg: 'flex-end' }}
                     position="relative"
-                    w={{ base: '88px', md: '200px' }}
-                    h={{ base: '88px', md: '200px' }}
-                    borderRadius="2xl"
-                    overflow="hidden"
-                    boxShadow="0 0 0 3px var(--chakra-colors-green-500)"
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                        duration: 0.7,
+                        delay: 0.12,
+                        ease: [0.22, 1, 0.36, 1],
+                    }}
                 >
-                    <NextImage
-                        src="/images/adam.jpg"
-                        alt="Adam Hultman"
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        priority
-                        sizes="(max-width: 768px) 88px, 200px"
+                    <Box
+                        position="absolute"
+                        inset="-18px 24px 24px -18px"
+                        borderRadius="48% 52% 44% 56% / 55% 42% 58% 45%"
+                        bg={portraitBg}
+                        transform="rotate(-3deg)"
                     />
-                </Box>
+                    <Box
+                        position="relative"
+                        aspectRatio="4 / 5"
+                        overflow="hidden"
+                        borderRadius="46% 54% 43% 57% / 39% 42% 58% 61%"
+                        filter="saturate(0.72) contrast(1.04)"
+                    >
+                        <NextImage
+                            src="/images/adam.jpg"
+                            alt="Adam Hultman, product engineer"
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            priority
+                            sizes="(max-width: 992px) 76vw, 390px"
+                        />
+                    </Box>
+                    <Box
+                        position="absolute"
+                        right={{ base: '-8px', md: '-28px' }}
+                        bottom={{ base: '-24px', md: '22px' }}
+                        bg={noteBg}
+                        border="1px solid"
+                        borderColor={noteBorder}
+                        borderRadius="2px 14px 14px 14px"
+                        px={5}
+                        py={4}
+                        maxW="220px"
+                        boxShadow="12px 14px 0 rgba(63, 74, 53, 0.12)"
+                        transform="rotate(1.5deg)"
+                    >
+                        <Text
+                            fontFamily="heading"
+                            fontSize="xl"
+                            lineHeight="1.1"
+                        >
+                            Adam Hultman
+                        </Text>
+                        <Text mt={1} fontSize="xs" color={muted}>
+                            6 years shipping software across media, energy and
+                            field operations
+                        </Text>
+                    </Box>
+                </MotionBox>
             </Flex>
-            <Flex gap={3} mt={6} wrap="wrap">
-                <Button
-                    as={Link}
-                    href="#contact"
-                    colorScheme="green"
-                    size={{ base: 'md', md: 'lg' }}
-                    bg="green.600"
-                    _hover={{ bg: 'green.700' }}
-                    color="white"
-                    leftIcon={<FaEnvelope />}
-                >
-                    Say hello
-                </Button>
-                <Button
-                    as={Link}
-                    href="/about"
-                    size={{ base: 'md', md: 'lg' }}
-                    variant="outline"
-                    colorScheme="green"
-                    leftIcon={<FaUser />}
-                >
-                    Read my story
-                </Button>
-            </Flex>
-        </motion.div>
+        </Box>
     );
 }
 

@@ -51,10 +51,14 @@ const serverConfig = {
     VERCEL_URL: getOptionalEnv('VERCEL_URL'), // URL of the specific Vercel deployment
 
     APP_BASE_URL: (() => {
-        if (
-            NODE_ENV === 'production' &&
-            process.env.VERCEL_PROJECT_PRODUCTION_URL
-        ) {
+        const explicitBaseUrl = getOptionalEnv('NEXT_PUBLIC_APP_BASE_URL');
+        if (explicitBaseUrl) {
+            return explicitBaseUrl;
+        }
+        if (NODE_ENV !== 'production') {
+            return 'http://localhost:3000';
+        }
+        if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
             return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
         }
         if (process.env.VERCEL_URL) {

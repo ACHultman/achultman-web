@@ -117,7 +117,7 @@ function Skills() {
                 Skills
             </Heading>
             <Paragraph mb={4} color={subtleColor}>
-                Here&apos;s what I work with — and what I&apos;ve built deeply into.
+                These are the tools I use often enough to have opinions about.
             </Paragraph>
             <Collapse
                 startingHeight={300}

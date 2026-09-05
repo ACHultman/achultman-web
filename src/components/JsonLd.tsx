@@ -8,7 +8,7 @@ const personSchema = {
     '@type': 'Person',
     name: 'Adam Hultman',
     url: SITE_URL,
-    jobTitle: 'Software Engineer',
+    jobTitle: 'AI Product Engineer',
     worksFor: {
         '@type': 'Organization',
         name: 'Kopperfield',
@@ -39,7 +39,7 @@ const personSchema = {
         name: 'University of Victoria',
     },
     description:
-        'Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications.',
+        'AI product engineer building small tools for costly manual workflows.',
 };
 
 const websiteSchema = {
@@ -47,11 +47,38 @@ const websiteSchema = {
     '@type': 'WebSite',
     name: 'Adam Hultman',
     url: SITE_URL,
-    description:
-        'Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications.',
+    description: 'Fixed 30-day AI product pilots for B2B operations teams.',
     author: {
         '@type': 'Person',
         name: 'Adam Hultman',
+    },
+};
+
+const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: '30-day AI workflow pilot',
+    serviceType: 'AI workflow product engineering',
+    url: `${SITE_URL}/#offer`,
+    description:
+        'A fixed 30-day engagement to build and test a small AI tool around one costly manual workflow.',
+    provider: {
+        '@type': 'Person',
+        name: 'Adam Hultman',
+        url: SITE_URL,
+    },
+    areaServed: ['Canada', 'United States'],
+    audience: {
+        '@type': 'BusinessAudience',
+        audienceType: 'B2B software and service operations teams',
+    },
+    offers: {
+        '@type': 'Offer',
+        url: `${SITE_URL}/#contact`,
+        priceCurrency: 'USD',
+        price: '5000',
+        description: 'Starting price for one defined 30-day workflow pilot.',
+        availability: 'https://schema.org/LimitedAvailability',
     },
 };
 
@@ -71,6 +98,13 @@ export default function JsonLd() {
                     __html: JSON.stringify(websiteSchema),
                 }}
                 key="website-jsonld"
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(serviceSchema),
+                }}
+                key="service-jsonld"
             />
         </Head>
     );

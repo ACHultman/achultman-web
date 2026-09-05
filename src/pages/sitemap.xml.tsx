@@ -16,6 +16,7 @@ const STATIC_PATHS = [
     '/bookmarks',
     '/books',
     '/blog',
+    '/privacy',
     '/labs',
     '/labs/interaction-checker',
     '/labs/token-viz',

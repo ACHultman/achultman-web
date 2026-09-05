@@ -2,161 +2,163 @@ import {
     Box,
     Flex,
     Heading,
-    HStack,
-    IconButton,
-    SimpleGrid,
-    Tag,
+    Link,
     Text,
     useColorModeValue,
-    VStack,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import posthog from 'posthog-js';
+import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 
-interface Project {
+interface CaseNote {
+    number: string;
     title: string;
     context: string;
     description: string;
-    tags: string[];
+    evidence: string;
+    disciplines: string;
     href?: string;
 }
 
-const PROJECTS: Project[] = [
+const CASE_NOTES: CaseNote[] = [
     {
-        title: 'Geny',
-        context: 'Assembly Digital',
+        number: '01',
+        title: 'Production AI inside an editorial workflow',
+        context: 'Geny · Assembly Digital',
         description:
-            'LLM-powered content generator deployed at the edge inside WordPress — used by major Canadian media clients to accelerate editorial workflows at scale.',
-        tags: ['TypeScript', 'AWS Lambda', 'OpenAI'],
+            'An LLM-powered content system deployed at the edge inside WordPress, designed around the way editorial teams already worked.',
+        evidence: 'Used by major Canadian media clients in production.',
+        disciplines: 'Product engineering · AI integration · AWS',
     },
     {
-        title: 'Wanderlust',
-        context: 'Open source',
+        number: '02',
+        title: 'A reusable foundation for assistant products',
+        context: 'Wanderlust · Open source',
         description:
-            'OpenAI Assistants API demo rebuilt in Next.js. Became the foundation for 10+ internal and side projects. 59 stars on GitHub.',
-        tags: ['Next.js', 'TypeScript', 'OpenAI Assistants'],
+            'A Next.js implementation of the OpenAI Assistants API that became the base for further internal and independent tools.',
+        evidence: '59 GitHub stars and the foundation for 10+ projects.',
+        disciplines: 'Next.js · TypeScript · Applied AI',
         href: 'https://github.com/ACHultman/wanderlust',
     },
     {
-        title: 'Kopperfield Platform',
-        context: 'Kopperfield · Current',
+        number: '03',
+        title: 'Complex field rules made usable',
+        context: 'Kopperfield · Current role',
         description:
-            'Permit-ready tools for electricians — load calculations, single-line diagrams, and the paperwork that holds projects up',
-        tags: ['React', 'Node.js', 'PostgreSQL'],
+            'Permit-ready product workflows for electricians, including load calculations, single-line diagrams and the paperwork that delays jobs.',
+        evidence: 'Built around the rules electricians deal with on every job.',
+        disciplines: 'React · Node.js · PostgreSQL',
     },
 ];
 
-const container = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.12 } },
-};
+const MotionBox = motion.create(Box);
 
-const card = {
-    hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
-};
-
-function ProjectCard({ project }: { project: Project }) {
-    const bg = useColorModeValue('white', 'gray.800');
-    const border = useColorModeValue('gray.200', 'gray.700');
-    const subtle = useColorModeValue('gray.600', 'gray.400');
+function CaseRow({ caseNote }: { caseNote: CaseNote }) {
+    const muted = useColorModeValue('ink.600', 'paper.300');
+    const border = useColorModeValue('paper.200', 'ink.700');
 
     return (
-        <motion.div variants={card} style={{ height: '100%' }}>
-            <Box
-                bg={bg}
-                borderWidth="1px"
-                borderColor={border}
-                borderRadius="xl"
-                p={{ base: 4, md: 6 }}
-                h="100%"
-                display="flex"
-                flexDirection="column"
-                transition="box-shadow 0.2s"
-                cursor={project.href ? 'pointer' : 'default'}
-                _hover={{
-                    boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
-                }}
-                onClick={() => {
-                    if (project.href)
-                        window.open(
-                            project.href,
-                            '_blank',
-                            'noopener,noreferrer'
-                        );
-                }}
+        <MotionBox
+            py={{ base: 8, md: 10 }}
+            borderTop="1px solid"
+            borderColor={border}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.5 }}
+        >
+            <Flex
+                direction={{ base: 'column', md: 'row' }}
+                gap={{ base: 5, md: 10 }}
+                align="flex-start"
             >
-                <Flex justify="space-between" align="flex-start" mb={1}>
-                    <Heading as="h3" size="md">
-                        {project.title}
+                <Text
+                    w={{ md: '54px' }}
+                    fontSize="sm"
+                    fontWeight="700"
+                    color="moss.600"
+                    sx={{ fontVariantNumeric: 'tabular-nums' }}
+                >
+                    {caseNote.number}
+                </Text>
+                <Box flex="1" maxW="470px">
+                    <Text mb={2} fontSize="sm" fontWeight="600" color={muted}>
+                        {caseNote.context}
+                    </Text>
+                    <Heading as="h3" fontSize={{ base: '2xl', md: '3xl' }}>
+                        {caseNote.href ? (
+                            <Link
+                                href={caseNote.href}
+                                isExternal
+                                textDecoration="none"
+                                _hover={{ color: 'moss.600' }}
+                            >
+                                {caseNote.title}{' '}
+                                <FaArrowUpRightFromSquare
+                                    aria-hidden="true"
+                                    size="12px"
+                                    style={{ display: 'inline' }}
+                                />
+                            </Link>
+                        ) : (
+                            caseNote.title
+                        )}
                     </Heading>
-                    {project.href && (
-                        <IconButton
-                            as="a"
-                            href={project.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`View ${project.title}`}
-                            icon={<FaExternalLinkAlt />}
-                            size="xs"
-                            variant="ghost"
-                            colorScheme="green"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                posthog.capture('project_link_clicked', {
-                                    project: project.title,
-                                });
-                            }}
-                        />
-                    )}
-                </Flex>
-                <Text fontSize="xs" color={subtle} mb={4}>
-                    {project.context}
-                </Text>
-                <Text fontSize="sm" lineHeight={1.7} flex="1" mb={5}>
-                    {project.description}
-                </Text>
-                <HStack spacing={2} wrap="wrap">
-                    {project.tags.map((tag) => (
-                        <Tag
-                            key={tag}
-                            size="sm"
-                            colorScheme="green"
-                            variant="subtle"
-                        >
-                            {tag}
-                        </Tag>
-                    ))}
-                </HStack>
-            </Box>
-        </motion.div>
+                </Box>
+                <Box flex="1" maxW="470px">
+                    <Text lineHeight="1.75" color={muted}>
+                        {caseNote.description}
+                    </Text>
+                    <Text mt={4} fontWeight="700">
+                        {caseNote.evidence}
+                    </Text>
+                    <Text mt={4} fontSize="sm" color={muted}>
+                        {caseNote.disciplines}
+                    </Text>
+                </Box>
+            </Flex>
+        </MotionBox>
     );
 }
 
 function FeaturedWork() {
+    const muted = useColorModeValue('ink.600', 'paper.300');
+    const border = useColorModeValue('paper.200', 'ink.700');
+
     return (
-        <VStack align="start" w="100%" spacing={6}>
-            <Heading as="h2" size="lg">
-                Featured Work
-            </Heading>
-            <motion.div
-                variants={container}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                style={{ width: '100%' }}
+        <Box as="section" id="work" py={{ base: 16, md: 24 }}>
+            <Flex
+                direction={{ base: 'column', md: 'row' }}
+                justify="space-between"
+                gap={6}
+                mb={{ base: 10, md: 16 }}
             >
-                <SimpleGrid
-                    columns={{ base: 1, sm: 2, md: 3 }}
-                    spacing={{ base: 4, md: 5 }}
+                <Box>
+                    <Text className="section-label">Selected case notes</Text>
+                    <Heading
+                        as="h2"
+                        mt={4}
+                        fontSize={{ base: '42px', md: '58px' }}
+                        maxW="620px"
+                    >
+                        A few things I have shipped.
+                    </Heading>
+                </Box>
+                <Text
+                    maxW="390px"
+                    alignSelf={{ md: 'flex-end' }}
+                    color={muted}
+                    lineHeight="1.75"
                 >
-                    {PROJECTS.map((project) => (
-                        <ProjectCard key={project.title} project={project} />
-                    ))}
-                </SimpleGrid>
-            </motion.div>
-        </VStack>
+                    Each one had to fit the job and hold up outside a demo.
+                </Text>
+            </Flex>
+
+            <Box borderBottom="1px solid" borderColor={border}>
+                {CASE_NOTES.map((caseNote) => (
+                    <CaseRow key={caseNote.number} caseNote={caseNote} />
+                ))}
+            </Box>
+        </Box>
     );
 }
 

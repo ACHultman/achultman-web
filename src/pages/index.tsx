@@ -8,13 +8,13 @@ function Index() {
     return (
         <>
             <NextSeo
-                title="Adam Hultman — Software Engineer, Vancouver"
+                title="Adam Hultman | AI product engineer for operations teams"
                 titleTemplate="%s"
-                description="Software engineer in Vancouver building AI-powered platforms, developer tools, and secure web applications. 5+ years of full-stack experience."
+                description="I build small AI tools for costly manual workflows. Fixed 30-day pilots for B2B operations teams."
                 canonical="https://hultman.dev"
             />
             <JsonLd />
-            <Container maxW="container.lg" mt={{ base: 2, md: 6 }}>
+            <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
                 <Home />
             </Container>
         </>

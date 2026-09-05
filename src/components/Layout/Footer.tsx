@@ -1,87 +1,54 @@
-import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
-
 import {
     Box,
-    ButtonGroup,
     Container,
-    Divider,
-    IconButton,
+    Flex,
     Link,
-    Stack,
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-
-import Logo from '../Logo';
+import NextLink from 'next/link';
 
 function Footer() {
-    const subtleColor = useColorModeValue('gray.600', 'gray.400');
+    const muted = useColorModeValue('ink.600', 'paper.300');
+    const border = useColorModeValue('paper.200', 'ink.700');
 
     return (
-        <Box
-            as="footer"
-            role="contentinfo"
-            mx="auto"
-            maxW="7xl"
-            w="100%"
-            py="12"
-            px={{ base: '4', md: '8' }}
-        >
-            <Container maxW="container.lg">
-                <Stack
-                    direction="row"
-                    spacing="4"
-                    align="center"
+        <Box as="footer" w="100%" pt={{ base: 16, md: 24 }} pb={8}>
+            <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
+                <Flex
+                    direction={{ base: 'column', sm: 'row' }}
                     justify="space-between"
-                    pb={5}
+                    align={{ base: 'flex-start', sm: 'center' }}
+                    gap={5}
+                    pt={7}
+                    borderTop="1px solid"
+                    borderColor={border}
                 >
-                    <Logo />
-                    <ButtonGroup variant="ghost">
-                        <IconButton
-                            as="a"
-                            href="https://www.linkedin.com/in/adam-hultman/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Linkedin"
-                            icon={<FaLinkedin fontSize="20px" />}
-                        />
-                        <IconButton
-                            as="a"
-                            href="https://www.github.com/achultman"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Github"
-                            icon={<FaGithub fontSize="20px" />}
-                        />
-                        <IconButton
-                            as="a"
-                            href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
-                            aria-label="Email"
-                            icon={<FaEnvelope fontSize="20px" />}
-                        />
-                    </ButtonGroup>
-                </Stack>
-                <Divider />
-                <Stack
-                    direction="row"
-                    align="center"
-                    justify="space-between"
-                    pt={5}
-                >
-                    <Text fontSize="sm" color={subtleColor}>
-                        &copy; {new Date().getFullYear()} Adam Hultman
+                    <Text color={muted} fontSize="sm">
+                        © {new Date().getFullYear()} Adam Hultman · Vancouver,
+                        BC
                     </Text>
-                    <IconButton
-                        as={Link}
-                        rounded="md"
-                        aria-label="Github Repo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://github.com/achultman/achultman-web/"
-                        isExternal
-                        icon={<FaGithub fontSize="18px" />}
-                    />
-                </Stack>
+                    <Flex gap={6} fontSize="sm" fontWeight="600">
+                        <Link as={NextLink} href="/about">
+                            About
+                        </Link>
+                        <Link as={NextLink} href="/blog">
+                            Writing
+                        </Link>
+                        <Link as={NextLink} href="/privacy">
+                            Privacy
+                        </Link>
+                        <Link href="https://github.com/ACHultman" isExternal>
+                            GitHub
+                        </Link>
+                        <Link
+                            href="https://www.linkedin.com/in/adam-hultman/"
+                            isExternal
+                        >
+                            LinkedIn
+                        </Link>
+                    </Flex>
+                </Flex>
             </Container>
         </Box>
     );
