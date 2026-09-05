@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { fetchNotions } from '../services/notion';
 import type { BlogPost } from '../types/notion';
 import { getBaseUrl } from '../utils/baseUrl';
+import { isEditorialBlogPost } from '../utils/editorialBlog';
 
 const SITE_URL = getBaseUrl();
 
@@ -22,9 +23,9 @@ function buildFeedXml(itemsXml: string): string {
     return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Adam Hultman — Blog</title>
+    <title>Adam Hultman - Working notes</title>
     <link>${SITE_URL}/blog</link>
-    <description>Notes on engineering, AI, security, and building things that last.</description>
+    <description>Field notes from building AI-assisted products, coordinating agents, and keeping software trustworthy in production.</description>
     <language>en-us</language>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
 ${itemsXml}
@@ -45,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
             sorts: [{ property: 'Published', direction: 'descending' }],
         });
 
-        const items = posts.map((post) => {
+        const items = posts.filter(isEditorialBlogPost).map((post) => {
             const pubDate = post.publishedDate
                 ? new Date(post.publishedDate).toUTCString()
                 : new Date(post.last_edited_time).toUTCString();

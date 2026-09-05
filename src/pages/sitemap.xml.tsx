@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { fetchNotions } from '../services/notion';
 import type { BlogPost } from '../types/notion';
 import { getBaseUrl } from '../utils/baseUrl';
+import { isEditorialBlogPost } from '../utils/editorialBlog';
 
 const SITE_URL = getBaseUrl();
 
@@ -21,7 +22,7 @@ const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
     },
     { path: '/about', lastmod: '2026-09-04' },
     { path: '/privacy', lastmod: '2026-09-04' },
-    { path: '/blog', lastmod: '2026-06-15' },
+    { path: '/blog', lastmod: '2026-09-05' },
     { path: '/books', lastmod: '2026-03-09' },
     { path: '/bookmarks', lastmod: '2026-03-09' },
     { path: '/labs', lastmod: '2026-03-11' },
@@ -69,10 +70,12 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
             page_size: 100,
         });
 
-        const postUrls: SitemapUrl[] = posts.map((post) => ({
-            loc: `${SITE_URL}/blog/${post.slug}`,
-            lastmod: post.last_edited_time.slice(0, 10),
-        }));
+        const postUrls: SitemapUrl[] = posts
+            .filter(isEditorialBlogPost)
+            .map((post) => ({
+                loc: `${SITE_URL}/blog/${post.slug}`,
+                lastmod: post.last_edited_time.slice(0, 10),
+            }));
 
         res.write(buildSitemapXml([...staticUrls, ...postUrls]));
     } catch (error) {

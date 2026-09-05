@@ -185,18 +185,41 @@ test.describe('About page', () => {
     });
 });
 
-test.describe('Blog page', () => {
-    test('loads and shows blog heading', async ({ page }) => {
+test.describe('Working notes', () => {
+    test('shows the edited collection and hides retired tutorials', async ({
+        page,
+    }) => {
         await page.goto('/blog');
 
         await expect(page.getByRole('heading', { level: 1 })).toContainText(
-            'Blog'
+            'Working notes'
         );
 
-        // Should have either posts or an info alert
-        const hasPosts = await page.locator('a[href^="/blog/"]').count();
-        const hasAlert = await page.locator('[role="alert"]').count();
-        expect(hasPosts + hasAlert).toBeGreaterThan(0);
+        await expect(
+            page.locator(
+                'a[href="/blog/getting-started-with-ai-driven-development-tools-and-techniques"]'
+            )
+        ).toHaveCount(0);
+
+        const hasPosts = await page.locator('main article').count();
+        const hasEditorialFallback = await page
+            .getByText('New notes are being edited now.')
+            .count();
+        expect(hasPosts + hasEditorialFallback).toBeGreaterThan(0);
+    });
+
+    test('keeps an old tutorial available but removes it from indexing', async ({
+        page,
+    }) => {
+        await page.goto(
+            '/blog/getting-started-with-ai-driven-development-tools-and-techniques'
+        );
+
+        await expect(page.getByText('Archived note.')).toBeVisible();
+        await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+            'content',
+            /noindex/
+        );
     });
 });
 

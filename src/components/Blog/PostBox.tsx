@@ -1,15 +1,12 @@
 import {
     Box,
+    Grid,
     Heading,
     Text,
-    Tag,
-    HStack,
     useColorModeValue,
     LinkBox,
     LinkOverlay,
-    Flex,
 } from '@chakra-ui/react';
-import NextImage from 'next/image';
 import NextLink from 'next/link';
 import posthog from 'posthog-js';
 import { BlogPost } from '../../types/notion';
@@ -20,8 +17,7 @@ interface PostBoxProps {
 }
 
 export default function PostBox({ post }: PostBoxProps) {
-    const bg = useColorModeValue('white', 'gray.800');
-    const border = useColorModeValue('gray.200', 'gray.700');
+    const border = useColorModeValue('gray.300', 'gray.700');
     const dateColor = useColorModeValue('gray.600', 'gray.400');
     const descColor = useColorModeValue('gray.700', 'gray.300');
     const titleHover = useColorModeValue('green.700', 'green.400');
@@ -38,87 +34,68 @@ export default function PostBox({ post }: PostBoxProps) {
         <LinkBox
             as="article"
             onClick={handlePostClick}
-            bg={bg}
-            borderWidth="1px"
+            borderBottomWidth="1px"
             borderColor={border}
-            borderRadius="xl"
-            overflow="hidden"
-            height="100%"
-            display="flex"
-            flexDirection="column"
-            transition="all 0.25s ease"
+            py={{ base: 7, md: 9 }}
             _hover={{
-                boxShadow: '0 0 0 1px var(--chakra-colors-green-500)',
-                transform: 'translateY(-3px)',
                 '.post-title-link': {
                     color: titleHover,
                 },
             }}
         >
-            {post.cover && (
-                <Box
-                    position="relative"
-                    width="100%"
-                    height="180px"
-                    overflow="hidden"
-                >
-                    <NextImage
-                        src={post.cover}
-                        alt=""
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        placeholder="empty"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                </Box>
-            )}
-            <Flex direction="column" flex="1" p={{ base: 5, md: 6 }}>
-                <HStack spacing={2} mb={3} wrap="wrap">
-                    {post.tags.slice(0, 3).map((tag) => (
-                        <Tag
-                            key={tag}
-                            size="sm"
-                            colorScheme="green"
-                            variant="subtle"
-                            borderRadius="full"
-                        >
-                            {tag}
-                        </Tag>
-                    ))}
-                </HStack>
-
-                <Heading as="h2" size="md" mb={2} lineHeight={1.4}>
-                    <LinkOverlay
-                        as={NextLink}
-                        href={`/blog/${post.slug}`}
-                        className="post-title-link"
-                        transition="color 0.2s"
-                    >
-                        {post.title}
-                    </LinkOverlay>
-                </Heading>
-
-                {post.description && (
-                    <Text
-                        color={descColor}
-                        fontSize="sm"
-                        lineHeight={1.7}
-                        noOfLines={3}
-                        mb={4}
-                        flex="1"
-                    >
-                        {post.description}
+            <Grid
+                templateColumns={{ base: '1fr', md: '9rem minmax(0, 1fr)' }}
+                gap={{ base: 3, md: 8 }}
+            >
+                <Box>
+                    <Text color={dateColor} fontSize="sm">
+                        {post.publishedDate
+                            ? formatNotionDate(post.publishedDate)
+                            : 'Unpublished'}
                     </Text>
-                )}
+                    <Text color={dateColor} fontSize="xs" mt={2}>
+                        {post.tags.slice(0, 3).join(' · ')}
+                    </Text>
+                </Box>
 
-                <Text color={dateColor} fontSize="xs" mt="auto">
-                    {post.publishedDate
-                        ? formatNotionDate(post.publishedDate)
-                        : 'Unpublished'}
-                    {post.readingTime != null &&
-                        ` · ${post.readingTime} min read`}
-                </Text>
-            </Flex>
+                <Box>
+                    <Heading
+                        as="h2"
+                        fontSize={{ base: '24px', md: '30px' }}
+                        mb={3}
+                        lineHeight="1.15"
+                        letterSpacing="-0.025em"
+                        sx={{ textWrap: 'balance' }}
+                    >
+                        <LinkOverlay
+                            as={NextLink}
+                            href={`/blog/${post.slug}`}
+                            className="post-title-link"
+                            transition="color 0.2s"
+                        >
+                            {post.title}
+                        </LinkOverlay>
+                    </Heading>
+
+                    {post.description && (
+                        <Text
+                            color={descColor}
+                            fontSize="md"
+                            lineHeight={1.7}
+                            maxW="58ch"
+                            sx={{ textWrap: 'pretty' }}
+                        >
+                            {post.description}
+                        </Text>
+                    )}
+
+                    {post.readingTime != null && (
+                        <Text color={dateColor} fontSize="xs" mt={4}>
+                            {post.readingTime} min read
+                        </Text>
+                    )}
+                </Box>
+            </Grid>
         </LinkBox>
     );
 }

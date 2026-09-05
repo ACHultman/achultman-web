@@ -9,5 +9,5 @@ test('should navigate to the writing page', async ({ page }) => {
         .click();
 
     await expect(page).toHaveURL('/blog');
-    await expect(page.locator('h1')).toContainText('Blog');
+    await expect(page.locator('h1')).toContainText('Working notes');
 });
