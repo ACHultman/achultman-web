@@ -1,14 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Adam Hultman — AI product engineer</title>
-  <desc id="desc">I turn stubborn workflows into software that pays for itself.</desc>
+  <title id="title">Adam Hultman — product engineering</title>
+  <desc id="desc">I build small tools for costly workflows.</desc>
   <rect width="1200" height="630" fill="#f7f4ec"/>
   <path d="M1056 -98c190 42 310 205 268 365-42 160-230 256-420 214-190-42-310-205-268-365 42-160 230-256 420-214Z" fill="#dce4d2"/>
   <path d="M1046 18c131 30 214 140 186 248-29 108-158 173-289 144-131-30-214-140-186-248 29-108 158-173 289-144Z" fill="none" stroke="#687b57" stroke-width="3" opacity=".32"/>
   <circle cx="86" cy="82" r="10" fill="#687b57"/>
   <text x="114" y="91" fill="#50564c" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" letter-spacing="1.4">ADAM HULTMAN · PRODUCT ENGINEERING</text>
-  <text x="78" y="222" fill="#1d211b" font-family="Georgia, 'Times New Roman', serif" font-size="75" letter-spacing="-2">I turn stubborn workflows</text>
-  <text x="78" y="312" fill="#1d211b" font-family="Georgia, 'Times New Roman', serif" font-size="75" letter-spacing="-2">into software that pays</text>
-  <text x="78" y="402" fill="#1d211b" font-family="Georgia, 'Times New Roman', serif" font-size="75" letter-spacing="-2">for itself.</text>
-  <text x="82" y="510" fill="#50564c" font-family="Arial, Helvetica, sans-serif" font-size="27">Secure AI workflow tools · Fixed 30-day pilots</text>
+  <text x="78" y="245" fill="#1d211b" font-family="Georgia, 'Times New Roman', serif" font-size="82" letter-spacing="-2">I build small tools</text>
+  <text x="78" y="342" fill="#1d211b" font-family="Georgia, 'Times New Roman', serif" font-size="82" letter-spacing="-2">for costly workflows.</text>
+  <text x="82" y="480" fill="#50564c" font-family="Arial, Helvetica, sans-serif" font-size="27">Human-reviewed AI tools · 30-day pilots from $5,000</text>
   <text x="82" y="563" fill="#405039" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">hultman.dev</text>
 </svg>

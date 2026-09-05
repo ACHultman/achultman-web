@@ -23,7 +23,7 @@ const CASE_NOTES: CaseNote[] = [
         context: 'Geny, Assembly Digital',
         description:
             'An LLM-powered content system deployed at the edge inside WordPress, designed around the way editorial teams already worked.',
-        evidence: 'Used by major Canadian media clients in production.',
+        evidence: 'Used in production by Canadian media teams.',
         disciplines: 'Product engineering, AI integration, AWS',
     },
     {
@@ -37,11 +37,11 @@ const CASE_NOTES: CaseNote[] = [
         href: 'https://pr-qa-copilot.vercel.app',
     },
     {
-        title: 'A reusable foundation for assistant products',
+        title: 'An open-source Assistants API reference',
         context: 'Wanderlust, open source',
         description:
-            'A Next.js implementation of the OpenAI Assistants API that became the base for further internal and independent tools.',
-        evidence: '60 GitHub stars and the foundation for 10+ projects.',
+            "A Next.js recreation of OpenAI's DevDay Wanderlust demo, built as a readable reference for the Assistants API.",
+        evidence: '60 GitHub stars and 20 public forks as of September 2026.',
         disciplines: 'Next.js, TypeScript, applied AI',
         href: 'https://github.com/ACHultman/wanderlust',
     },
