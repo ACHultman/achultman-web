@@ -8,6 +8,10 @@ on:
         branches:
             - main
 
+permissions:
+    contents: read
+    deployments: read
+
 jobs:
     perf-access:
         name: Lighthouse & Accessibility Audit
@@ -28,33 +32,47 @@ jobs:
             - name: Audit production dependencies
               run: npm audit --omit=dev --audit-level=critical
 
-            - name: Wait for Vercel to finish deployment
-              run: sleep 60
-
-            - name: Get Vercel Preview URL
-              id: vercel_preview_url
-              uses: zentered/vercel-preview-url@v1.4.0
+            - name: Get Vercel deployment URL
+              id: vercel_deployment
               env:
-                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-              with:
-                  vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+                  GH_TOKEN: ${{ github.token }}
+                  GH_REPO: ${{ github.repository }}
+                  DEPLOYMENT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+              run: |
+                  for attempt in {1..36}; do
+                    deployment_id="$(gh api "repos/${GH_REPO}/deployments?sha=${DEPLOYMENT_SHA}&per_page=10" --jq '.[0].id // empty')"
 
-            - name: Confirm Preview URL
-              run: echo "Preview deployed at https://${{ steps.vercel_preview_url.outputs.preview_url }}"
+                    if [ -n "$deployment_id" ]; then
+                      deployment_url="$(gh api "repos/${GH_REPO}/deployments/${deployment_id}/statuses" --jq 'map(select(.state == "success" and .environment_url != null))[0].environment_url // empty')"
+
+                      if [ -n "$deployment_url" ]; then
+                        echo "url=$deployment_url" >> "$GITHUB_OUTPUT"
+                        exit 0
+                      fi
+                    fi
+
+                    sleep 5
+                  done
+
+                  echo "::error::No successful Vercel deployment found for ${DEPLOYMENT_SHA}"
+                  exit 1
+
+            - name: Confirm deployment URL
+              run: echo "Deployment ready at ${{ steps.vercel_deployment.outputs.url }}"
 
             - name: Run Lighthouse CI
               uses: treosh/lighthouse-ci-action@v12
               env:
                   VERCEL_ENV: preview
-                  VERCEL_PREVIEW_URL: https://${{ steps.vercel_preview_url.outputs.preview_url }}
+                  VERCEL_PREVIEW_URL: ${{ steps.vercel_deployment.outputs.url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               with:
-                  urls: https://${{ steps.vercel_preview_url.outputs.preview_url }}
+                  urls: ${{ steps.vercel_deployment.outputs.url }}
                   configPath: .lighthouserc.js
 
             - name: Run Pa11y CI
               env:
                   CI: true
-                  VERCEL_PREVIEW_URL: https://${{ steps.vercel_preview_url.outputs.preview_url }}
+                  VERCEL_PREVIEW_URL: ${{ steps.vercel_deployment.outputs.url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               run: npx pa11y-ci --config .pa11yci.js
