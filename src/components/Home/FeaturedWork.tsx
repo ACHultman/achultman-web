@@ -27,6 +27,16 @@ const CASE_NOTES: CaseNote[] = [
         disciplines: 'Product engineering, AI integration, AWS',
     },
     {
+        title: 'Critical flows checked on every pull request',
+        context: 'PR QA Copilot, open source',
+        description:
+            'A GitHub Action that runs repository-defined browser journeys against preview deployments and returns the verdict, runtime failures and screenshots on the pull request.',
+        evidence:
+            'Released as a versioned action with its own hosted journey test.',
+        disciplines: 'Playwright, GitHub Actions, Next.js',
+        href: 'https://pr-qa-copilot.vercel.app',
+    },
+    {
         title: 'A reusable foundation for assistant products',
         context: 'Wanderlust, open source',
         description:
