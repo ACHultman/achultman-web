@@ -37,12 +37,8 @@ function Contact() {
                 alignItems="start"
             >
                 <Box>
-                    <Text className="section-label">
-                        Start with the bottleneck
-                    </Text>
                     <Heading
                         as="h2"
-                        mt={4}
                         fontSize={{ base: '44px', md: '60px' }}
                         lineHeight="0.98"
                     >

@@ -3,17 +3,13 @@ import {
     Button,
     Flex,
     Heading,
-    HStack,
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import NextImage from 'next/image';
 import Link from 'next/link';
 import { FaArrowDown, FaArrowRight } from 'react-icons/fa';
 import { captureLeadIntent } from '../../lib/analytics';
-
-const MotionBox = motion.create(Box);
 
 function Hero() {
     const muted = useColorModeValue('ink.600', 'paper.300');
@@ -35,30 +31,7 @@ function Hero() {
                 align="center"
                 w="100%"
             >
-                <MotionBox
-                    flex="1.2"
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    <HStack spacing={3} mb={7}>
-                        <Box
-                            w="8px"
-                            h="8px"
-                            borderRadius="50%"
-                            bg="moss.500"
-                            boxShadow="0 0 0 5px rgba(104, 122, 89, 0.14)"
-                        />
-                        <Text
-                            fontSize="sm"
-                            fontWeight="600"
-                            letterSpacing="0.04em"
-                            color={muted}
-                        >
-                            Independent product engineer · Vancouver / remote
-                        </Text>
-                    </HStack>
-
+                <Box flex="1.2">
                     <Heading
                         as="h1"
                         maxW="780px"
@@ -68,8 +41,7 @@ function Hero() {
                         fontWeight="400"
                         sx={{ textWrap: 'balance' }}
                     >
-                        I turn stubborn workflows into software that pays for
-                        itself.
+                        I build small tools for costly workflows.
                     </Heading>
 
                     <Text
@@ -80,9 +52,9 @@ function Hero() {
                         color={muted}
                         sx={{ textWrap: 'pretty' }}
                     >
-                        I work with operations teams that have one costly manual
-                        process. In 30 days, I build a small tool around the way
-                        the team already works.
+                        In 30 days, I put one useful AI tool into your
+                        team&apos;s hands, built around the systems they already
+                        use.
                     </Text>
 
                     <Flex mt={9} gap={4} wrap="wrap" align="center">
@@ -102,7 +74,7 @@ function Hero() {
                             }}
                             _active={{ transform: 'translateY(0)' }}
                         >
-                            Bring me the workflow
+                            Send the workflow
                         </Button>
                         <Button
                             as={Link}
@@ -119,26 +91,14 @@ function Hero() {
                             See the work
                         </Button>
                     </Flex>
+                </Box>
 
-                    <Text mt={8} fontSize="sm" color={muted}>
-                        I take one 30-day pilot at a time and do the work
-                        myself.
-                    </Text>
-                </MotionBox>
-
-                <MotionBox
+                <Box
                     flex="0.8"
                     w={{ base: '100%', sm: '76%', lg: 'auto' }}
                     maxW={{ base: '460px', lg: '390px' }}
                     alignSelf={{ base: 'center', lg: 'flex-end' }}
                     position="relative"
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                        duration: 0.7,
-                        delay: 0.12,
-                        ease: [0.22, 1, 0.36, 1],
-                    }}
                 >
                     <Box
                         position="absolute"
@@ -189,7 +149,7 @@ function Hero() {
                             field operations
                         </Text>
                     </Box>
-                </MotionBox>
+                </Box>
             </Flex>
         </Box>
     );

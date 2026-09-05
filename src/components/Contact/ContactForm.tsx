@@ -31,8 +31,8 @@ type Attribution = {
 
 const BUDGET_OPTIONS = [
     { value: '', label: 'Select a range' },
-    { value: '5k-10k', label: '$5k–$10k' },
-    { value: '10k-25k', label: '$10k–$25k' },
+    { value: '5k-10k', label: '$5k-$10k' },
+    { value: '10k-25k', label: '$10k-$25k' },
     { value: '25k+', label: '$25k+' },
     { value: 'unsure', label: 'Not sure yet' },
 ];

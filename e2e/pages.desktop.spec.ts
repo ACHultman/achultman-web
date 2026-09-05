@@ -7,11 +7,22 @@ test.describe('Home page', () => {
         // Hero section
         await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-        // Buyer-fit section
-        await expect(page.getByText('Who this is for')).toBeVisible();
+        // Buyer-fit section and workflow economics
+        await expect(
+            page.getByRole('heading', {
+                name: 'You can point to the work that keeps getting stuck.',
+            })
+        ).toBeVisible();
+        await expect(
+            page.getByRole('heading', { name: 'Run the rough math.' })
+        ).toBeVisible();
 
         // Featured work and offer sections
-        await expect(page.getByText('Selected case notes')).toBeVisible();
+        await expect(
+            page.getByRole('heading', {
+                name: 'AI and product work in production.',
+            })
+        ).toBeVisible();
         await expect(page.getByText('The 30-day pilot')).toBeVisible();
 
         // Contact section
@@ -33,6 +44,21 @@ test.describe('Home page', () => {
                 }),
             ])
         );
+    });
+
+    test('calculates workflow cost and pilot payback from buyer inputs', async ({
+        page,
+    }) => {
+        await page.goto('/');
+
+        await page.getByLabel('People doing the work').fill('2');
+        await page.getByLabel('Hours each person spends weekly').fill('6');
+        await page.getByLabel('Loaded hourly cost (USD)').fill('75');
+        await page.getByLabel('Time a useful tool could return (%)').fill('50');
+
+        await expect(page.getByText('$3,897')).toBeVisible();
+        await expect(page.getByText('$1,949')).toBeVisible();
+        await expect(page.getByText('2.6 months')).toBeVisible();
     });
 
     test('submits structured lead data with campaign attribution', async ({
@@ -65,7 +91,10 @@ test.describe('Home page', () => {
             .fill(
                 'Our operations team manually reconciles weekly project status across three systems.'
             );
-        await page.getByRole('button', { name: 'Send the workflow' }).click();
+        await page
+            .locator('form')
+            .getByRole('button', { name: 'Send the workflow' })
+            .click();
 
         await expect(page.getByText('Received, Jordan.')).toBeVisible();
         expect(submitted).toMatchObject({

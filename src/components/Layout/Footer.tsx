@@ -25,8 +25,7 @@ function Footer() {
                     borderColor={border}
                 >
                     <Text color={muted} fontSize="sm">
-                        © {new Date().getFullYear()} Adam Hultman · Vancouver,
-                        BC
+                        © {new Date().getFullYear()} Adam Hultman, Vancouver, BC
                     </Text>
                     <Flex gap={6} fontSize="sm" fontWeight="600">
                         <Link as={NextLink} href="/about">

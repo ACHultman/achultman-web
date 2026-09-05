@@ -16,6 +16,7 @@ import Contact from '../Contact';
 import { captureLeadIntent } from '../../lib/analytics';
 import FeaturedWork from './FeaturedWork';
 import Hero from './Hero';
+import WorkflowCostCalculator from './WorkflowCostCalculator';
 
 const FIT_SIGNALS = [
     'Your team repeats the same judgement-heavy work every week.',
@@ -26,17 +27,14 @@ const FIT_SIGNALS = [
 
 const PILOT_STEPS = [
     {
-        number: '01',
         title: 'Watch the work',
         detail: 'Walk through the workflow with the people who run it. Record the edge cases and establish a baseline.',
     },
     {
-        number: '02',
         title: 'Build the first working version',
         detail: 'Connect the tools you already use. Keep a person in control of high-risk decisions.',
     },
     {
-        number: '03',
         title: "Put it in the team's hands",
         detail: 'Start with a small user group. Track failures and compare the result with the baseline.',
     },
@@ -46,7 +44,11 @@ function Home() {
     const muted = useColorModeValue('ink.600', 'paper.300');
     const surface = useColorModeValue('paper.100', 'ink.900');
     const border = useColorModeValue('paper.200', 'ink.700');
-    const darkPanel = useColorModeValue('ink.900', 'ink.950');
+    const offerPanel = useColorModeValue('moss.100', 'ink.900');
+    const offerBorder = useColorModeValue('moss.300', 'ink.700');
+    const offerMuted = useColorModeValue('ink.600', 'paper.300');
+    const offerButtonBg = useColorModeValue('ink.900', 'paper.50');
+    const offerButtonColor = useColorModeValue('paper.50', 'ink.900');
 
     return (
         <Box w="100%">
@@ -64,10 +66,8 @@ function Home() {
                     gap={{ base: 10, lg: 20 }}
                 >
                     <Box>
-                        <Text className="section-label">Who this is for</Text>
                         <Heading
                             as="h2"
-                            mt={4}
                             fontSize={{ base: '42px', md: '58px' }}
                             lineHeight="1"
                         >
@@ -80,9 +80,8 @@ function Home() {
                             maxW="520px"
                         >
                             I work best with B2B software and service teams of
-                            15–150 people. They have enough process for the
-                            manual work to hurt, and they can still make a
-                            decision quickly.
+                            15-150 people: enough process for manual work to
+                            hurt, small enough to decide quickly.
                         </Text>
                     </Box>
 
@@ -118,13 +117,14 @@ function Home() {
                 </Grid>
             </Box>
 
+            <WorkflowCostCalculator />
+
             <FeaturedWork />
 
             <Box
                 as="section"
                 id="offer"
-                bg={darkPanel}
-                color="paper.50"
+                bg={offerPanel}
                 mx={{ base: -4, md: -8 }}
                 px={{ base: 6, md: 12, lg: 16 }}
                 py={{ base: 14, md: 20 }}
@@ -139,22 +139,19 @@ function Home() {
                     position="relative"
                 >
                     <Box>
-                        <Text className="section-label section-label--light">
-                            The 30-day pilot
-                        </Text>
+                        <Text className="section-label">The 30-day pilot</Text>
                         <Heading
                             as="h2"
                             mt={4}
                             fontSize={{ base: '44px', md: '62px' }}
                             maxW="620px"
-                            color="paper.50"
                         >
                             Start with one month of work.
                         </Heading>
                         <Text
                             mt={7}
                             maxW="570px"
-                            color="paper.300"
+                            color={offerMuted}
                             lineHeight="1.75"
                             fontSize="lg"
                         >
@@ -167,7 +164,7 @@ function Home() {
                     <Box
                         borderTop="1px solid"
                         borderBottom="1px solid"
-                        borderColor="whiteAlpha.300"
+                        borderColor={offerBorder}
                         py={8}
                         alignSelf="end"
                     >
@@ -180,10 +177,10 @@ function Home() {
                                 from $5,000
                             </Text>
                         </Flex>
-                        <Text mt={2} color="paper.300" fontSize="sm">
-                            USD · 30 days · one defined workflow
+                        <Text mt={2} color={offerMuted} fontSize="sm">
+                            USD, 30 days, one defined workflow
                         </Text>
-                        <Text mt={6} color="paper.200" lineHeight="1.7">
+                        <Text mt={6} color={offerMuted} lineHeight="1.7">
                             At the end, we review the numbers together. Continue
                             only if the next month is worth it. You keep the
                             code and operating notes.
@@ -194,8 +191,8 @@ function Home() {
                             onClick={() => captureLeadIntent('offer')}
                             mt={7}
                             rightIcon={<FaArrowRight size="12px" />}
-                            bg="paper.50"
-                            color="ink.900"
+                            bg={offerButtonBg}
+                            color={offerButtonColor}
                             _hover={{
                                 bg: 'moss.200',
                                 transform: 'translateY(-2px)',
@@ -214,12 +211,8 @@ function Home() {
                     gap={{ base: 10, lg: 20 }}
                 >
                     <Box>
-                        <Text className="section-label">
-                            How the month works
-                        </Text>
                         <Heading
                             as="h2"
-                            mt={4}
                             fontSize={{ base: '42px', md: '58px' }}
                         >
                             Four weeks with the people doing the work.
@@ -227,31 +220,19 @@ function Home() {
                     </Box>
                     <VStack align="stretch" spacing={0}>
                         {PILOT_STEPS.map((step) => (
-                            <Grid
-                                key={step.number}
-                                templateColumns="42px 1fr"
-                                gap={4}
+                            <Box
+                                key={step.title}
                                 py={7}
                                 borderBottom="1px solid"
                                 borderColor={border}
                             >
-                                <Text
-                                    color="moss.600"
-                                    fontSize="sm"
-                                    fontWeight="700"
-                                    sx={{ fontVariantNumeric: 'tabular-nums' }}
-                                >
-                                    {step.number}
+                                <Heading as="h3" fontSize="2xl">
+                                    {step.title}
+                                </Heading>
+                                <Text mt={2} color={muted} lineHeight="1.7">
+                                    {step.detail}
                                 </Text>
-                                <Box>
-                                    <Heading as="h3" fontSize="2xl">
-                                        {step.title}
-                                    </Heading>
-                                    <Text mt={2} color={muted} lineHeight="1.7">
-                                        {step.detail}
-                                    </Text>
-                                </Box>
-                            </Grid>
+                            </Box>
                         ))}
                     </VStack>
                 </Grid>
@@ -263,11 +244,7 @@ function Home() {
                 borderTop="1px solid"
                 borderColor={border}
             >
-                <Grid
-                    templateColumns={{ base: '1fr', md: '1fr 1fr' }}
-                    gap={{ base: 8, md: 16 }}
-                    alignItems="end"
-                >
+                <Box maxW="760px">
                     <Heading
                         as="h2"
                         fontSize={{ base: '38px', md: '50px' }}
@@ -275,28 +252,26 @@ function Home() {
                     >
                         I still write the code.
                     </Heading>
-                    <Box>
-                        <Text color={muted} lineHeight="1.75">
-                            I&apos;m Adam. I have spent six years building
-                            software for media and residential electrification,
-                            plus a fair amount of applied AI. I studied security
-                            and privacy at UVic, and I still like working
-                            directly with the people who use what I build.
-                        </Text>
-                        <ChakraLink
-                            as={Link}
-                            href="/about"
-                            display="inline-flex"
-                            alignItems="center"
-                            gap={2}
-                            mt={5}
-                            fontWeight="700"
-                            color="moss.700"
-                        >
-                            More about Adam <FaArrowRight size="11px" />
-                        </ChakraLink>
-                    </Box>
-                </Grid>
+                    <Text mt={6} color={muted} lineHeight="1.75">
+                        I&apos;m Adam. I have spent six years building software
+                        for media and residential electrification, plus a fair
+                        amount of applied AI. I studied security and privacy at
+                        UVic, and I still like working directly with the people
+                        who use what I build.
+                    </Text>
+                    <ChakraLink
+                        as={Link}
+                        href="/about"
+                        display="inline-flex"
+                        alignItems="center"
+                        gap={2}
+                        mt={5}
+                        fontWeight="700"
+                        color="moss.700"
+                    >
+                        More about Adam <FaArrowRight size="11px" />
+                    </ChakraLink>
+                </Box>
             </Box>
 
             <Box id="contact" scrollMarginTop="110px">
