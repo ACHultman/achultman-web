@@ -50,7 +50,7 @@ function Navbar() {
         >
             <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
                 <Flex
-                    h={{ base: '70px', md: '82px' }}
+                    h={{ base: '70px', md: '76px' }}
                     align="center"
                     justify="space-between"
                 >
@@ -115,12 +115,10 @@ function Navbar() {
                             size="sm"
                             bg="ink.900"
                             color="paper.50"
-                            onClick={() =>
-                                captureLeadIntent('navbar_desktop')
-                            }
+                            onClick={() => captureLeadIntent('navbar_desktop')}
                             _hover={{ bg: 'moss.700' }}
                         >
-                            Start a project
+                            Send the workflow
                         </Button>
                     </HStack>
 
@@ -158,7 +156,7 @@ function Navbar() {
                             }}
                             _hover={{ bg: 'moss.700' }}
                         >
-                            Start a project
+                            Send the workflow
                         </Button>
                     </Stack>
                 ) : null}

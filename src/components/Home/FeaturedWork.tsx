@@ -6,11 +6,9 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 
 interface CaseNote {
-    number: string;
     title: string;
     context: string;
     description: string;
@@ -21,65 +19,47 @@ interface CaseNote {
 
 const CASE_NOTES: CaseNote[] = [
     {
-        number: '01',
-        title: 'Production AI inside an editorial workflow',
-        context: 'Geny · Assembly Digital',
+        title: 'Editorial AI deployed inside WordPress',
+        context: 'Geny, Assembly Digital',
         description:
             'An LLM-powered content system deployed at the edge inside WordPress, designed around the way editorial teams already worked.',
         evidence: 'Used by major Canadian media clients in production.',
-        disciplines: 'Product engineering · AI integration · AWS',
+        disciplines: 'Product engineering, AI integration, AWS',
     },
     {
-        number: '02',
         title: 'A reusable foundation for assistant products',
-        context: 'Wanderlust · Open source',
+        context: 'Wanderlust, open source',
         description:
             'A Next.js implementation of the OpenAI Assistants API that became the base for further internal and independent tools.',
-        evidence: '59 GitHub stars and the foundation for 10+ projects.',
-        disciplines: 'Next.js · TypeScript · Applied AI',
+        evidence: '60 GitHub stars and the foundation for 10+ projects.',
+        disciplines: 'Next.js, TypeScript, applied AI',
         href: 'https://github.com/ACHultman/wanderlust',
     },
     {
-        number: '03',
         title: 'Complex field rules made usable',
-        context: 'Kopperfield · Current role',
+        context: 'Kopperfield, current role',
         description:
             'Permit-ready product workflows for electricians, including load calculations, single-line diagrams and the paperwork that delays jobs.',
         evidence: 'Built around the rules electricians deal with on every job.',
-        disciplines: 'React · Node.js · PostgreSQL',
+        disciplines: 'React, Node.js, PostgreSQL',
     },
 ];
-
-const MotionBox = motion.create(Box);
 
 function CaseRow({ caseNote }: { caseNote: CaseNote }) {
     const muted = useColorModeValue('ink.600', 'paper.300');
     const border = useColorModeValue('paper.200', 'ink.700');
 
     return (
-        <MotionBox
+        <Box
             py={{ base: 8, md: 10 }}
             borderTop="1px solid"
             borderColor={border}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5 }}
         >
             <Flex
                 direction={{ base: 'column', md: 'row' }}
-                gap={{ base: 5, md: 10 }}
+                gap={{ base: 5, md: 14 }}
                 align="flex-start"
             >
-                <Text
-                    w={{ md: '54px' }}
-                    fontSize="sm"
-                    fontWeight="700"
-                    color="moss.600"
-                    sx={{ fontVariantNumeric: 'tabular-nums' }}
-                >
-                    {caseNote.number}
-                </Text>
                 <Box flex="1" maxW="470px">
                     <Text mb={2} fontSize="sm" fontWeight="600" color={muted}>
                         {caseNote.context}
@@ -116,7 +96,7 @@ function CaseRow({ caseNote }: { caseNote: CaseNote }) {
                     </Text>
                 </Box>
             </Flex>
-        </MotionBox>
+        </Box>
     );
 }
 
@@ -126,36 +106,23 @@ function FeaturedWork() {
 
     return (
         <Box as="section" id="work" py={{ base: 16, md: 24 }}>
-            <Flex
-                direction={{ base: 'column', md: 'row' }}
-                justify="space-between"
-                gap={6}
-                mb={{ base: 10, md: 16 }}
-            >
-                <Box>
-                    <Text className="section-label">Selected case notes</Text>
-                    <Heading
-                        as="h2"
-                        mt={4}
-                        fontSize={{ base: '42px', md: '58px' }}
-                        maxW="620px"
-                    >
-                        A few things I have shipped.
-                    </Heading>
-                </Box>
-                <Text
-                    maxW="390px"
-                    alignSelf={{ md: 'flex-end' }}
-                    color={muted}
-                    lineHeight="1.75"
+            <Box mb={{ base: 10, md: 16 }}>
+                <Heading
+                    as="h2"
+                    fontSize={{ base: '42px', md: '58px' }}
+                    maxW="720px"
                 >
-                    Each one had to fit the job and hold up outside a demo.
+                    AI and product work in production.
+                </Heading>
+                <Text mt={5} maxW="520px" color={muted} lineHeight="1.75">
+                    Each project had to fit the existing workflow and survive
+                    outside a demo.
                 </Text>
-            </Flex>
+            </Box>
 
             <Box borderBottom="1px solid" borderColor={border}>
                 {CASE_NOTES.map((caseNote) => (
-                    <CaseRow key={caseNote.number} caseNote={caseNote} />
+                    <CaseRow key={caseNote.title} caseNote={caseNote} />
                 ))}
             </Box>
         </Box>

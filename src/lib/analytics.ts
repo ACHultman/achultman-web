@@ -5,17 +5,18 @@ type LeadIntentSource =
     | 'offer'
     | 'navbar_desktop'
     | 'navbar_mobile'
+    | 'calculator'
     | 'contact_email'
     | 'contact_linkedin';
 
-type AnalyticsProperties = Record<string, string | number | boolean | undefined>;
+type AnalyticsProperties = Record<
+    string,
+    string | number | boolean | undefined
+>;
 
 const isAnalyticsEnabled = Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
-export function captureEvent(
-    event: string,
-    properties?: AnalyticsProperties
-) {
+export function captureEvent(event: string, properties?: AnalyticsProperties) {
     if (!isAnalyticsEnabled) return;
     posthog.capture(event, properties);
 }
