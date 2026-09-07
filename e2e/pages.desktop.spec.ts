@@ -38,6 +38,11 @@ test.describe('Home page', () => {
         expect(schemas).toEqual(
             expect.arrayContaining([
                 expect.objectContaining({
+                    '@type': 'Person',
+                    name: 'Adam Hultman',
+                    jobTitle: 'Full-Stack Engineer',
+                }),
+                expect.objectContaining({
                     '@type': 'Service',
                     name: '30-day AI workflow automation pilot',
                     offers: expect.objectContaining({
