@@ -116,7 +116,7 @@ function Hero() {
                     >
                         <NextImage
                             src="/images/adam.jpg"
-                            alt="Adam Hultman, product engineer"
+                            alt="Portrait of Adam Hultman"
                             fill
                             style={{ objectFit: 'cover' }}
                             priority
