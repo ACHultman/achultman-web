@@ -1,0 +1,23 @@
+{
+    "journeys": [
+        {
+            "name": "Homepage to about",
+            "startPath": "/",
+            "steps": [
+                {
+                    "action": "click",
+                    "selector": "a[href='/about']"
+                },
+                {
+                    "action": "expectUrl",
+                    "value": "/about"
+                },
+                {
+                    "action": "expectText",
+                    "selector": "h1",
+                    "value": "I like software that earns its place"
+                }
+            ]
+        }
+    ]
+}
