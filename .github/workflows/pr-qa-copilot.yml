@@ -1,0 +1,30 @@
+name: PR QA Copilot
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+
+permissions:
+    contents: read
+    deployments: read
+    pull-requests: write
+    actions: write
+
+jobs:
+    critical-journeys:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: ACHultman/pr-qa-copilot@v0
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  vercel_protection_bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+                  paths: |
+                      /
+                      /about
+                      /blog
+                      /workflow-automation-roi-calculator
+                  journey_file: .pr-qa-copilot/journeys.json
+                  auto_paths: true
+                  fail_on_issues: false
