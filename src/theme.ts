@@ -10,7 +10,7 @@ const theme = extendTheme({
     config,
     fonts: {
         body: 'var(--font-body), system-ui, sans-serif',
-        heading: 'var(--font-display), Georgia, serif',
+        heading: 'var(--font-display), system-ui, sans-serif',
         mono: "'SFMono-Regular', Consolas, monospace",
     },
     colors: {

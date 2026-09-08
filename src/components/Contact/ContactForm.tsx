@@ -219,12 +219,12 @@ function ContactForm() {
                 </ContactFormField>
 
                 <ContactFormField
-                    label="What are you doing by hand?"
+                    label="What are you trying to make or improve?"
                     isRequired
                     error={errors.workflow?.message}
                 >
                     <Textarea
-                        placeholder="Who does it? How often? Which tools are involved? A few rough notes are enough."
+                        placeholder="What exists today, who uses it and what would make it better?"
                         rows={6}
                         resize="vertical"
                         {...fieldStyles}

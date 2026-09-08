@@ -10,20 +10,24 @@ test.describe('Home page', () => {
         // Buyer-fit section and workflow economics
         await expect(
             page.getByRole('heading', {
-                name: 'Good problems to bring me',
+                name: 'The kind of work I take on',
             })
         ).toBeVisible();
         await expect(
-            page.getByRole('heading', { name: 'Is it worth fixing?' })
+            page.getByRole('heading', { name: 'A quick cost check' })
         ).toBeVisible();
 
         // Featured work and offer sections
         await expect(
             page.getByRole('heading', {
-                name: "A few things I've built",
+                name: 'Work that left the prototype stage',
             })
         ).toBeVisible();
-        await expect(page.getByText('One month, one workflow')).toBeVisible();
+        await expect(
+            page.getByRole('heading', {
+                name: 'One month is usually enough',
+            })
+        ).toBeVisible();
         await expect(
             page.getByText(/ongoing work starts at \$5,000 a month/i)
         ).toBeVisible();
@@ -44,7 +48,7 @@ test.describe('Home page', () => {
                 }),
                 expect.objectContaining({
                     '@type': 'Service',
-                    name: '30-day AI workflow automation pilot',
+                    name: '30-day software project',
                     offers: expect.objectContaining({
                         price: '5000',
                         priceCurrency: 'USD',
@@ -93,7 +97,7 @@ test.describe('Home page', () => {
         await page.getByLabel(/^Company/).fill('Example Operations');
         await page.getByLabel('Rough budget').selectOption('5k-10k');
         await page
-            .getByLabel(/^What are you doing by hand/)
+            .getByLabel(/^What are you trying to make or improve/)
             .fill(
                 'Our operations team manually reconciles weekly project status across three systems.'
             );

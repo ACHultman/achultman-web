@@ -1,5 +1,5 @@
 import { Box, Container, Flex, Link as ChakraLink } from '@chakra-ui/react';
-import { Fraunces, Manrope } from 'next/font/google';
+import { Manrope, Space_Grotesk } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 
 import Footer from './Footer';
@@ -11,7 +11,7 @@ const manrope = Manrope({
     variable: '--font-body',
 });
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
     subsets: ['latin'],
     display: 'swap',
     variable: '--font-display',
@@ -20,7 +20,7 @@ const fraunces = Fraunces({
 function Layout({ children }: PropsWithChildren) {
     return (
         <Box
-            className={`site-shell ${manrope.variable} ${fraunces.variable}`}
+            className={`site-shell ${manrope.variable} ${spaceGrotesk.variable}`}
             minH="100dvh"
         >
             <ChakraLink className="skip-link" href="#main">
