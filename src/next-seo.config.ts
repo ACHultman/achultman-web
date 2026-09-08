@@ -20,7 +20,7 @@ const config: NextSeoProps = {
                 url: `${baseUrl}/og_homepage.png`,
                 width: 1200,
                 height: 630,
-                alt: 'Adam Hultman, AI product engineer for operations teams',
+                alt: 'Adam Hultman, full-stack engineer and software consultant',
             },
         ],
     },

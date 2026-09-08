@@ -8,7 +8,7 @@ const personSchema = {
     '@type': 'Person',
     name: 'Adam Hultman',
     url: SITE_URL,
-    jobTitle: 'AI Product Engineer',
+    jobTitle: 'Full-Stack Engineer',
     worksFor: {
         '@type': 'Organization',
         name: 'Kopperfield',
@@ -39,7 +39,7 @@ const personSchema = {
         name: 'University of Victoria',
     },
     description:
-        'AI product engineer building small tools for costly manual workflows.',
+        'Full-stack engineer at Kopperfield and independent software consultant.',
 };
 
 const websiteSchema = {
