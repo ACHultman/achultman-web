@@ -10,22 +10,22 @@ test.describe('Home page', () => {
         // Buyer-fit section and workflow economics
         await expect(
             page.getByRole('heading', {
-                name: 'You can point to the work that keeps getting stuck.',
+                name: 'Good problems to bring me',
             })
         ).toBeVisible();
         await expect(
-            page.getByRole('heading', { name: 'Run the rough math.' })
+            page.getByRole('heading', { name: 'Is it worth fixing?' })
         ).toBeVisible();
 
         // Featured work and offer sections
         await expect(
             page.getByRole('heading', {
-                name: 'AI and product work in production.',
+                name: "A few things I've built",
             })
         ).toBeVisible();
-        await expect(page.getByText('The 30-day pilot')).toBeVisible();
+        await expect(page.getByText('One month, one workflow')).toBeVisible();
         await expect(
-            page.getByText(/ongoing product work starts at \$5,000 per month/i)
+            page.getByText(/ongoing work starts at \$5,000 a month/i)
         ).toBeVisible();
 
         // Contact section
@@ -62,7 +62,7 @@ test.describe('Home page', () => {
         await page.getByLabel('People doing the work').fill('2');
         await page.getByLabel('Hours each person spends weekly').fill('6');
         await page.getByLabel('Loaded hourly cost (USD)').fill('75');
-        await page.getByLabel('Time a useful tool could return (%)').fill('50');
+        await page.getByLabel('Time the tool could give back (%)').fill('50');
 
         await expect(page.getByText('$3,897')).toBeVisible();
         await expect(page.getByText('$1,949')).toBeVisible();
@@ -91,20 +91,18 @@ test.describe('Home page', () => {
         await page.getByLabel(/^Name/).fill('Jordan Lee');
         await page.getByLabel(/^Work email/).fill('jordan@example.com');
         await page.getByLabel(/^Company/).fill('Example Operations');
+        await page.getByLabel('Rough budget').selectOption('5k-10k');
         await page
-            .getByLabel('Likely first-phase budget')
-            .selectOption('5k-10k');
-        await page
-            .getByLabel(/^What is the expensive/)
+            .getByLabel(/^What are you doing by hand/)
             .fill(
                 'Our operations team manually reconciles weekly project status across three systems.'
             );
         await page
             .locator('form')
-            .getByRole('button', { name: 'Send the workflow' })
+            .getByRole('button', { name: 'Send it over' })
             .click();
 
-        await expect(page.getByText('Received, Jordan.')).toBeVisible();
+        await expect(page.getByText('Got it, Jordan')).toBeVisible();
         expect(submitted).toMatchObject({
             name: 'Jordan Lee',
             email: 'jordan@example.com',
@@ -136,24 +134,24 @@ test.describe('Workflow automation ROI calculator', () => {
         );
         await expect(page.locator('meta[name="description"]')).toHaveAttribute(
             'content',
-            'Estimate monthly workflow cost, capacity returned and payback on a $5,000 automation pilot. Free calculator with a transparent formula.'
+            'A free, plain-English calculator for checking whether a manual workflow might justify a $5,000 automation project.'
         );
         await expect(
             page.getByRole('heading', {
                 level: 1,
-                name: "Estimate a workflow's return.",
+                name: 'Is this workflow worth fixing?',
             })
         ).toBeVisible();
         await expect(
             page.getByRole('heading', {
-                name: 'What the calculator counts.',
+                name: 'How the estimate works',
             })
         ).toBeVisible();
 
         await page.getByLabel('People doing the work').fill('2');
         await page.getByLabel('Hours each person spends weekly').fill('6');
         await page.getByLabel('Loaded hourly cost (USD)').fill('75');
-        await page.getByLabel('Time a useful tool could return (%)').fill('50');
+        await page.getByLabel('Time the tool could give back (%)').fill('50');
 
         await expect(page.getByText('$3,897')).toBeVisible();
         await expect(page.getByText('$1,949')).toBeVisible();

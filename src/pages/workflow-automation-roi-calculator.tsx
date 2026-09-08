@@ -44,32 +44,32 @@ const FORMULAS = [
     {
         title: 'Monthly labour',
         formula: 'people × weekly hours × loaded hourly cost × 4.33',
-        detail: 'The calculator uses 4.33 as the average number of weeks in a month.',
+        detail: 'The estimate uses 4.33 weeks per month',
     },
     {
         title: 'Capacity returned',
         formula: 'monthly labour × expected time reduction',
-        detail: 'This values redirected work. It does not assume payroll will fall.',
+        detail: 'This treats the time as usable capacity, not lower payroll',
     },
     {
         title: 'Pilot payback',
         formula: '$5,000 ÷ monthly capacity returned',
-        detail: 'The pilot price is the published starting price, not a project quote.',
+        detail: 'The $5,000 is my published starting price, not a quote',
     },
 ];
 
 const ESTIMATE_CHECKS = [
     {
-        title: 'Recurring work',
-        detail: 'Use a process that happens every week. One-off projects make the monthly estimate look more reliable than it is.',
+        title: 'Use a weekly task',
+        detail: 'Pick something that happens often. One-off work makes the monthly number look tidier than it is',
     },
     {
-        title: 'A useful destination for the time',
-        detail: 'Name the work the team would do instead. Returned capacity matters only when someone can put it to use.',
+        title: 'Know where the time goes',
+        detail: 'If the team gets hours back, decide what they would do with them',
     },
     {
-        title: 'A person still in control',
-        detail: 'Keep approvals and high-risk decisions with the team. Estimate the routine work a tool can remove around them.',
+        title: 'Leave decisions with people',
+        detail: 'Keep approvals and higher-risk calls with the team. Estimate the routine work around them',
     },
 ];
 
@@ -83,12 +83,12 @@ function WorkflowAutomationRoiCalculatorPage() {
             <NextSeo
                 title="Workflow Automation ROI Calculator | Adam Hultman"
                 titleTemplate="%s"
-                description="Estimate monthly workflow cost, capacity returned and payback on a $5,000 automation pilot. Free calculator with a transparent formula."
+                description="A free, plain-English calculator for checking whether a manual workflow might justify a $5,000 automation project."
                 canonical={`${SITE_URL}/workflow-automation-roi-calculator`}
                 openGraph={{
                     title: 'Workflow Automation ROI Calculator | Adam Hultman',
                     description:
-                        'Estimate monthly workflow cost, capacity returned and pilot payback with a transparent formula.',
+                        'Check the rough cost of a manual workflow and the payback on a $5,000 automation project.',
                     url: `${SITE_URL}/workflow-automation-roi-calculator`,
                 }}
             />
@@ -119,7 +119,7 @@ function WorkflowAutomationRoiCalculatorPage() {
                         lineHeight={{ base: 1, md: 0.98 }}
                         letterSpacing="-0.04em"
                     >
-                        Estimate a workflow&apos;s return.
+                        Is this workflow worth fixing?
                     </Heading>
                     <Text
                         mt={7}
@@ -128,8 +128,8 @@ function WorkflowAutomationRoiCalculatorPage() {
                         fontSize={{ base: 'lg', md: 'xl' }}
                         lineHeight="1.75"
                     >
-                        Put rough numbers around one repeated process before you
-                        scope software or book a call.
+                        Add four rough numbers before you scope a project or
+                        book a call.
                     </Text>
                     <Button
                         as={Link}
@@ -144,7 +144,7 @@ function WorkflowAutomationRoiCalculatorPage() {
                         }}
                         _active={{ transform: 'translateY(0)' }}
                     >
-                        Run the numbers
+                        Try the calculator
                     </Button>
                 </Box>
 
@@ -165,7 +165,7 @@ function WorkflowAutomationRoiCalculatorPage() {
                                 as="h2"
                                 fontSize={{ base: '42px', md: '58px' }}
                             >
-                                What the calculator counts.
+                                How the estimate works
                             </Heading>
                             <Text
                                 mt={6}
@@ -173,9 +173,9 @@ function WorkflowAutomationRoiCalculatorPage() {
                                 color={muted}
                                 lineHeight="1.75"
                             >
-                                This is a first-pass payback estimate. A full
-                                ROI forecast also needs ongoing costs, adoption
-                                time and the value of fewer errors.
+                                This is a quick payback check, not a full ROI
+                                forecast. Ongoing costs, adoption and errors
+                                still matter.
                             </Text>
                         </Box>
                         <VStack align="stretch" spacing={0}>
@@ -221,7 +221,7 @@ function WorkflowAutomationRoiCalculatorPage() {
                         maxW="760px"
                         fontSize={{ base: '42px', md: '58px' }}
                     >
-                        Use numbers you can defend.
+                        Before you trust the answer
                     </Heading>
                     <Grid
                         mt={{ base: 10, md: 14 }}
@@ -257,9 +257,8 @@ function WorkflowAutomationRoiCalculatorPage() {
                         ))}
                     </Grid>
                     <Text mt={8} maxW="760px" color={muted} lineHeight="1.75">
-                        Treat the result as a filter. If the economics only work
-                        with optimistic inputs, the workflow is probably not a
-                        good first automation project.
+                        If the numbers only work with heroic assumptions, pick
+                        another workflow.
                     </Text>
                 </Box>
 

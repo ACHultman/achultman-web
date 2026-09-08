@@ -127,11 +127,11 @@ function WorkflowCostCalculator({
             borderColor={border}
         >
             <Heading as="h2" fontSize={{ base: '42px', md: '58px' }}>
-                Run the rough math.
+                Is it worth fixing?
             </Heading>
             <Text mt={5} maxW="620px" color={muted} lineHeight="1.75">
-                Use a typical week. Conservative numbers are more useful than a
-                business case built to win an argument.
+                Four rough numbers are enough for a first pass. Some annoying
+                work is still cheaper to leave alone.
             </Text>
             {showMethodLink ? (
                 <ChakraLink
@@ -142,7 +142,7 @@ function WorkflowCostCalculator({
                     color="moss.700"
                     fontWeight="700"
                 >
-                    See the formula and assumptions
+                    How the estimate works
                 </ChakraLink>
             ) : null}
 
@@ -210,13 +210,13 @@ function WorkflowCostCalculator({
                             {...fieldStyles}
                         />
                         <FormHelperText color={muted}>
-                            Include salary, benefits and overhead.
+                            Include salary, benefits and overhead
                         </FormHelperText>
                     </FormControl>
 
                     <FormControl>
                         <FormLabel htmlFor="workflow-return">
-                            Time a useful tool could return (%)
+                            Time the tool could give back (%)
                         </FormLabel>
                         <Input
                             id="workflow-return"
@@ -233,7 +233,7 @@ function WorkflowCostCalculator({
                             {...fieldStyles}
                         />
                         <FormHelperText color={muted}>
-                            Use a reduction you would defend internally.
+                            Pick a number you would show your own team
                         </FormHelperText>
                     </FormControl>
                 </SimpleGrid>
@@ -291,8 +291,9 @@ function WorkflowCostCalculator({
                                 </Box>
                             </Grid>
                             <Text mt={8} color={muted} lineHeight="1.7">
-                                Returned capacity is not cash saved. It is time
-                                the team can put elsewhere.
+                                This is capacity, not money back in the bank,
+                                and it only matters if the team can use the time
+                                elsewhere.
                             </Text>
                             <Button
                                 as={Link}
@@ -309,30 +310,30 @@ function WorkflowCostCalculator({
                                 }}
                                 _active={{ transform: 'translateY(0)' }}
                             >
-                                Send the workflow
+                                Tell me about the workflow
                             </Button>
                         </>
                     ) : hasAnyInput ? (
                         <Box minH={{ base: '180px', md: '250px' }}>
                             <Text fontFamily="heading" fontSize="3xl">
                                 {hasAllInputs
-                                    ? 'Check the ranges.'
-                                    : 'Add the remaining numbers.'}
+                                    ? 'Those numbers look off'
+                                    : 'Fill in the four boxes'}
                             </Text>
                             <Text mt={5} color={muted} lineHeight="1.75">
                                 {hasAllInputs
-                                    ? 'Use 1-100 people, 0.5-80 weekly hours, $1-$1,000 per hour and 1%-100% time returned.'
-                                    : 'The estimate appears after all four fields have a value.'}
+                                    ? 'Try 1-100 people, 0.5-80 weekly hours, $1-$1,000 per hour and 1%-100% time returned'
+                                    : 'The estimate shows up once every field has something in it'}
                             </Text>
                         </Box>
                     ) : (
                         <Box minH={{ base: '180px', md: '250px' }}>
                             <Text fontFamily="heading" fontSize="3xl">
-                                Start with what happens today.
+                                Add four rough numbers
                             </Text>
                             <Text mt={5} color={muted} lineHeight="1.75">
-                                Enter four numbers. Use loaded cost and choose a
-                                time reduction you would defend internally.
+                                Use loaded cost and pick a time saving that
+                                feels believable.
                             </Text>
                         </Box>
                     )}

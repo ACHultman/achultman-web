@@ -19,38 +19,37 @@ interface CaseNote {
 
 const CASE_NOTES: CaseNote[] = [
     {
-        title: 'Editorial AI deployed inside WordPress',
+        title: 'Geny in WordPress',
         context: 'Geny, Assembly Digital',
         description:
-            'An LLM-powered content system deployed at the edge inside WordPress, designed around the way editorial teams already worked.',
-        evidence: 'Used in production by Canadian media teams.',
+            'An AI content tool built into WordPress, where the editors were already working',
+        evidence: 'Used by Canadian media teams',
         disciplines: 'Product engineering, AI integration, AWS',
     },
     {
-        title: 'Critical flows checked on every pull request',
+        title: 'PR checks in a browser',
         context: 'PR QA Copilot, open source',
         description:
-            'A GitHub Action that runs repository-defined browser journeys against preview deployments and returns the verdict, runtime failures and screenshots on the pull request.',
-        evidence:
-            'Released as a versioned action with its own hosted journey test.',
+            'A GitHub Action that runs browser journeys against a preview and puts the result and screenshots on the pull request',
+        evidence: 'Published as a versioned action with a live test',
         disciplines: 'Playwright, GitHub Actions, Next.js',
         href: 'https://pr-qa-copilot.vercel.app',
     },
     {
-        title: 'An open-source Assistants API reference',
+        title: 'Wanderlust',
         context: 'Wanderlust, open source',
         description:
-            "A Next.js recreation of OpenAI's DevDay Wanderlust demo, built as a readable reference for the Assistants API.",
-        evidence: '60 GitHub stars and 20 public forks as of September 2026.',
+            "A readable Next.js recreation of OpenAI's DevDay Assistants API demo",
+        evidence: '60 stars and 20 forks on GitHub as of September 2026',
         disciplines: 'Next.js, TypeScript, applied AI',
         href: 'https://github.com/ACHultman/wanderlust',
     },
     {
-        title: 'Complex field rules made usable',
+        title: 'Permit tools for electricians',
         context: 'Kopperfield, current role',
         description:
-            'Permit-ready product workflows for electricians, including load calculations, single-line diagrams and the paperwork that delays jobs.',
-        evidence: 'Built around the rules electricians deal with on every job.',
+            'Load calculations, single-line diagrams and permit paperwork for electricians',
+        evidence: 'Current product work at Kopperfield',
         disciplines: 'React, Node.js, PostgreSQL',
     },
 ];
@@ -122,11 +121,10 @@ function FeaturedWork() {
                     fontSize={{ base: '42px', md: '58px' }}
                     maxW="720px"
                 >
-                    AI and product work in production.
+                    A few things I&apos;ve built
                 </Heading>
                 <Text mt={5} maxW="520px" color={muted} lineHeight="1.75">
-                    Each project had to fit the existing workflow and survive
-                    outside a demo.
+                    Some at work, some open source
                 </Text>
             </Box>
 

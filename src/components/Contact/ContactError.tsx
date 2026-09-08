@@ -1,11 +1,4 @@
-import {
-    VStack,
-    Text,
-    Flex,
-    Button,
-    useClipboard,
-} from '@chakra-ui/react';
-import { MdEmail } from 'react-icons/md';
+import { VStack, Flex, Button, useClipboard } from '@chakra-ui/react';
 import { ContactAlert } from './ContactAlert';
 
 export function ContactError({
@@ -23,32 +16,15 @@ export function ContactError({
         <VStack spacing="4">
             <ContactAlert
                 status="error"
-                title="Not sent!"
-                description={
-                    <Text
-                        fontSize={{ base: 'sm', md: 'md' }}
-                        display="inline-flex"
-                        alignItems="center"
-                        flexWrap="wrap"
-                    >
-                        Sorry, {firstName}. Please press&nbsp;
-                        <Button
-                            variant="link"
-                            onClick={onCopy}
-                            leftIcon={<MdEmail />}
-                            aria-label="Copy email address"
-                        >
-                            to copy my email address.
-                        </Button>
-                    </Text>
-                }
+                title="That didn't go through"
+                description={`Sorry, ${firstName}. Try again or copy my email address.`}
             >
                 <Flex align="center" justifyContent="space-between" w="100%">
                     <Button onClick={onRetry} colorScheme="blue">
-                        Try Again
+                        Try again
                     </Button>
                     <Button onClick={onCopy} variant="outline">
-                        {hasCopied ? 'Copied!' : 'Copy Email'}
+                        {hasCopied ? 'Email copied' : 'Copy email'}
                     </Button>
                 </Flex>
             </ContactAlert>

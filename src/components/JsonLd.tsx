@@ -47,7 +47,8 @@ const websiteSchema = {
     '@type': 'WebSite',
     name: 'Adam Hultman',
     url: SITE_URL,
-    description: 'Fixed 30-day AI product pilots for B2B operations teams.',
+    description:
+        'Small software tools for repetitive work between spreadsheets, inboxes and the systems a team already uses.',
     author: {
         '@type': 'Person',
         name: 'Adam Hultman',

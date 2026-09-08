@@ -118,7 +118,7 @@ function Navbar() {
                             onClick={() => captureLeadIntent('navbar_desktop')}
                             _hover={{ bg: 'moss.700' }}
                         >
-                            Send the workflow
+                            Tell me about it
                         </Button>
                     </HStack>
 
@@ -156,7 +156,7 @@ function Navbar() {
                             }}
                             _hover={{ bg: 'moss.700' }}
                         >
-                            Send the workflow
+                            Tell me about it
                         </Button>
                     </Stack>
                 ) : null}

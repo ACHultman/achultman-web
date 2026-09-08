@@ -19,24 +19,24 @@ import Hero from './Hero';
 import WorkflowCostCalculator from './WorkflowCostCalculator';
 
 const FIT_SIGNALS = [
-    'Your team repeats the same judgement-heavy work every week.',
-    'The workflow crosses spreadsheets, inboxes and a system of record.',
-    'Your current software handles the easy cases. People still close the gap.',
-    'You can name an owner and measure the hours, delay or risk involved.',
+    'Someone does the same fiddly work every week',
+    'The answer lives across a spreadsheet, an inbox and another tool',
+    'Your software handles the happy path and a person handles the rest',
+    'Someone owns the job and knows roughly how much time it eats',
 ];
 
 const PILOT_STEPS = [
     {
-        title: 'Watch the work',
-        detail: 'Walk through the workflow with the people who run it. Record the edge cases and establish a baseline.',
+        title: 'See the work up close',
+        detail: 'We walk through the job as it happens, including the weird cases and workarounds',
     },
     {
-        title: 'Build the first working version',
-        detail: 'Connect the tools you already use. Keep a person in control of high-risk decisions.',
+        title: 'Build something small',
+        detail: 'I connect the tools already in use and leave the important decisions with a person',
     },
     {
-        title: "Put it in the team's hands",
-        detail: 'Start with a small user group. Track failures and compare the result with the baseline.',
+        title: 'Try it with a few people',
+        detail: 'We see what breaks, fix it and compare the result with how the work happened before',
     },
 ];
 
@@ -71,7 +71,7 @@ function Home() {
                             fontSize={{ base: '42px', md: '58px' }}
                             lineHeight="1"
                         >
-                            You can point to the work that keeps getting stuck.
+                            Good problems to bring me
                         </Heading>
                         <Text
                             mt={7}
@@ -79,9 +79,9 @@ function Home() {
                             lineHeight="1.75"
                             maxW="520px"
                         >
-                            I work best with B2B software and service teams of
-                            15-150 people: enough process for manual work to
-                            hurt, small enough to decide quickly.
+                            The sweet spot is a B2B software or service team of
+                            15 to 150 people: enough moving parts to make a
+                            workaround painful, small enough to fix it.
                         </Text>
                     </Box>
 
@@ -139,14 +139,16 @@ function Home() {
                     position="relative"
                 >
                     <Box>
-                        <Text className="section-label">The 30-day pilot</Text>
+                        <Text className="section-label">
+                            One month, one workflow
+                        </Text>
                         <Heading
                             as="h2"
                             mt={4}
                             fontSize={{ base: '44px', md: '62px' }}
                             maxW="620px"
                         >
-                            Start with one month of work.
+                            Let&apos;s make one annoying task easier
                         </Heading>
                         <Text
                             mt={7}
@@ -155,9 +157,9 @@ function Home() {
                             lineHeight="1.75"
                             fontSize="lg"
                         >
-                            Bring one workflow. I&apos;ll build the smallest
-                            version your team can use within a month, then
-                            measure whether it saves enough work to continue.
+                            Bring the messy version and I&apos;ll sit with the
+                            people who do it, build something small and see
+                            whether it helps.
                         </Text>
                     </Box>
 
@@ -169,7 +171,7 @@ function Home() {
                         alignSelf="end"
                     >
                         <Flex justify="space-between" gap={4} align="baseline">
-                            <Text fontWeight="600">Fixed pilot</Text>
+                            <Text fontWeight="600">30-day project</Text>
                             <Text
                                 fontFamily="heading"
                                 fontSize={{ base: '3xl', md: '4xl' }}
@@ -178,15 +180,13 @@ function Home() {
                             </Text>
                         </Flex>
                         <Text mt={2} color={offerMuted} fontSize="sm">
-                            USD, 30 days, one defined workflow
+                            USD · one workflow · small group
                         </Text>
                         <Text mt={6} color={offerMuted} lineHeight="1.7">
-                            At the end, we review the numbers together. If the
-                            pilot proves useful, ongoing product work starts at
-                            $5,000 per month. I keep improving the tool,
-                            watching failures and adapting it as the surrounding
-                            systems change. The agreement stays month to month,
-                            and you keep the code and operating notes.
+                            After a month, we look at what changed and decide
+                            whether to keep going. Ongoing work starts at $5,000
+                            a month, stays month to month, and the code and
+                            notes are yours.
                         </Text>
                         <Button
                             as={Link}
@@ -202,7 +202,7 @@ function Home() {
                                 textDecoration: 'none',
                             }}
                         >
-                            Send the workflow
+                            Tell me about it
                         </Button>
                     </Box>
                 </Grid>
@@ -218,7 +218,7 @@ function Home() {
                             as="h2"
                             fontSize={{ base: '42px', md: '58px' }}
                         >
-                            Four weeks with the people doing the work.
+                            What the month looks like
                         </Heading>
                     </Box>
                     <VStack align="stretch" spacing={0}>
@@ -253,14 +253,15 @@ function Home() {
                         fontSize={{ base: '38px', md: '50px' }}
                         maxW="580px"
                     >
-                        I still write the code.
+                        A bit about me
                     </Heading>
                     <Text mt={6} color={muted} lineHeight="1.75">
-                        I&apos;m Adam. I have spent six years building software
-                        for media and residential electrification, plus a fair
-                        amount of applied AI. I studied security and privacy at
-                        UVic, and I still like working directly with the people
-                        who use what I build.
+                        I&apos;m a software engineer in Vancouver. I&apos;ve
+                        spent six years building products for media and
+                        residential electrification, with a fair bit of AI mixed
+                        in. I studied security and privacy at UVic and still
+                        prefer working directly with the people using what I
+                        build.
                     </Text>
                     <ChakraLink
                         as={Link}
@@ -272,7 +273,7 @@ function Home() {
                         fontWeight="700"
                         color="moss.700"
                     >
-                        More about Adam <FaArrowRight size="11px" />
+                        The longer version <FaArrowRight size="11px" />
                     </ChakraLink>
                 </Box>
             </Box>
