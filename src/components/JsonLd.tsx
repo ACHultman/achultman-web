@@ -48,7 +48,7 @@ const websiteSchema = {
     name: 'Adam Hultman',
     url: SITE_URL,
     description:
-        'Small software tools for repetitive work between spreadsheets, inboxes and the systems a team already uses.',
+        'Internal tools, AI features and focused web products for teams whose current software stops a little too early.',
     author: {
         '@type': 'Person',
         name: 'Adam Hultman',
@@ -58,11 +58,11 @@ const websiteSchema = {
 const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: '30-day AI workflow automation pilot',
-    serviceType: 'AI workflow automation consulting and product engineering',
+    name: '30-day software project',
+    serviceType: 'Custom software development and product engineering',
     url: `${SITE_URL}/#offer`,
     description:
-        'A fixed 30-day engagement to build and test a small AI tool around one costly manual workflow. Ongoing product work is offered month to month after a useful pilot.',
+        'A focused 30-day engagement for an internal tool, AI feature, integration or web product. Ongoing product work is available month to month.',
     provider: {
         '@type': 'Person',
         name: 'Adam Hultman',
@@ -71,14 +71,14 @@ const serviceSchema = {
     areaServed: ['Canada', 'United States'],
     audience: {
         '@type': 'BusinessAudience',
-        audienceType: 'B2B software and service operations teams',
+        audienceType: 'B2B product and operations teams',
     },
     offers: {
         '@type': 'Offer',
         url: `${SITE_URL}/#contact`,
         priceCurrency: 'USD',
         price: '5000',
-        description: 'Starting price for one defined 30-day workflow pilot.',
+        description: 'Starting price for one focused 30-day software project.',
         availability: 'https://schema.org/LimitedAvailability',
     },
 };

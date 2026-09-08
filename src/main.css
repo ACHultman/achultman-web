@@ -11,7 +11,7 @@ body {
 }
 
 .site-shell .chakra-heading {
-    font-family: var(--font-display), Georgia, serif;
+    font-family: var(--font-display), system-ui, sans-serif;
 }
 
 body::before {
@@ -68,20 +68,6 @@ a {
 
 .section-label--light {
     color: #bdcbaa;
-}
-
-.organic-ring {
-    position: absolute;
-    width: 30rem;
-    height: 30rem;
-    right: -12rem;
-    top: -16rem;
-    border: 1px solid rgba(189, 203, 170, 0.18);
-    border-radius: 47% 53% 44% 56% / 56% 42% 58% 44%;
-    box-shadow:
-        0 0 0 4rem rgba(189, 203, 170, 0.025),
-        0 0 0 8rem rgba(189, 203, 170, 0.018);
-    transform: rotate(12deg);
 }
 
 .progress-bar {

@@ -41,13 +41,14 @@ function Contact() {
                         as="h2"
                         fontSize={{ base: '44px', md: '60px' }}
                         lineHeight="0.98"
+                        fontWeight="500"
                     >
-                        What are you tired of doing by hand?
+                        Tell me what you&apos;re making
                     </Heading>
                     <Text mt={7} maxW="520px" color={muted} lineHeight="1.75">
-                        Send me the scrappy version and I&apos;ll get back to
-                        you within a business day and tell you whether it sounds
-                        worth a call.
+                        A rough note is enough. If it sounds like something I
+                        can help with, I&apos;ll suggest a call. If not,
+                        I&apos;ll tell you
                     </Text>
 
                     <VStack

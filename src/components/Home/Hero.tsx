@@ -8,40 +8,39 @@ import {
 } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import Link from 'next/link';
-import { FaArrowDown, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import { captureLeadIntent } from '../../lib/analytics';
 
 function Hero() {
     const muted = useColorModeValue('ink.600', 'paper.300');
     const portraitBg = useColorModeValue('moss.100', 'moss.900');
-    const noteBg = useColorModeValue('paper.50', 'ink.900');
-    const noteBorder = useColorModeValue('ink.900', 'paper.100');
+    const portraitBorder = useColorModeValue('ink.900', 'paper.100');
 
     return (
         <Box
             as="section"
-            minH={{ base: 'auto', lg: 'calc(100dvh - 88px)' }}
+            minH={{ base: 'auto', lg: 'calc(100dvh - 76px)' }}
             display="flex"
             alignItems="center"
-            py={{ base: 14, md: 20, lg: 24 }}
+            py={{ base: 12, md: 16, lg: 20 }}
         >
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
-                gap={{ base: 14, lg: 20 }}
+                gap={{ base: 14, lg: 24 }}
                 align="center"
                 w="100%"
             >
-                <Box flex="1.2">
+                <Box flex="1.15">
                     <Heading
                         as="h1"
-                        maxW="780px"
-                        fontSize={{ base: '48px', sm: '60px', md: '76px' }}
-                        lineHeight={{ base: 0.98, md: 0.94 }}
-                        letterSpacing="-0.045em"
-                        fontWeight="400"
+                        maxW="760px"
+                        fontSize={{ base: '54px', sm: '66px', md: '82px' }}
+                        lineHeight={{ base: 0.96, md: 0.92 }}
+                        letterSpacing="-0.055em"
+                        fontWeight="500"
                         sx={{ textWrap: 'balance' }}
                     >
-                        What are you still doing by hand?
+                        Software for the awkward bits
                     </Heading>
 
                     <Text
@@ -52,9 +51,8 @@ function Hero() {
                         color={muted}
                         sx={{ textWrap: 'pretty' }}
                     >
-                        I build small software tools for repetitive work hiding
-                        between spreadsheets, inboxes and the systems your team
-                        already uses, usually in about a month.
+                        I&apos;m Adam. I build internal tools, AI features and
+                        web products that fit the way a team already works.
                     </Text>
 
                     <Flex mt={9} gap={4} wrap="wrap" align="center">
@@ -74,45 +72,46 @@ function Hero() {
                             }}
                             _active={{ transform: 'translateY(0)' }}
                         >
-                            Tell me about it
+                            Start a project
                         </Button>
                         <Button
                             as={Link}
                             href="#work"
                             size="lg"
                             variant="ghost"
-                            rightIcon={<FaArrowDown size="12px" />}
+                            rightIcon={<FaArrowRight size="12px" />}
                             color={muted}
                             _hover={{
                                 bg: 'transparent',
                                 color: 'moss.600',
                             }}
                         >
-                            Things I&apos;ve built
+                            See my work
                         </Button>
                     </Flex>
                 </Box>
 
                 <Box
-                    flex="0.8"
-                    w={{ base: '100%', sm: '76%', lg: 'auto' }}
-                    maxW={{ base: '460px', lg: '390px' }}
+                    flex="0.85"
+                    w={{ base: '92%', sm: '72%', lg: 'auto' }}
+                    maxW={{ base: '460px', lg: '410px' }}
                     alignSelf={{ base: 'center', lg: 'flex-end' }}
                     position="relative"
                 >
                     <Box
                         position="absolute"
-                        inset="-18px 24px 24px -18px"
-                        borderRadius="48% 52% 44% 56% / 55% 42% 58% 45%"
+                        inset="18px 18px -18px -18px"
+                        borderRadius="18px 18px 92px 18px"
                         bg={portraitBg}
-                        transform="rotate(-3deg)"
                     />
                     <Box
                         position="relative"
                         aspectRatio="4 / 5"
                         overflow="hidden"
-                        borderRadius="46% 54% 43% 57% / 39% 42% 58% 61%"
-                        filter="saturate(0.72) contrast(1.04)"
+                        borderRadius="18px 18px 92px 18px"
+                        border="1px solid"
+                        borderColor={portraitBorder}
+                        filter="saturate(0.76) contrast(1.04)"
                     >
                         <NextImage
                             src="/images/adam.jpg"
@@ -122,31 +121,6 @@ function Hero() {
                             priority
                             sizes="(max-width: 992px) 76vw, 390px"
                         />
-                    </Box>
-                    <Box
-                        position="absolute"
-                        right={{ base: '-8px', md: '-28px' }}
-                        bottom={{ base: '-24px', md: '22px' }}
-                        bg={noteBg}
-                        border="1px solid"
-                        borderColor={noteBorder}
-                        borderRadius="2px 14px 14px 14px"
-                        px={5}
-                        py={4}
-                        maxW="220px"
-                        boxShadow="12px 14px 0 rgba(63, 74, 53, 0.12)"
-                        transform="rotate(1.5deg)"
-                    >
-                        <Text
-                            fontFamily="heading"
-                            fontSize="xl"
-                            lineHeight="1.1"
-                        >
-                            Adam Hultman
-                        </Text>
-                        <Text mt={1} fontSize="xs" color={muted}>
-                            Full-stack engineer in Vancouver
-                        </Text>
                     </Box>
                 </Box>
             </Flex>

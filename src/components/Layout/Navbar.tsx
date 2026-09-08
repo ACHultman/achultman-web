@@ -16,9 +16,8 @@ import { captureLeadIntent } from '../../lib/analytics';
 import NavbarIcon from './NavbarIcon';
 
 const NAV_LINKS = [
-    { name: 'Fit', route: '/#fit' },
     { name: 'Work', route: '/#work' },
-    { name: 'Offer', route: '/#offer' },
+    { name: 'Services', route: '/#fit' },
     { name: 'Writing', route: '/blog' },
     { name: 'Lab', route: '/labs' },
 ];
@@ -83,7 +82,7 @@ function Navbar() {
                                     color={muted}
                                     letterSpacing="0.08em"
                                 >
-                                    Product engineering
+                                    Software engineer
                                 </Text>
                             </Box>
                         </HStack>
@@ -118,7 +117,7 @@ function Navbar() {
                             onClick={() => captureLeadIntent('navbar_desktop')}
                             _hover={{ bg: 'moss.700' }}
                         >
-                            Tell me about it
+                            Start a project
                         </Button>
                     </HStack>
 
@@ -156,7 +155,7 @@ function Navbar() {
                             }}
                             _hover={{ bg: 'moss.700' }}
                         >
-                            Tell me about it
+                            Start a project
                         </Button>
                     </Stack>
                 ) : null}

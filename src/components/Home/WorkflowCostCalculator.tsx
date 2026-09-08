@@ -126,12 +126,16 @@ function WorkflowCostCalculator({
             borderTop="1px solid"
             borderColor={border}
         >
-            <Heading as="h2" fontSize={{ base: '42px', md: '58px' }}>
-                Is it worth fixing?
+            <Heading
+                as="h2"
+                fontSize={{ base: '42px', md: '58px' }}
+                fontWeight="500"
+            >
+                A quick cost check
             </Heading>
             <Text mt={5} maxW="620px" color={muted} lineHeight="1.75">
-                Four rough numbers are enough for a first pass. Some annoying
-                work is still cheaper to leave alone.
+                If a job repeats every week, four rough numbers can tell you
+                whether software is worth a closer look
             </Text>
             {showMethodLink ? (
                 <ChakraLink
@@ -278,7 +282,7 @@ function WorkflowCostCalculator({
                                 </Box>
                                 <Box>
                                     <Text color={muted} fontSize="sm">
-                                        $5,000 pilot payback
+                                        $5,000 project payback
                                     </Text>
                                     <Text
                                         mt={1}
@@ -310,7 +314,7 @@ function WorkflowCostCalculator({
                                 }}
                                 _active={{ transform: 'translateY(0)' }}
                             >
-                                Tell me about the workflow
+                                Start a project
                             </Button>
                         </>
                     ) : hasAnyInput ? (

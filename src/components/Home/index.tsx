@@ -1,16 +1,15 @@
 import {
     Box,
     Button,
-    Flex,
     Grid,
     Heading,
     Link as ChakraLink,
     Text,
     useColorModeValue,
-    VStack,
 } from '@chakra-ui/react';
+import NextImage from 'next/image';
 import Link from 'next/link';
-import { FaArrowRight, FaCheck } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 
 import Contact from '../Contact';
 import { captureLeadIntent } from '../../lib/analytics';
@@ -18,34 +17,25 @@ import FeaturedWork from './FeaturedWork';
 import Hero from './Hero';
 import WorkflowCostCalculator from './WorkflowCostCalculator';
 
-const FIT_SIGNALS = [
-    'Someone does the same fiddly work every week',
-    'The answer lives across a spreadsheet, an inbox and another tool',
-    'Your software handles the happy path and a person handles the rest',
-    'Someone owns the job and knows roughly how much time it eats',
-];
-
-const PILOT_STEPS = [
+const CAPABILITIES = [
     {
-        title: 'See the work up close',
-        detail: 'We walk through the job as it happens, including the weird cases and workarounds',
+        title: 'Internal tools',
+        detail: "The small app your team keeps trying to approximate with spreadsheets, inboxes and one person's memory",
     },
     {
-        title: 'Build something small',
-        detail: 'I connect the tools already in use and leave the important decisions with a person',
+        title: 'AI features',
+        detail: 'Search, extraction, drafting or review inside a product people already use',
     },
     {
-        title: 'Try it with a few people',
-        detail: 'We see what breaks, fix it and compare the result with how the work happened before',
+        title: 'Product engineering',
+        detail: 'A focused web feature, integration or rescue job when a team needs extra engineering capacity',
     },
 ];
 
 function Home() {
     const muted = useColorModeValue('ink.600', 'paper.300');
-    const surface = useColorModeValue('paper.100', 'ink.900');
     const border = useColorModeValue('paper.200', 'ink.700');
     const offerPanel = useColorModeValue('moss.100', 'ink.900');
-    const offerBorder = useColorModeValue('moss.300', 'ink.700');
     const offerMuted = useColorModeValue('ink.600', 'paper.300');
     const offerButtonBg = useColorModeValue('ink.900', 'paper.50');
     const offerButtonColor = useColorModeValue('paper.50', 'ink.900');
@@ -53,6 +43,8 @@ function Home() {
     return (
         <Box w="100%">
             <Hero />
+
+            <FeaturedWork />
 
             <Box
                 as="section"
@@ -62,132 +54,114 @@ function Home() {
                 borderColor={border}
             >
                 <Grid
-                    templateColumns={{ base: '1fr', lg: '0.8fr 1.2fr' }}
+                    templateColumns={{ base: '1fr', lg: '0.72fr 1.28fr' }}
                     gap={{ base: 10, lg: 20 }}
                 >
-                    <Box>
+                    <Box maxW="520px">
                         <Heading
                             as="h2"
                             fontSize={{ base: '42px', md: '58px' }}
-                            lineHeight="1"
+                            fontWeight="500"
                         >
-                            Good problems to bring me
+                            The kind of work I take on
                         </Heading>
-                        <Text
-                            mt={7}
-                            color={muted}
-                            lineHeight="1.75"
-                            maxW="520px"
-                        >
-                            The sweet spot is a B2B software or service team of
-                            15 to 150 people: enough moving parts to make a
-                            workaround painful, small enough to fix it.
+                        <Text mt={6} color={muted} lineHeight="1.75">
+                            Usually one of these, or the awkward overlap between
+                            them
                         </Text>
                     </Box>
 
-                    <VStack align="stretch" spacing={0}>
-                        {FIT_SIGNALS.map((signal) => (
-                            <Flex
-                                key={signal}
-                                gap={5}
-                                py={6}
+                    <Box borderTop="1px solid" borderColor={border}>
+                        {CAPABILITIES.map((capability) => (
+                            <Grid
+                                key={capability.title}
+                                templateColumns={{
+                                    base: '1fr',
+                                    md: '0.55fr 1fr',
+                                }}
+                                gap={{ base: 3, md: 10 }}
+                                py={{ base: 7, md: 9 }}
                                 borderBottom="1px solid"
                                 borderColor={border}
-                                align="flex-start"
                             >
-                                <Box
-                                    mt="3px"
-                                    w="26px"
-                                    h="26px"
-                                    flexShrink={0}
-                                    display="grid"
-                                    placeItems="center"
-                                    borderRadius="50%"
-                                    bg={surface}
-                                    color="moss.600"
-                                >
-                                    <FaCheck size="10px" />
-                                </Box>
-                                <Text fontSize={{ base: 'lg', md: 'xl' }}>
-                                    {signal}
+                                <Heading as="h3" fontSize="2xl">
+                                    {capability.title}
+                                </Heading>
+                                <Text color={muted} lineHeight="1.7">
+                                    {capability.detail}
                                 </Text>
-                            </Flex>
+                            </Grid>
                         ))}
-                    </VStack>
+                    </Box>
                 </Grid>
             </Box>
-
-            <WorkflowCostCalculator />
-
-            <FeaturedWork />
 
             <Box
                 as="section"
                 id="offer"
                 bg={offerPanel}
                 mx={{ base: -4, md: -8 }}
-                px={{ base: 6, md: 12, lg: 16 }}
-                py={{ base: 14, md: 20 }}
-                borderRadius={{ base: '0', md: '4px 52px 4px 52px' }}
-                position="relative"
-                overflow="hidden"
+                px={{ base: 4, md: 8, lg: 12 }}
+                py={{ base: 12, md: 16 }}
+                borderRadius={{ base: '0', md: '24px' }}
             >
-                <Box className="organic-ring" aria-hidden="true" />
                 <Grid
-                    templateColumns={{ base: '1fr', lg: '1.05fr 0.95fr' }}
-                    gap={{ base: 12, lg: 20 }}
-                    position="relative"
+                    templateColumns={{ base: '1fr', lg: '0.95fr 1.05fr' }}
+                    gap={{ base: 10, lg: 16 }}
+                    alignItems="center"
                 >
-                    <Box>
-                        <Text className="section-label">
-                            One month, one workflow
-                        </Text>
+                    <Box
+                        position="relative"
+                        aspectRatio="3 / 2"
+                        overflow="hidden"
+                        borderRadius="18px"
+                    >
+                        <NextImage
+                            src="/images/workflow-paper.webp"
+                            alt="Cream paper shapes connected by olive cords on a worktable"
+                            fill
+                            sizes="(max-width: 992px) 100vw, 48vw"
+                            style={{ objectFit: 'cover' }}
+                        />
+                    </Box>
+
+                    <Box maxW="590px" justifySelf={{ lg: 'center' }}>
                         <Heading
                             as="h2"
-                            mt={4}
                             fontSize={{ base: '44px', md: '62px' }}
-                            maxW="620px"
+                            fontWeight="500"
                         >
-                            Let&apos;s make one annoying task easier
+                            One month is usually enough
                         </Heading>
                         <Text
-                            mt={7}
-                            maxW="570px"
+                            mt={6}
                             color={offerMuted}
                             lineHeight="1.75"
                             fontSize="lg"
                         >
-                            Bring the messy version and I&apos;ll sit with the
-                            people who do it, build something small and see
-                            whether it helps.
+                            Most independent projects start with one clear job
+                            and a useful first version in about 30 days
                         </Text>
-                    </Box>
-
-                    <Box
-                        borderTop="1px solid"
-                        borderBottom="1px solid"
-                        borderColor={offerBorder}
-                        py={8}
-                        alignSelf="end"
-                    >
-                        <Flex justify="space-between" gap={4} align="baseline">
-                            <Text fontWeight="600">30-day project</Text>
+                        <Box
+                            mt={8}
+                            pt={7}
+                            borderTop="1px solid"
+                            borderColor="moss.300"
+                        >
                             <Text
                                 fontFamily="heading"
                                 fontSize={{ base: '3xl', md: '4xl' }}
+                                fontWeight="500"
                             >
-                                from $5,000
+                                Projects from $5,000 USD
                             </Text>
-                        </Flex>
-                        <Text mt={2} color={offerMuted} fontSize="sm">
-                            USD · one workflow · small group
-                        </Text>
-                        <Text mt={6} color={offerMuted} lineHeight="1.7">
-                            After a month, we look at what changed and decide
-                            whether to keep going. Ongoing work starts at $5,000
-                            a month, stays month to month, and the code and
-                            notes are yours.
-                        </Text>
+                            <Text mt={4} color={offerMuted} lineHeight="1.7">
+                                Internal tools, AI features, integrations and
+                                focused product work all fit. If it needs more
+                                care after the first month, ongoing work starts
+                                at $5,000 a month and stays month to month
+                            </Text>
+                        </Box>
                         <Button
                             as={Link}
                             href="#contact"
@@ -197,71 +171,41 @@ function Home() {
                             bg={offerButtonBg}
                             color={offerButtonColor}
                             _hover={{
-                                bg: 'moss.200',
+                                bg: 'moss.700',
                                 transform: 'translateY(-2px)',
                                 textDecoration: 'none',
                             }}
+                            _active={{ transform: 'translateY(0)' }}
                         >
-                            Tell me about it
+                            Start a project
                         </Button>
                     </Box>
                 </Grid>
             </Box>
 
-            <Box as="section" id="process" py={{ base: 16, md: 24 }}>
-                <Grid
-                    templateColumns={{ base: '1fr', lg: '0.8fr 1.2fr' }}
-                    gap={{ base: 10, lg: 20 }}
-                >
-                    <Box>
-                        <Heading
-                            as="h2"
-                            fontSize={{ base: '42px', md: '58px' }}
-                        >
-                            What the month looks like
-                        </Heading>
-                    </Box>
-                    <VStack align="stretch" spacing={0}>
-                        {PILOT_STEPS.map((step) => (
-                            <Box
-                                key={step.title}
-                                py={7}
-                                borderBottom="1px solid"
-                                borderColor={border}
-                            >
-                                <Heading as="h3" fontSize="2xl">
-                                    {step.title}
-                                </Heading>
-                                <Text mt={2} color={muted} lineHeight="1.7">
-                                    {step.detail}
-                                </Text>
-                            </Box>
-                        ))}
-                    </VStack>
-                </Grid>
-            </Box>
+            <WorkflowCostCalculator />
 
             <Box
                 as="section"
-                py={{ base: 14, md: 20 }}
+                py={{ base: 16, md: 22 }}
                 borderTop="1px solid"
                 borderColor={border}
             >
-                <Box maxW="760px">
+                <Box maxW="780px">
                     <Heading
                         as="h2"
-                        fontSize={{ base: '38px', md: '50px' }}
-                        maxW="580px"
+                        fontSize={{ base: '42px', md: '54px' }}
+                        fontWeight="500"
                     >
-                        A bit about me
+                        I&apos;m Adam
                     </Heading>
-                    <Text mt={6} color={muted} lineHeight="1.75">
-                        I&apos;m a software engineer in Vancouver. I&apos;ve
-                        spent six years building products for media and
-                        residential electrification, with a fair bit of AI mixed
-                        in. I studied security and privacy at UVic and still
-                        prefer working directly with the people using what I
-                        build.
+                    <Text mt={6} color={muted} lineHeight="1.8" fontSize="lg">
+                        I&apos;m a software engineer in Vancouver. Over six
+                        years I&apos;ve worked on media products, electrical
+                        permitting tools, cloud systems, AI features and plenty
+                        of less visible engineering. I studied security and
+                        privacy at UVic and like working close to the people
+                        using what I build
                     </Text>
                     <ChakraLink
                         as={Link}
@@ -273,7 +217,7 @@ function Home() {
                         fontWeight="700"
                         color="moss.700"
                     >
-                        The longer version <FaArrowRight size="11px" />
+                        More about me <FaArrowRight size="11px" />
                     </ChakraLink>
                 </Box>
             </Box>
