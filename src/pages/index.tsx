@@ -10,7 +10,7 @@ function Index() {
             <NextSeo
                 title="AI workflow automation consultant | Adam Hultman"
                 titleTemplate="%s"
-                description="Custom AI tools for costly B2B workflows. Fixed 30-day pilots from $5,000, built around existing systems and measured against a clear baseline."
+                description="Small software tools for repetitive work between spreadsheets, inboxes and the systems your team already uses. 30-day projects from $5,000."
                 canonical="https://hultman.dev"
             />
             <JsonLd />

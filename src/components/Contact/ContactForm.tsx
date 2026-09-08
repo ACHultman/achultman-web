@@ -125,8 +125,8 @@ function ContactForm() {
         return (
             <ContactAlert
                 status="success"
-                title={`Received, ${displayFirstName}.`}
-                description="I'll read the details and reply within one business day with a next step, or tell you it is not a fit."
+                title={`Got it, ${displayFirstName}`}
+                description="I'll read through this and get back to you within one business day."
             />
         );
     }
@@ -208,7 +208,7 @@ function ContactForm() {
                     />
                 </ContactFormField>
 
-                <ContactFormField label="Likely first-phase budget">
+                <ContactFormField label="Rough budget">
                     <Select {...fieldStyles} {...register('budget')}>
                         {BUDGET_OPTIONS.map(({ value, label }) => (
                             <option key={value} value={value}>
@@ -219,12 +219,12 @@ function ContactForm() {
                 </ContactFormField>
 
                 <ContactFormField
-                    label="What is the expensive, manual workflow?"
+                    label="What are you doing by hand?"
                     isRequired
                     error={errors.workflow?.message}
                 >
                     <Textarea
-                        placeholder="Who does it, how often, what tools are involved, and what goes wrong? Rough notes are perfect."
+                        placeholder="Who does it? How often? Which tools are involved? A few rough notes are enough."
                         rows={6}
                         resize="vertical"
                         {...fieldStyles}
@@ -257,7 +257,7 @@ function ContactForm() {
                     _hover={{ bg: 'moss.700', transform: 'translateY(-2px)' }}
                     _active={{ transform: 'translateY(0)' }}
                 >
-                    Send the workflow
+                    Send it over
                 </Button>
             </VStack>
         </form>

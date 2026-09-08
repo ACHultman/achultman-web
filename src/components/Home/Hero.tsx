@@ -41,7 +41,7 @@ function Hero() {
                         fontWeight="400"
                         sx={{ textWrap: 'balance' }}
                     >
-                        I build small tools for costly workflows.
+                        What are you still doing by hand?
                     </Heading>
 
                     <Text
@@ -52,9 +52,9 @@ function Hero() {
                         color={muted}
                         sx={{ textWrap: 'pretty' }}
                     >
-                        In 30 days, I put one useful AI tool into your
-                        team&apos;s hands, built around the systems they already
-                        use.
+                        I build small software tools for repetitive work hiding
+                        between spreadsheets, inboxes and the systems your team
+                        already uses, usually in about a month.
                     </Text>
 
                     <Flex mt={9} gap={4} wrap="wrap" align="center">
@@ -74,7 +74,7 @@ function Hero() {
                             }}
                             _active={{ transform: 'translateY(0)' }}
                         >
-                            Send the workflow
+                            Tell me about it
                         </Button>
                         <Button
                             as={Link}
@@ -88,7 +88,7 @@ function Hero() {
                                 color: 'moss.600',
                             }}
                         >
-                            See the work
+                            Things I&apos;ve built
                         </Button>
                     </Flex>
                 </Box>
@@ -145,8 +145,7 @@ function Hero() {
                             Adam Hultman
                         </Text>
                         <Text mt={1} fontSize="xs" color={muted}>
-                            6 years shipping software across media, energy and
-                            field operations
+                            Full-stack engineer in Vancouver
                         </Text>
                     </Box>
                 </Box>

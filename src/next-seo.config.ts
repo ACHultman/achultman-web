@@ -7,13 +7,13 @@ const config: NextSeoProps = {
     titleTemplate: '%s | Adam Hultman',
     defaultTitle: 'AI workflow automation consultant | Adam Hultman',
     description:
-        'Custom AI tools for costly B2B workflows. Fixed 30-day pilots from $5,000, built around existing systems and measured against a clear baseline.',
+        'Small software tools for repetitive work between spreadsheets, inboxes and the systems your team already uses. 30-day projects from $5,000.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
         title: 'AI workflow automation consultant | Adam Hultman',
         description:
-            'Custom AI tools for costly B2B workflows. Fixed 30-day pilots from $5,000, measured against a clear baseline.',
+            'Small software tools for repetitive work between spreadsheets, inboxes and the systems your team already uses. 30-day projects from $5,000.',
         siteName: 'Adam Hultman',
         images: [
             {

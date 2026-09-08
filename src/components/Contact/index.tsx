@@ -42,12 +42,12 @@ function Contact() {
                         fontSize={{ base: '44px', md: '60px' }}
                         lineHeight="0.98"
                     >
-                        Send me one workflow that wastes time every week.
+                        What are you tired of doing by hand?
                     </Heading>
                     <Text mt={7} maxW="520px" color={muted} lineHeight="1.75">
-                        A rough description is enough. I&apos;ll reply within
-                        one business day and tell you whether I think a 30-day
-                        pilot makes sense.
+                        Send me the scrappy version and I&apos;ll get back to
+                        you within a business day and tell you whether it sounds
+                        worth a call.
                     </Text>
 
                     <VStack
@@ -97,10 +97,6 @@ function Contact() {
                             <FaArrowRight size="11px" aria-hidden="true" />
                         </Flex>
                     </VStack>
-
-                    <Text mt={6} color={muted} fontSize="sm">
-                        Typical reply: one business day.
-                    </Text>
                 </Box>
 
                 <Box
