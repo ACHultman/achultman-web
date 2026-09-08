@@ -15,7 +15,6 @@ import Contact from '../Contact';
 import { captureLeadIntent } from '../../lib/analytics';
 import FeaturedWork from './FeaturedWork';
 import Hero from './Hero';
-import WorkflowCostCalculator from './WorkflowCostCalculator';
 
 const CAPABILITIES = [
     {
@@ -34,6 +33,7 @@ const CAPABILITIES = [
 
 function Home() {
     const muted = useColorModeValue('ink.600', 'paper.300');
+    const linkColor = useColorModeValue('moss.700', 'moss.200');
     const border = useColorModeValue('paper.200', 'ink.700');
     const offerPanel = useColorModeValue('moss.100', 'ink.900');
     const offerMuted = useColorModeValue('ink.600', 'paper.300');
@@ -131,7 +131,7 @@ function Home() {
                             fontSize={{ base: '44px', md: '62px' }}
                             fontWeight="500"
                         >
-                            One month is usually enough
+                            A focused first month
                         </Heading>
                         <Text
                             mt={6}
@@ -139,8 +139,8 @@ function Home() {
                             lineHeight="1.75"
                             fontSize="lg"
                         >
-                            Most independent projects start with one clear job
-                            and a useful first version in about 30 days
+                            We start with one clear job and scope a first
+                            version for about 30 days.
                         </Text>
                         <Box
                             mt={8}
@@ -156,10 +156,8 @@ function Home() {
                                 Projects from $5,000 USD
                             </Text>
                             <Text mt={4} color={offerMuted} lineHeight="1.7">
-                                Internal tools, AI features, integrations and
-                                focused product work all fit. If it needs more
-                                care after the first month, ongoing work starts
-                                at $5,000 a month and stays month to month
+                                Ongoing engineering starts at $5,000 USD a
+                                month, on a month-to-month basis.
                             </Text>
                         </Box>
                         <Button
@@ -183,7 +181,32 @@ function Home() {
                 </Grid>
             </Box>
 
-            <WorkflowCostCalculator />
+            <Box
+                as="section"
+                id="calculator"
+                py={{ base: 10, md: 14 }}
+                scrollMarginTop="110px"
+            >
+                <Heading as="h2" fontSize="2xl" fontWeight="500">
+                    A quick cost check
+                </Heading>
+                <Text mt={3} maxW="620px" color={muted} lineHeight="1.75">
+                    For repetitive work, estimate the value of time a tool could
+                    save.
+                </Text>
+                <ChakraLink
+                    as={Link}
+                    href="/workflow-automation-roi-calculator"
+                    display="inline-flex"
+                    alignItems="center"
+                    gap={2}
+                    mt={4}
+                    fontWeight="700"
+                    color={linkColor}
+                >
+                    Calculate workflow cost <FaArrowRight size="11px" />
+                </ChakraLink>
+            </Box>
 
             <Box
                 as="section"
@@ -215,7 +238,7 @@ function Home() {
                         gap={2}
                         mt={5}
                         fontWeight="700"
-                        color="moss.700"
+                        color={linkColor}
                     >
                         More about me <FaArrowRight size="11px" />
                     </ChakraLink>

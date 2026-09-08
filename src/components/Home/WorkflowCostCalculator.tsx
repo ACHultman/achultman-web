@@ -255,7 +255,7 @@ function WorkflowCostCalculator({
                             <Grid gap={7}>
                                 <Box>
                                     <Text color={muted} fontSize="sm">
-                                        Current monthly labour
+                                        Estimated monthly labour cost
                                     </Text>
                                     <Text
                                         mt={1}
@@ -268,7 +268,7 @@ function WorkflowCostCalculator({
                                 </Box>
                                 <Box>
                                     <Text color={muted} fontSize="sm">
-                                        Monthly capacity returned
+                                        Estimated monthly value of time saved
                                     </Text>
                                     <Text
                                         mt={1}
@@ -282,7 +282,7 @@ function WorkflowCostCalculator({
                                 </Box>
                                 <Box>
                                     <Text color={muted} fontSize="sm">
-                                        $5,000 project payback
+                                        Time savings worth $5,000
                                     </Text>
                                     <Text
                                         mt={1}
@@ -295,9 +295,9 @@ function WorkflowCostCalculator({
                                 </Box>
                             </Grid>
                             <Text mt={8} color={muted} lineHeight="1.7">
-                                This is capacity, not money back in the bank,
-                                and it only matters if the team can use the time
-                                elsewhere.
+                                This values time saved at your hourly cost.
+                                Software costs and ongoing fees are excluded.
+                                Your payroll costs may stay the same.
                             </Text>
                             <Button
                                 as={Link}

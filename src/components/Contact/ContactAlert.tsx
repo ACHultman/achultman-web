@@ -33,12 +33,7 @@ export function ContactAlert({
         >
             <AlertIcon boxSize="30px" mr={0} />
             <AlertTitle fontSize={{ base: 'md', sm: 'lg' }}>{title}</AlertTitle>
-            <AlertDescription
-                maxWidth="sm"
-                display={{ base: 'none', sm: 'block' }}
-            >
-                {description}
-            </AlertDescription>
+            <AlertDescription maxWidth="sm">{description}</AlertDescription>
             {children}
         </Alert>
     );

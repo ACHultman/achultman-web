@@ -66,6 +66,12 @@ function About() {
                 title="About"
                 description="Adam Hultman is a software engineer in Vancouver. He has spent six years building products for media, residential electrification, and applied AI."
                 canonical="https://hultman.dev/about"
+                openGraph={{
+                    title: 'About | Adam Hultman',
+                    description:
+                        'Adam Hultman is a software engineer in Vancouver. He has spent six years building products for media, residential electrification, and applied AI.',
+                    url: 'https://hultman.dev/about',
+                }}
             />
 
             <Container maxW="container.xl" px={{ base: 4, md: 8 }}>

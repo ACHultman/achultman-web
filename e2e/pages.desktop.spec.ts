@@ -4,10 +4,18 @@ test.describe('Home page', () => {
     test('loads and shows key sections', async ({ page }) => {
         await page.goto('/');
 
+        await expect(page).toHaveTitle(
+            'Custom software development | Adam Hultman'
+        );
+        await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+            'content',
+            'I build internal tools, AI features and web products. Based in Vancouver. Independent projects from $5,000 USD.'
+        );
+
         // Hero section
         await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-        // Buyer-fit section and workflow economics
+        // Services and optional workflow calculator
         await expect(
             page.getByRole('heading', {
                 name: 'The kind of work I take on',
@@ -20,16 +28,16 @@ test.describe('Home page', () => {
         // Featured work and offer sections
         await expect(
             page.getByRole('heading', {
-                name: 'Work that left the prototype stage',
+                name: 'Product work and open source',
             })
         ).toBeVisible();
         await expect(
             page.getByRole('heading', {
-                name: 'One month is usually enough',
+                name: 'A focused first month',
             })
         ).toBeVisible();
         await expect(
-            page.getByText(/ongoing work starts at \$5,000 a month/i)
+            page.getByText(/ongoing engineering starts at \$5,000 USD a month/i)
         ).toBeVisible();
 
         // Contact section
@@ -56,12 +64,19 @@ test.describe('Home page', () => {
                 }),
             ])
         );
+        const service = schemas.find((schema) => schema['@type'] === 'Service');
+        expect(service.offers).not.toHaveProperty('availability');
     });
 
-    test('calculates workflow cost and pilot payback from buyer inputs', async ({
+    test('links to a working calculator without adding inputs to the homepage', async ({
         page,
     }) => {
         await page.goto('/');
+        await expect(page.getByLabel('People doing the work')).toHaveCount(0);
+        await page
+            .getByRole('link', { name: 'Calculate workflow cost' })
+            .click();
+        await expect(page).toHaveURL(/\/workflow-automation-roi-calculator$/);
 
         await page.getByLabel('People doing the work').fill('2');
         await page.getByLabel('Hours each person spends weekly').fill('6');
@@ -93,9 +108,9 @@ test.describe('Home page', () => {
             '/?utm_source=linkedin&utm_medium=organic&utm_campaign=workflow-pilot'
         );
         await page.getByLabel(/^Name/).fill('Jordan Lee');
-        await page.getByLabel(/^Work email/).fill('jordan@example.com');
+        await page.getByLabel(/^Email/).fill('jordan@example.com');
         await page.getByLabel(/^Company/).fill('Example Operations');
-        await page.getByLabel('Rough budget').selectOption('5k-10k');
+        await page.getByLabel('Rough budget (optional)').selectOption('5k-10k');
         await page
             .getByLabel(/^What are you trying to make or improve/)
             .fill(
@@ -160,6 +175,14 @@ test.describe('Workflow automation ROI calculator', () => {
         await expect(page.getByText('$3,897')).toBeVisible();
         await expect(page.getByText('$1,949')).toBeVisible();
         await expect(page.getByText('2.6 months')).toBeVisible();
+        await expect(
+            page.getByText('Estimated monthly value of time saved', {
+                exact: true,
+            })
+        ).toBeVisible();
+        await expect(
+            page.getByText(/Software costs and ongoing fees are excluded/)
+        ).toBeVisible();
 
         const structuredData = await page
             .locator('script[type="application/ld+json"]')
@@ -180,6 +203,10 @@ test.describe('Workflow automation ROI calculator', () => {
 test.describe('About page', () => {
     test('renders heading and contact form', async ({ page }) => {
         await page.goto('/about');
+        await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+            'content',
+            'https://hultman.dev/about'
+        );
 
         await expect(page.getByRole('heading', { level: 1 })).toContainText(
             'earns its place'
