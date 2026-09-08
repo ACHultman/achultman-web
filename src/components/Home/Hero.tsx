@@ -51,8 +51,8 @@ function Hero() {
                         color={muted}
                         sx={{ textWrap: 'pretty' }}
                     >
-                        I&apos;m Adam. I build internal tools, AI features and
-                        web products that fit the way a team already works.
+                        I&apos;m Adam, a software engineer in Vancouver. I build
+                        internal tools, AI features and web products.
                     </Text>
 
                     <Flex mt={9} gap={4} wrap="wrap" align="center">

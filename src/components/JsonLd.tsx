@@ -48,7 +48,7 @@ const websiteSchema = {
     name: 'Adam Hultman',
     url: SITE_URL,
     description:
-        'Internal tools, AI features and focused web products for teams whose current software stops a little too early.',
+        'Internal tools, AI features and web products by Adam Hultman, a software engineer in Vancouver.',
     author: {
         '@type': 'Person',
         name: 'Adam Hultman',
@@ -79,7 +79,6 @@ const serviceSchema = {
         priceCurrency: 'USD',
         price: '5000',
         description: 'Starting price for one focused 30-day software project.',
-        availability: 'https://schema.org/LimitedAvailability',
     },
 };
 

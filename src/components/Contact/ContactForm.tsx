@@ -168,7 +168,7 @@ function ContactForm() {
                 </ContactFormField>
 
                 <ContactFormField
-                    label="Work email"
+                    label="Email"
                     isRequired
                     error={errors.email?.message}
                 >
@@ -208,7 +208,7 @@ function ContactForm() {
                     />
                 </ContactFormField>
 
-                <ContactFormField label="Rough budget">
+                <ContactFormField label="Rough budget (optional)">
                     <Select {...fieldStyles} {...register('budget')}>
                         {BUDGET_OPTIONS.map(({ value, label }) => (
                             <option key={value} value={value}>
@@ -230,7 +230,7 @@ function ContactForm() {
                         {...fieldStyles}
                         {...register('workflow', {
                             required:
-                                'A short workflow description is required',
+                                'Briefly describe what you want to make or improve',
                             minLength: {
                                 value: 20,
                                 message:

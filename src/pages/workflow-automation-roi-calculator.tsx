@@ -23,7 +23,7 @@ const calculatorSchema = {
     name: 'Workflow Automation ROI Calculator',
     url: `${SITE_URL}/workflow-automation-roi-calculator`,
     description:
-        'A free calculator for estimating monthly workflow cost, capacity returned and payback on a $5,000 automation pilot.',
+        'A free calculator for estimating monthly workflow cost and the value of time saved, compared with a $5,000 project starting price.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
     browserRequirements: 'Requires a modern web browser.',
@@ -42,19 +42,19 @@ const calculatorSchema = {
 
 const FORMULAS = [
     {
-        title: 'Monthly labour',
+        title: 'Monthly labour cost',
         formula: 'people × weekly hours × loaded hourly cost × 4.33',
         detail: 'The estimate uses 4.33 weeks per month',
     },
     {
-        title: 'Capacity returned',
-        formula: 'monthly labour × expected time reduction',
-        detail: 'This treats the time as usable capacity, not lower payroll',
+        title: 'Monthly value of time saved',
+        formula: 'monthly labour cost × expected time reduction',
+        detail: 'This values the hours saved. Payroll costs may stay the same',
     },
     {
-        title: 'Pilot payback',
-        formula: '$5,000 ÷ monthly capacity returned',
-        detail: 'The $5,000 is my published starting price, not a quote',
+        title: 'Time savings worth $5,000',
+        formula: '$5,000 ÷ monthly value of time saved',
+        detail: 'The result is in months. It uses my project starting price and excludes software costs and ongoing fees',
     },
 ];
 
@@ -88,7 +88,7 @@ function WorkflowAutomationRoiCalculatorPage() {
                 openGraph={{
                     title: 'Workflow Automation ROI Calculator | Adam Hultman',
                     description:
-                        'Check the rough cost of a manual workflow and the payback on a $5,000 automation project.',
+                        'Estimate monthly workflow cost and the value of time saved, compared with a $5,000 project starting price.',
                     url: `${SITE_URL}/workflow-automation-roi-calculator`,
                 }}
             />
@@ -173,9 +173,9 @@ function WorkflowAutomationRoiCalculatorPage() {
                                 color={muted}
                                 lineHeight="1.75"
                             >
-                                This is a quick payback check, not a full ROI
-                                forecast. Ongoing costs, adoption and errors
-                                still matter.
+                                The estimate values time saved using your
+                                inputs. A project decision also needs to account
+                                for ongoing costs, adoption and errors.
                             </Text>
                         </Box>
                         <VStack align="stretch" spacing={0}>

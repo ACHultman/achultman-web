@@ -46,9 +46,8 @@ function Contact() {
                         Tell me what you&apos;re making
                     </Heading>
                     <Text mt={7} maxW="520px" color={muted} lineHeight="1.75">
-                        A rough note is enough. If it sounds like something I
-                        can help with, I&apos;ll suggest a call. If not,
-                        I&apos;ll tell you
+                        A rough note is enough. I&apos;ll read it and let you
+                        know whether I can help.
                     </Text>
 
                     <VStack

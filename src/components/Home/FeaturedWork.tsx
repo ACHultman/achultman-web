@@ -95,12 +95,8 @@ function FeaturedWork() {
                     fontSize={{ base: '42px', md: '58px' }}
                     fontWeight="500"
                 >
-                    Work that left the prototype stage
+                    Product work and open source
                 </Heading>
-                <Text mt={5} maxW="520px" color={muted} lineHeight="1.75">
-                    Product work, infrastructure and a couple of open-source
-                    experiments
-                </Text>
             </Box>
 
             <Grid

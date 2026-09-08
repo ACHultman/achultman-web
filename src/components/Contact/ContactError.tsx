@@ -9,7 +9,7 @@ export function ContactError({
     onRetry: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
     const { hasCopied, onCopy } = useClipboard(
-        process.env.NEXT_PUBLIC_EMAIL || ''
+        process.env.NEXT_PUBLIC_EMAIL || 'adam@hultman.dev'
     );
 
     return (
