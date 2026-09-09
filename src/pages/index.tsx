@@ -8,9 +8,9 @@ function Index() {
     return (
         <>
             <NextSeo
-                title="Custom software development | Adam Hultman"
+                title="Adam Hultman | Software Engineer & AI"
                 titleTemplate="%s"
-                description="I build internal tools, AI features and web products. Based in Vancouver. Independent projects from $5,000 USD."
+                description="Vancouver software engineer building web products and AI features. Experience at Kopperfield and Assembly Digital, plus independent projects."
                 canonical="https://hultman.dev"
             />
             <JsonLd />

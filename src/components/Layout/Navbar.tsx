@@ -11,13 +11,13 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 import { captureLeadIntent } from '../../lib/analytics';
-import NavbarIcon from './NavbarIcon';
 
 const NAV_LINKS = [
     { name: 'Work', route: '/#work' },
-    { name: 'Services', route: '/#fit' },
+    { name: 'Approach', route: '/#fit' },
     { name: 'Writing', route: '/blog' },
     { name: 'Lab', route: '/labs' },
 ];
@@ -112,26 +112,34 @@ function Navbar() {
                             href="/#contact"
                             ml={3}
                             size="sm"
-                            bg="ink.900"
-                            color="paper.50"
+                            bg={brandBg}
+                            color={brandColor}
                             onClick={() => captureLeadIntent('navbar_desktop')}
-                            _hover={{ bg: 'moss.700' }}
+                            _hover={{ bg: 'moss.700', color: 'paper.50' }}
                         >
-                            Start a project
+                            Get in touch
                         </Button>
                     </HStack>
 
                     <IconButton
                         display={{ base: 'inline-flex', md: 'none' }}
                         aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                        icon={<NavbarIcon isOpen={isOpen} />}
+                        aria-expanded={isOpen}
+                        aria-controls="mobile-navigation"
+                        icon={isOpen ? <FaTimes /> : <FaBars />}
                         variant="ghost"
                         onClick={isOpen ? onClose : onOpen}
                     />
                 </Flex>
 
                 {isOpen ? (
-                    <Stack as="nav" pb={5} spacing={1} display={{ md: 'none' }}>
+                    <Stack
+                        as="nav"
+                        id="mobile-navigation"
+                        pb={5}
+                        spacing={1}
+                        display={{ md: 'none' }}
+                    >
                         {NAV_LINKS.map((link) => (
                             <Button
                                 key={link.name}
@@ -147,15 +155,15 @@ function Navbar() {
                         <Button
                             as={NextLink}
                             href="/#contact"
-                            bg="ink.900"
-                            color="paper.50"
+                            bg={brandBg}
+                            color={brandColor}
                             onClick={() => {
                                 captureLeadIntent('navbar_mobile');
                                 onClose();
                             }}
-                            _hover={{ bg: 'moss.700' }}
+                            _hover={{ bg: 'moss.700', color: 'paper.50' }}
                         >
-                            Start a project
+                            Get in touch
                         </Button>
                     </Stack>
                 ) : null}

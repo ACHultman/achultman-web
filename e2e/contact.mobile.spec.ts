@@ -5,11 +5,34 @@ async function fillInquiry(page: Page) {
     await page.getByLabel(/^Email/).fill('jordan@example.com');
     await page.getByLabel(/^Company/).fill('Example Operations');
     await page
-        .getByLabel(/^What are you trying to make or improve/)
+        .getByLabel(/^Your message/)
         .fill('We need an internal tool to reconcile weekly project status.');
 }
 
 test.describe('Mobile contact feedback', () => {
+    test('opens the mobile menu and reaches contact', async ({ page }) => {
+        await page.goto('/');
+        const menu = page.getByRole('button', {
+            name: 'Open menu',
+            exact: true,
+        });
+        await menu.click();
+        await expect(
+            page.getByRole('button', { name: 'Close menu', exact: true })
+        ).toHaveAttribute('aria-expanded', 'true');
+        await page
+            .locator('#mobile-navigation')
+            .getByRole('link', { name: 'Get in touch' })
+            .click();
+        await expect(page).toHaveURL(/\/#contact$/);
+        await expect(page.locator('#mobile-navigation')).toHaveCount(0);
+        await expect(
+            page
+                .locator('#contact')
+                .getByRole('heading', { name: 'Get in touch' })
+        ).toBeVisible();
+    });
+
     test('shows the next step after a successful inquiry without a budget', async ({
         page,
     }) => {
@@ -21,6 +44,7 @@ test.describe('Mobile contact feedback', () => {
         });
 
         await page.goto('/#contact');
+        await expect(page.getByLabel(/budget/i)).toHaveCount(0);
         await fillInquiry(page);
         await page.getByRole('button', { name: 'Send it over' }).click();
 
@@ -53,9 +77,7 @@ test.describe('Mobile contact feedback', () => {
         await expect(page.getByLabel(/^Email/)).toHaveValue(
             'jordan@example.com'
         );
-        await expect(
-            page.getByLabel(/^What are you trying to make or improve/)
-        ).toHaveValue(
+        await expect(page.getByLabel(/^Your message/)).toHaveValue(
             'We need an internal tool to reconcile weekly project status.'
         );
     });
