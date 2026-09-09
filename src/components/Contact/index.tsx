@@ -43,11 +43,11 @@ function Contact() {
                         lineHeight="0.98"
                         fontWeight="500"
                     >
-                        Tell me what you&apos;re making
+                        Get in touch
                     </Heading>
                     <Text mt={7} maxW="520px" color={muted} lineHeight="1.75">
-                        A rough note is enough. I&apos;ll read it and let you
-                        know whether I can help.
+                        Have a role in mind or something you want to build? Tell
+                        me about the team and what you’re working on.
                     </Text>
 
                     <VStack

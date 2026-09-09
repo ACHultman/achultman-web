@@ -1,7 +1,6 @@
 import {
     Button,
     Input,
-    Select,
     Textarea,
     useColorModeValue,
     VStack,
@@ -29,14 +28,6 @@ type Attribution = {
     utmCampaign: string;
 };
 
-const BUDGET_OPTIONS = [
-    { value: '', label: 'Select a range' },
-    { value: '5k-10k', label: '$5k-$10k' },
-    { value: '10k-25k', label: '$10k-$25k' },
-    { value: '25k+', label: '$25k+' },
-    { value: 'unsure', label: 'Not sure yet' },
-];
-
 function ContactForm() {
     const hasTrackedStart = useRef(false);
     const {
@@ -44,15 +35,19 @@ function ContactForm() {
         register,
         formState: { errors, isSubmitting },
         getValues,
-    } = useForm<FormData>();
+    } = useForm<FormData>({ defaultValues: { budget: '' } });
 
     const displayFirstName = getValues('name')?.split(' ')[0] || 'there';
     const fieldBg = useColorModeValue('paper.50', 'ink.900');
     const fieldBorder = useColorModeValue('paper.300', 'ink.600');
+    const fieldMuted = useColorModeValue('ink.600', 'paper.300');
+    const buttonBg = useColorModeValue('ink.900', 'paper.50');
+    const buttonColor = useColorModeValue('paper.50', 'ink.900');
     const fieldStyles = {
         borderColor: fieldBorder,
         bg: fieldBg,
         borderRadius: '6px',
+        _placeholder: { color: fieldMuted },
         _hover: { borderColor: 'moss.500' },
         _focusVisible: {
             borderColor: 'moss.600',
@@ -208,29 +203,18 @@ function ContactForm() {
                     />
                 </ContactFormField>
 
-                <ContactFormField label="Rough budget (optional)">
-                    <Select {...fieldStyles} {...register('budget')}>
-                        {BUDGET_OPTIONS.map(({ value, label }) => (
-                            <option key={value} value={value}>
-                                {label}
-                            </option>
-                        ))}
-                    </Select>
-                </ContactFormField>
-
                 <ContactFormField
-                    label="What are you trying to make or improve?"
+                    label="Your message"
                     isRequired
                     error={errors.workflow?.message}
                 >
                     <Textarea
-                        placeholder="What exists today, who uses it and what would make it better?"
+                        placeholder="A role, a project or a question. A few details will help me reply."
                         rows={6}
                         resize="vertical"
                         {...fieldStyles}
                         {...register('workflow', {
-                            required:
-                                'Briefly describe what you want to make or improve',
+                            required: 'Please add a short message',
                             minLength: {
                                 value: 20,
                                 message:
@@ -246,15 +230,15 @@ function ContactForm() {
                 </ContactFormField>
 
                 <Button
-                    bg="ink.900"
-                    color="paper.50"
+                    bg={buttonBg}
+                    color={buttonColor}
                     width="full"
                     isLoading={isSubmitting}
                     loadingText="Sending"
                     type="submit"
                     size="lg"
                     mt={1}
-                    _hover={{ bg: 'moss.700', transform: 'translateY(-2px)' }}
+                    _hover={{ bg: 'moss.700', color: 'paper.50' }}
                     _active={{ transform: 'translateY(0)' }}
                 >
                     Send it over

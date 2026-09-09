@@ -8,7 +8,7 @@ import {
     VStack,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import NextImage from 'next/image';
 
 import Contact from '@components/Contact';
@@ -17,16 +17,16 @@ const MotionBox = motion.create(Box);
 
 const PRINCIPLES = [
     {
-        title: 'The next change should be easy.',
-        detail: 'I prefer plain structures that another engineer can understand without a tour of my brain.',
+        title: 'Code others can change',
+        detail: 'I prefer simple code that another engineer can pick up and change.',
     },
     {
-        title: 'Security starts in the architecture.',
-        detail: 'I studied cybersecurity and privacy at UVic. Data boundaries and failure modes belong in the first conversation.',
+        title: 'Security and privacy',
+        detail: 'I think through data access and failure modes when planning a feature.',
     },
     {
-        title: 'I want users in the room.',
-        detail: 'The people doing the work know the edge cases. I would rather learn from them early than polish the wrong thing.',
+        title: 'Learning from users',
+        detail: 'I like talking to the people using the software early. They know the edge cases.',
     },
 ];
 
@@ -54,7 +54,14 @@ const fadeUp = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
+const staticMotion = {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0 },
+};
+
 function About() {
+    const shouldReduceMotion = useReducedMotion();
     const muted = useColorModeValue('ink.600', 'paper.300');
     const border = useColorModeValue('paper.200', 'ink.700');
     const surface = useColorModeValue('paper.100', 'ink.900');
@@ -79,8 +86,8 @@ function About() {
                     as="section"
                     py={{ base: 14, md: 20, lg: 24 }}
                     variants={fadeUp}
-                    initial="hidden"
-                    animate="visible"
+                    initial={shouldReduceMotion ? false : 'hidden'}
+                    animate={shouldReduceMotion ? staticMotion : 'visible'}
                 >
                     <Grid
                         templateColumns={{ base: '1fr', lg: '1.15fr 0.7fr' }}
@@ -88,21 +95,18 @@ function About() {
                         alignItems="center"
                     >
                         <Box>
-                            <Text className="section-label">About Adam</Text>
                             <Heading
                                 as="h1"
-                                mt={5}
                                 maxW="790px"
                                 fontSize={{
-                                    base: '50px',
-                                    sm: '62px',
-                                    md: '76px',
+                                    base: '44px',
+                                    sm: '56px',
+                                    md: '64px',
                                 }}
                                 lineHeight={{ base: 0.98, md: 0.95 }}
                                 letterSpacing="-0.045em"
                             >
-                                I like software that earns its place on a busy
-                                day.
+                                A bit about me
                             </Heading>
                             <Text
                                 mt={{ base: 7, md: 9 }}
@@ -124,8 +128,7 @@ function About() {
                                 lineHeight="1.75"
                             >
                                 I studied Software Engineering at UVic with a
-                                focus on cybersecurity and privacy. I still work
-                                directly in the product and the code.
+                                focus on cybersecurity and privacy.
                             </Text>
                         </Box>
 
@@ -168,8 +171,9 @@ function About() {
                     borderTop="1px solid"
                     borderColor={border}
                     variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
+                    initial={shouldReduceMotion ? false : 'hidden'}
+                    animate={shouldReduceMotion ? staticMotion : undefined}
+                    whileInView={shouldReduceMotion ? undefined : 'visible'}
                     viewport={{ once: true, amount: 0.2 }}
                 >
                     <Grid
@@ -177,15 +181,12 @@ function About() {
                         gap={{ base: 8, lg: 20 }}
                     >
                         <Box>
-                            <Text className="section-label">Right now</Text>
                             <Heading
                                 as="h2"
-                                mt={4}
                                 maxW="540px"
                                 fontSize={{ base: '42px', md: '58px' }}
                             >
-                                I turn electrical rules into tools electricians
-                                can use.
+                                At Kopperfield
                             </Heading>
                         </Box>
                         <VStack align="stretch" spacing={5} justify="center">
@@ -194,10 +195,11 @@ function About() {
                                 fontSize={{ base: 'lg', md: 'xl' }}
                                 lineHeight="1.75"
                             >
-                                At Kopperfield, I build permit workflows for
-                                residential electrification. That includes load
-                                calculations, single-line diagrams, and the
-                                paperwork that slows projects down.
+                                I work on software for electricians, including
+                                load calculations, single-line diagrams and
+                                permit paperwork. My work spans product
+                                planning, engineering quality and production
+                                reliability.
                             </Text>
                             <Text color={muted} lineHeight="1.75">
                                 Outside that work, I keep returning to LLM
@@ -215,8 +217,9 @@ function About() {
                     py={{ base: 14, md: 18 }}
                     borderRadius={{ base: 0, md: '4px 48px 4px 48px' }}
                     variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
+                    initial={shouldReduceMotion ? false : 'hidden'}
+                    animate={shouldReduceMotion ? staticMotion : undefined}
+                    whileInView={shouldReduceMotion ? undefined : 'visible'}
                     viewport={{ once: true, amount: 0.2 }}
                 >
                     <Grid
@@ -224,14 +227,12 @@ function About() {
                         gap={{ base: 9, lg: 20 }}
                     >
                         <Box>
-                            <Text className="section-label">How I work</Text>
                             <Heading
                                 as="h2"
-                                mt={4}
                                 maxW="460px"
                                 fontSize={{ base: '40px', md: '54px' }}
                             >
-                                What I care about while building.
+                                How I work
                             </Heading>
                         </Box>
 
@@ -264,8 +265,9 @@ function About() {
                     as="section"
                     py={{ base: 16, md: 24 }}
                     variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
+                    initial={shouldReduceMotion ? false : 'hidden'}
+                    animate={shouldReduceMotion ? staticMotion : undefined}
+                    whileInView={shouldReduceMotion ? undefined : 'visible'}
                     viewport={{ once: true, amount: 0.2 }}
                 >
                     <Grid
@@ -273,13 +275,11 @@ function About() {
                         gap={{ base: 9, lg: 20 }}
                     >
                         <Box>
-                            <Text className="section-label">Working set</Text>
                             <Heading
                                 as="h2"
-                                mt={4}
                                 fontSize={{ base: '42px', md: '58px' }}
                             >
-                                The tools I use most.
+                                Tools I use
                             </Heading>
                         </Box>
 

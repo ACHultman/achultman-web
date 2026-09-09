@@ -15,44 +15,50 @@ function Hero() {
     const muted = useColorModeValue('ink.600', 'paper.300');
     const portraitBg = useColorModeValue('moss.100', 'moss.900');
     const portraitBorder = useColorModeValue('ink.900', 'paper.100');
+    const buttonBg = useColorModeValue('ink.900', 'paper.50');
+    const buttonColor = useColorModeValue('paper.50', 'ink.900');
+    const linkHover = useColorModeValue('moss.700', 'moss.200');
 
     return (
         <Box
             as="section"
-            minH={{ base: 'auto', lg: 'calc(100dvh - 76px)' }}
             display="flex"
             alignItems="center"
-            py={{ base: 12, md: 16, lg: 20 }}
+            pt={{ base: 12, md: 16 }}
+            pb={{ base: 16, md: 20 }}
         >
             <Flex
                 direction={{ base: 'column', lg: 'row' }}
-                gap={{ base: 14, lg: 24 }}
+                gap={{ base: 12, lg: 16 }}
                 align="center"
                 w="100%"
             >
                 <Box flex="1.15">
+                    <Text mb={5} fontSize="lg" color={muted}>
+                        Hi, I&apos;m Adam
+                    </Text>
                     <Heading
                         as="h1"
-                        maxW="760px"
-                        fontSize={{ base: '54px', sm: '66px', md: '82px' }}
-                        lineHeight={{ base: 0.96, md: 0.92 }}
-                        letterSpacing="-0.055em"
+                        maxW="640px"
+                        fontSize={{ base: '44px', sm: '56px', md: '64px' }}
+                        lineHeight="1.06"
+                        letterSpacing="-0.045em"
                         fontWeight="500"
                         sx={{ textWrap: 'balance' }}
                     >
-                        Software for the awkward bits
+                        Software engineer building with AI
                     </Heading>
 
                     <Text
-                        mt={{ base: 7, md: 9 }}
-                        maxW="630px"
+                        mt={6}
+                        maxW="510px"
                         fontSize={{ base: 'lg', md: 'xl' }}
                         lineHeight="1.75"
                         color={muted}
                         sx={{ textWrap: 'pretty' }}
                     >
-                        I&apos;m Adam, a software engineer in Vancouver. I build
-                        internal tools, AI features and web products.
+                        I build web products, internal tools and AI features.
+                        Based in Vancouver.
                     </Text>
 
                     <Flex mt={9} gap={4} wrap="wrap" align="center">
@@ -62,17 +68,18 @@ function Hero() {
                             onClick={() => captureLeadIntent('hero')}
                             size="lg"
                             rightIcon={<FaArrowRight size="13px" />}
-                            bg="ink.900"
-                            color="paper.50"
+                            bg={buttonBg}
+                            color={buttonColor}
                             px={7}
                             _hover={{
                                 bg: 'moss.700',
+                                color: 'paper.50',
                                 transform: 'translateY(-2px)',
                                 textDecoration: 'none',
                             }}
                             _active={{ transform: 'translateY(0)' }}
                         >
-                            Start a project
+                            Get in touch
                         </Button>
                         <Button
                             as={Link}
@@ -83,7 +90,7 @@ function Hero() {
                             color={muted}
                             _hover={{
                                 bg: 'transparent',
-                                color: 'moss.600',
+                                color: linkHover,
                             }}
                         >
                             See my work
@@ -92,7 +99,7 @@ function Hero() {
                 </Box>
 
                 <Box
-                    flex="0.85"
+                    flex="0.75"
                     w={{ base: '92%', sm: '72%', lg: 'auto' }}
                     maxW={{ base: '460px', lg: '410px' }}
                     alignSelf={{ base: 'center', lg: 'flex-end' }}

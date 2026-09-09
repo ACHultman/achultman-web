@@ -6,9 +6,11 @@ const SITE_URL = 'https://hultman.dev';
 const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': `${SITE_URL}/#person`,
     name: 'Adam Hultman',
     url: SITE_URL,
-    jobTitle: 'Full-Stack Engineer',
+    image: `${SITE_URL}/images/adam.jpg`,
+    jobTitle: 'Software Engineer',
     worksFor: {
         '@type': 'Organization',
         name: 'Kopperfield',
@@ -39,7 +41,7 @@ const personSchema = {
         name: 'University of Victoria',
     },
     description:
-        'Full-stack engineer at Kopperfield and independent software consultant.',
+        'Vancouver software engineer building web products and AI features. Experience at Kopperfield and Assembly Digital, plus independent projects.',
 };
 
 const websiteSchema = {
@@ -48,37 +50,11 @@ const websiteSchema = {
     name: 'Adam Hultman',
     url: SITE_URL,
     description:
-        'Internal tools, AI features and web products by Adam Hultman, a software engineer in Vancouver.',
+        'The portfolio of Adam Hultman, a software engineer in Vancouver building web products and AI features.',
     author: {
         '@type': 'Person',
+        '@id': `${SITE_URL}/#person`,
         name: 'Adam Hultman',
-    },
-};
-
-const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: '30-day software project',
-    serviceType: 'Custom software development and product engineering',
-    url: `${SITE_URL}/#offer`,
-    description:
-        'A focused 30-day engagement for an internal tool, AI feature, integration or web product. Ongoing product work is available month to month.',
-    provider: {
-        '@type': 'Person',
-        name: 'Adam Hultman',
-        url: SITE_URL,
-    },
-    areaServed: ['Canada', 'United States'],
-    audience: {
-        '@type': 'BusinessAudience',
-        audienceType: 'B2B product and operations teams',
-    },
-    offers: {
-        '@type': 'Offer',
-        url: `${SITE_URL}/#contact`,
-        priceCurrency: 'USD',
-        price: '5000',
-        description: 'Starting price for one focused 30-day software project.',
     },
 };
 
@@ -98,13 +74,6 @@ export default function JsonLd() {
                     __html: JSON.stringify(websiteSchema),
                 }}
                 key="website-jsonld"
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(serviceSchema),
-                }}
-                key="service-jsonld"
             />
         </Head>
     );
