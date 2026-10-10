@@ -3,10 +3,6 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { serverConfig } from '../../../config';
 
-const openai = createOpenAI({
-    compatibility: 'strict',
-    apiKey: serverConfig.OPENAI_API_KEY,
-});
 export const runtime = 'edge';
 
 const CURR_DATE = new Date().toLocaleDateString('en-US', {
@@ -74,6 +70,14 @@ export default async function handler(req: NextRequest) {
             systemMessage +
             '\n\nYou are now in mobile mode. Keep your answers short and concise. Use bullet points if possible.';
     }
+
+    if (!process.env.OPENAI_API_KEY) {
+        return new Response('Chat unavailable', { status: 503 });
+    }
+    const openai = createOpenAI({
+        compatibility: 'strict',
+        apiKey: serverConfig.OPENAI_API_KEY,
+    });
 
     // Use streamText for proper streaming responses
     const result = streamText({

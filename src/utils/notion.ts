@@ -27,7 +27,9 @@ export function getTitle(
         (prop): prop is Extract<typeof prop, { type: 'title' }> =>
             prop.type === 'title'
     );
-    return titleProp?.title[0]?.plain_text || defaultValue;
+    return (
+        titleProp?.title.map((part) => part.plain_text).join('') || defaultValue
+    );
 }
 
 export function getCover(page: PageObjectResponse): string | null {
@@ -45,7 +47,9 @@ export function getRichText(
     propertyName: string
 ): string {
     if (page.properties[propertyName]?.type === 'rich_text') {
-        return page.properties[propertyName].rich_text[0]?.plain_text || '';
+        return page.properties[propertyName].rich_text
+            .map((part) => part.plain_text)
+            .join('');
     }
     return '';
 }

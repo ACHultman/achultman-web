@@ -1,0 +1,2763 @@
+{
+  "page": {
+    "id": "31c4d7b8-9add-81e2-b82b-db5604046b43",
+    "slug": "building-a-multi-agent-ai-team-from-solo-agent-to-coordinated-crew",
+    "title": "Building a multi-agent AI team: from solo agent to coordinated crew",
+    "publishedDate": "2026-03-07",
+    "tags": [
+      "AI"
+    ],
+    "description": "Turning a solo coding agent into a small, coordinated AI team in your terminal.",
+    "cover": null,
+    "url": "https://app.notion.com/p/Building-a-multi-agent-AI-team-from-solo-agent-to-coordinated-crew-31c4d7b89add81e2b82bdb5604046b43",
+    "created_time": "2026-03-07T21:12:00.000Z",
+    "last_edited_time": "2026-06-15T21:34:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "9e745774-ad7a-469c-b1f2-859840aabd5e",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A single AI agent handling everything (code review, life strategy, creative writing, business analysis) sounds efficient until you realize each mode gets shallow treatment. Here's how I split one agent into a coordinated team of four, what broke along the way, and what I actually learned about multi-agent architecture.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A single AI agent handling everything (code review, life strategy, creative writing, business analysis) sounds efficient until you realize each mode gets shallow treatment. Here's how I split one agent into a coordinated team of four, what broke along the way, and what I actually learned about multi-agent architecture.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "beb36030-7349-4baf-96a3-78e8f81eec5d",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The Problem with One Agent Doing Everything",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The Problem with One Agent Doing Everything",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "ad0cc17d-d85e-43a4-a886-98caeb120313",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "I'd been running a single ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "I'd been running a single ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "OpenClaw",
+                "link": {
+                  "url": "https://openclaw.ai/"
+                }
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "OpenClaw",
+              "href": "https://openclaw.ai/"
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " agent called \"Claw\" for a few months. It handled daily briefings, city adventure planning, opportunity radar, GitHub monitoring, personal chronicle writing, and decision tracking. One context window, every domain.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " agent called \"Claw\" for a few months. It handled daily briefings, city adventure planning, opportunity radar, GitHub monitoring, personal chronicle writing, and decision tracking. One context window, every domain.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "451445d5-ea62-4920-a357-357e989bcbf9",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It worked. Kind of. The way a Swiss Army knife works for surgery: technically possible, practically suboptimal.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It worked. Kind of. The way a Swiss Army knife works for surgery: technically possible, practically suboptimal.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "c4d59cc8-2528-415b-9bdf-5df275639e82",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The hypothesis was simple: ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The hypothesis was simple: ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "specialized agents with focused roles would produce deeper output per domain",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "specialized agents with focused roles would produce deeper output per domain",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", while coordination through shared state would keep everything connected.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", while coordination through shared state would keep everything connected.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "a6777f66-12d3-49c9-8288-a692b4aca95f",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The Team",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The Team",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "99185b0b-8a41-4afe-9d2a-da0bab1c9731",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Four agents. Each with a distinct role, model selection, and (this part matters more than you'd think) personality.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Four agents. Each with a distinct role, model selection, and (this part matters more than you'd think) personality.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "9864155c-1b7b-429b-a6d1-ddd2b9616ceb",
+        "type": "table",
+        "has_children": true,
+        "table": {
+          "table_width": 3,
+          "has_column_header": true,
+          "has_row_header": false
+        }
+      },
+      {
+        "object": "block",
+        "id": "c794aad0-32cf-4041-a0f2-92c87de6a7d5",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Model choice was deliberate: Opus for roles requiring deep reasoning (strategy synthesis, code review), Sonnet for roles requiring fast web research and synthesis.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Model choice was deliberate: Opus for roles requiring deep reasoning (strategy synthesis, code review), Sonnet for roles requiring fast web research and synthesis.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "ae2ac135-edb1-442e-b271-6a5590394795",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Each agent has its own ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Each agent has its own ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "SOUL.md",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "SOUL.md",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", a personality and behavior file. Dev is terse and security-conscious. Milo is strategic and big-picture. These aren't cosmetic differences. A focused personality file constrains what the agent pays attention to.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", a personality and behavior file. Dev is terse and security-conscious. Milo is strategic and big-picture. These aren't cosmetic differences. A focused personality file constrains what the agent pays attention to.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "d3279094-2b7a-4088-81d6-d389dc489064",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Architecture: Files Are the Message Bus",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Architecture: Files Are the Message Bus",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "666644e8-5b08-445d-97df-7e7ac9132973",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The agents don't talk to each other directly. Coordination happens through the filesystem:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The agents don't talk to each other directly. Coordination happens through the filesystem:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "8b1c07dd-aec2-4351-aac5-a3846a2a9de1",
+        "type": "code",
+        "has_children": false,
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "~/.openclaw/\n├── workspace/          # Claw (personal agent)\n├── workspace-milo/     # Milo (strategy lead)\n├── workspace-scout/    # Scout (research)\n├── workspace-dev/      # Dev (engineering)\n└── team/               # Shared state (symlinked into every workspace)\n    ├── GOALS.md        # Current priorities\n    ├── STATUS.md       # Project state\n    ├── STANDUP.md      # Daily standup (Milo writes)\n    └── DECISIONS.md    # Append-only decision log",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "~/.openclaw/\n├── workspace/          # Claw (personal agent)\n├── workspace-milo/     # Milo (strategy lead)\n├── workspace-scout/    # Scout (research)\n├── workspace-dev/      # Dev (engineering)\n└── team/               # Shared state (symlinked into every workspace)\n    ├── GOALS.md        # Current priorities\n    ├── STATUS.md       # Project state\n    ├── STANDUP.md      # Daily standup (Milo writes)\n    └── DECISIONS.md    # Append-only decision log",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        }
+      },
+      {
+        "object": "block",
+        "id": "eb41ded8-04f3-4b58-a1af-d714862e405f",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Each workspace has a ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Each workspace has a ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "team/",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "team/",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " symlink pointing to the same shared directory. Milo reads everyone's notes and writes the standup. Scout writes research findings. Dev writes CI status. No database, no message queue. Just files.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " symlink pointing to the same shared directory. Milo reads everyone's notes and writes the standup. Scout writes research findings. Dev writes CI status. No database, no message queue. Just files.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "f3808f16-5304-48a8-ab9f-26b03a3c5197",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This is intentionally low-tech, and it works surprisingly well. Files are debuggable, versionable, and readable by both humans and agents.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This is intentionally low-tech, and it works surprisingly well. Files are debuggable, versionable, and readable by both humans and agents.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "2c61d55d-1cca-4dec-ad24-65262b7d4c0e",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The Dispatcher Pattern",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The Dispatcher Pattern",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "26ea7504-c195-42eb-8d68-b0945afb88dc",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Here's where the plan met reality, and things got interesting.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Here's where the plan met reality, and things got interesting.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "4540f484-8c71-4342-8fc7-e18c2108672e",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The original design assumed I could route messages in a Telegram group to different agents based on ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The original design assumed I could route messages in a Telegram group to different agents based on ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@mentions",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@mentions",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@dev check CI",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@dev check CI",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " → goes to Dev. ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " → goes to Dev. ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@scout find gaps",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@scout find gaps",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " → goes to Scout. Clean, intuitive.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " → goes to Scout. Clean, intuitive.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "8ec63ea5-86b0-40cd-96f4-5a037cbb62bb",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That's not how the platform works.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That's not how the platform works.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "7184acc3-c006-4011-aa94-69a82124d68c",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "OpenClaw routes ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "OpenClaw routes ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "one agent per chat",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "one agent per chat",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". Mention patterns only control whether an agent responds. They don't change which agent receives the message. One binding, one agent, one chat.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". Mention patterns only control whether an agent responds. They don't change which agent receives the message. One binding, one agent, one chat.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3c7952d3-daff-4ccf-bd18-0352e90655f8",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The solution: ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The solution: ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "the dispatcher pattern",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "the dispatcher pattern",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ".",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "fea08f79-4f8c-4e4a-af35-af71c4b9da32",
+        "type": "code",
+        "has_children": false,
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Telegram Group → Milo (owns the group)\n                  ├── @milo → responds directly\n                  ├── @dev  → spawns Dev as subagent\n                  ├── @scout → spawns Scout as subagent\n                  └── @claw → spawns Claw as subagent",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Telegram Group → Milo (owns the group)\n                  ├── @milo → responds directly\n                  ├── @dev  → spawns Dev as subagent\n                  ├── @scout → spawns Scout as subagent\n                  └── @claw → spawns Claw as subagent",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        }
+      },
+      {
+        "object": "block",
+        "id": "b1ff3601-957b-4f0f-ad6b-911a9010687b",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Milo listens to everything. When I mention another agent, Milo delegates via ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Milo listens to everything. When I mention another agent, Milo delegates via ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "sessions_spawn()",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "sessions_spawn()",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". The subagent runs in its own workspace, does its work, and the result appears back in the group.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". The subagent runs in its own workspace, does its work, and the result appears back in the group.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "7e1ba1fb-dbfc-46c6-aada-7bc025a6333d",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This is actually better than direct routing. Milo has context on what's happening across the team. If I ask ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This is actually better than direct routing. Milo has context on what's happening across the team. If I ask ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@dev",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@dev",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " something that also needs Scout's research, Milo can coordinate. A router can't.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " something that also needs Scout's research, Milo can coordinate. A router can't.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "4d226015-f6ed-42ca-8a4e-5c8819aa8540",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The Cron Orchestra",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The Cron Orchestra",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "f1e4d07e-5596-4caa-9ff7-67596cc95239",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Agents run on a daily schedule, ordered for dependency:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Agents run on a daily schedule, ordered for dependency:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "b5b27753-1d31-47b4-9af0-39204bf2a1e1",
+        "type": "table",
+        "has_children": true,
+        "table": {
+          "table_width": 3,
+          "has_column_header": true,
+          "has_row_header": false
+        }
+      },
+      {
+        "object": "block",
+        "id": "ab4de4f7-d8c1-40dc-9d0e-a8a303e80a84",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The ordering is intentional: Dev and Claw produce data first, then Milo synthesizes it all into a standup. Information flows upward.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The ordering is intentional: Dev and Claw produce data first, then Milo synthesizes it all into a standup. Information flows upward.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "61218fbd-830b-4079-92e1-bc99134eacb7",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Seven Things That Broke",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Seven Things That Broke",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "034e8d34-ea2c-4ed3-82ea-cb053de02a39",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This section is the actual value of the post. Every item below cost real debugging time.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This section is the actual value of the post. Every item below cost real debugging time.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "4ee3fe85-07de-47a6-9307-81c87a29609c",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "1. Telegram groups change IDs when you add a bot",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "1. Telegram groups change IDs when you add a bot",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "f38b8479-13a3-4751-94b0-3d0eaff93fd7",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Created a group. Got one ID. Added the bot as admin. Telegram silently migrated the group to a supergroup with a completely different ID. Every config reference broke.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Created a group. Got one ID. Added the bot as admin. Telegram silently migrated the group to a supergroup with a completely different ID. Every config reference broke.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "b79b87d9-cc19-4f89-a30d-c3ce59956467",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The fix: after adding a bot, always verify the actual group ID via the Telegram Bot API. Look for ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The fix: after adding a bot, always verify the actual group ID via the Telegram Bot API. Look for ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "migrate_to_chat_id",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "migrate_to_chat_id",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " in ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " in ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "getUpdates",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "getUpdates",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ".",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "e18c4679-8e2b-427c-bbfe-55e25c18dc2f",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "2. Bots can't see group messages by default",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "2. Bots can't see group messages by default",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "6aa9dfc3-5196-480e-b66e-3cdd7e039955",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Telegram bots have \"Group Privacy\" enabled by default. They only see ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Telegram bots have \"Group Privacy\" enabled by default. They only see ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "/commands",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "/commands",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and direct replies, not regular messages like ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and direct replies, not regular messages like ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@milo how's it going",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@milo how's it going",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ".",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "120e81c1-e1ef-40d3-8fa6-bedba35258da",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Fix: BotFather → Bot Settings → Group Privacy → Turn off. Then remove and re-add the bot.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Fix: BotFather → Bot Settings → Group Privacy → Turn off. Then remove and re-add the bot.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "2c00931e-59f5-402a-a13a-b00b02302d22",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "3. The allowlist has two layers",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "3. The allowlist has two layers",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "aa1515ec-bfce-47e9-a962-5c1c6b2a2e64",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "groupAllowFrom",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "groupAllowFrom",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " doesn't take the group ID. It takes the ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " doesn't take the group ID. It takes the ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "sender's user ID",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "sender's user ID",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". The group ID goes in a separate ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". The group ID goes in a separate ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "groups",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "groups",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " config block. Both must be configured or messages silently drop.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " config block. Both must be configured or messages silently drop.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "ab851916-de0b-4591-a7e8-559fea3f2dad",
+        "type": "code",
+        "has_children": false,
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "{\n  \"groupAllowFrom\": [\"<your-user-id>\"],\n  \"groups\": {\n    \"<supergroup-id>\": { \"requireMention\": true }\n  }\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "{\n  \"groupAllowFrom\": [\"<your-user-id>\"],\n  \"groups\": {\n    \"<supergroup-id>\": { \"requireMention\": true }\n  }\n}",
+              "href": null
+            }
+          ],
+          "language": "json"
+        }
+      },
+      {
+        "object": "block",
+        "id": "fa30f4d2-c701-490d-b206-b11dbd4db5fc",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Also: those IDs must be ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Also: those IDs must be ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "strings",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "strings",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", not numbers. No error, just silent failure.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", not numbers. No error, just silent failure.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "97e78038-38bd-4736-a0b5-04c072d695c9",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "4. Mention patterns don't route between agents",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "4. Mention patterns don't route between agents",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "341bb579-bc0e-4ad6-81b1-f3e2ced5e747",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This was the biggest architectural assumption that turned out wrong. Each agent had its own ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This was the biggest architectural assumption that turned out wrong. Each agent had its own ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "mentionPatterns",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "mentionPatterns",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", expecting ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", expecting ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@dev",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@dev",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " messages to reach Dev. Instead, everything went to Milo because he was the bound agent.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " messages to reach Dev. Instead, everything went to Milo because he was the bound agent.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "134759e4-e91b-4f41-878c-bbf4ced4c5f9",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The fix was the dispatcher pattern described above.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The fix was the dispatcher pattern described above.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "284a0a0d-7110-4a42-b1af-57a8723c5a29",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "5. Config hot reload doesn't always work",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "5. Config hot reload doesn't always work",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "e84e37bf-c65f-4863-b994-12746df76c64",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Editing ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Editing ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "openclaw.json",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "openclaw.json",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " triggered a config reload in logs, but binding changes didn't take effect. Always ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " triggered a config reload in logs, but binding changes didn't take effect. Always ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "gateway restart",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "gateway restart",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " for structural changes.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " for structural changes.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "58258e5d-2315-4962-a52c-f6db7e6bd999",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "6. Silence is harder to debug than errors",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "6. Silence is harder to debug than errors",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "9fedc5fd-2e3b-45ef-adb1-da15bc5f4118",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The worst bugs produced no log output at all. Messages were silently dropped. When debugging, always verify the layer below: is the message even arriving at the bot? Stop the gateway and call ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The worst bugs produced no log output at all. Messages were silently dropped. When debugging, always verify the layer below: is the message even arriving at the bot? Stop the gateway and call ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "getUpdates",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "getUpdates",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " directly.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " directly.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "510d899a-9d6d-446c-b00d-54ce97dc5c23",
+        "type": "heading_3",
+        "has_children": false,
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "7. The docs are correct but scattered",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "7. The docs are correct but scattered",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "0955d625-d310-48b9-a7c6-757824877068",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Group config, Telegram setup, multi-agent routing, and subagents are documented in four different places. The mental model only clicks when you read all of them together. Test incrementally. Each layer (bot → group allowlist → sender allowlist → mention gating → routing → subagents) can fail independently.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Group config, Telegram setup, multi-agent routing, and subagents are documented in four different places. The mental model only clicks when you read all of them together. Test incrementally. Each layer (bot → group allowlist → sender allowlist → mention gating → routing → subagents) can fail independently.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "4e412214-a0f5-49c3-8185-e23358d4e12c",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "What I Learned About Multi-Agent Design",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "What I Learned About Multi-Agent Design",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "cf39b229-a599-4ae0-a833-bfa002d5503c",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Shared files beat message passing.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Shared files beat message passing.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " Filesystem-based coordination is simple, debuggable, and doesn't require inter-agent APIs. Each agent reads what it needs, writes what it produces.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " Filesystem-based coordination is simple, debuggable, and doesn't require inter-agent APIs. Each agent reads what it needs, writes what it produces.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "5307ae85-5819-475b-9b6d-357c0f090655",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "One dispatcher, many workers.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "One dispatcher, many workers.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " Don't try to make every agent a peer in the same channel. Have one coordinator that delegates. This mirrors how real teams work.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " Don't try to make every agent a peer in the same channel. Have one coordinator that delegates. This mirrors how real teams work.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "bf285ad7-0848-4faf-be41-a4fbf0d37726",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Personality files are architecture, not flavor.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Personality files are architecture, not flavor.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " Distinct ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " Distinct ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "SOUL.md",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "SOUL.md",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " files produce noticeably different output styles. Dev flags security issues. Scout quantifies opportunities. This isn't just branding. It constrains attention to relevant information.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " files produce noticeably different output styles. Dev flags security issues. Scout quantifies opportunities. This isn't just branding. It constrains attention to relevant information.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "4186e0b3-6dc9-4e80-9aee-4ca3add448c8",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Plans survive first contact with reality for about 10 minutes.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Plans survive first contact with reality for about 10 minutes.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " The original design was elegant. The working system required adapting to platform constraints. Adaptability beats planning fidelity.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " The original design was elegant. The working system required adapting to platform constraints. Adaptability beats planning fidelity.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "64c5064a-d703-49dc-91b4-828a0c2b258f",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Document while the pain is fresh.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Document while the pain is fresh.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " In a week, \"just set ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " In a week, \"just set ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "groupAllowFrom",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "groupAllowFrom",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " to a string\" sounds trivial. Today, it cost 20 minutes of silent failure debugging.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " to a string\" sounds trivial. Today, it cost 20 minutes of silent failure debugging.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "69ded7d5-e10f-42a6-9dd2-8deae4c0622f",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Current State",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Current State",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "031aceaa-c647-481a-bcd8-e244c330ea1b",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The team is running. Milo writes morning standups. Dev checks CI. Scout is queued for its first opportunity radar scan. Claw handles personal ops. They coordinate through shared files and Milo's synthesis.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The team is running. Milo writes morning standups. Dev checks CI. Scout is queued for its first opportunity radar scan. Claw handles personal ops. They coordinate through shared files and Milo's synthesis.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "7fef8b0b-394e-4f59-9405-7dd163578cb7",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Is it better than one agent? Early signs say yes. Dev's CI reports are more thorough than what Claw used to produce as a side task, and Milo's standups surface cross-cutting concerns that no single agent would notice.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Is it better than one agent? Early signs say yes. Dev's CI reports are more thorough than what Claw used to produce as a side task, and Milo's standups surface cross-cutting concerns that no single agent would notice.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "a69222bb-7d20-48ca-acbe-ce03007d361f",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The real test is whether this structure produces compounding value over weeks and months. I'll report back.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The real test is whether this structure produces compounding value over weeks and months. I'll report back.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "b456de1f-c7d1-4059-9ddf-45f20c17ee42",
+        "type": "divider",
+        "has_children": false,
+        "divider": {}
+      },
+      {
+        "object": "block",
+        "id": "814d25ac-7e24-4c5a-94cd-c8145ed853a7",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Built with ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Built with ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "OpenClaw",
+                "link": {
+                  "url": "https://openclaw.ai/"
+                }
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "OpenClaw",
+              "href": "https://openclaw.ai/"
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " 2026.3.x. Full setup details on ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " 2026.3.x. Full setup details on ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "GitHub",
+                "link": {
+                  "url": "https://github.com/ACHultman"
+                }
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "GitHub",
+              "href": "https://github.com/ACHultman"
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ".",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "e3c26f44-a536-4971-bf42-60cc0f96d72e"
+  }
+}

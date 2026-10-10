@@ -1,89 +1,41 @@
-import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { serverConfig } from '../../../../config';
-import { GetPageResponse } from '@notionhq/client/build/src/api-endpoints';
-import { pageIsPageObjectResponse } from '../../../../utils/notion';
-
-const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
-
-// Notion page IDs are UUIDs (with or without hyphens). Validate before
-// forwarding to the Notion SDK so arbitrary input doesn't reach it.
-const NOTION_ID_PATTERN =
-    /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i;
+import { fetchNotion, fetchNotions } from '../../../../services/notion';
+import { isNotionId } from '../../../../utils/slug';
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const { id } = req.query;
-
+    res.setHeader('Cache-Control', 'no-store');
     if (req.method !== 'GET') {
         res.setHeader('Allow', ['GET']);
         return res.status(405).json({ message: 'Method not allowed' });
     }
-
-    if (typeof id !== 'string' || !NOTION_ID_PATTERN.test(id)) {
+    const { id } = req.query;
+    if (typeof id !== 'string' || !isNotionId(id)) {
         return res.status(400).json({ message: 'Invalid request' });
     }
-
     try {
-        const pageResponse = await notion.pages.retrieve({ page_id: id });
-
-        const blocks = await notion.blocks.children.list({
-            block_id: id,
-        });
-
-        const page = formatPageData(pageResponse);
-
-        return res.status(200).json({ page, blocks });
-    } catch (error) {
-        console.error('Error fetching page:', error);
-        return res.status(500).json({ message: 'Internal server error' });
-    }
-
-    function formatPageData(pageResponse: GetPageResponse) {
-        if (!pageIsPageObjectResponse(pageResponse)) {
-            return {
-                id: pageResponse.id,
-                title: 'Untitled',
-                publishedDate: null,
-                tags: [],
-                description: '',
-                coverImage: null,
-            };
+        // The same published-only boundary as the article pages. Knowing a
+        // Notion ID must not make an unpublished page publicly accessible.
+        const posts = await fetchNotions('blog', { page_size: 100, all: true });
+        const match = posts.find(
+            (post) =>
+                post.id.replace(/-/g, '').toLowerCase() ===
+                id.replace(/-/g, '').toLowerCase()
+        );
+        if (!match) return res.status(404).json({ message: 'Post not found' });
+        const post = await fetchNotion('blog', match.id);
+        if (!post?.page.publishedDate) {
+            return res.status(404).json({ message: 'Post not found' });
         }
-
-        const properties = pageResponse.properties;
-
-        const title =
-            (properties.Name?.type === 'title' &&
-                properties.Name.title[0]?.plain_text) ||
-            'Untitled';
-
-        const coverImage =
-            pageResponse.cover?.type === 'external'
-                ? pageResponse.cover.external.url
-                : null;
-        const publishedDate =
-            (properties.Published?.type === 'date' &&
-                properties.Published.date?.start) ||
-            null;
-        const tags =
-            (properties.Tags?.type === 'multi_select' &&
-                properties.Tags.multi_select?.map((tag) => tag.name)) ||
-            [];
-        const description =
-            (properties['AI custom autofill']?.type === 'rich_text' &&
-                properties['AI custom autofill'].rich_text[0]?.plain_text) ||
-            '';
-
-        return {
-            id: pageResponse.id,
-            title,
-            publishedDate,
-            tags,
-            description,
-            coverImage,
-        };
+        return res.status(200).json({
+            page: { ...post.page, coverImage: post.page.cover },
+            blocks: post.blocks,
+        });
+    } catch {
+        return res
+            .status(503)
+            .json({ message: 'Writing is temporarily unavailable' });
     }
 }

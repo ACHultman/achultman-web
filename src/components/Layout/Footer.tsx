@@ -1,56 +1,61 @@
-import {
-    Box,
-    Container,
-    Flex,
-    Link,
-    Text,
-    useColorModeValue,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
+import Link from 'next/link';
+import { LogoMark } from '../Logo';
+import { useColorMode } from '@chakra-ui/react';
+import { FiMoon, FiSun } from 'react-icons/fi';
 
-function Footer() {
-    const muted = useColorModeValue('ink.600', 'paper.300');
-    const border = useColorModeValue('paper.200', 'ink.700');
-
+export default function Footer() {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
-        <Box as="footer" w="100%" pt={{ base: 16, md: 24 }} pb={8}>
-            <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
-                <Flex
-                    direction={{ base: 'column', sm: 'row' }}
-                    justify="space-between"
-                    align={{ base: 'flex-start', sm: 'center' }}
-                    gap={5}
-                    pt={7}
-                    borderTop="1px solid"
-                    borderColor={border}
+        <footer className="site-footer page-container">
+            <div className="footer-main">
+                <div>
+                    <Link href="/" className="wordmark footer-wordmark">
+                        <LogoMark />
+                        Adam Hultman<span aria-hidden="true">.</span>
+                    </Link>
+                    <p>
+                        Software and independent products.
+                        <br />
+                        Vancouver, BC.
+                    </p>
+                </div>
+                <div className="footer-links" aria-label="More about Adam">
+                    <Link href="/resume">Résumé</Link>
+                    <a
+                        href="https://github.com/ACHultman"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        GitHub ↗
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/adam-hultman/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        LinkedIn ↗
+                    </a>
+                    <a href="mailto:adam@hultman.dev">Email ↗</a>
+                    <Link href="/labs">Experiments</Link>
+                    <Link href="/privacy">Privacy</Link>
+                </div>
+            </div>
+            <div className="footer-bottom">
+                <span>© {new Date().getFullYear()} Adam Hultman</span>
+                <button
+                    type="button"
+                    className="theme-toggle"
+                    onClick={toggleColorMode}
+                    aria-label={`Switch to ${colorMode === 'dark' ? 'light' : 'dark'} appearance`}
                 >
-                    <Text color={muted} fontSize="sm">
-                        © {new Date().getFullYear()} Adam Hultman, Vancouver, BC
-                    </Text>
-                    <Flex gap={6} fontSize="sm" fontWeight="600">
-                        <Link as={NextLink} href="/about">
-                            About
-                        </Link>
-                        <Link as={NextLink} href="/blog">
-                            Writing
-                        </Link>
-                        <Link as={NextLink} href="/privacy">
-                            Privacy
-                        </Link>
-                        <Link href="https://github.com/ACHultman" isExternal>
-                            GitHub
-                        </Link>
-                        <Link
-                            href="https://www.linkedin.com/in/adam-hultman/"
-                            isExternal
-                        >
-                            LinkedIn
-                        </Link>
-                    </Flex>
-                </Flex>
-            </Container>
-        </Box>
+                    {colorMode === 'dark' ? (
+                        <FiSun aria-hidden="true" />
+                    ) : (
+                        <FiMoon aria-hidden="true" />
+                    )}
+                    {colorMode === 'dark' ? 'Light' : 'Dark'} appearance
+                </button>
+            </div>
+        </footer>
     );
 }
-
-export default Footer;

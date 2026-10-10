@@ -1,0 +1,5524 @@
+{
+  "page": {
+    "id": "1244d7b8-9add-806b-a4d3-f530a4686776",
+    "slug": "building-real-time-applications-with-react-and-websockets",
+    "title": "Building real-time applications with React and WebSockets",
+    "publishedDate": "2024-10-18",
+    "tags": [
+      "React",
+      "WebSocket",
+      "Real-Time Applications",
+      "Socket.io"
+    ],
+    "description": "How to structure React apps around live data, persistent connections, and real-time user interactions.",
+    "cover": null,
+    "url": "https://app.notion.com/p/Building-real-time-applications-with-React-and-WebSockets-1244d7b89add806ba4d3f530a4686776",
+    "created_time": "2024-10-19T03:08:00.000Z",
+    "last_edited_time": "2026-06-15T22:21:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8074-aa1d-e1e1bce80455",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Real-time features can make an app feel alive.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Real-time features can make an app feel alive.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802a-a27f-ff743c951153",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Chat messages appear without refreshing. Notifications show up the second something happens. Dashboards update while you watch them. Collaborative tools stop feeling like everyone is emailing a spreadsheet around like it is 2007.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Chat messages appear without refreshing. Notifications show up the second something happens. Dashboards update while you watch them. Collaborative tools stop feeling like everyone is emailing a spreadsheet around like it is 2007.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802f-98c9-c214207f86f5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That is the fun part.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That is the fun part.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8080-a514-f9e3a569a939",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The less fun part is that real-time systems come with a few new problems: dropped connections, duplicate events, reconnects, stale state, scaling issues, and users who close their laptop halfway through an action and then blame you.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The less fun part is that real-time systems come with a few new problems: dropped connections, duplicate events, reconnects, stale state, scaling issues, and users who close their laptop halfway through an action and then blame you.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807e-b557-f4dace8ab416",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For React apps, Socket.IO is a great way to get started. It gives you real-time, event-based communication between your client and server, plus helpful features like reconnection, rooms, and fallback transports.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For React apps, Socket.IO is a great way to get started. It gives you real-time, event-based communication between your client and server, plus helpful features like reconnection, rooms, and fallback transports.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-919d-dd8dcadef02d",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Let’s walk through how it works, how to wire it into React, and what to watch out for before calling it production-ready.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Let’s walk through how it works, how to wire it into React, and what to watch out for before calling it production-ready.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8006-ba3f-e503c9f80245",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "What Are WebSockets?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "What Are WebSockets?",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d0-befe-f6e23ea734f2",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Normal HTTP requests are like sending a text.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Normal HTTP requests are like sending a text.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8094-a88f-f2ca0d34f7e4",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The browser asks the server for something, the server responds, and the conversation ends.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The browser asks the server for something, the server responds, and the conversation ends.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803d-9485-c6dcca73ef7c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That works well for most app interactions:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That works well for most app interactions:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a0-918a-f003dafdd235",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Client: Can I have this user profile?\nServer: Here you go.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Client: Can I have this user profile?\nServer: Here you go.",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8074-aead-e3396bd3bff5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "WebSockets are more like a phone call.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "WebSockets are more like a phone call.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80dc-b9c4-eba47922fb7d",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The client and server open a connection and keep it open, which lets both sides send messages whenever they need to.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The client and server open a connection and keep it open, which lets both sides send messages whenever they need to.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ca-8b1e-c50c1ebdf378",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That makes WebSockets useful for things like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That makes WebSockets useful for things like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8034-b6ba-e7e1ea7d44a1",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Chat",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Chat",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803c-acfa-f2dbfc3a08d1",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Live notifications",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Live notifications",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ef-9b9a-d260af823b2f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Multiplayer games",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Multiplayer games",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8025-b99b-c52bd79a7149",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Collaborative editing",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Collaborative editing",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8034-b0d2-f711fe98a0a5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Live dashboards",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Live dashboards",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8050-a333-dfc22942c7bc",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Presence indicators",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Presence indicators",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ed-83f3-d58038fe8e12",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Progress updates for long-running jobs",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Progress updates for long-running jobs",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c3-8fb3-ca9967e9e5eb",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Instead of the client constantly asking, “Anything new yet? Anything new yet? Anything new yet?”, the server can push updates as soon as they happen.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Instead of the client constantly asking, “Anything new yet? Anything new yet? Anything new yet?”, the server can push updates as soon as they happen.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8074-be49-d09262fbc646",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Much less annoying. Very polite.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Much less annoying. Very polite.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f5-aad1-e65c19a455dc",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "WebSockets vs Socket.IO",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "WebSockets vs Socket.IO",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8091-9341-fd9acfd39bdb",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "One important thing: Socket.IO is not exactly the same thing as raw WebSockets.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "One important thing: Socket.IO is not exactly the same thing as raw WebSockets.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c9-9a96-c038c7b7fe48",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Raw WebSockets give you a persistent two-way connection. Socket.IO builds on that idea and adds a bunch of useful features, including:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Raw WebSockets give you a persistent two-way connection. Socket.IO builds on that idea and adds a bunch of useful features, including:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8066-8b6e-dcf9de5e3268",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Automatic reconnection",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Automatic reconnection",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8093-abb2-eaad74ab58a3",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Fallback to HTTP long-polling when WebSockets are not available",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Fallback to HTTP long-polling when WebSockets are not available",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c0-aa32-ccec5bd3c19b",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Event-based messaging",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Event-based messaging",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8004-b708-d67e187f641b",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Rooms",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Rooms",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c6-9c6d-c89c0b81b058",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Namespaces",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Namespaces",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8086-b7c8-dd0066b57202",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Heartbeats",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Heartbeats",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80de-9c47-c4d46cac5d53",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Adapters for scaling across multiple servers",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Adapters for scaling across multiple servers",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8067-9657-ee6ce7507ab6",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For most app-level real-time features, Socket.IO is a nice developer experience. If you need maximum low-level control or extremely high-throughput infrastructure, you might reach for raw WebSockets or another specialized tool.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For most app-level real-time features, Socket.IO is a nice developer experience. If you need maximum low-level control or extremely high-throughput infrastructure, you might reach for raw WebSockets or another specialized tool.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ba-b881-ccb6574ff31f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "But for a chat feature, live notifications, or a collaborative UI, Socket.IO is a very reasonable place to start.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "But for a chat feature, live notifications, or a collaborative UI, Socket.IO is a very reasonable place to start.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8052-9823-c9556a60fab8",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Setting Up a Basic Socket.IO Server",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Setting Up a Basic Socket.IO Server",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8024-8384-d326f8a8aae4",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "First, install the server dependencies:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "First, install the server dependencies:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bb-bc5a-c5756358e6ba",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "npm install express socket.io",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "npm install express socket.io",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-96af-e17d2100703d",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Then create a basic server:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Then create a basic server:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805f-be56-caba1cf0cb3d",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "// server.js\nconst express = require('express');\nconst http = require('http');\nconst { Server } = require('socket.io');\n\nconst app = express();\nconst server = http.createServer(app);\n\nconst io = new Server(server, {\n  cors: {\n    origin: 'http://localhost:3000',\n    methods: ['GET', 'POST'],\n  },\n});\n\nio.on('connection', (socket) => {\n  console.log('User connected:', socket.id);\n\n  socket.on('message', (data) => {\n    console.log('Message received:', data);\n\n    io.emit('message', {\n      id: crypto.randomUUID(),\n      text: data,\n      createdAt: new Date().toISOString(),\n    });\n  });\n\n  socket.on('disconnect', (reason) => {\n    console.log('User disconnected:', socket.id, reason);\n  });\n});\n\nconst PORT = process.env.PORT || 4000;\n\nserver.listen(PORT, () => {\n  console.log(`Server running on port ${PORT}`);\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "// server.js\nconst express = require('express');\nconst http = require('http');\nconst { Server } = require('socket.io');\n\nconst app = express();\nconst server = http.createServer(app);\n\nconst io = new Server(server, {\n  cors: {\n    origin: 'http://localhost:3000',\n    methods: ['GET', 'POST'],\n  },\n});\n\nio.on('connection', (socket) => {\n  console.log('User connected:', socket.id);\n\n  socket.on('message', (data) => {\n    console.log('Message received:', data);\n\n    io.emit('message', {\n      id: crypto.randomUUID(),\n      text: data,\n      createdAt: new Date().toISOString(),\n    });\n  });\n\n  socket.on('disconnect', (reason) => {\n    console.log('User disconnected:', socket.id, reason);\n  });\n});\n\nconst PORT = process.env.PORT || 4000;\n\nserver.listen(PORT, () => {\n  console.log(`Server running on port ${PORT}`);\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804c-8032-c6fee76f18fa",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This server listens for new socket connections. When a client sends a ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This server listens for new socket connections. When a client sends a ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "message",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "message",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " event, the server broadcasts that message to every connected client.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " event, the server broadcasts that message to every connected client.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807c-8cbf-dc7dc2f470b5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That is enough for a tiny demo chat app.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That is enough for a tiny demo chat app.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80cb-bf84-d7a35555a68a",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Is it production-ready? Absolutely not. But tiny demos need love too.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Is it production-ready? Absolutely not. But tiny demos need love too.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c6-8096-cececd565aa5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Connecting a React Client",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Connecting a React Client",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d1-aefb-c06b7fbd658f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Now install the client package:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Now install the client package:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8054-98c6-df745fc176d7",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "npm install socket.io-client",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "npm install socket.io-client",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8079-b2e3-cdbfbaa76745",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For a simple app, you can create the socket connection in a separate file:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For a simple app, you can create the socket connection in a separate file:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8082-813c-f5bb1f74ac36",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "// src/socket.js\nimport { io } from 'socket.io-client';\n\nexport const socket = io('http://localhost:4000', {\n  autoConnect: false,\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "// src/socket.js\nimport { io } from 'socket.io-client';\n\nexport const socket = io('http://localhost:4000', {\n  autoConnect: false,\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80da-8ce8-eb43986ef398",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Setting ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Setting ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "autoConnect: false",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "autoConnect: false",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " gives you more control. Instead of connecting as soon as the file is imported, you can connect when the component mounts.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " gives you more control. Instead of connecting as soon as the file is imported, you can connect when the component mounts.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e9-bd40-fda18b01c456",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Here is a basic React chat example:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Here is a basic React chat example:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8088-89ea-ef8e1218e635",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "// src/App.jsx\nimport { useEffect, useState } from 'react';\nimport { socket } from './socket';\n\nexport default function App() {\n  const [isConnected, setIsConnected] = useState(socket.connected);\n  const [messages, setMessages] = useState([]);\n  const [input, setInput] = useState('');\n\n  useEffect(() => {\n    function handleConnect() {\n      setIsConnected(true);\n    }\n\n    function handleDisconnect() {\n      setIsConnected(false);\n    }\n\n    function handleMessage(message) {\n      setMessages((previousMessages) => [\n        ...previousMessages,\n        message,\n      ]);\n    }\n\n    socket.on('connect', handleConnect);\n    socket.on('disconnect', handleDisconnect);\n    socket.on('message', handleMessage);\n\n    socket.connect();\n\n    return () => {\n      socket.off('connect', handleConnect);\n      socket.off('disconnect', handleDisconnect);\n      socket.off('message', handleMessage);\n      socket.disconnect();\n    };\n  }, []);\n\n  function sendMessage() {\n    const trimmedInput = input.trim();\n\n    if (!trimmedInput) {\n      return;\n    }\n\n    socket.emit('message', trimmedInput);\n    setInput('');\n  }\n\n  return (\n    <main>\n      <h1>Real-Time Chat</h1>\n\n      <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>\n\n      <div>\n        {messages.map((message) => (\n          <p key={message.id}>{message.text}</p>\n        ))}\n      </div>\n\n      <input\n        value={input}\n        onChange={(event) => setInput(event.target.value)}\n        placeholder=\"Type your message...\"\n      />\n\n      <button onClick={sendMessage}>Send</button>\n    </main>\n  );\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "// src/App.jsx\nimport { useEffect, useState } from 'react';\nimport { socket } from './socket';\n\nexport default function App() {\n  const [isConnected, setIsConnected] = useState(socket.connected);\n  const [messages, setMessages] = useState([]);\n  const [input, setInput] = useState('');\n\n  useEffect(() => {\n    function handleConnect() {\n      setIsConnected(true);\n    }\n\n    function handleDisconnect() {\n      setIsConnected(false);\n    }\n\n    function handleMessage(message) {\n      setMessages((previousMessages) => [\n        ...previousMessages,\n        message,\n      ]);\n    }\n\n    socket.on('connect', handleConnect);\n    socket.on('disconnect', handleDisconnect);\n    socket.on('message', handleMessage);\n\n    socket.connect();\n\n    return () => {\n      socket.off('connect', handleConnect);\n      socket.off('disconnect', handleDisconnect);\n      socket.off('message', handleMessage);\n      socket.disconnect();\n    };\n  }, []);\n\n  function sendMessage() {\n    const trimmedInput = input.trim();\n\n    if (!trimmedInput) {\n      return;\n    }\n\n    socket.emit('message', trimmedInput);\n    setInput('');\n  }\n\n  return (\n    <main>\n      <h1>Real-Time Chat</h1>\n\n      <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>\n\n      <div>\n        {messages.map((message) => (\n          <p key={message.id}>{message.text}</p>\n        ))}\n      </div>\n\n      <input\n        value={input}\n        onChange={(event) => setInput(event.target.value)}\n        placeholder=\"Type your message...\"\n      />\n\n      <button onClick={sendMessage}>Send</button>\n    </main>\n  );\n}",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c3-9389-f503a1cd78ba",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "There are a few small details here that matter.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "There are a few small details here that matter.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8022-a1fb-ded2caf352ec",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "First, the event handlers are named functions. That makes cleanup easier because ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "First, the event handlers are named functions. That makes cleanup easier because ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "socket.off",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "socket.off",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " receives the same function reference that was passed to ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " receives the same function reference that was passed to ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "socket.on",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "socket.on",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ".",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ef-8b98-e7fb281f65b8",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Second, messages use an ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Second, messages use an ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "id",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "id",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " instead of the array index. That is better for rendering lists in React, especially once messages can be inserted, removed, retried, or synced from a server.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " instead of the array index. That is better for rendering lists in React, especially once messages can be inserted, removed, retried, or synced from a server.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809e-9843-cd380aba2f7b",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Third, the socket disconnects when the component unmounts. That is good for a simple demo. In a larger app, you might keep the socket alive at a higher level, like in a provider, so it is shared across routes.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Third, the socket disconnects when the component unmounts. That is good for a simple demo. In a larger app, you might keep the socket alive at a higher level, like in a provider, so it is shared across routes.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805c-8418-f8b7c330eebe",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Handling Connection State",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Handling Connection State",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8084-b011-d2b329323bb2",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Real-time features need to handle messy network reality.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Real-time features need to handle messy network reality.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-bdca-d0ca619c213f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The user might close their laptop. Their phone might switch from Wi-Fi to cellular. The server might restart. A proxy might interrupt the connection. The app might go into the background.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The user might close their laptop. Their phone might switch from Wi-Fi to cellular. The server might restart. A proxy might interrupt the connection. The app might go into the background.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8031-9edb-e28085c1b776",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You want to know what state the connection is in so your UI can respond properly.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You want to know what state the connection is in so your UI can respond properly.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bb-84f7-c66a2eaa138f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "useEffect(() => {\n  function handleConnect() {\n    console.log('Connected:', socket.id);\n  }\n\n  function handleDisconnect(reason) {\n    console.log('Disconnected:', reason);\n  }\n\n  function handleReconnectAttempt(attempt) {\n    console.log('Reconnect attempt:', attempt);\n  }\n\n  socket.io.on('reconnect_attempt', handleReconnectAttempt);\n  socket.on('connect', handleConnect);\n  socket.on('disconnect', handleDisconnect);\n\n  return () => {\n    socket.io.off('reconnect_attempt', handleReconnectAttempt);\n    socket.off('connect', handleConnect);\n    socket.off('disconnect', handleDisconnect);\n  };\n}, []);",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "useEffect(() => {\n  function handleConnect() {\n    console.log('Connected:', socket.id);\n  }\n\n  function handleDisconnect(reason) {\n    console.log('Disconnected:', reason);\n  }\n\n  function handleReconnectAttempt(attempt) {\n    console.log('Reconnect attempt:', attempt);\n  }\n\n  socket.io.on('reconnect_attempt', handleReconnectAttempt);\n  socket.on('connect', handleConnect);\n  socket.on('disconnect', handleDisconnect);\n\n  return () => {\n    socket.io.off('reconnect_attempt', handleReconnectAttempt);\n    socket.off('connect', handleConnect);\n    socket.off('disconnect', handleDisconnect);\n  };\n}, []);",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8064-b838-c82e2cbd8938",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This can help you show useful UI states like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This can help you show useful UI states like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8012-a1d6-d8676386be21",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Connected",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Connected",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-bd69-d7403e40bc2c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Reconnecting",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Reconnecting",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805b-bf87-c4b5dd8dcaba",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Offline",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Offline",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-808d-8e43-d8e5fb070b87",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Message failed to send",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Message failed to send",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806a-a5e2-d29cf7ef36f3",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Trying again",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Trying again",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ea-821c-cd924d642d06",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That sounds small, but it makes the app feel way more stable.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That sounds small, but it makes the app feel way more stable.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8089-ac97-e7d4b2d07df5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A real-time app should not just work when the connection is perfect. That is the easy mode. Production is where Wi-Fi goes to be weird.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A real-time app should not just work when the connection is perfect. That is the easy mode. Production is where Wi-Fi goes to be weird.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8071-9d91-edf9dfceca19",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Updating React State Safely",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Updating React State Safely",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8019-ada9-f7cfeb70b646",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "When events arrive from the socket, you usually update React state.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "When events arrive from the socket, you usually update React state.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8041-834d-ccf34e0a1653",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For small volumes of events, this is totally fine:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For small volumes of events, this is totally fine:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b4-9639-c5294d27af70",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "socket.on('message', (message) => {\n  setMessages((previousMessages) => [\n    ...previousMessages,\n    message,\n  ]);\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "socket.on('message', (message) => {\n  setMessages((previousMessages) => [\n    ...previousMessages,\n    message,\n  ]);\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d9-a5b9-e702ca83f7bc",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The important part is using the functional state update:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The important part is using the functional state update:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ee-b100-f5acfe17820f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "setMessages((previousMessages) => [...previousMessages, message]);",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "setMessages((previousMessages) => [...previousMessages, message]);",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80eb-b216-e125c761e716",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That keeps you from accidentally reading stale state inside the event handler.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That keeps you from accidentally reading stale state inside the event handler.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f0-bc95-c01c8d8b2cf3",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For high-frequency events, like cursor movement, live metrics, or multiplayer updates, you may need a different approach. Updating React state hundreds of times per second can get expensive.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For high-frequency events, like cursor movement, live metrics, or multiplayer updates, you may need a different approach. Updating React state hundreds of times per second can get expensive.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806f-8561-fdd403c65a02",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In those cases, consider:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In those cases, consider:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ac-aeb5-f0ade3465f06",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Batching updates",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Batching updates",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8050-af00-c1f807f2010e",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Throttling events",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Throttling events",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804e-88ed-fc053d2d2926",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Debouncing UI updates",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Debouncing UI updates",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8011-adb4-f9a41d9d525a",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Storing fast-changing values in refs",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Storing fast-changing values in refs",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8019-811f-f3d1448a1d70",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Using a state library designed for frequent external updates",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Using a state library designed for frequent external updates",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809a-a993-c26da7af8f05",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Rendering only the part of the UI that actually changed",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Rendering only the part of the UI that actually changed",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8001-ba49-d956c61857be",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Chat messages are easy. Live cursors and dashboards can get spicy.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Chat messages are easy. Live cursors and dashboards can get spicy.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e3-bdf0-eb5883d5b577",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Using Rooms",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Using Rooms",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8052-9507-c3a619b9f6c3",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Broadcasting every event to every user is fine for a demo, but most real apps need more control.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Broadcasting every event to every user is fine for a demo, but most real apps need more control.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8047-9c41-f4e9a004690c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That is where rooms are useful.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That is where rooms are useful.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8040-aed3-f6548d4af67d",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For example, users in one chat room should not receive messages from every other chat room.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For example, users in one chat room should not receive messages from every other chat room.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c2-a714-cced47173b71",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "On the server:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "On the server:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8003-8d67-eac87d3b0ceb",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "io.on('connection', (socket) => {\n  socket.on('join-room', (roomId) => {\n    socket.join(roomId);\n  });\n\n  socket.on('room-message', ({ roomId, message }) => {\n    io.to(roomId).emit('room-message', {\n      id: crypto.randomUUID(),\n      roomId,\n      text: message,\n      createdAt: new Date().toISOString(),\n    });\n  });\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "io.on('connection', (socket) => {\n  socket.on('join-room', (roomId) => {\n    socket.join(roomId);\n  });\n\n  socket.on('room-message', ({ roomId, message }) => {\n    io.to(roomId).emit('room-message', {\n      id: crypto.randomUUID(),\n      roomId,\n      text: message,\n      createdAt: new Date().toISOString(),\n    });\n  });\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8020-a091-f938ffef496b",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "On the client:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "On the client:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d7-ae6e-e96bbfdfd220",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "socket.emit('join-room', roomId);\n\nsocket.emit('room-message', {\n  roomId,\n  message: 'Hello room!',\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "socket.emit('join-room', roomId);\n\nsocket.emit('room-message', {\n  roomId,\n  message: 'Hello room!',\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bc-9c4e-f113f66c0af5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Rooms are useful for:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Rooms are useful for:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8017-ae69-dae777d94898",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Chat rooms",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Chat rooms",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ac-aa36-f29624535166",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Project workspaces",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Project workspaces",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b9-8640-eaeceec73f4f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Organization-specific updates",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Organization-specific updates",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f5-923d-f57c054e9820",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Document collaboration",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Document collaboration",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8086-925e-fa0481bfdc42",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "User-specific notifications",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "User-specific notifications",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8048-8810-fa28e047d354",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Just remember that joining a room is not authorization by itself. Always check whether the user is actually allowed to join that room.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Just remember that joining a room is not authorization by itself. Always check whether the user is actually allowed to join that room.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e3-a120-f1272d3d366c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security bugs love hiding in real-time features because everyone is busy being impressed that the UI updates instantly.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security bugs love hiding in real-time features because everyone is busy being impressed that the UI updates instantly.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e2-9fbe-f3f1189fd00c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Authentication and Authorization",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Authentication and Authorization",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804c-9f36-f9504f84c77e",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Do not treat a socket connection as trusted just because it connected.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Do not treat a socket connection as trusted just because it connected.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8037-8c2a-cd23729f7472",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You still need to authenticate the user and check what they are allowed to do.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You still need to authenticate the user and check what they are allowed to do.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805b-8e3d-fe0338b561d4",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A common pattern is to pass a token when connecting:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A common pattern is to pass a token when connecting:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8096-8692-ec08eb7f5a92",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "export const socket = io('http://localhost:4000', {\n  autoConnect: false,\n  auth: {\n    token: 'user-auth-token',\n  },\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "export const socket = io('http://localhost:4000', {\n  autoConnect: false,\n  auth: {\n    token: 'user-auth-token',\n  },\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802c-bd39-e05ec484e226",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Then verify it on the server:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Then verify it on the server:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-8421-d80454aeb9c3",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "io.use((socket, next) => {\n  const token = socket.handshake.auth.token;\n\n  try {\n    const user = verifyToken(token);\n\n    socket.user = user;\n    next();\n  } catch {\n    next(new Error('Unauthorized'));\n  }\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "io.use((socket, next) => {\n  const token = socket.handshake.auth.token;\n\n  try {\n    const user = verifyToken(token);\n\n    socket.user = user;\n    next();\n  } catch {\n    next(new Error('Unauthorized'));\n  }\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800a-b0cc-f7b5e45ca076",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Then, before joining a room or sending a message, check permissions:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Then, before joining a room or sending a message, check permissions:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806b-8eb6-e32caef40465",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "socket.on('join-room', async (roomId) => {\n  const canJoin = await userCanAccessRoom(socket.user.id, roomId);\n\n  if (!canJoin) {\n    return;\n  }\n\n  socket.join(roomId);\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "socket.on('join-room', async (roomId) => {\n  const canJoin = await userCanAccessRoom(socket.user.id, roomId);\n\n  if (!canJoin) {\n    return;\n  }\n\n  socket.join(roomId);\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-8a89-e4f7cb8eed96",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The same rule applies here as it does with normal APIs: authentication tells you who the user is. Authorization tells you what they can access.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The same rule applies here as it does with normal APIs: authentication tells you who the user is. Authorization tells you what they can access.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809b-9ace-f8a0c7d6daed",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You need both.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You need both.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8031-ac16-d9ddbd9ed646",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Rate Limiting and Validation",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Rate Limiting and Validation",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80cb-bc10-d2e231ea13a8",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Real-time endpoints are easy to spam.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Real-time endpoints are easy to spam.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806e-abf0-d3b5f4910a90",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If a user can emit a ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If a user can emit a ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "message",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "message",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " event once, they can probably emit it 500 times in a loop. That can annoy users, overload your server, or fill your database with garbage.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " event once, they can probably emit it 500 times in a loop. That can annoy users, overload your server, or fill your database with garbage.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8066-83fb-d1ca8ef472ab",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "At minimum, validate incoming payloads:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "At minimum, validate incoming payloads:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800b-a175-eea4a83390b7",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "socket.on('message', (data) => {\n  if (typeof data !== 'string') {\n    return;\n  }\n\n  const message = data.trim();\n\n  if (!message || message.length > 1000) {\n    return;\n  }\n\n  io.emit('message', {\n    id: crypto.randomUUID(),\n    text: message,\n    createdAt: new Date().toISOString(),\n  });\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "socket.on('message', (data) => {\n  if (typeof data !== 'string') {\n    return;\n  }\n\n  const message = data.trim();\n\n  if (!message || message.length > 1000) {\n    return;\n  }\n\n  io.emit('message', {\n    id: crypto.randomUUID(),\n    text: message,\n    createdAt: new Date().toISOString(),\n  });\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8053-bcf6-dec701a717e6",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For production apps, add rate limiting too. For example:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For production apps, add rate limiting too. For example:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f5-b57b-ce9f4251fda6",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Limit messages per user per second",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Limit messages per user per second",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8032-a46a-ee19ef3131c6",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Limit room joins",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Limit room joins",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8003-b402-d12db92e71f8",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Limit expensive events",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Limit expensive events",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80db-991c-e8bb14a8c7f9",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Disconnect abusive clients",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Disconnect abusive clients",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8061-9531-ed4336567ebd",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Log suspicious behavior",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Log suspicious behavior",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ea-9313-e4a933704b22",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Do not assume users will only click the button you gave them. Some users will open DevTools and start conducting experiments. Little scientists of chaos.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Do not assume users will only click the button you gave them. Some users will open DevTools and start conducting experiments. Little scientists of chaos.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-b7e9-fc11507284b8",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Scaling Socket.IO",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Scaling Socket.IO",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e9-b6dc-f190ca19cc6b",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A single server can handle a lot for small apps, but scaling WebSockets has a few extra wrinkles.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A single server can handle a lot for small apps, but scaling WebSockets has a few extra wrinkles.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8087-ad85-cde15ce6b9fc",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "With normal HTTP, each request is short-lived. With sockets, each user keeps a connection open. That changes how you think about capacity and deployment.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "With normal HTTP, each request is short-lived. With sockets, each user keeps a connection open. That changes how you think about capacity and deployment.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-98f9-ce9a2a849375",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "When scaling across multiple server instances, you usually need to think about:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "When scaling across multiple server instances, you usually need to think about:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809f-9cbb-f5a61b993044",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Load balancing",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Load balancing",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8039-9b3e-d220b67b3549",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Sticky sessions",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Sticky sessions",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c6-b364-c5ee6c15d212",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Shared pub/sub between instances",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Shared pub/sub between instances",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-ab5e-fe58a327c66b",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Connection limits",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Connection limits",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804b-908c-e8d0078aadf9",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Reconnection storms",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Reconnection storms",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b9-b7d1-f9fe7f10f3f1",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Monitoring active connections",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Monitoring active connections",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801f-84b7-e39726d372f3",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Socket.IO supports adapters, like the Redis adapter, to help multiple server instances broadcast events to each other.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Socket.IO supports adapters, like the Redis adapter, to help multiple server instances broadcast events to each other.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80fc-80dd-e20479cf34a9",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The idea is simple: if one user is connected to server A and another user is connected to server B, both servers need a way to share events.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The idea is simple: if one user is connected to server A and another user is connected to server B, both servers need a way to share events.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8096-9d46-d3c2a8d110df",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "At a small scale, you can keep things simple. At a larger scale, plan for it early enough that your real-time feature does not become one very enthusiastic single point of failure.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "At a small scale, you can keep things simple. At a larger scale, plan for it early enough that your real-time feature does not become one very enthusiastic single point of failure.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8098-8e12-ede913f46383",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Monitoring Real-Time Features",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Monitoring Real-Time Features",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8060-8273-fe05d22dbe97",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Real-time systems need observability.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Real-time systems need observability.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80cd-8a31-d702d794fb21",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You should know:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You should know:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f7-ad66-eb8597261144",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "How many clients are connected",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "How many clients are connected",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-8e0f-c577001097ef",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "How often clients disconnect",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "How often clients disconnect",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c1-aec8-d54bf1a5cbe2",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "How often they reconnect",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "How often they reconnect",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8012-8daa-c4a1749176a0",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "How many events are being sent",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "How many events are being sent",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8053-a8c4-e97f9685a6a4",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Which events are slow",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Which events are slow",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806d-90b3-eef4db95df1c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Which events fail validation",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Which events fail validation",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8060-9580-ede32f9d1a44",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Whether one room or tenant is creating unusual load",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Whether one room or tenant is creating unusual load",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8055-8c12-f9e63ae8927f",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Logs are useful, but metrics are even better. You want to spot patterns before users start reporting that “chat feels weird.”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Logs are useful, but metrics are even better. You want to spot patterns before users start reporting that “chat feels weird.”",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a6-b5ca-f3fc2cdd991c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That bug report is technically honest, but spiritually unhelpful.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That bug report is technically honest, but spiritually unhelpful.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d2-ae8e-fd1f37e62320",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Final Thoughts",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Final Thoughts",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80eb-9f89-f9470ca2b564",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Real-time features are fun because they make your app feel alive.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Real-time features are fun because they make your app feel alive.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8044-a525-e909895f57ea",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "They are also a little trickier than normal request-response code. Connections drop. Events arrive twice. Users reconnect. State gets stale. Servers restart. Somewhere, someone closes their laptop at the exact wrong moment.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "They are also a little trickier than normal request-response code. Connections drop. Events arrive twice. Users reconnect. State gets stale. Servers restart. Somewhere, someone closes their laptop at the exact wrong moment.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-96bb-ff4e16cf4bf8",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Socket.IO gives you a friendly way to handle a lot of that complexity, especially for chat, notifications, dashboards, and collaborative features.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Socket.IO gives you a friendly way to handle a lot of that complexity, especially for chat, notifications, dashboards, and collaborative features.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8015-be40-e4a9cfc778ce",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Start simple:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Start simple:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-808a-9dfd-f91cad2ea983",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Set up the server",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Set up the server",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8097-b7ec-ef622a75853a",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Connect the React client",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Connect the React client",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-ac84-c1e59bf912d5",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Clean up event listeners",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Clean up event listeners",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80fd-90a6-c5656675a99c",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Track connection state",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Track connection state",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-8ee3-c70b35e95a9a",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Validate every event",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Validate every event",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803d-ace8-c48c8e5183be",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Add rooms when needed",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Add rooms when needed",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c4-abc9-d7bf0222fe75",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Plan for scaling before things get too exciting",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Plan for scaling before things get too exciting",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8076-8df6-fdcb47332f7e",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:19:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The goal is not just to make updates appear instantly.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The goal is not just to make updates appear instantly.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801f-9c9c-e8ec7b4b54bc",
+        "created_time": "2026-06-15T22:19:00.000Z",
+        "last_edited_time": "2026-06-15T22:21:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The goal is to make them appear instantly, reliably, and without turning your server into a spooky walkie-talkie.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The goal is to make them appear instantly, reliably, and without turning your server into a spooky walkie-talkie.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "39fd88d3-791e-478e-a191-5e85f122e959"
+  }
+}

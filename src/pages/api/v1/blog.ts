@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { fetchNotions } from '../../../services/notion';
-import { isEditorialBlogPost } from '../../../utils/editorialBlog';
 
 export default async function handler(
     req: NextApiRequest,
@@ -14,12 +13,11 @@ export default async function handler(
     try {
         const posts = await fetchNotions('blog', {
             page_size: 100,
+            all: true,
             sorts: [{ property: 'Published', direction: 'descending' }],
         });
 
-        return res
-            .status(200)
-            .json({ posts: posts.filter(isEditorialBlogPost) });
+        return res.status(200).json({ posts: posts });
     } catch (error) {
         console.error('Error fetching blog posts:', error);
         return res.status(500).json({ message: 'Internal server error' });

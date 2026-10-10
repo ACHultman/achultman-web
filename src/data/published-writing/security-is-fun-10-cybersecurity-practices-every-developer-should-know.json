@@ -1,0 +1,4039 @@
+{
+  "page": {
+    "id": "1244d7b8-9add-80ec-8aec-c3438afe636a",
+    "slug": "security-is-fun-10-cybersecurity-practices-every-developer-should-know",
+    "title": "Security is fun: 10 cybersecurity practices every developer should know",
+    "publishedDate": "2024-10-18",
+    "tags": [
+      "Cybersecurity"
+    ],
+    "description": "A developer-focused checklist for building safer applications, from authentication to dependency management.",
+    "cover": null,
+    "url": "https://app.notion.com/p/Security-is-fun-10-cybersecurity-practices-every-developer-should-know-1244d7b89add80ec8aecc3438afe636a",
+    "created_time": "2024-10-19T02:41:00.000Z",
+    "last_edited_time": "2026-06-15T21:57:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802e-bbdf-c3a5bc2f0c16",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security has a reputation for being scary, boring, or something you deal with later when the app is “more real.”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security has a reputation for being scary, boring, or something you deal with later when the app is “more real.”",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c9-a61a-dea578ae6aff",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:54:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That is how you end up with production secrets in GitHub, admin endpoints protected by spirits, and a database full of plain-text passwords. Spooky stuff.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That is how you end up with production secrets in GitHub, admin endpoints protected by spirits, and a database full of plain-text passwords. Spooky stuff.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8090-9e19-ef9c11262ef7",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The good news is that basic security is not mysterious. Most of it comes down to a handful of habits: do not trust user input, do not leak secrets, do not invent your own authentication system, and do not assume nobody will find the weird endpoint you forgot about.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The good news is that basic security is not mysterious. Most of it comes down to a handful of habits: do not trust user input, do not leak secrets, do not invent your own authentication system, and do not assume nobody will find the weird endpoint you forgot about.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8068-86c4-f3c82e4ee969",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Here are ten practical security habits every developer should build into their workflow.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Here are ten practical security habits every developer should build into their workflow.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e4-b0cc-f4da0cec17db",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8075-9b97-d3024813f673",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "1. Treat Every API Endpoint Like Someone Will Poke It",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "1. Treat Every API Endpoint Like Someone Will Poke It",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ea-95d3-cf441cf1d27f",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "APIs are easy to forget about because users usually interact with your nice little frontend. Attackers do not care about your nice little frontend. They will call your endpoints directly.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "APIs are easy to forget about because users usually interact with your nice little frontend. Attackers do not care about your nice little frontend. They will call your endpoints directly.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8039-b731-f76232372e7c",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Every API route should answer a few basic questions:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Every API route should answer a few basic questions:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ac-b9b6-db133faa19df",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Who is making this request?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Who is making this request?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b6-a6a7-cb25b9fb5d05",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Are they allowed to do this?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Are they allowed to do this?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802a-b2c0-d2d8150c2cbc",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Is the input valid?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Is the input valid?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801a-8c66-dd06817cbeca",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Could this endpoint be abused if someone called it 10,000 times?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Could this endpoint be abused if someone called it 10,000 times?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-bd0c-de00595141ab",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "At minimum, use HTTPS, require authentication where needed, check authorization on sensitive actions, validate all input on the server, and rate-limit endpoints that can be spammed.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "At minimum, use HTTPS, require authentication where needed, check authorization on sensitive actions, validate all input on the server, and rate-limit endpoints that can be spammed.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8068-94b8-c80a3c774e4c",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Also, never hardcode API keys or tokens in your source code. Secrets in Git have a special talent for becoming everyone’s secrets.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Also, never hardcode API keys or tokens in your source code. Secrets in Git have a special talent for becoming everyone’s secrets.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ae-9fa1-db95e36662eb",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8020-b694-e5594d5f50f8",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "2. Understand Authentication vs Authorization",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "2. Understand Authentication vs Authorization",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803a-9a2d-f9fc4625cddf",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Authentication and authorization sound similar, but they solve different problems.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Authentication and authorization sound similar, but they solve different problems.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a9-b0b7-cea866d06588",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Authentication",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Authentication",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " means: who are you?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " means: who are you?",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8053-9c14-e222c0a0a8f2",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Authorization",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Authorization",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " means: what are you allowed to do?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " means: what are you allowed to do?",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801c-8042-e93fafdca606",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A user being logged in does not mean they should be able to access everything. This is how you get bugs like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A user being logged in does not mean they should be able to access everything. This is how you get bugs like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800f-91d2-d35b84cc2356",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "/user/123/settings\n/user/124/settings",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "/user/123/settings\n/user/124/settings",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8061-89b3-d70bf2bd5d7f",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If changing the ID in the URL lets one user access another user’s data, the app does not have an authentication problem. It has an authorization problem.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If changing the ID in the URL lets one user access another user’s data, the app does not have an authentication problem. It has an authorization problem.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8090-9714-fb43b77b3970",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For authentication, do not casually roll your own system. Use a trusted provider like Clerk, Auth0, Supabase Auth, Firebase Auth, AWS Cognito, or a similar service unless you have a strong reason not to.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For authentication, do not casually roll your own system. Use a trusted provider like Clerk, Auth0, Supabase Auth, Firebase Auth, AWS Cognito, or a similar service unless you have a strong reason not to.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802e-9d8f-c7b6b4724ef1",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Authentication looks simple until you remember password resets, email verification, session expiry, MFA, OAuth edge cases, account recovery, bot protection, and breach handling. That is a lot of dragons for one login form.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Authentication looks simple until you remember password resets, email verification, session expiry, MFA, OAuth edge cases, account recovery, bot protection, and breach handling. That is a lot of dragons for one login form.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80af-a626-d00605c458d7",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Also worth knowing: OAuth 2.0 is mainly for authorization. If you need user identity, you usually want OpenID Connect on top of OAuth.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Also worth knowing: OAuth 2.0 is mainly for authorization. If you need user identity, you usually want OpenID Connect on top of OAuth.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80be-9bfe-cbbdb240f53e",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d4-988f-efd2983d4160",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "3. Protect Passwords, Secrets, and Sensitive Data Properly",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "3. Protect Passwords, Secrets, and Sensitive Data Properly",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e5-b371-c0c1c8f01745",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security bugs often start with a simple mistake: storing sensitive data as if nobody will ever see the database.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security bugs often start with a simple mistake: storing sensitive data as if nobody will ever see the database.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d3-b0dc-ee2c3bf6fe3a",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Assume they might.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Assume they might.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8004-b778-dcfa7543d3bb",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you store user passwords, do not encrypt them. ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you store user passwords, do not encrypt them. ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Hash them",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Hash them",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " with a password-specific hashing algorithm before saving them.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " with a password-specific hashing algorithm before saving them.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-808c-84e5-c25467fa3f39",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "const bcrypt = require('bcrypt');\n\nconst saltRounds = 10;\nconst hashedPassword = await bcrypt.hash('user-password', saltRounds);",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "const bcrypt = require('bcrypt');\n\nconst saltRounds = 10;\nconst hashedPassword = await bcrypt.hash('user-password', saltRounds);",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8021-a239-ce265389d142",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Plain-text passwords are an absolute no-go. General-purpose hashes like MD5 or SHA-1 are also not good enough. Use algorithms designed for passwords, like ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Plain-text passwords are an absolute no-go. General-purpose hashes like MD5 or SHA-1 are also not good enough. Use algorithms designed for passwords, like ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "bcrypt",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "bcrypt",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " or ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " or ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "argon2",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "argon2",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", so leaked hashes are much harder to crack.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", so leaked hashes are much harder to crack.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-bb74-f77d9c023364",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For data that needs to be decrypted later, such as API keys, access tokens, or sensitive user fields, use proper encryption. AES is a common standard, but the algorithm is only one part of the problem. The harder part is key management.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For data that needs to be decrypted later, such as API keys, access tokens, or sensitive user fields, use proper encryption. AES is a common standard, but the algorithm is only one part of the problem. The harder part is key management.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8054-af69-ec0f9abb22ee",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Environment variables are better than hardcoding secrets, but production systems should use proper secret or key management tools like AWS KMS, Google Cloud KMS, Azure Key Vault, Doppler, 1Password, or a cloud secrets manager.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Environment variables are better than hardcoding secrets, but production systems should use proper secret or key management tools like AWS KMS, Google Cloud KMS, Azure Key Vault, Doppler, 1Password, or a cloud secrets manager.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804f-826e-c298a46ff26c",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The rule is simple: passwords get hashed. Secrets get protected. Keys do not get left under the doormat.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The rule is simple: passwords get hashed. Secrets get protected. Keys do not get left under the doormat.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80fc-8b75-fcc1008bffa8",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8043-91a8-f147965520bc",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "4. Validate Input on the Server",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "4. Validate Input on the Server",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8051-a7ed-caecb164af38",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Client-side validation is great for user experience. It is not security.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Client-side validation is great for user experience. It is not security.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80cb-8eb9-cb446dccf179",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Anything that comes from the client can be changed. Form fields, query parameters, request bodies, cookies, headers, uploaded files, all of it. Your frontend is not a security boundary. It is more like a polite suggestion.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Anything that comes from the client can be changed. Form fields, query parameters, request bodies, cookies, headers, uploaded files, all of it. Your frontend is not a security boundary. It is more like a polite suggestion.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8029-bfa2-e0fbae7ef740",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Validate input on the server before using it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Validate input on the server before using it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a2-bc28-edce0cdd39eb",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For example, instead of trusting that a request body has the right shape, use a schema validation library like Zod:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For example, instead of trusting that a request body has the right shape, use a schema validation library like Zod:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809c-bec2-dc8a627a4003",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import { z } from 'zod';\n\nconst createUserSchema = z.object({\n  email: z.string().email(),\n  name: z.string().min(1).max(100),\n});\n\nconst result = createUserSchema.safeParse(req.body);\n\nif (!result.success) {\n  throw new Error('Invalid input');\n}\n\nconst user = result.data;",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import { z } from 'zod';\n\nconst createUserSchema = z.object({\n  email: z.string().email(),\n  name: z.string().min(1).max(100),\n});\n\nconst result = createUserSchema.safeParse(req.body);\n\nif (!result.success) {\n  throw new Error('Invalid input');\n}\n\nconst user = result.data;",
+              "href": null
+            }
+          ],
+          "language": "typescript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8079-900a-cf9cee3f453f",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:56:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Good validation protects your app from weird data, malicious data, and your own future sleepy confusion.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Good validation protects your app from weird data, malicious data, and your own future sleepy confusion.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f8-81fe-c6f2ecb546a9",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f6-9724-c20f3eb589cb",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "5. Prevent SQL Injection",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "5. Prevent SQL Injection",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8057-afd3-d7e670030020",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "SQL injection happens when user input gets treated as executable SQL.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "SQL injection happens when user input gets treated as executable SQL.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a8-a42c-fa1c13b60038",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Bad:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Bad:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805c-88a4-e7a074df7491",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "const query = `SELECT * FROM users WHERE email = '${userEmail}'`;",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "const query = `SELECT * FROM users WHERE email = '${userEmail}'`;",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f4-bcca-ef37c7804f06",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That looks innocent until someone sends input that changes the meaning of the query.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That looks innocent until someone sends input that changes the meaning of the query.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807a-a060-ef4c1e1a497f",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Good:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Good:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804a-b16a-c192905f952a",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "const user = await db.query(\n  'SELECT * FROM users WHERE email = ?',\n  [userEmail]\n);",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "const user = await db.query(\n  'SELECT * FROM users WHERE email = ?',\n  [userEmail]\n);",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8073-a53a-f245bb6da350",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Parameterized queries keep user input as data, not code. Most database libraries and ORMs support this out of the box.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Parameterized queries keep user input as data, not code. Most database libraries and ORMs support this out of the box.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802d-805c-fb5630d24ea6",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The rule is boring but beautiful: never concatenate user input directly into SQL queries.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The rule is boring but beautiful: never concatenate user input directly into SQL queries.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802e-9455-db8b713913b9",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8007-8735-c5541a89b291",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "6. Defend Against XSS",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "6. Defend Against XSS",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b7-a4c3-ea06b032c23e",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Cross-site scripting, or XSS, happens when attacker-controlled content gets rendered as executable code in your app.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Cross-site scripting, or XSS, happens when attacker-controlled content gets rendered as executable code in your app.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8059-bf80-d834ec16d590",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In plain English: someone sneaks JavaScript onto your page, and now your users’ browsers are doing things they did not sign up for.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In plain English: someone sneaks JavaScript onto your page, and now your users’ browsers are doing things they did not sign up for.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8081-8e9e-c93039651931",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Modern frameworks like React escape values by default, which helps a lot. But you can still shoot yourself in the foot with unsafe HTML rendering, markdown previews, third-party scripts, user-generated content, and the legendary danger button itself: ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Modern frameworks like React escape values by default, which helps a lot. But you can still shoot yourself in the foot with unsafe HTML rendering, markdown previews, third-party scripts, user-generated content, and the legendary danger button itself: ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "dangerouslySetInnerHTML",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "dangerouslySetInnerHTML",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ".",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803b-92ea-f70096c7e6f0",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you need to render HTML from users, sanitize it first.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you need to render HTML from users, sanitize it first.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805e-b224-d26322258454",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import DOMPurify from 'dompurify';\n\nconst safeHtml = DOMPurify.sanitize(userInputHtml);",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import DOMPurify from 'dompurify';\n\nconst safeHtml = DOMPurify.sanitize(userInputHtml);",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b5-a9e8-d9c00ab79e66",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You should also consider using a Content Security Policy. It will not magically fix unsafe rendering, but it can reduce the damage if something slips through.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You should also consider using a Content Security Policy. It will not magically fix unsafe rendering, but it can reduce the damage if something slips through.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ab-a4e6-d24fd6d6ff6f",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security is often about blast radius. Things will go wrong. Try to make “wrong” less exciting.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security is often about blast radius. Things will go wrong. Try to make “wrong” less exciting.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f3-868a-e59cfd378c26",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e5-991f-f64d1c7e9256",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "7. Protect Against CSRF",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "7. Protect Against CSRF",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8035-9fc4-cf403023902e",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "CSRF stands for cross-site request forgery. It is one of those attacks that sounds fancy, but the idea is simple.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "CSRF stands for cross-site request forgery. It is one of those attacks that sounds fancy, but the idea is simple.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8069-9377-d048c0b01f3d",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A user is logged into your app. They visit a malicious site. That malicious site tricks their browser into sending a request to your app using their existing cookies.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A user is logged into your app. They visit a malicious site. That malicious site tricks their browser into sending a request to your app using their existing cookies.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f2-98ab-c1a567ac83b6",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:57:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The user did not mean to make the request, but their browser still has the cookies. Sneaky little goblin behaviour.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The user did not mean to make the request, but their browser still has the cookies. Sneaky little goblin behaviour.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8073-858e-c615afc13f9b",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If your app uses cookies for authentication, protect state-changing actions with:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If your app uses cookies for authentication, protect state-changing actions with:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802e-a2be-f2b3c90f7214",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "SameSite cookies",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "SameSite cookies",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8076-b185-f6cfedd414ed",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "CSRF tokens",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "CSRF tokens",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804c-bc98-fb75c751cc7c",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Proper origin checks",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Proper origin checks",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f0-b7ce-e4e4453f7718",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Avoiding GET requests for actions that modify data",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Avoiding GET requests for actions that modify data",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805a-9e69-e3ae92e1684c",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This matters most for actions like changing email addresses, updating passwords, transferring money, deleting records, or modifying account settings.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This matters most for actions like changing email addresses, updating passwords, transferring money, deleting records, or modifying account settings.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8032-913b-f44b387b453a",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "GET should fetch. POST, PUT, PATCH, and DELETE should change things. Do not make ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "GET should fetch. POST, PUT, PATCH, and DELETE should change things. Do not make ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "/delete-account?id=123",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "/delete-account?id=123",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " a GET route unless you enjoy chaos.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " a GET route unless you enjoy chaos.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800a-a657-dbe388fded81",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806e-86d5-ecda1822676b",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "8. Use HTTPS Everywhere",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "8. Use HTTPS Everywhere",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f9-b460-de4e01f334ba",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "HTTPS should be table stakes. It protects data in transit and helps prevent man-in-the-middle attacks.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "HTTPS should be table stakes. It protects data in transit and helps prevent man-in-the-middle attacks.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8006-a717-c41130b4037e",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Most modern platforms make this easy. Vercel, Netlify, Cloudflare, and many managed hosting providers can issue and renew certificates automatically. Let’s Encrypt also makes certificates free if you are managing things yourself.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Most modern platforms make this easy. Vercel, Netlify, Cloudflare, and many managed hosting providers can issue and renew certificates automatically. Let’s Encrypt also makes certificates free if you are managing things yourself.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80dd-9081-eb4de8d9f35e",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "But do not stop at “the certificate exists.”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "But do not stop at “the certificate exists.”",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8028-9841-d87065c679a4",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Make sure:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Make sure:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8019-83ef-c2716c857520",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "HTTP redirects to HTTPS",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "HTTP redirects to HTTPS",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805a-8a0b-e3e68a49d085",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Cookies use the ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Cookies use the ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Secure",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "Secure",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " flag",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " flag",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8066-88a1-c846e39a97d0",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Sensitive cookies use ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Sensitive cookies use ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "HttpOnly",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "HttpOnly",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8043-9758-dbf80babcca5",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Your app does not load insecure mixed content",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Your app does not load insecure mixed content",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8099-947c-fd8b9e9cd780",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Production webhooks and callbacks use HTTPS URLs",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Production webhooks and callbacks use HTTPS URLs",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8025-8a3b-da3ee654c8e8",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "HTTPS is not glamorous, but neither are seatbelts. Still worth using.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "HTTPS is not glamorous, but neither are seatbelts. Still worth using.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8040-854d-db89452c61f8",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ff-93b5-fa5037a803d2",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "9. Log and Monitor Security-Relevant Events",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "9. Log and Monitor Security-Relevant Events",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8032-9b17-f7e8788bf3cf",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Logs are not just for debugging broken features. They are also how you notice when something weird is happening.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Logs are not just for debugging broken features. They are also how you notice when something weird is happening.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807a-9041-d34f0d77868c",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Track events like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Track events like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8083-be4d-dd871ac4013d",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Failed login attempts",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Failed login attempts",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8083-8cc8-d04ec5e3d9d3",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Password reset requests",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Password reset requests",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a1-bd0d-c1c5d217c369",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Email or password changes",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Email or password changes",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-808d-9576-de009d6ed38a",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Permission changes",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Permission changes",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8004-b481-c9b26abd1ec6",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Suspicious API usage",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Suspicious API usage",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8013-8b7c-ff30d4460e0e",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Admin actions",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Admin actions",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8065-b551-db6c048fc7d6",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Spikes in 401, 403, or 500 responses",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Spikes in 401, 403, or 500 responses",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8014-935a-c5d9b21184e4",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Tools like Datadog, CloudWatch, Loggly, Sentry, and other monitoring platforms can help you spot patterns before they become incidents.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Tools like Datadog, CloudWatch, Loggly, Sentry, and other monitoring platforms can help you spot patterns before they become incidents.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8096-8a20-db7d4b5e53ac",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Just be careful what you log. Do not log passwords, access tokens, API keys, session cookies, or sensitive personal data.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Just be careful what you log. Do not log passwords, access tokens, API keys, session cookies, or sensitive personal data.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809d-ad0b-dff21286e9a6",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A log full of secrets is not observability. It is a breach with timestamps.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A log full of secrets is not observability. It is a breach with timestamps.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8090-b76e-cecff1b43bd5",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8076-8c48-faf0bc4e07ca",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "10. Keep Dependencies Updated",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "10. Keep Dependencies Updated",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802d-8e25-cf99729b8181",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A lot of security vulnerabilities come from code you did not write.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A lot of security vulnerabilities come from code you did not write.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a2-8085-ce875cff185b",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That is not a reason to avoid dependencies. It is a reason to maintain them.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That is not a reason to avoid dependencies. It is a reason to maintain them.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c2-8550-c9e808b96859",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Use tools like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Use tools like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8038-8415-d39cb901fdd4",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "npm audit",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "npm audit",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8079-b2c5-c8f84bb7a861",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Dependabot",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Dependabot",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b7-8c1f-ca3e3243eedd",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Snyk",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Snyk",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80cd-aeda-d38af8ed74e4",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "GitHub Advanced Security",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "GitHub Advanced Security",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8081-affe-cf268fccdd83",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Secret scanning",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Secret scanning",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b1-a3a7-f323c3d32aed",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Lockfile review in pull requests",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Lockfile review in pull requests",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8061-90d6-f3aa2b29b91a",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For Node.js projects, you can start with:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For Node.js projects, you can start with:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8028-b19f-cc2866ac2cf4",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "npm audit",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "npm audit",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802e-8c87-e73bd99966d2",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Even better, configure automated dependency pull requests so updates become part of your normal workflow instead of a terrifying annual event.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Even better, configure automated dependency pull requests so updates become part of your normal workflow instead of a terrifying annual event.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803a-81f0-e27038c30a38",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The goal is not to update everything blindly. The goal is to know when a dependency has a real vulnerability and respond before it becomes your problem.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The goal is not to update everything blindly. The goal is to know when a dependency has a real vulnerability and respond before it becomes your problem.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8045-a879-ca281e57944d",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8000-887e-de73317e7143",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Final Thoughts",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Final Thoughts",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d3-8a3f-fb23fc6a10bf",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security does not need to be dramatic. Most of it is not about wearing a hoodie in a dark room while reading assembly code.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security does not need to be dramatic. Most of it is not about wearing a hoodie in a dark room while reading assembly code.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ec-8952-ed6b3927c053",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It is about consistent habits.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It is about consistent habits.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804f-9375-e859db85521d",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Validate input. Check authorization. Hash passwords. Protect secrets. Use HTTPS. Keep dependencies fresh. Watch your logs. Avoid building authentication from scratch unless you really know what you are signing up for.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Validate input. Check authorization. Hash passwords. Protect secrets. Use HTTPS. Keep dependencies fresh. Watch your logs. Avoid building authentication from scratch unless you really know what you are signing up for.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80fa-ada6-ec88981c8841",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security is fun because it turns you into the person who sees the trapdoor before everyone else walks over it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security is fun because it turns you into the person who sees the trapdoor before everyone else walks over it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801e-af22-fec59f815d70",
+        "created_time": "2026-06-15T21:53:00.000Z",
+        "last_edited_time": "2026-06-15T21:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "And honestly, that is a pretty good feeling.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "And honestly, that is a pretty good feeling.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "b5822717-da69-499f-ad10-08e6bcd27382"
+  }
+}

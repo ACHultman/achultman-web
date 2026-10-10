@@ -9,7 +9,7 @@ const personSchema = {
     '@id': `${SITE_URL}/#person`,
     name: 'Adam Hultman',
     url: SITE_URL,
-    image: `${SITE_URL}/images/adam.jpg`,
+    image: `${SITE_URL}/images/adam-waterfront.webp`,
     jobTitle: 'Software Engineer',
     worksFor: {
         '@type': 'Organization',
@@ -41,7 +41,7 @@ const personSchema = {
         name: 'University of Victoria',
     },
     description:
-        'Vancouver software engineer building web products and AI features. Experience at Kopperfield and Assembly Digital, plus independent projects.',
+        'Adam Hultman builds software at Kopperfield and develops independent products through Perspective Labs Inc.',
 };
 
 const websiteSchema = {

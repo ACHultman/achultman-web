@@ -1,84 +1,120 @@
 import { test, expect, type Page } from '@playwright/test';
 
-async function fillInquiry(page: Page) {
+async function fillMessage(page: Page) {
     await page.getByLabel(/^Name/).fill('Jordan Lee');
     await page.getByLabel(/^Email/).fill('jordan@example.com');
-    await page.getByLabel(/^Company/).fill('Example Operations');
     await page
-        .getByLabel(/^Your message/)
-        .fill('We need an internal tool to reconcile weekly project status.');
+        .getByLabel(/^Message/)
+        .fill('I would like to talk about a software engineering role.');
 }
 
-test.describe('Mobile contact feedback', () => {
-    test('opens the mobile menu and reaches contact', async ({ page }) => {
-        await page.goto('/');
-        const menu = page.getByRole('button', {
-            name: 'Open menu',
-            exact: true,
+test('mobile menu closes with Escape and returns focus', async ({ page }) => {
+    await page.goto('/');
+    const menu = page.getByRole('button', { name: 'Open menu', exact: true });
+    await menu.click();
+    await expect(page.locator('#mobile-navigation a').first()).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(menu).toBeFocused();
+    await expect(page.locator('#mobile-navigation')).toHaveCount(0);
+    await menu.click();
+    await page
+        .locator('#mobile-navigation')
+        .getByRole('link', { name: 'Get in touch' })
+        .click();
+    await expect(page).toHaveURL('/contact');
+    await expect(page.locator('#mobile-navigation')).toHaveCount(0);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        'Let’s talk.'
+    );
+});
+
+test('submits only the general-purpose contact fields', async ({ page }) => {
+    let submitted: Record<string, unknown> | undefined;
+    await page.route('**/api/v1/contact', async (route) => {
+        submitted = route.request().postDataJSON();
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ success: true }),
         });
-        await menu.click();
-        await expect(
-            page.getByRole('button', { name: 'Close menu', exact: true })
-        ).toHaveAttribute('aria-expanded', 'true');
-        await page
-            .locator('#mobile-navigation')
-            .getByRole('link', { name: 'Get in touch' })
-            .click();
-        await expect(page).toHaveURL(/\/#contact$/);
-        await expect(page.locator('#mobile-navigation')).toHaveCount(0);
-        await expect(
-            page
-                .locator('#contact')
-                .getByRole('heading', { name: 'Get in touch' })
-        ).toBeVisible();
     });
+    await page.goto('/contact');
+    await expect(page.getByLabel(/company|budget/i)).toHaveCount(0);
+    await fillMessage(page);
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.getByRole('status')).toContainText(
+        'Thanks. Your message has been sent.'
+    );
+    expect(submitted).toEqual({
+        name: 'Jordan Lee',
+        email: 'jordan@example.com',
+        message: 'I would like to talk about a software engineering role.',
+        website: '',
+    });
+});
 
-    test('shows the next step after a successful inquiry without a budget', async ({
-        page,
-    }) => {
-        let submitted: Record<string, unknown> | undefined;
-        // Fulfil in the browser so this test cannot reach the email handler.
-        await page.route('**/api/v1/contact', async (route) => {
-            submitted = route.request().postDataJSON();
-            await route.fulfill({ status: 200, body: '{}' });
+test('failed submission keeps the message visible and can be retried', async ({
+    page,
+}) => {
+    let attempts = 0;
+    await page.route('**/api/v1/contact', (route) => {
+        attempts++;
+        return route.fulfill({
+            status: attempts === 1 ? 503 : 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ success: attempts > 1 }),
         });
-
-        await page.goto('/#contact');
-        await expect(page.getByLabel(/budget/i)).toHaveCount(0);
-        await fillInquiry(page);
-        await page.getByRole('button', { name: 'Send it over' }).click();
-
-        await expect(page.getByText('Got it, Jordan')).toBeVisible();
-        await expect(
-            page.getByText(
-                "I'll read through this and get back to you within one business day."
-            )
-        ).toBeVisible();
-        expect(submitted).toMatchObject({ budget: '' });
     });
+    await page.goto('/contact');
+    await fillMessage(page);
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.locator('form').getByRole('alert')).toContainText(
+        'Your text is still here.'
+    );
+    await expect(page.getByLabel(/^Email/)).toHaveValue('jordan@example.com');
+    await expect(page.getByLabel(/^Message/)).toHaveValue(
+        'I would like to talk about a software engineering role.'
+    );
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.getByRole('status')).toContainText(
+        'Your message has been sent.'
+    );
+});
 
-    test('shows recovery instructions and retains the inquiry on retry', async ({
-        page,
-    }) => {
-        // Fulfil in the browser so this test cannot reach the email handler.
-        await page.route('**/api/v1/contact', (route) =>
-            route.fulfill({ status: 503, body: '{}' })
-        );
+test('unconfirmed responses and network failures never show success', async ({
+    page,
+}) => {
+    await page.route('**/api/v1/contact', (route) =>
+        route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: '{}',
+        })
+    );
+    await page.goto('/contact');
+    await fillMessage(page);
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.locator('form').getByRole('alert')).toBeVisible();
+    await page.unroute('**/api/v1/contact');
+    await page.route('**/api/v1/contact', (route) => route.abort());
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.locator('form').getByRole('alert')).toBeVisible();
+    await expect(page.getByLabel(/^Name/)).toHaveValue('Jordan Lee');
+    await expect(
+        page.getByText('Thanks. Your message has been sent.')
+    ).toHaveCount(0);
+});
 
-        await page.goto('/#contact');
-        await fillInquiry(page);
-        await page.getByRole('button', { name: 'Send it over' }).click();
-
-        await expect(page.getByText("That didn't go through")).toBeVisible();
-        await expect(
-            page.getByText('Sorry, Jordan. Try again or copy my email address.')
-        ).toBeVisible();
-        await page.getByRole('button', { name: 'Try again' }).click();
-        await expect(page.getByLabel(/^Email/)).toHaveValue(
-            'jordan@example.com'
-        );
-        await expect(page.getByLabel(/^Your message/)).toHaveValue(
-            'We need an internal tool to reconcile weekly project status.'
-        );
+test('validates required fields before a request', async ({ page }) => {
+    let requests = 0;
+    await page.route('**/api/v1/contact', (route) => {
+        requests++;
+        return route.abort();
     });
+    await page.goto('/contact');
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.getByText('Enter your name.')).toBeVisible();
+    await expect(page.getByText('Enter a valid email address.')).toBeVisible();
+    await expect(page.getByText('Add a short message.')).toBeVisible();
+    expect(requests).toBe(0);
 });

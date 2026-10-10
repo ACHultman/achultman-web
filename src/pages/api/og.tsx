@@ -5,9 +5,9 @@ export const config = {
     runtime: 'edge',
 };
 
-const BG = '#0d1117';
-const ACCENT = '#38a169';
-const MUTED = '#9ca3af';
+const BG = '#F5F4EF';
+const ACCENT = '#2D6658';
+const MUTED = '#58635E';
 
 /**
  * Generates a branded 1200x630 share card for blog posts at request time, so
@@ -21,56 +21,54 @@ export default function handler(req: NextRequest) {
     const title = (searchParams.get('title') || 'Adam Hultman').slice(0, 110);
 
     return new ImageResponse(
-        (
+        <div
+            style={{
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                backgroundColor: BG,
+                padding: '80px',
+                fontFamily: 'sans-serif',
+            }}
+        >
             <div
                 style={{
-                    height: '100%',
-                    width: '100%',
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    backgroundColor: BG,
-                    padding: '80px',
-                    fontFamily: 'sans-serif',
+                    fontSize: 34,
+                    fontWeight: 700,
+                    color: ACCENT,
                 }}
             >
+                hultman.dev
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div
                     style={{
                         display: 'flex',
-                        fontSize: 34,
+                        width: 84,
+                        height: 2,
+                        backgroundColor: ACCENT,
+                        marginBottom: 32,
+                    }}
+                />
+                <div
+                    style={{
+                        display: 'flex',
+                        fontSize: title.length > 60 ? 54 : 64,
                         fontWeight: 700,
-                        color: ACCENT,
+                        color: '#182522',
+                        lineHeight: 1.2,
                     }}
                 >
-                    hultman.dev
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            width: 84,
-                            height: 6,
-                            backgroundColor: ACCENT,
-                            marginBottom: 32,
-                        }}
-                    />
-                    <div
-                        style={{
-                            display: 'flex',
-                            fontSize: 64,
-                            fontWeight: 700,
-                            color: '#ffffff',
-                            lineHeight: 1.2,
-                        }}
-                    >
-                        {title}
-                    </div>
-                </div>
-                <div style={{ display: 'flex', fontSize: 28, color: MUTED }}>
-                    Adam Hultman — Software Engineer
+                    {title}
                 </div>
             </div>
-        ),
+            <div style={{ display: 'flex', fontSize: 28, color: MUTED }}>
+                Adam Hultman / Vancouver, BC
+            </div>
+        </div>,
         {
             width: 1200,
             height: 630,

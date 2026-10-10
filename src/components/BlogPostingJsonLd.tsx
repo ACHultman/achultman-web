@@ -31,9 +31,8 @@ export default function BlogPostingJsonLd({
         author: {
             '@type': 'Person',
             name: 'Adam Hultman',
-            url: 'https://hultman.dev',
+            url: 'https://hultman.dev/about',
         },
-        // Rich Results expects an Organization publisher with a logo.
         publisher: {
             '@type': 'Organization',
             name: 'Adam Hultman',

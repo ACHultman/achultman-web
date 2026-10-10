@@ -1,46 +1,36 @@
-import { Box, Container, Flex, Link as ChakraLink } from '@chakra-ui/react';
-import { Manrope, Space_Grotesk } from 'next/font/google';
+import { Box, Link as ChakraLink } from '@chakra-ui/react';
+import { Geist, Source_Serif_4 } from 'next/font/google';
 import { PropsWithChildren } from 'react';
-
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-const manrope = Manrope({
+const geist = Geist({
     subsets: ['latin'],
     display: 'swap',
     variable: '--font-body',
 });
-
-const spaceGrotesk = Space_Grotesk({
+const serif = Source_Serif_4({
     subsets: ['latin'],
     display: 'swap',
-    variable: '--font-display',
+    variable: '--font-editorial',
+    weight: ['400'],
+    style: ['normal'],
 });
 
-function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
     return (
         <Box
-            className={`site-shell ${manrope.variable} ${spaceGrotesk.variable}`}
+            className={`site-shell ${geist.variable} ${serif.variable}`}
             minH="100dvh"
         >
             <ChakraLink className="skip-link" href="#main">
                 Skip to content
             </ChakraLink>
-            <Flex alignItems="center" flexDirection="column" minH="100dvh">
-                <Navbar />
-                <Container
-                    id="main"
-                    as="main"
-                    maxW="container.xl"
-                    px={0}
-                    flex="1"
-                >
-                    {children}
-                </Container>
-                <Footer />
-            </Flex>
+            <Navbar />
+            <Box id="main" as="main" tabIndex={-1} flex="1" w="100%">
+                {children}
+            </Box>
+            <Footer />
         </Box>
     );
 }
-
-export default Layout;

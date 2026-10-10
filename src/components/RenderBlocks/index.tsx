@@ -10,7 +10,7 @@ function RenderBlocks({ ...rest }: React.ComponentProps<typeof Render>) {
     return (
         <Render
             useStyles
-            emptyBlocks
+            emptyBlocks={false}
             blockComponentsMapper={{
                 image: BlockImage,
                 code: BlockCode,
