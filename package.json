@@ -84,5 +84,8 @@
             "last 1 Firefox version",
             "last 1 Safari version"
         ]
+    },
+    "engines": {
+        "node": "24.x"
     }
 }
