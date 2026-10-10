@@ -128,18 +128,18 @@ export async function getStaticProps() {
 
     const books: Book[] = await Promise.all(
         booksRaw.map(async (book) => {
-            let coverWidth: number | undefined;
-            let coverHeight: number | undefined;
-
             if (book.cover && book.cover.startsWith('http')) {
                 const dimensions = await fetchImageDimensions(book.cover);
                 if (dimensions) {
-                    coverWidth = dimensions.width;
-                    coverHeight = dimensions.height;
+                    return {
+                        ...book,
+                        coverWidth: dimensions.width,
+                        coverHeight: dimensions.height,
+                    };
                 }
             }
 
-            return { ...book, coverWidth, coverHeight };
+            return book;
         })
     );
 
