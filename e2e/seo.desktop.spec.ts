@@ -68,7 +68,7 @@ test('consulting is reachable and leads prospective clients to contact', async (
 }) => {
     await page.goto('/');
     await page
-        .getByRole('navigation', { name: 'Main navigation' })
+        .locator('footer')
         .getByRole('link', { name: 'Consulting', exact: true })
         .click();
     await expect(page).toHaveURL('/consulting');

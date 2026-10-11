@@ -118,6 +118,13 @@ export default function Consulting() {
                     <h2>Relevant engineering experience</h2>
                     <div className="prose">
                         <p>
+                            At Island Temperature Controls, my co-op and
+                            contract work included a web application for HVAC
+                            inventory and maintenance, and automating document
+                            generation from existing spreadsheets and a
+                            database.
+                        </p>
+                        <p>
                             At Assembly Digital, I built an LLM-powered
                             editorial system inside WordPress, used in
                             production by Canadian media teams. It brought
@@ -131,9 +138,11 @@ export default function Consulting() {
                             integrations and mobile job and photo workflows.
                         </p>
                         <p>
-                            These are examples from my employment experience.
-                            Independent consulting is separate from my role at
-                            Kopperfield.
+                            My experience with Island Temperature Controls,
+                            Assembly/Redbrick, and Kopperfield includes contract
+                            work before or after co-op and full-time roles.
+                            Independent consulting is separate from my current
+                            role at Kopperfield.
                         </p>
                         <div className="inline-actions">
                             <TextLink href="/work">Selected work</TextLink>

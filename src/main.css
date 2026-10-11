@@ -583,9 +583,6 @@ a {
     color: var(--site-ink);
     font-size: 1.25rem;
 }
-.consulting-preview h2 {
-    margin-top: 20px;
-}
 .work-section-content {
     color: var(--site-muted);
 }
@@ -713,6 +710,27 @@ a {
 .article-list {
     margin-bottom: 80px;
     border-top: 1px solid var(--site-rule);
+}
+.writing-topic {
+    scroll-margin-top: 100px;
+}
+.writing-topic > header {
+    padding-block: 40px 24px;
+}
+.writing-topic > header h2 {
+    font-size: 1.875rem;
+    letter-spacing: -0.025em;
+}
+.writing-topic > header p {
+    max-width: 760px;
+    margin-top: 12px;
+    color: var(--site-muted);
+}
+.writing-topic .article-list {
+    margin-bottom: 32px;
+}
+.writing-preview p a {
+    text-decoration: underline;
 }
 .article-row {
     position: relative;

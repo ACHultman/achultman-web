@@ -5,7 +5,7 @@ test('homepage presents the new identity and selected writing', async ({
 }) => {
     await page.goto('/');
     await expect(page).toHaveTitle(
-        'Adam Hultman | Software Engineer & AI Consultant'
+        'Adam Hultman | Software Engineer in Vancouver'
     );
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',

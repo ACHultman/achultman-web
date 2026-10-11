@@ -8,10 +8,10 @@ export const featuredWriting = [
         publishedDate: '2026-06-15',
     },
     {
-        slug: 'building-a-multi-agent-ai-team-from-solo-agent-to-coordinated-crew',
-        title: 'Building a multi-agent AI team: from solo agent to coordinated crew',
+        slug: 'react-compound-components-vs-render-props-vs-custom-hooks',
+        title: 'React: compound components vs render props vs custom hooks',
         description:
-            'An experiment in coordinating specialized agents, and the practical problems that shaped it.',
-        publishedDate: '2026-03-07',
+            'Choosing an abstraction for reusable React components: compound components, render props, or custom hooks.',
+        publishedDate: '2024-10-20',
     },
 ];

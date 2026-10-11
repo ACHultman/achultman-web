@@ -11,9 +11,9 @@ export default function Index() {
     return (
         <>
             <NextSeo
-                title="Adam Hultman | Software Engineer & AI Consultant"
+                title="Adam Hultman | Software Engineer in Vancouver"
                 titleTemplate="%s"
-                description="Vancouver software engineer and AI consultant. AI integrations, workflow automation, and custom web applications. Explore my work or discuss a project."
+                description="Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI."
                 canonical="https://hultman.dev"
             />
             <JsonLd />
@@ -53,27 +53,6 @@ export default function Index() {
                         priority
                         sizes="(max-width: 767px) 72px, (max-width: 900px) 230px, (max-width: 1100px) 280px, 320px"
                     />
-                </div>
-            </section>
-            <section className="page-container consulting-preview">
-                <div className="about-row">
-                    <div>
-                        <p className="eyebrow">Independent consulting</p>
-                        <h2>Software for the work your team needs to do.</h2>
-                    </div>
-                    <div className="prose">
-                        <p>
-                            I help teams with AI integrations, internal tools,
-                            and custom web applications. Based in Vancouver,
-                            with experience in publishing workflows and software
-                            for electrical contractors.
-                        </p>
-                        <div className="inline-actions">
-                            <TextLink href="/consulting">
-                                AI and software consulting
-                            </TextLink>
-                        </div>
-                    </div>
                 </div>
             </section>
             <section id="work" className="professional-preview page-container">
@@ -123,9 +102,20 @@ export default function Index() {
                         <p className="eyebrow">Writing</p>
                         <h2>Working notes</h2>
                         <p>
-                            Notes on building products, working with AI,
-                            <br className="desktop-break" /> and making better
-                            engineering decisions.
+                            Notes on{' '}
+                            <Link href="/blog#ai-development">
+                                AI-assisted development
+                            </Link>
+                            ,{' '}
+                            <Link href="/blog#react-nextjs">
+                                React and Next.js
+                            </Link>
+                            ,
+                            <br className="desktop-break" /> and{' '}
+                            <Link href="/blog#performance-and-systems">
+                                performance, architecture, and security
+                            </Link>
+                            .
                         </p>
                     </div>
                     <TextLink href="/blog">All writing</TextLink>
