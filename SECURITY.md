@@ -8,7 +8,7 @@ What this repo does: A public personal site serves professional information, Not
 
 Applied [Ponytail](https://github.com/dietrichgebert/ponytail) (`9b58c1ffb790c075ca32e70a89cf1d80588f4abf`) audit/refactoring guidance and [Trail of Bits skills](https://github.com/trailofbits/skills) (`442fc9d6c89b1e937e6f7a477e7071ea75fcbea4`): audit-context-building, sharp-edges, and variant-analysis. Traced public inputs through API handlers, Notion reads, rendering, image loading, analytics, and email; inspected related variants; added regression checks for confirmed risks.
 
-Reviewed the Next.js Pages Router application, middleware, dependencies, CI, public pages, and labs. Browser checks use a local production build with saved public article fixtures. No real email was sent. Live Notion credentials, Redis, SMTP, Vercel project settings, firewall rules, and GitHub repository protections were not exercised or changed.
+Reviewed the Next.js Pages Router application, middleware, dependencies, CI, public pages, and labs. Initial browser checks used a local production build with saved public article fixtures. Follow-up hosted checks exercised live public Notion content and Redis read rate limiting; their release-specific evidence is recorded in the PR. No real email was sent. SMTP delivery, credential rotation, firewall rules, and repository protection changes remain outside this audit. The existing CodeQL workflow was re-enabled after GitHub disabled it for inactivity, and the project's preview toolbar was disabled as described below.
 
 ## Findings addressed
 
@@ -115,7 +115,7 @@ Other explicit limits:
 - ISR can retain old public content during an upstream outage. Unpublishing is not an immediate revocation mechanism; use a deployment/cache purge for urgent takedowns.
 - Inline styles remain permitted because Chakra/Emotion and lab positioning use them. External HTTPS images still contact their hosts from the visitor's browser; browser-loaded CMS images use `no-referrer`. Embeds now open as links, which changes their presentation.
 - Public article fixtures cannot establish compatibility with every block in the live Notion databases. Unknown blocks preserve available rich text/nested children, but custom embeds and unsupported specialized content may need an explicit safe renderer.
-- No live credential/secret rotation, hosting configuration review, SMTP end-to-end delivery, manual screen-reader certification, exhaustive fuzzing, or remote CI execution was performed.
+- No live credential/secret rotation, comprehensive hosting configuration review, SMTP end-to-end delivery, manual screen-reader certification, or exhaustive fuzzing was performed. Release CI results are recorded in the PR.
 
 ## Deployment and maintenance
 
