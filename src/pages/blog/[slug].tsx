@@ -2,7 +2,6 @@ import { GetStaticPropsContext } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
-import { NotionBlock as RNRNotionBlock } from '@9gustin/react-notion-render';
 
 import RenderBlocks from '../../components/RenderBlocks';
 import BlogPostingJsonLd from '../../components/BlogPostingJsonLd';
@@ -81,7 +80,7 @@ function BlogPost({
                 </header>
                 <div className="article-body">
                     {/* The Notion client and renderer expose different block types. */}
-                    <RenderBlocks blocks={blocks.results as RNRNotionBlock[]} />
+                    <RenderBlocks blocks={blocks.results} />
                 </div>
                 {relatedPosts.length > 0 && (
                     <section

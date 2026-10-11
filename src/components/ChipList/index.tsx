@@ -15,6 +15,8 @@ function ChipList({ list, onClick, ...opts }: Props) {
             {list?.map((item, i) => (
                 <Tag
                     key={'tag-' + item + i}
+                    as={onClick ? 'button' : 'span'}
+                    type={onClick ? 'button' : undefined}
                     size={opts.size || 'md'}
                     colorScheme={opts.colorScheme || 'gray'}
                     _hover={{ transform: 'scale(1.05)' }}

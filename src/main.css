@@ -49,11 +49,21 @@ a {
 }
 
 .section-label {
-    color: #536647;
+    color: var(--site-accent);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.11em;
     text-transform: uppercase;
+}
+
+.site-shell p > a {
+    text-decoration: underline;
+}
+
+.site-shell button:focus-visible,
+.site-shell [tabindex='0']:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
 }
 
 .section-label--light {
@@ -390,7 +400,7 @@ a {
 }
 .work-disciplines span {
     margin-inline: 18px;
-    color: var(--site-rule);
+    color: var(--site-muted);
 }
 .perspective-panel {
     background: #182d28;
@@ -1552,4 +1562,31 @@ a {
     .article-body .rnr-container :is(h1, h2) {
         font-size: 1.625rem;
     }
+}
+
+.article-body blockquote {
+    border-left: 3px solid var(--site-accent);
+    padding-left: 1.25rem;
+    margin-block: 1.5rem;
+    font-style: italic;
+}
+.article-table {
+    overflow-x: auto;
+    margin-block: 1.5rem;
+}
+.article-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.article-table :is(th, td) {
+    padding: 0.75rem;
+    border: 1px solid var(--site-rule);
+    text-align: left;
+}
+.rnr-container figure {
+    margin-block: 1.5rem;
+}
+.rnr-container figcaption {
+    color: var(--site-muted);
+    font-size: 0.875rem;
 }

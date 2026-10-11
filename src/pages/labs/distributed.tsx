@@ -12,7 +12,6 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   Button,
   Tabs,
   TabList,
@@ -350,7 +349,8 @@ export default function DistributedPage() {
         {/* Nodes */}
         {nodes.map((node) => {
           const staleness = step - node.lastUpdated;
-          const brightness = node.lastUpdated === 0 ? 0.3 : Math.max(0.3, 1 - staleness * 0.05);
+          const brightness =
+            node.lastUpdated === 0 ? 0.3 : Math.max(0.3, 1 - staleness * 0.05);
           const hasData = Object.keys(node.data).length > 0;
           return (
             <g
@@ -420,14 +420,16 @@ export default function DistributedPage() {
         <VStack spacing={6} align="stretch">
           {/* Header */}
           <HStack spacing={4}>
-            <Link as={NextLink} href="/labs">
-              <IconButton
-                aria-label="Go back"
-                icon={<ArrowBackIcon />}
-                variant="ghost"
-                size="sm"
-              />
-            </Link>
+            <IconButton
+              as={NextLink}
+              href="/labs"
+              minH="44px"
+              minW="44px"
+              aria-label="Go back"
+              icon={<ArrowBackIcon />}
+              variant="ghost"
+              size="sm"
+            />
             <Badge
               colorScheme="blue"
               fontSize="sm"
@@ -440,7 +442,7 @@ export default function DistributedPage() {
           </HStack>
 
           <Box>
-            <Heading size="xl" mb={2}>
+            <Heading as="h1" size="xl" mb={2}>
               {'🌐 Distributed Systems Simulator'}
             </Heading>
             <Paragraph>
@@ -486,11 +488,7 @@ export default function DistributedPage() {
                       >
                         Step
                       </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={resetRaft}
-                      >
+                      <Button size="sm" variant="outline" onClick={resetRaft}>
                         Reset
                       </Button>
                       <Divider orientation="vertical" h="24px" />
@@ -516,6 +514,7 @@ export default function DistributedPage() {
                         </Text>
                         <Box w="120px">
                           <Slider
+                            aria-label="Simulation speed"
                             min={100}
                             max={1500}
                             step={100}
@@ -555,7 +554,10 @@ export default function DistributedPage() {
 
                   {/* SVG + Detail panel */}
                   <Flex
-                    direction={{ base: 'column', md: 'row' }}
+                    direction={{
+                      base: 'column',
+                      md: 'row',
+                    }}
                     gap={4}
                   >
                     <Box flex={1}>
@@ -684,7 +686,11 @@ export default function DistributedPage() {
                       ) : (
                         raftState.eventLog.map((evt, i) => (
                           <Text key={i}>
-                            <Text as="span" fontWeight="bold" color="blue.400">
+                            <Text
+                              as="span"
+                              fontWeight="bold"
+                              color="accessible.blue"
+                            >
                               [{evt.step}]
                             </Text>{' '}
                             {evt.description}
@@ -697,34 +703,19 @@ export default function DistributedPage() {
                   {/* Legend */}
                   <Flex wrap="wrap" gap={4} justify="center" py={2}>
                     <HStack spacing={1}>
-                      <Box
-                        w={3}
-                        h={3}
-                        bg="gray.400"
-                        borderRadius="full"
-                      />
+                      <Box w={3} h={3} bg="gray.400" borderRadius="full" />
                       <Text fontSize="xs" color={subtleText}>
                         Follower
                       </Text>
                     </HStack>
                     <HStack spacing={1}>
-                      <Box
-                        w={3}
-                        h={3}
-                        bg="yellow.400"
-                        borderRadius="full"
-                      />
+                      <Box w={3} h={3} bg="yellow.400" borderRadius="full" />
                       <Text fontSize="xs" color={subtleText}>
                         Candidate
                       </Text>
                     </HStack>
                     <HStack spacing={1}>
-                      <Box
-                        w={3}
-                        h={3}
-                        bg="green.400"
-                        borderRadius="full"
-                      />
+                      <Box w={3} h={3} bg="green.400" borderRadius="full" />
                       <Text fontSize="xs" color={subtleText}>
                         Leader
                       </Text>
@@ -761,18 +752,12 @@ export default function DistributedPage() {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() =>
-                          setGossipState((s) => stepGossip(s))
-                        }
+                        onClick={() => setGossipState((s) => stepGossip(s))}
                         isDisabled={gossipPlaying}
                       >
                         Step
                       </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={resetGossip}
-                      >
+                      <Button size="sm" variant="outline" onClick={resetGossip}>
                         Reset
                       </Button>
                       <Divider orientation="vertical" h="24px" />
@@ -782,6 +767,7 @@ export default function DistributedPage() {
                         </Text>
                         <Box w="120px">
                           <Slider
+                            aria-label="Clock skew"
                             min={100}
                             max={1500}
                             step={100}
@@ -800,14 +786,17 @@ export default function DistributedPage() {
 
                   {/* SVG + Detail panel */}
                   <Flex
-                    direction={{ base: 'column', md: 'row' }}
+                    direction={{
+                      base: 'column',
+                      md: 'row',
+                    }}
                     gap={4}
                   >
                     <Box flex={1}>
                       {renderGossipSVG()}
                       <Text fontSize="xs" color={subtleText} mt={2}>
-                        Click a node to select it, then update its data
-                        below. Step {gossipState.step}
+                        Click a node to select it, then update its data below.
+                        Step {gossipState.step}
                       </Text>
                     </Box>
 
@@ -845,13 +834,14 @@ export default function DistributedPage() {
                                     <Text
                                       as="span"
                                       fontWeight="bold"
-                                      color="blue.400"
+                                      color="accessible.blue"
                                     >
                                       {k}
                                     </Text>
                                     : {v.value}{' '}
                                     <Text as="span" opacity={0.5}>
-                                      (v{v.version})
+                                      (v
+                                      {v.version})
                                     </Text>
                                   </Text>
                                 ),
@@ -893,12 +883,7 @@ export default function DistributedPage() {
                   {/* Legend */}
                   <Flex wrap="wrap" gap={4} justify="center" py={2}>
                     <HStack spacing={1}>
-                      <Box
-                        w={3}
-                        h={3}
-                        bg="green.400"
-                        borderRadius="full"
-                      />
+                      <Box w={3} h={3} bg="green.400" borderRadius="full" />
                       <Text fontSize="xs" color={subtleText}>
                         Recently updated
                       </Text>
@@ -916,23 +901,13 @@ export default function DistributedPage() {
                       </Text>
                     </HStack>
                     <HStack spacing={1}>
-                      <Box
-                        w={3}
-                        h={3}
-                        bg="gray.400"
-                        borderRadius="full"
-                      />
+                      <Box w={3} h={3} bg="gray.400" borderRadius="full" />
                       <Text fontSize="xs" color={subtleText}>
                         No data
                       </Text>
                     </HStack>
                     <HStack spacing={1}>
-                      <Box
-                        w={3}
-                        h={3}
-                        bg="blue.300"
-                        borderRadius="full"
-                      />
+                      <Box w={3} h={3} bg="blue.300" borderRadius="full" />
                       <Text fontSize="xs" color={subtleText}>
                         Gossip message
                       </Text>

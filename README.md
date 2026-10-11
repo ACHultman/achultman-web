@@ -13,19 +13,17 @@ Adam Hultman’s personal site: professional work, independent products through 
 - **Blog:** Articles on web development, cybersecurity, and other tech topics.
 - **Books:** A list of books I've read and recommend.
 - **Bookmarks:** A collection of useful links and resources.
-- **AI Chat:** Interactive chatbot powered by OpenAI.
 - **Responsive Design:** Optimized for all screen sizes.
 - **Dark/Light Mode:** App-wide theme switching.
 - **Sitemap:** Automatically generated sitemap for SEO.
 
 ## Tech Stack
 
-- **Framework:** [Next.js](https://nextjs.org/) 15.5.12 (Pages Router)
+- **Framework:** [Next.js](https://nextjs.org/) 15.5.27 (Pages Router)
 - **UI Library:** [Chakra UI](https://chakra-ui.com/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict mode)
 - **Styling:** [Emotion](https://emotion.sh/) (CSS-in-JS)
 - **CMS:** [Notion API](https://developers.notion.com/)
-- **AI:** [OpenAI GPT-4](https://openai.com/) via [Vercel AI SDK](https://sdk.vercel.ai/)
 - **Form Handling:** [React Hook Form](https://react-hook-form.com/)
 - **Linting/Formatting:** [ESLint](https://eslint.org/), [Prettier](https://prettier.io/)
 - **Testing:** [Playwright](https://playwright.dev/) for E2E tests
@@ -36,8 +34,8 @@ Adam Hultman’s personal site: professional work, independent products through 
 
 ### Prerequisites
 
-- Node.js (v20 or later recommended)
-- npm or yarn
+- Node.js 24.x
+- npm (the maintained lockfile is `package-lock.json`)
 
 ### Installation
 
@@ -48,27 +46,23 @@ Adam Hultman’s personal site: professional work, independent products through 
     ```
 2.  Install dependencies:
     ```bash
-    npm install
-    # or
-    yarn install
+    npm ci
     ```
 3.  Set up environment variables:
-    Create a `.env.local` file in the root directory by copying the `.env.example` file (if you create one).
+    Create a `.env.local` file in the root directory by copying `.env.example`.
     Populate it with your API keys and other necessary configurations as described in `src/config.ts`.
     
     **Service-specific variables (only needed for the corresponding feature):**
     - `NEXT_PUBLIC_EMAIL` - Your email address (public)
     - `EMAIL_PASS` - Gmail app password for contact form
-    - `OPENAI_API_KEY` - OpenAI API key for chatbot
     - `NOTION_API_KEY` - Notion integration API key
     - `NOTION_DATABASE_ID_BLOG` - Notion database ID for blog posts
     - `NOTION_DATABASE_ID_BOOKS` - Notion database ID for books
     - `NOTION_DATABASE_ID_BOOKMARKS` - Notion database ID for bookmarks
     
-    **Optional variables:**
-    - `OPENAI_SYSTEM_INIT_MSG` - Custom system message for OpenAI (default: "Today is {CURR_DATE}.")
+    - `KV_REST_API_URL` and `KV_REST_API_TOKEN` - Upstash/Vercel KV credentials required for production API rate limits
 
-The static personal pages render without service credentials. Local development without Notion credentials uses saved copies of ten public articles from October 10, 2026. Production builds require the Notion connection; a missing or partial configuration fails rather than silently publishing preview content. Books and bookmarks still require their Notion connection. The contact endpoint returns a recoverable 503 when its email configuration is missing; the legacy chat route requires its OpenAI key only when used.
+The static personal pages render without service credentials. Local development without Notion credentials uses saved copies of ten public articles from October 10, 2026. Production builds require the Notion connection; a missing or partial configuration fails rather than silently publishing preview content. Books and bookmarks still require their Notion connection. The contact endpoint returns a recoverable 503 when its email configuration is missing. Production API requests also return 503 when their rate limiter is unavailable. The unused chat API and its dependencies have been removed.
 
 ### Editorial content
 
@@ -86,7 +80,7 @@ Keep writing and editing in the existing Notion blog database. No Markdown migra
 - Keep `NOTION_API_KEY` and `NOTION_DATABASE_ID_BLOG` configured on the deployed site, and share the database with that integration. Do not enable `NOTION_PREVIEW_MODE` there.
 - The title property supplies the headline. `Published` (date) controls publication; clearing it removes the post after cache revalidation. Keep `Slug` (rich text) stable after publication to preserve incoming links; without it, the URL is derived from the title.
 - `Description` (optional rich text) supplies your handwritten search/social summary. The existing `AI custom autofill` property remains a fallback, so no schema migration is required. `Tags` supplies article topics and related-post matching.
-- The complete database is paginated. Article bodies retain Notion rich text, syntax-highlighted code with copy controls, links, images, tables, and nested blocks. Old Notion-ID article links redirect permanently to the canonical slug.
+- The complete database is paginated. Article bodies retain Notion rich text, syntax-highlighted code with copy controls, safe links, HTTPS images, semantic tables, and nested blocks. Embedded documents and media render as explicit links. Plain text is never interpreted as Markdown or HTML; add links using Notion’s link controls. Add descriptive image captions for accessible alternatives. Old Notion-ID article links redirect permanently to the canonical slug.
 - Pages revalidate on the first request after one hour, so updates are not instantaneous. Sitemap and RSS also refresh hourly. A new slug can render on its first visit without a rebuild.
 - A temporary CMS failure throws during page regeneration so Next.js retains the last successful version. Sitemap/RSS return a retryable 503 instead of publishing an empty collection. Drafts and genuinely missing articles return 404.
 - Every published Notion post is discoverable in Writing, sitemap, RSS, and related posts. Homepage selections remain separate; there is no hard-coded retirement/noindex list.
@@ -137,10 +131,13 @@ yarn start
 This project uses Playwright for end-to-end testing. Contact tests intercept browser requests; they do not send mail. The route tests below run the actual handler against a mocked SMTP provider and cover validation, escaping, delivery rejection, and telemetry failures:
 
 ```bash
-node --test tests/*.test.cjs
+npm test
+npm run typecheck
+npm run a11y
+npm audit --audit-level=low
 ```
 
-Writing tests cover CMS pagination, rich-text preservation, drafts, legacy redirects, outage handling, SEO, and the published archive.
+Writing and security tests cover CMS pagination, publication boundaries, bounded block retrieval, unsafe URLs, rate-limit failures, legacy redirects, outage handling, SEO, and the published archive. Accessibility checks cover 77 cases: 28 routes in both themes, keyboard controls, interactive result panels, and mobile layouts. Install browser binaries first with `npx playwright install chromium webkit`. Use `PLAYWRIGHT_BASE_URL` to test an already-running production preview; see [SECURITY.md](./SECURITY.md) for scope and limitations.
 
 To run the tests:
 
@@ -189,12 +186,13 @@ This project follows strict TypeScript and ESLint configurations for code qualit
 
 For detailed security practices, see [SECURITY.md](./SECURITY.md).
 
+The full dependency tree is audited in CI, including development tools. Scoped overrides and their compatibility checks are documented in SECURITY.md. To run Lighthouse against an existing preview, set `VERCEL_PREVIEW_URL` and run `npx --no-install lhci autorun --config=.lighthouserc.js`. Install Playwright Chromium first. Reports stay in `.lighthouseci/reports/`; they can contain preview-access headers and should not be published unchanged.
+
 ## Project Structure
 
 ```
 src/
 ├── components/       # React components
-│   ├── Chat/        # AI chatbot components
 │   ├── Contact/     # Contact form
 │   ├── Home/        # Homepage sections
 │   └── Layout/      # Navigation and layout
@@ -214,10 +212,8 @@ src/
 ## Performance
 
 - **ISR (Incremental Static Regeneration)**: Blog posts revalidate hourly
-- **Edge Runtime**: Chat API runs on Vercel Edge Network
-- **Image Optimization**: Next.js Image component with remote patterns
+- **Image Optimization**: Local assets use Next.js Image; external CMS images load directly in the browser
 - **Code Splitting**: Dynamic imports for analytics
-- **Streaming**: Real-time AI responses using OpenAI streaming
 
 ## License
 

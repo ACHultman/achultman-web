@@ -15,8 +15,6 @@ export type Book = {
     author: string;
     link: string;
     cover: string | null;
-    coverWidth?: number;
-    coverHeight?: number;
 };
 
 export type BlogPost = {

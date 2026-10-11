@@ -11,7 +11,6 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   SimpleGrid,
   Code,
   Table,
@@ -53,10 +52,10 @@ function StageBar({
   currentStage: PipelineStage;
   onSelect: (idx: number) => void;
 }) {
-  const activeBg = useColorModeValue('green.500', 'green.400');
+  const activeBg = useColorModeValue('green.700', 'green.300');
   const inactiveBg = useColorModeValue('gray.200', 'gray.600');
   const activeText = useColorModeValue('white', 'gray.900');
-  const inactiveText = useColorModeValue('gray.600', 'gray.400');
+  const inactiveText = useColorModeValue('gray.700', 'gray.100');
   const connectorColor = useColorModeValue('gray.300', 'gray.600');
 
   return (
@@ -242,8 +241,8 @@ function SVG3DView({ step }: { step: PipelineStep }) {
             const [cx, cy] = sp
               ? toSVG(sp[0], sp[1])
               : [
-                  pad + ((pos[0] * 0.5 + 0.5) * (size - 2 * pad)),
-                  pad + ((-pos[1] * 0.5 + 0.5) * (size - 2 * pad)),
+                  pad + (pos[0] * 0.5 + 0.5) * (size - 2 * pad),
+                  pad + (-pos[1] * 0.5 + 0.5) * (size - 2 * pad),
                 ];
             const fill = `rgb(${Math.round(v.color[0] * 255)},${Math.round(v.color[1] * 255)},${Math.round(v.color[2] * 255)})`;
             const isActive = step.activeVertex === i;
@@ -594,7 +593,7 @@ export default function GpuPipelinePage() {
 
   const cardBg = useColorModeValue('white', 'gray.800');
   const cardBorder = useColorModeValue('gray.200', 'gray.700');
-  const activeBorder = useColorModeValue('green.500', 'green.400');
+  const activeBorder = useColorModeValue('green.700', 'green.300');
   const subtleText = useColorModeValue('gray.600', 'gray.400');
   const codeBg = useColorModeValue('gray.900', 'gray.900');
 
@@ -649,19 +648,21 @@ export default function GpuPipelinePage() {
         {/* Header */}
         <Box>
           <HStack mb={3}>
-            <Link as={NextLink} href="/labs">
-              <IconButton
-                aria-label="Go back"
-                icon={<ArrowBackIcon />}
-                variant="ghost"
-                size="sm"
-              />
-            </Link>
+            <IconButton
+              as={NextLink}
+              href="/labs"
+              minH="44px"
+              minW="44px"
+              aria-label="Go back"
+              icon={<ArrowBackIcon />}
+              variant="ghost"
+              size="sm"
+            />
             <Badge colorScheme="purple" fontSize="sm">
               Graphics
             </Badge>
           </HStack>
-          <Heading size="xl" mb={2}>
+          <Heading as="h1" size="xl" mb={2}>
             {'🎮 GPU Pipeline Visualizer'}
           </Heading>
           <Paragraph>
@@ -673,7 +674,14 @@ export default function GpuPipelinePage() {
 
         {/* Pipeline stage bar */}
         <Box>
-          <Text fontSize="xs" fontWeight="bold" mb={1} textTransform="uppercase" letterSpacing="wide" color={subtleText}>
+          <Text
+            fontSize="xs"
+            fontWeight="bold"
+            mb={1}
+            textTransform="uppercase"
+            letterSpacing="wide"
+            color={subtleText}
+          >
             Pipeline Stage
           </Text>
           <StageBar currentStage={step.stage} onSelect={jumpToStage} />
@@ -706,7 +714,8 @@ export default function GpuPipelinePage() {
                 {s.description}
               </Text>
               <Text fontSize="xs" color={subtleText} mt={1}>
-                {s.triangles.length} triangle{s.triangles.length !== 1 ? 's' : ''}
+                {s.triangles.length} triangle
+                {s.triangles.length !== 1 ? 's' : ''}
               </Text>
             </Box>
           ))}

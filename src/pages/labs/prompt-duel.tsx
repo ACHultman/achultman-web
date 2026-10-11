@@ -26,7 +26,11 @@ import NextLink from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Paragraph from '@components/Paragraph';
-import { PROMPT_DUELS, CATEGORIES, type PromptDuel } from '@data/promptDuelData';
+import {
+  PROMPT_DUELS,
+  CATEGORIES,
+  type PromptDuel,
+} from '@data/promptDuelData';
 
 const MotionBox = motion(Box);
 
@@ -55,7 +59,7 @@ function ResponseCard({
 }) {
   const cardBg = useColorModeValue('gray.50', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
-  const dimText = useColorModeValue('gray.500', 'gray.400');
+  const dimText = useColorModeValue('gray.600', 'gray.300');
   const codeBg = useColorModeValue('gray.100', 'gray.900');
   const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 50;
 
@@ -119,7 +123,13 @@ function ResponseCard({
         )}
 
         <Flex justify="space-between" align="center" mb={4}>
-          <Badge colorScheme={colorScheme} variant="subtle" fontSize="sm" px={3} py={1}>
+          <Badge
+            colorScheme={colorScheme}
+            variant="subtle"
+            fontSize="sm"
+            px={3}
+            py={1}
+          >
             {label}
           </Badge>
           <Text fontSize="xs" color={dimText}>
@@ -150,7 +160,11 @@ function ResponseCard({
         ) : (
           <Box>
             <Flex justify="space-between" mb={1}>
-              <Text fontSize="sm" fontWeight="bold" color={isWinner ? `${colorScheme}.400` : dimText}>
+              <Text
+                fontSize="sm"
+                fontWeight="bold"
+                color={isWinner ? `${colorScheme}.400` : dimText}
+              >
                 {pct}%
               </Text>
               <Text fontSize="xs" color={dimText}>
@@ -186,7 +200,7 @@ function PromptDuelPage() {
 
   const cardBg = useColorModeValue('gray.50', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
-  const dimText = useColorModeValue('gray.500', 'gray.400');
+  const dimText = useColorModeValue('gray.600', 'gray.300');
   const chipBg = useColorModeValue('gray.100', 'gray.700');
   const activeChipBg = useColorModeValue('green.100', 'green.800');
   const progressBg = useColorModeValue('gray.200', 'gray.600');
@@ -209,7 +223,10 @@ function PromptDuelPage() {
       setLocalVoteCounts((prev) => {
         const duel = PROMPT_DUELS.find((d) => d.id === duelId);
         if (!duel) return prev;
-        const existing = prev[duelId] || { a: duel.votesA, b: duel.votesB };
+        const existing = prev[duelId] || {
+          a: duel.votesA,
+          b: duel.votesB,
+        };
         return {
           ...prev,
           [duelId]: {
@@ -228,7 +245,10 @@ function PromptDuelPage() {
   };
 
   // Overall stats
-  const totalVotes = PROMPT_DUELS.reduce((sum, d) => sum + d.votesA + d.votesB, 0);
+  const totalVotes = PROMPT_DUELS.reduce(
+    (sum, d) => sum + d.votesA + d.votesB,
+    0,
+  );
   const totalDuels = PROMPT_DUELS.length;
 
   return (
@@ -298,6 +318,7 @@ function PromptDuelPage() {
                     borderRadius="full"
                     onClick={() => setActiveCategory(null)}
                     bg={!activeCategory ? activeChipBg : undefined}
+                    color={dimText}
                   >
                     All
                   </Badge>
@@ -360,8 +381,8 @@ function PromptDuelPage() {
                       &ldquo;{activeDuel.prompt}&rdquo;
                     </Heading>
                     <Text fontSize="sm" color={dimText}>
-                      Read both responses, then vote for the one you think is better.
-                      Model identities are hidden to reduce bias.
+                      Read both responses, then vote for the one you think is
+                      better. Model identities are hidden to reduce bias.
                     </Text>
                   </Box>
 
@@ -416,14 +437,24 @@ function PromptDuelPage() {
                       const vc = getVoteCounts(duel);
                       const total = vc.a + vc.b;
                       const hasVoted = !!votes[duel.id];
-                      const pctA = total > 0 ? Math.round((vc.a / total) * 100) : 50;
+                      const pctA =
+                        total > 0 ? Math.round((vc.a / total) * 100) : 50;
 
                       return (
                         <MotionBox
                           key={duel.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.05, duration: 0.3 }}
+                          initial={{
+                            opacity: 0,
+                            y: 20,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                          }}
+                          transition={{
+                            delay: i * 0.05,
+                            duration: 0.3,
+                          }}
                         >
                           <Box
                             as="button"
@@ -445,8 +476,14 @@ function PromptDuelPage() {
                           >
                             <Flex
                               justify="space-between"
-                              align={{ base: 'start', md: 'center' }}
-                              direction={{ base: 'column', md: 'row' }}
+                              align={{
+                                base: 'start',
+                                md: 'center',
+                              }}
+                              direction={{
+                                base: 'column',
+                                md: 'row',
+                              }}
                               gap={2}
                             >
                               <Box flex={1}>
@@ -469,16 +506,21 @@ function PromptDuelPage() {
                                   )}
                                 </HStack>
                                 <Text fontWeight="medium" fontSize="md">
-                                  &ldquo;{duel.prompt}&rdquo;
+                                  &ldquo;
+                                  {duel.prompt}
+                                  &rdquo;
                                 </Text>
                               </Box>
                               <HStack spacing={3} flexShrink={0}>
                                 <Box w="120px">
                                   <Flex justify="space-between" mb={1}>
-                                    <Text fontSize="xs" color="blue.400">
+                                    <Text fontSize="xs" color="accessible.blue">
                                       A: {pctA}%
                                     </Text>
-                                    <Text fontSize="xs" color="purple.400">
+                                    <Text
+                                      fontSize="xs"
+                                      color="accessible.purple"
+                                    >
                                       B: {100 - pctA}%
                                     </Text>
                                   </Flex>
@@ -518,29 +560,37 @@ function PromptDuelPage() {
                 How it works
               </Heading>
               <Text fontSize="sm" color={dimText} mb={3}>
-                This experiment demonstrates <strong>blind evaluation</strong> of AI model outputs —
-                the same methodology used in RLHF (Reinforcement Learning from Human Feedback) to
-                align language models with human preferences. Model identities are hidden to reduce
-                bias, and responses are shown side-by-side for fair comparison.
+                This experiment demonstrates <strong>blind evaluation</strong>{' '}
+                of AI model outputs — the same methodology used in RLHF
+                (Reinforcement Learning from Human Feedback) to align language
+                models with human preferences. Model identities are hidden to
+                reduce bias, and responses are shown side-by-side for fair
+                comparison.
               </Text>
               <Text fontSize="sm" color={dimText} mb={3}>
-                The prompt/response pairs are pre-computed to illustrate how different models
-                approach the same task with varying styles, depth, and accuracy. In production
-                systems like{' '}
-                <Link href="https://chat.lmsys.org" isExternal color="red.400">
+                The prompt/response pairs are pre-computed to illustrate how
+                different models approach the same task with varying styles,
+                depth, and accuracy. In production systems like{' '}
+                <Link
+                  href="https://chat.lmsys.org"
+                  isExternal
+                  color="accessible.red"
+                >
                   Chatbot Arena
                 </Link>
-                , this approach generates preference data used to train reward models.
+                , this approach generates preference data used to train reward
+                models.
               </Text>
               <Text fontSize="sm" color={dimText} mb={3}>
-                <strong>Built with:</strong> Next.js · Chakra UI · Framer Motion ·
-                Pre-computed response pairs · Client-side voting with running tallies
+                <strong>Built with:</strong> Next.js · Chakra UI · Framer Motion
+                · Pre-computed response pairs · Client-side voting with running
+                tallies
               </Text>
               <HStack spacing={4} fontSize="xs" color={dimText}>
                 <Link
                   href="https://github.com/ACHultman/achultman-web"
                   isExternal
-                  color="red.400"
+                  color="accessible.red"
                 >
                   View Source →
                 </Link>

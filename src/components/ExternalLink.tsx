@@ -1,3 +1,4 @@
+import { safeUrl } from '../utils/safeUrl';
 import styled from '@emotion/styled';
 import Link, { LinkProps } from 'next/link';
 import { PropsWithChildren } from 'react';
@@ -16,9 +17,11 @@ interface ExternalLinkProps extends PropsWithChildren<LinkProps> {
 }
 
 function ExternalLink({ href, children, underline }: ExternalLinkProps) {
+    const safeHref = safeUrl(typeof href === 'string' ? href : undefined, true);
+    if (!safeHref) return <span>{children}</span>;
     return (
         <UnderlineLink
-            href={href}
+            href={safeHref}
             rel="noopener noreferrer"
             target="_blank"
             underline={underline}

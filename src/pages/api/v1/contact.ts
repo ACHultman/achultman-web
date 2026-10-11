@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 import { randomUUID } from 'crypto';
 import { z } from 'zod';
 import { getPostHogClient } from '../../../lib/posthog-server';
+import { checkRateLimit } from '../../../lib/rate-limit';
 
 type Data = { message: string; success?: boolean };
 
@@ -51,6 +52,12 @@ export default async function handler(
         res.setHeader('Allow', ['POST']);
         return res.status(405).json({ message: 'Method not allowed' });
     }
+    if (
+        req.headers['content-type']?.split(';')[0]?.trim().toLowerCase() !==
+        'application/json'
+    ) {
+        return res.status(415).json({ message: 'Expected application/json' });
+    }
     const parsed = contactSchema.safeParse(req.body);
     if (!parsed.success)
         return res.status(400).json({ message: 'Invalid form submission' });
@@ -61,12 +68,35 @@ export default async function handler(
             message: 'Contact form unavailable. Please email adam@hultman.dev.',
         });
 
+    const forwardedIp = req.headers['x-real-ip'];
+    const ip =
+        process.env.VERCEL === '1'
+            ? typeof forwardedIp === 'string'
+                ? forwardedIp
+                : 'unknown'
+            : req.socket?.remoteAddress || 'unknown';
+    const limit = await checkRateLimit(ip, true);
+    for (const [name, value] of Object.entries(limit.headers))
+        res.setHeader(name, value);
+    if (limit.status !== 200) {
+        return res
+            .status(limit.status)
+            .json({
+                message:
+                    limit.status === 429
+                        ? 'Too many messages. Please try again later.'
+                        : 'Contact form temporarily unavailable. Please email directly.',
+            });
+    }
+
     const { name, email, message } = parsed.data;
     try {
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
+            disableFileAccess: true,
+            disableUrlAccess: true,
             auth: { user: emailUser, pass: emailPass },
             connectionTimeout: 10000,
             greetingTimeout: 10000,

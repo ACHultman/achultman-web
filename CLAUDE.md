@@ -1,91 +1,40 @@
-# CLAUDE.md
+# Repository guidance
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This is Adam Hultman’s personal site: Next.js 15 Pages Router, React 18, Chakra UI 2, TypeScript, Notion, and Vercel. See README.md for publishing and SECURITY.md for the audit and security boundaries.
 
-## Commands
+## Commands and checks
 
-```bash
-npm run dev          # Start development server on localhost:3000
-npm run build        # Production build
-npm run lint         # ESLint check
-npm run lint:fix     # ESLint auto-fix
-npm run prettier     # Format all files
-npm run prettier:check  # Check formatting
-npm run test:e2e     # Run Playwright E2E tests (starts dev server automatically if not in CI)
-npm run analyze      # Bundle analyzer (sets ANALYZE=true)
-```
-
-To run a single Playwright test file:
-```bash
-npx playwright test e2e/navbar.desktop.spec.ts
-```
-
-## Quality checks
-
-Run these before committing UI changes:
+Use Node.js 24 and npm with package-lock.json. Security overrides have consumer-level regression tests in `tests/tooling.test.cjs`; recheck those APIs before changing overrides. Run the full dependency audit, including development tools. Lighthouse reports stay local because they can contain preview-access headers.
 
 ```bash
-npm run lint          # No new errors
-npx pa11y-ci --config .pa11yci.js   # Accessibility — must pass 5/5 URLs
+npm ci
+npm run dev
+npm test
+npm run typecheck
+npm run lint
+npm run a11y
+npm run test:e2e
+npm audit --audit-level=low
+npm run build
 ```
 
-Pa11y requires a running dev server (`npm run dev`). It checks WCAG AA contrast and other accessibility rules across all public pages. The config lives in `.pa11yci.js`.
+Playwright starts the local development server when needed. Install Chromium and WebKit with `npx playwright install chromium webkit`. `PLAYWRIGHT_BASE_URL` selects an existing server. For production-mode checks without Notion, explicitly set `NOTION_PREVIEW_MODE=true` for both build and start. Never enable preview fixtures on the live site.
 
-**Contrast rule of thumb:** avoid `gray.500` and raw `green.400`/`green.500` as text colors on light backgrounds — use `useColorModeValue('gray.600', 'gray.400')` for subtle text and `green.700`/`green.400` for green text.
+Run lint and accessibility checks before committing UI changes. The accessibility project covers 77 cases: 28 routes in light and dark modes, keyboard interactions, result panels, and mobile layouts. The supplementary `npx pa11y-ci --config .pa11yci.js` requires a running site and checks 10 routes. Automated checks do not replace keyboard, screen-reader, zoom, or content review.
+
+Use `accessible.gray`, `accessible.green`, and the other semantic foreground tokens instead of fixed pale colors for text. Preserve visible focus indicators, semantic controls, accessible names, reduced motion, and a single primary heading.
 
 ## Architecture
 
-This is Adam Hultman's personal portfolio site — a **Next.js 15 (Pages Router)** app using **Chakra UI v2** with **Emotion** for styling, deployed to Vercel.
+- Pages: home, work, about, contact, résumé, writing (`blog/[slug].tsx`), books, bookmarks, privacy, calculator, and interactive labs.
+- Public APIs: `/api/v1/blog`, `/api/v1/post/[id]`, `/api/v1/contact`. There is no chat API or AI integration.
+- `src/services/notion.ts`: configured databases, publication/membership checks, pagination, bounded nested blocks, and hourly ISR through page callers.
+- `src/data/published-writing/`: public article snapshots for standalone previews only. Never replace live-query failures with fixtures.
+- `src/components/RenderBlocks/`: explicit escaped React rendering; `src/utils/safeUrl.ts` controls CMS URLs. Do not add raw HTML, Markdown reinterpretation, arbitrary iframes, or server fetches of CMS image URLs.
+- `src/lib/rate-limit.ts`: shared fail-closed Upstash limits. Production API availability depends on KV credentials. Only local development bypasses limits; headers must never enable a bypass.
+- The contact handler enforces its own limit before SMTP, requires JSON, validates input, escapes email HTML, and uses a fixed recipient. Tests stub delivery.
+- `src/config.ts`: service configuration; `.env.example` documents inputs. Secrets belong in environment variables, never source.
+- `next.config.ts`: production CSP (Chakra bootstrap hash), security headers, local-only image optimization, and fixed PostHog proxy destinations.
+- `src/theme.ts` and `src/main.css`: shared theme, typography, contrast, focus, and article styles.
 
-### Pages & Routing (`src/pages/`)
-- `index.tsx` — Home page (Hero + Chat + Skills + GitTimeline + Timeline + Contact)
-- `about.tsx` — About page with Contact form
-- `blog/index.tsx`, `blog/[id].tsx` — Blog listing and individual posts
-- `books.tsx`, `bookmarks.tsx` — Content pages fed from Notion
-- `api/v1/blog.ts`, `api/v1/chat.ts`, `api/v1/contact.ts`, `api/v1/post/[id].ts` — API routes
-
-### Data Sources
-All dynamic content comes from **Notion** databases:
-- `src/services/notion.ts` — Generic `fetchNotions(db, options)` and `fetchNotion(db, id)` using `MAP_DATABASE_CONFIG` keyed by `DatabaseName` (`'blog'|'books'|'bookmarks'`)
-- `src/types/notion.ts` — Types: `Book`, `BlogPost`, `Bookmark`, `NotionPageWithBlocks`, `FormatterReturnType<T>`
-
-The **chat** endpoint (`api/v1/chat.ts`) uses Vercel Edge runtime with the AI SDK (`@ai-sdk/openai`) and `gpt-4.1-mini`.
-
-### Static Data (`src/data/`, `src/constants/`)
-- `src/data/gitTimelineData.ts` — `BranchDefinition` tree for the git-graph career timeline (rendered by `@gitgraph/react`)
-- `src/constants/index.ts` — `ORG_MAP` and `ORG_COLORS` for organizations in the timeline
-- `src/constants/timeline.ts` — `TIMELINE` record (year → `TimelineItem[]`) for the vertical text timeline
-
-### Components (`src/components/`)
-- `Home/` — `Hero`, `Skills`, `Timeline`, `GitTimeline`, `Tools` assembled in `Home/index.tsx`
-- `Chat/` — AI chat widget backed by `api/v1/chat`
-- `Layout/` — `Navbar`, `Footer`, wraps all pages in `_app.tsx`
-- Heavy components (`Timeline`, `GitTimeline`, `Chat`) are lazy-loaded via `next/dynamic` with `ssr: false`
-
-### Path Aliases (`tsconfig.json`)
-```
-@components/* → src/components/*
-@hooks/*      → src/hooks/*
-@pages/*      → src/pages/*
-```
-
-### Config & Middleware
-- `src/config.ts` — `serverConfig` with required env var validation (throws on missing vars)
-- `src/middleware.ts` — Rate limiting on all `/api/*` routes via Upstash Ratelimit + Vercel KV (5 req/10s sliding window; bypassed for localhost)
-- `src/theme.ts` — Chakra UI theme (system color mode, monospace font override)
-
-### Environment Variables
-Required in `.env.local`:
-```
-EMAIL_PASS
-OPENAI_API_KEY
-NOTION_API_KEY
-NOTION_DATABASE_ID_BLOG
-NOTION_DATABASE_ID_BOOKS
-NOTION_DATABASE_ID_BOOKMARKS
-NEXT_PUBLIC_EMAIL
-```
-Optional: `OPENAI_SYSTEM_INIT_MSG`, `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_URL`, `CI`
-
-### E2E Tests
-Tests live in `e2e/` and use file naming convention `*.desktop.spec.ts` / `*.mobile.spec.ts` to target Desktop Chrome vs Mobile Chrome/Safari projects in `playwright.config.ts`.
+For changes to Chakra’s color-mode bootstrap, verify the CSP hash against a production build. Preserve a restrictive script policy and test hydration/theme persistence. Test any new browser integration against CSP explicitly.

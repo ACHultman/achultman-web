@@ -1,5 +1,7 @@
 # Architecture Review & Improvements
 
+> Historical review from March 2026. Its dependency counts, chat architecture, security status, and proposed checks are superseded by the October 2026 audit in [SECURITY.md](./SECURITY.md) and the current [README](./README.md). The unused chat feature has been removed; do not use the examples below as implementation guidance.
+
 ## Executive Summary
 
 This document outlines the architectural analysis, identified issues, and improvements made to the achultman-web personal portfolio website. The codebase was reviewed from a senior engineering perspective, focusing on code quality, security, performance, and maintainability.

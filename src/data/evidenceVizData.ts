@@ -39,10 +39,10 @@ export const GRADE_INFO: Record<
 };
 
 export const GRADE_COLORS: Record<EvidenceGrade, { bg: string; border: string; text: string; dot: string }> = {
-  A: { bg: 'green.50', border: 'green.400', text: 'green.600', dot: 'green.400' },
-  B: { bg: 'blue.50', border: 'blue.400', text: 'blue.600', dot: 'blue.400' },
-  C: { bg: 'orange.50', border: 'orange.400', text: 'orange.600', dot: 'orange.400' },
-  D: { bg: 'gray.50', border: 'gray.400', text: 'gray.600', dot: 'gray.400' },
+  A: { bg: 'green.50', border: 'green.400', text: 'green.800', dot: 'green.400' },
+  B: { bg: 'blue.50', border: 'blue.400', text: 'blue.800', dot: 'blue.400' },
+  C: { bg: 'orange.50', border: 'orange.400', text: 'orange.800', dot: 'orange.400' },
+  D: { bg: 'gray.50', border: 'gray.400', text: 'gray.800', dot: 'gray.400' },
 };
 
 export const GRADE_COLORS_DARK: Record<EvidenceGrade, { bg: string; border: string; text: string; dot: string }> = {

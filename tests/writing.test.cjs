@@ -51,7 +51,7 @@ function service({ configured = false, client = {}, settings = {} } = {}) {
             isBlockObjectResponse: (value) =>
                 value.object === 'block' && !!value.type,
             getTitle: () => 'Published note',
-            getDateField: () => '2026-01-01',
+            getDateField: (page) => (page.unpublished ? null : '2026-01-01'),
             getCover: () => null,
             getRichText: () => '',
             getTags: () => [],
@@ -172,7 +172,9 @@ test('CMS outages propagate instead of becoming empty archives or missing articl
 });
 
 test('formatted Notion titles and descriptions keep every rich-text segment', () => {
-    const { getTitle, getRichText } = load('src/utils/notion.ts', {});
+    const { getTitle, getRichText } = load('src/utils/notion.ts', {
+        './safeUrl': load('src/utils/safeUrl.ts', {}),
+    });
     const page = {
         properties: {
             Title: {
@@ -317,6 +319,7 @@ test('published articles retain paginated blocks and nested table rows', async (
                 retrieve: async () => ({
                     object: 'page',
                     id: 'published',
+                    parent: { type: 'database_id', database_id: 'test-db' },
                     properties: {},
                 }),
             },
@@ -431,4 +434,78 @@ test('the public post API preserves the published response shape', async () => {
     assert.equal(res.body.page.title, published.page.title);
     assert.equal(res.body.page.coverImage, null);
     assert.equal(res.body.blocks.results.length, 60);
+});
+
+test('the Notion service refuses foreign, archived, trashed, and unpublished pages before reading blocks', async () => {
+    for (const overrides of [
+        { parent: { type: 'database_id', database_id: 'private-database' } },
+        { parent: { type: 'page_id', page_id: 'private-page' } },
+        { archived: true },
+        { in_trash: true },
+        { unpublished: true },
+    ]) {
+        let reads = 0;
+        const api = service({
+            configured: true,
+            client: {
+                pages: {
+                    retrieve: async () => ({
+                        object: 'page',
+                        id: 'post',
+                        properties: {},
+                        parent: { type: 'database_id', database_id: 'test-db' },
+                        ...overrides,
+                    }),
+                },
+                blocks: {
+                    children: {
+                        list: async () => {
+                            reads++;
+                            return { results: [] };
+                        },
+                    },
+                },
+            },
+        });
+        assert.equal(await api.fetchNotion('blog', 'post'), null);
+        assert.equal(reads, 0);
+    }
+});
+
+test('a wide nested Notion document cannot exceed the shared request budget', async () => {
+    let requests = 0;
+    const api = service({
+        configured: true,
+        client: {
+            pages: {
+                retrieve: async () => ({
+                    object: 'page',
+                    id: 'post',
+                    properties: {},
+                    parent: { type: 'database_id', database_id: 'test-db' },
+                }),
+            },
+            blocks: {
+                children: {
+                    list: async ({ block_id }) => {
+                        requests++;
+                        return {
+                            results:
+                                block_id === 'post'
+                                    ? Array.from({ length: 100 }, (_, i) => ({
+                                          object: 'block',
+                                          id: `child-${i}`,
+                                          type: 'paragraph',
+                                          has_children: true,
+                                          paragraph: { rich_text: [] },
+                                      }))
+                                    : [],
+                        };
+                    },
+                },
+            },
+        },
+    });
+    await assert.rejects(api.fetchNotion('blog', 'post'), /request limit/);
+    assert.ok(requests <= 50);
 });

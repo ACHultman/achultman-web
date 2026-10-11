@@ -1,9 +1,11 @@
+const { chromium } = require('@playwright/test');
 const isPreview = process.env.VERCEL_ENV === 'preview';
 const baseUrl = process.env.VERCEL_PREVIEW_URL || 'http://localhost:3000';
 
 module.exports = {
     ci: {
         collect: {
+            chromePath: chromium.executablePath(),
             url: [
                 baseUrl,
                 ...[
@@ -15,19 +17,14 @@ module.exports = {
                 ].map((path) => `${baseUrl}/${path}`),
             ],
             settings: {
+                chromeFlags:
+                    '--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu',
                 throttlingMethod: 'provided',
                 extraHeaders: JSON.stringify({
                     'x-vercel-protection-bypass':
                         process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
                 }),
             },
-            chromeFlags: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-gpu',
-                '--headless',
-            ],
         },
         assert: {
             assertions: {
@@ -44,7 +41,9 @@ module.exports = {
             },
         },
         upload: {
-            target: 'temporary-public-storage',
+            // Reports may contain the protected-preview request header.
+            target: 'filesystem',
+            outputDir: '.lighthouseci/reports',
         },
     },
 };

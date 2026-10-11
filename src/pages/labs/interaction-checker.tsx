@@ -64,18 +64,25 @@ function AutocompleteInput({
   const borderColor = useColorModeValue('gray.200', 'gray.600');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
   const highlightBg = useColorModeValue('green.50', 'green.900');
-  const labelColor = useColorModeValue('gray.500', 'gray.400');
+  const labelColor = useColorModeValue('gray.600', 'gray.300');
 
   const filtered = useMemo(() => {
     if (!inputValue) return options;
     return options.filter((o) =>
-      o.toLowerCase().includes(inputValue.toLowerCase())
+      o.toLowerCase().includes(inputValue.toLowerCase()),
     );
   }, [inputValue, options]);
 
   return (
     <Box position="relative" w="100%">
-      <Text fontSize="xs" fontWeight="bold" color={labelColor} mb={1} textTransform="uppercase" letterSpacing="wider">
+      <Text
+        fontSize="xs"
+        fontWeight="bold"
+        color={labelColor}
+        mb={1}
+        textTransform="uppercase"
+        letterSpacing="wider"
+      >
         {label}
       </Text>
       <Input
@@ -151,7 +158,7 @@ function InteractionChecker() {
   const cardBg = useColorModeValue('gray.50', 'gray.800');
   const resultBg = useColorModeValue('white', 'gray.700');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
-  const dimText = useColorModeValue('gray.500', 'gray.400');
+  const dimText = useColorModeValue('gray.600', 'gray.300');
 
   return (
     <>
@@ -185,8 +192,8 @@ function InteractionChecker() {
               💊 Interaction Checker
             </Heading>
             <Paragraph fontSize="lg" mb={8}>
-              Check if your supplements interact with your medications.
-              Powered by evidence-based pharmacological data.
+              Check if your supplements interact with your medications. Powered
+              by evidence-based pharmacological data.
             </Paragraph>
 
             <Box
@@ -264,9 +271,7 @@ function InteractionChecker() {
                           >
                             Mechanism
                           </Text>
-                          <Text fontSize="sm">
-                            {interaction.mechanism}
-                          </Text>
+                          <Text fontSize="sm">{interaction.mechanism}</Text>
                         </Box>
                         <Box>
                           <Text
@@ -295,13 +300,16 @@ function InteractionChecker() {
                       mb={8}
                       textAlign="center"
                     >
-                      <Text fontSize="2xl" mb={2}>✅</Text>
+                      <Text fontSize="2xl" mb={2}>
+                        ✅
+                      </Text>
                       <Text fontWeight="bold" mb={1}>
                         No known interaction found
                       </Text>
                       <Text fontSize="sm" color={dimText}>
-                        This combination does not appear in our database of common interactions.
-                        Always consult your healthcare provider before starting new supplements.
+                        This combination does not appear in our database of
+                        common interactions. Always consult your healthcare
+                        provider before starting new supplements.
                       </Text>
                     </Box>
                   )}
@@ -316,22 +324,23 @@ function InteractionChecker() {
                 How it works
               </Heading>
               <Text fontSize="sm" color={dimText} mb={3}>
-                This checker uses a curated database of {INTERACTIONS.length} clinically
-                significant supplement-drug interactions, sourced from pharmacological
-                literature and drug interaction databases. Each interaction includes
-                the biochemical mechanism and evidence-based recommendations.
+                This checker uses a curated database of {INTERACTIONS.length}{' '}
+                clinically significant supplement-drug interactions, sourced
+                from pharmacological literature and drug interaction databases.
+                Each interaction includes the biochemical mechanism and
+                evidence-based recommendations.
               </Text>
               <Text fontSize="sm" color={dimText} mb={3}>
-                <strong>Disclaimer:</strong> This is an educational tool, not medical advice.
-                Always consult a healthcare professional before making changes to your
-                medication or supplement regimen.
+                <strong>Disclaimer:</strong> This is an educational tool, not
+                medical advice. Always consult a healthcare professional before
+                making changes to your medication or supplement regimen.
               </Text>
               <HStack spacing={4} fontSize="xs" color={dimText}>
                 <Text>Built with: Next.js · Chakra UI · Framer Motion</Text>
                 <Link
                   href="https://github.com/ACHultman/achultman-web"
                   isExternal
-                  color="green.400"
+                  color="accessible.green"
                 >
                   View Source →
                 </Link>

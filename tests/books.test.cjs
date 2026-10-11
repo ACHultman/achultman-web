@@ -12,10 +12,6 @@ test('book props remain serializable when cover dimensions are unavailable', asy
         { id: 'unsupported', cover: 'https://example.com/cover.webp' },
         { id: 'available', cover: 'https://example.com/cover.png' },
     ];
-    const png = Buffer.alloc(24);
-    png.set([0x89, 0x50, 0x4e, 0x47]);
-    png.writeUInt32BE(320, 16);
-    png.writeUInt32BE(480, 20);
     const testModule = { exports: {} };
     const code = ts.transpileModule(
         readFileSync('src/pages/books.tsx', 'utf8'),
@@ -36,11 +32,9 @@ test('book props remain serializable when cover dimensions are unavailable', asy
             }
             return name === 'buffer' ? { Buffer } : {};
         },
-        fetch: async (url) => ({
-            ok: !url.includes('missing'),
-            arrayBuffer: async () =>
-                url.endsWith('.png') ? png : Buffer.from('WEBP'),
-        }),
+        fetch: async () => {
+            throw new Error('Book rendering must not fetch cover URLs');
+        },
     });
 
     const result = await testModule.exports.getStaticProps();
@@ -50,7 +44,6 @@ test('book props remain serializable when cover dimensions are unavailable', asy
             assert.notEqual(value, undefined);
         }
     }
-    assert.equal(result.props.books[3].coverWidth, 320);
-    assert.equal(result.props.books[3].coverHeight, 480);
+    assert.equal(result.props.books[3].cover, books[3].cover);
     assert.equal(result.props.books.length, 4);
 });

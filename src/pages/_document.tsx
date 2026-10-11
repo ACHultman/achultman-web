@@ -4,6 +4,7 @@ import createEmotionServer from '@emotion/server/create-instance';
 import { ColorModeScript } from '@chakra-ui/react';
 import theme from '../theme';
 import createEmotionCache from '../utils/createEmotionCache';
+import type { MyAppProps } from './_app';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -14,7 +15,7 @@ export default class MyDocument extends Document {
 
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App: any) => (props: any) =>
+        enhanceApp: (App: React.ComponentType<MyAppProps>) => (props) =>
           <App emotionCache={cache} {...props} />,
       });
 
