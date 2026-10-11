@@ -12,14 +12,18 @@ const links = [
 ];
 
 export default function Navbar() {
-    const { pathname, asPath } = useRouter();
+    const { pathname, events } = useRouter();
     const { colorMode, toggleColorMode } = useColorMode();
     const [open, setOpen] = useState(false);
     const toggle = useRef<HTMLButtonElement>(null);
     const menu = useRef<HTMLElement>(null);
     const header = useRef<HTMLElement>(null);
 
-    useEffect(() => setOpen(false), [asPath]);
+    useEffect(() => {
+        const close = () => setOpen(false);
+        events.on('routeChangeStart', close);
+        return () => events.off('routeChangeStart', close);
+    }, [events]);
     useEffect(() => {
         if (!open) return;
         menu.current

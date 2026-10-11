@@ -1,16 +1,16 @@
 export interface ShaderPreset {
-  name: string;
-  description: string;
-  fragmentShader: string;
-  category: 'patterns' | 'fractals' | 'noise' | 'effects';
+    name: string;
+    description: string;
+    fragmentShader: string;
+    category: 'patterns' | 'fractals' | 'noise' | 'effects';
 }
 
 export const SHADER_PRESETS: ShaderPreset[] = [
-  {
-    name: 'Plasma Wave',
-    description: 'Classic plasma effect using sin/cos of position and time',
-    category: 'patterns',
-    fragmentShader: `precision mediump float;
+    {
+        name: 'Plasma Wave',
+        description: 'Classic plasma effect using sin/cos of position and time',
+        category: 'patterns',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
@@ -21,13 +21,13 @@ void main() {
   vec3 col = vec3(sin(v), sin(v + 2.094), sin(v + 4.189)) * 0.5 + 0.5;
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Mandelbrot Set',
-    description:
-      'Classic Mandelbrot fractal with smooth coloring based on iteration count',
-    category: 'fractals',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Mandelbrot Set',
+        description:
+            'Classic Mandelbrot fractal with smooth coloring based on iteration count',
+        category: 'fractals',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
@@ -50,12 +50,12 @@ void main() {
     gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
   }
 }`,
-  },
-  {
-    name: 'Simplex Noise',
-    description: 'Organic flowing noise patterns using 2D simplex noise',
-    category: 'noise',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Simplex Noise',
+        description: 'Organic flowing noise patterns using 2D simplex noise',
+        category: 'noise',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 
@@ -98,13 +98,13 @@ void main() {
   vec3 col = mix(col1, col2, n * 0.5 + 0.5);
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Hypnotic Rings',
-    description:
-      'Concentric rings that pulse and shift colors based on distance from center',
-    category: 'patterns',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Hypnotic Rings',
+        description:
+            'Concentric rings that pulse and shift colors based on distance from center',
+        category: 'patterns',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
@@ -119,13 +119,13 @@ void main() {
   col += pulse * 0.1 * vec3(0.5, 0.2, 0.8) * (1.0 - d);
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Voronoi Cells',
-    description:
-      'Voronoi diagram with animated cell centers moving over time',
-    category: 'noise',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Voronoi Cells',
+        description:
+            'Voronoi diagram with animated cell centers moving over time',
+        category: 'noise',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 
@@ -159,13 +159,13 @@ void main() {
   col += 0.02 / minDist * vec3(0.2, 0.1, 0.3);
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Ray Marching Sphere',
-    description:
-      'Simple ray marching with a phong-lit sphere against a dark background',
-    category: 'effects',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Ray Marching Sphere',
+        description:
+            'Simple ray marching with a phong-lit sphere against a dark background',
+        category: 'effects',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 
@@ -216,13 +216,13 @@ void main() {
   }
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Matrix Rain',
-    description:
-      'Digital rain effect with columns of characters falling at different speeds',
-    category: 'effects',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Matrix Rain',
+        description:
+            'Digital rain effect with columns of characters falling at different speeds',
+        category: 'effects',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 
@@ -258,13 +258,13 @@ void main() {
   col += vec3(0.0, 0.05, 0.0);
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Fractal Julia',
-    description:
-      'Julia set fractal with the c parameter animating over time',
-    category: 'fractals',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Fractal Julia',
+        description:
+            'Julia set fractal with the c parameter animating over time',
+        category: 'fractals',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
@@ -290,13 +290,13 @@ void main() {
     gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
   }
 }`,
-  },
-  {
-    name: 'Sunset Gradient',
-    description:
-      'Warm animated sunset gradient transitioning from orange to purple',
-    category: 'effects',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Sunset Gradient',
+        description:
+            'Warm animated sunset gradient transitioning from orange to purple',
+        category: 'effects',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
@@ -312,13 +312,13 @@ void main() {
   col += sun * vec3(1.0, 0.9, 0.5);
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
-  {
-    name: 'Starfield',
-    description:
-      'Twinkling starfield with layered parallax depth and shooting stars',
-    category: 'effects',
-    fragmentShader: `precision mediump float;
+    },
+    {
+        name: 'Starfield',
+        description:
+            'Twinkling starfield with layered parallax depth and shooting stars',
+        category: 'effects',
+        fragmentShader: `precision mediump float;
 uniform float u_time;
 uniform vec2 u_resolution;
 
@@ -363,7 +363,7 @@ void main() {
   col += vec3(1.0, 1.0, 0.9) * smoothstep(0.01, 0.0, shootD) * shootTrail;
   gl_FragColor = vec4(col, 1.0);
 }`,
-  },
+    },
 ];
 
 export const DEFAULT_VERTEX_SHADER = `attribute vec2 a_position;
@@ -372,21 +372,21 @@ void main() {
 }`;
 
 export const SHADER_CATEGORIES: { name: string; color: string }[] = [
-  { name: 'patterns', color: 'pink' },
-  { name: 'fractals', color: 'purple' },
-  { name: 'noise', color: 'teal' },
-  { name: 'effects', color: 'cyan' },
+    { name: 'patterns', color: 'pink' },
+    { name: 'fractals', color: 'purple' },
+    { name: 'noise', color: 'teal' },
+    { name: 'effects', color: 'cyan' },
 ];
 
 export const QUICK_PROMPT_CHIPS: string[] = [
-  'spinning ball',
-  'ocean waves',
-  'fire',
-  'neon heart',
-  'starfield',
-  'rainbow noise',
-  'glowing torus',
-  'matrix rain',
+    'spinning ball',
+    'ocean waves',
+    'fire',
+    'neon heart',
+    'starfield',
+    'rainbow noise',
+    'glowing torus',
+    'matrix rain',
 ];
 
 // ---------------------------------------------------------------------------
@@ -394,16 +394,16 @@ export const QUICK_PROMPT_CHIPS: string[] = [
 // ---------------------------------------------------------------------------
 
 interface ShaderComponent {
-  name: string;
-  keywords: string[];
-  /** GLSL helper function(s) to insert before main() */
-  glsl: string;
-  /** Statement(s) to insert inside main() — uses COLOR and uv variables */
-  mainCall: string;
-  /** Whether this component needs the noise helper */
-  needsNoise?: boolean;
-  /** Whether this is a full-screen effect vs centered shape */
-  isFullscreen?: boolean;
+    name: string;
+    keywords: string[];
+    /** GLSL helper function(s) to insert before main() */
+    glsl: string;
+    /** Statement(s) to insert inside main() — uses COLOR and uv variables */
+    mainCall: string;
+    /** Whether this component needs the noise helper */
+    needsNoise?: boolean;
+    /** Whether this is a full-screen effect vs centered shape */
+    isFullscreen?: boolean;
 }
 
 // ---- Helper GLSL blocks inserted as needed ----
@@ -451,10 +451,10 @@ mat2 rot2d(float a) {
 // ---- Shape components (drawn in center of screen) ----
 
 const SHAPE_COMPONENTS: ShaderComponent[] = [
-  {
-    name: 'sphere',
-    keywords: ['sphere', 'ball', 'orb', '3d sphere', 'spinning ball'],
-    glsl: `
+    {
+        name: 'sphere',
+        keywords: ['sphere', 'ball', 'orb', '3d sphere', 'spinning ball'],
+        glsl: `
 float sdSphere_gen(vec3 p, float r) { return length(p) - r; }
 float sceneShape(vec3 p) {
   float pulse = 1.0 + 0.1 * sin(u_time * 2.0);
@@ -494,13 +494,13 @@ vec3 renderSphere(vec2 uv, float time, vec3 tint) {
   }
   return c;
 }`,
-    mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
+        mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
   col = renderSphere(centered, u_time, COLOR);`,
-  },
-  {
-    name: 'cube',
-    keywords: ['cube', 'box'],
-    glsl: `
+    },
+    {
+        name: 'cube',
+        keywords: ['cube', 'box'],
+        glsl: `
 float sdBox_gen(vec3 p, vec3 b) {
   vec3 q = abs(p) - b;
   return length(max(q, 0.0)) + min(max(q.x, max(q.y, q.z)), 0.0);
@@ -548,13 +548,13 @@ vec3 renderCube(vec2 uv, float time, vec3 tint) {
   }
   return c;
 }`,
-    mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
+        mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
   col = renderCube(centered, u_time, COLOR);`,
-  },
-  {
-    name: 'torus',
-    keywords: ['torus', 'donut', 'ring'],
-    glsl: `
+    },
+    {
+        name: 'torus',
+        keywords: ['torus', 'donut', 'ring'],
+        glsl: `
 float sdTorus_gen(vec3 p, vec2 t) {
   vec2 q = vec2(length(p.xz) - t.x, p.y);
   return length(q) - t.y;
@@ -602,13 +602,13 @@ vec3 renderTorus(vec2 uv, float time, vec3 tint) {
   }
   return c;
 }`,
-    mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
+        mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
   col = renderTorus(centered, u_time, COLOR);`,
-  },
-  {
-    name: 'heart',
-    keywords: ['heart', 'love', 'valentine'],
-    glsl: `
+    },
+    {
+        name: 'heart',
+        keywords: ['heart', 'love', 'valentine'],
+        glsl: `
 vec3 renderHeart(vec2 uv, float time, vec3 tint) {
   vec2 p = uv;
   p.y -= 0.1;
@@ -625,14 +625,21 @@ vec3 renderHeart(vec2 uv, float time, vec3 tint) {
   vec3 c = tint * heart + tint * 0.5 * glow * (0.5 + 0.5 * sin(time * 2.0));
   return c;
 }`,
-    mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
+        mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
   col = renderHeart(centered, u_time, COLOR);`,
-  },
-  {
-    name: 'stars',
-    keywords: ['star', 'stars', 'starfield', 'night sky', 'space', 'galaxy'],
-    isFullscreen: true,
-    glsl: `
+    },
+    {
+        name: 'stars',
+        keywords: [
+            'star',
+            'stars',
+            'starfield',
+            'night sky',
+            'space',
+            'galaxy',
+        ],
+        isFullscreen: true,
+        glsl: `
 float hashStar(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 }
@@ -667,13 +674,13 @@ vec3 renderStars(vec2 uv, float time) {
   c += vec3(1.0, 1.0, 0.9) * smoothstep(0.01, 0.0, shootD) * shootTrail;
   return c;
 }`,
-    mainCall: `  col = renderStars(uv, u_time);`,
-  },
-  {
-    name: 'grid',
-    keywords: ['grid', 'wireframe', 'tron'],
-    isFullscreen: true,
-    glsl: `
+        mainCall: `  col = renderStars(uv, u_time);`,
+    },
+    {
+        name: 'grid',
+        keywords: ['grid', 'wireframe', 'tron'],
+        isFullscreen: true,
+        glsl: `
 vec3 renderGrid(vec2 uv, float time, vec3 tint) {
   vec2 p = uv * 2.0 - 1.0;
   // Perspective warp
@@ -689,12 +696,12 @@ vec3 renderGrid(vec2 uv, float time, vec3 tint) {
   c += vec3(0.02, 0.0, 0.04);
   return c;
 }`,
-    mainCall: `  col = renderGrid(uv, u_time, COLOR);`,
-  },
-  {
-    name: 'circle',
-    keywords: ['circle', 'disc', 'dot'],
-    glsl: `
+        mainCall: `  col = renderGrid(uv, u_time, COLOR);`,
+    },
+    {
+        name: 'circle',
+        keywords: ['circle', 'disc', 'dot'],
+        glsl: `
 vec3 renderCircle(vec2 uv, float time, vec3 tint) {
   float d = length(uv);
   float pulse = 1.0 + 0.1 * sin(time * 2.0);
@@ -706,20 +713,20 @@ vec3 renderCircle(vec2 uv, float time, vec3 tint) {
   c += vec3(1.0) * rim * 0.6;
   return c;
 }`,
-    mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
+        mainCall: `  vec2 centered = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
   col = renderCircle(centered, u_time, COLOR);`,
-  },
+    },
 ];
 
 // ---- Effect components (applied to whole screen or composited) ----
 
 const EFFECT_COMPONENTS: ShaderComponent[] = [
-  {
-    name: 'waves',
-    keywords: ['waves', 'ocean', 'water', 'sea', 'underwater'],
-    isFullscreen: true,
-    needsNoise: true,
-    glsl: `
+    {
+        name: 'waves',
+        keywords: ['waves', 'ocean', 'water', 'sea', 'underwater'],
+        isFullscreen: true,
+        needsNoise: true,
+        glsl: `
 vec3 renderWaves(vec2 uv, float time, vec3 tint) {
   vec2 p = uv;
   float wave1 = sin(p.x * 8.0 + time * 1.5) * 0.04;
@@ -742,14 +749,14 @@ vec3 renderWaves(vec2 uv, float time, vec3 tint) {
   c += tint * caustic * 0.05 * smoothstep(0.5, 0.0, y);
   return c;
 }`,
-    mainCall: `  col = renderWaves(uv, u_time, COLOR);`,
-  },
-  {
-    name: 'fire',
-    keywords: ['fire', 'flames', 'burning', 'inferno'],
-    isFullscreen: true,
-    needsNoise: true,
-    glsl: `
+        mainCall: `  col = renderWaves(uv, u_time, COLOR);`,
+    },
+    {
+        name: 'fire',
+        keywords: ['fire', 'flames', 'burning', 'inferno'],
+        isFullscreen: true,
+        needsNoise: true,
+        glsl: `
 vec3 renderFire(vec2 uv, float time) {
   vec2 p = uv;
   // Stack multiple noise octaves moving upward
@@ -774,14 +781,14 @@ vec3 renderFire(vec2 uv, float time) {
   c += vec3(1.0, 0.5, 0.1) * ember * shape * 0.5;
   return c;
 }`,
-    mainCall: `  col = renderFire(uv, u_time);`,
-  },
-  {
-    name: 'noise',
-    keywords: ['noise', 'clouds', 'smoke', 'fog'],
-    isFullscreen: true,
-    needsNoise: true,
-    glsl: `
+        mainCall: `  col = renderFire(uv, u_time);`,
+    },
+    {
+        name: 'noise',
+        keywords: ['noise', 'clouds', 'smoke', 'fog'],
+        isFullscreen: true,
+        needsNoise: true,
+        glsl: `
 vec3 renderNoise(vec2 uv, float time, vec3 tint) {
   float n1 = snoise2d(uv * 3.0 + time * 0.3);
   float n2 = snoise2d(uv * 6.0 - time * 0.2);
@@ -791,37 +798,37 @@ vec3 renderNoise(vec2 uv, float time, vec3 tint) {
   vec3 col2 = tint * 1.2 + vec3(0.1);
   return mix(col1, col2, n * 0.5 + 0.5);
 }`,
-    mainCall: `  col = renderNoise(uv, u_time, COLOR);`,
-  },
-  {
-    name: 'pulse',
-    keywords: ['pulse', 'beat', 'heartbeat', 'throb', 'pulsing'],
-    isFullscreen: false,
-    glsl: ``,
-    mainCall: `  float pulseFactor = 0.8 + 0.4 * pow(abs(sin(u_time * 3.0)), 4.0);
+        mainCall: `  col = renderNoise(uv, u_time, COLOR);`,
+    },
+    {
+        name: 'pulse',
+        keywords: ['pulse', 'beat', 'heartbeat', 'throb', 'pulsing'],
+        isFullscreen: false,
+        glsl: ``,
+        mainCall: `  float pulseFactor = 0.8 + 0.4 * pow(abs(sin(u_time * 3.0)), 4.0);
   col *= pulseFactor;`,
-  },
-  {
-    name: 'rotation',
-    keywords: ['rotation', 'spin', 'rotate', 'spinning', 'rotating'],
-    isFullscreen: false,
-    glsl: ``,
-    mainCall: `  // rotation effect applied to uv before shape rendering
+    },
+    {
+        name: 'rotation',
+        keywords: ['rotation', 'spin', 'rotate', 'spinning', 'rotating'],
+        isFullscreen: false,
+        glsl: ``,
+        mainCall: `  // rotation effect applied to uv before shape rendering
 `,
-  },
-  {
-    name: 'glow',
-    keywords: ['glow', 'bloom', 'glowing', 'bright', 'shiny'],
-    isFullscreen: false,
-    glsl: ``,
-    mainCall: `  col += col * 0.3;
+    },
+    {
+        name: 'glow',
+        keywords: ['glow', 'bloom', 'glowing', 'bright', 'shiny'],
+        isFullscreen: false,
+        glsl: ``,
+        mainCall: `  col += col * 0.3;
   col = pow(col, vec3(0.9));`,
-  },
-  {
-    name: 'particles',
-    keywords: ['particles', 'sparks', 'fireflies', 'dots'],
-    isFullscreen: true,
-    glsl: `
+    },
+    {
+        name: 'particles',
+        keywords: ['particles', 'sparks', 'fireflies', 'dots'],
+        isFullscreen: true,
+        glsl: `
 float hashParticle(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 }
@@ -842,26 +849,26 @@ vec3 renderParticles(vec2 uv, float time, vec3 tint) {
   }
   return c;
 }`,
-    mainCall: `  col += renderParticles(uv, u_time, COLOR);`,
-  },
+        mainCall: `  col += renderParticles(uv, u_time, COLOR);`,
+    },
 ];
 
 // ---- Color palettes ----
 
 const COLOR_PALETTES: Record<string, string> = {
-  red: 'vec3(0.9, 0.2, 0.15)',
-  blue: 'vec3(0.2, 0.4, 0.95)',
-  green: 'vec3(0.2, 0.85, 0.3)',
-  purple: 'vec3(0.6, 0.2, 0.9)',
-  orange: 'vec3(1.0, 0.5, 0.1)',
-  pink: 'vec3(1.0, 0.4, 0.7)',
-  gold: 'vec3(1.0, 0.84, 0.0)',
-  white: 'vec3(0.95, 0.95, 1.0)',
-  cyan: 'vec3(0.0, 0.9, 0.9)',
-  yellow: 'vec3(1.0, 0.95, 0.2)',
-  neon: 'vec3(0.1, 1.0, 0.6)',
-  pastel: 'vec3(0.8, 0.7, 0.9)',
-  dark: 'vec3(0.3, 0.3, 0.35)',
+    red: 'vec3(0.9, 0.2, 0.15)',
+    blue: 'vec3(0.2, 0.4, 0.95)',
+    green: 'vec3(0.2, 0.85, 0.3)',
+    purple: 'vec3(0.6, 0.2, 0.9)',
+    orange: 'vec3(1.0, 0.5, 0.1)',
+    pink: 'vec3(1.0, 0.4, 0.7)',
+    gold: 'vec3(1.0, 0.84, 0.0)',
+    white: 'vec3(0.95, 0.95, 1.0)',
+    cyan: 'vec3(0.0, 0.9, 0.9)',
+    yellow: 'vec3(1.0, 0.95, 0.2)',
+    neon: 'vec3(0.1, 1.0, 0.6)',
+    pastel: 'vec3(0.8, 0.7, 0.9)',
+    dark: 'vec3(0.3, 0.3, 0.35)',
 };
 
 // Rainbow handled specially in the shader
@@ -871,334 +878,336 @@ const RAINBOW_KEYWORDS = ['rainbow', 'colorful', 'multicolor', 'rgb'];
 
 const MAX_PROMPT_LENGTH = 200;
 const BLOCKED_PATTERNS =
-  /script|eval|exec|import|require|fetch|xhr|http|cookie|document|window/i;
+    /script|eval|exec|import|require|fetch|xhr|http|cookie|document|window/i;
 
 function sanitizePrompt(input: string): string | null {
-  const trimmed = input.trim().slice(0, MAX_PROMPT_LENGTH);
-  if (BLOCKED_PATTERNS.test(trimmed)) return null;
-  if (trimmed.length < 2) return null;
-  return trimmed.toLowerCase();
+    const trimmed = input.trim().slice(0, MAX_PROMPT_LENGTH);
+    if (BLOCKED_PATTERNS.test(trimmed)) return null;
+    if (trimmed.length < 2) return null;
+    return trimmed.toLowerCase();
 }
 
 // ---- Keyword matching helpers ----
 
 function findMatchingComponents(
-  input: string,
-  components: ShaderComponent[]
+    input: string,
+    components: ShaderComponent[]
 ): ShaderComponent[] {
-  const matches: { component: ShaderComponent; score: number }[] = [];
-  for (const comp of components) {
-    let score = 0;
-    for (const kw of comp.keywords) {
-      if (input.includes(kw)) {
-        score += kw.length;
-      }
+    const matches: { component: ShaderComponent; score: number }[] = [];
+    for (const comp of components) {
+        let score = 0;
+        for (const kw of comp.keywords) {
+            if (input.includes(kw)) {
+                score += kw.length;
+            }
+        }
+        if (score > 0) {
+            matches.push({ component: comp, score });
+        }
     }
-    if (score > 0) {
-      matches.push({ component: comp, score });
-    }
-  }
-  matches.sort((a, b) => b.score - a.score);
-  return matches.map((m) => m.component);
+    matches.sort((a, b) => b.score - a.score);
+    return matches.map((m) => m.component);
 }
 
 function findColor(input: string): { name: string; glsl: string } | null {
-  // Check rainbow first
-  for (const kw of RAINBOW_KEYWORDS) {
-    if (input.includes(kw)) {
-      return {
-        name: 'rainbow',
-        glsl: '(0.5 + 0.5 * cos(u_time + uv.xyx * 6.28 + vec3(0.0, 2.0, 4.0)))',
-      };
+    // Check rainbow first
+    for (const kw of RAINBOW_KEYWORDS) {
+        if (input.includes(kw)) {
+            return {
+                name: 'rainbow',
+                glsl: '(0.5 + 0.5 * cos(u_time + uv.xyx * 6.28 + vec3(0.0, 2.0, 4.0)))',
+            };
+        }
     }
-  }
-  // Check named colors — longer matches first
-  const entries = Object.entries(COLOR_PALETTES).sort(
-    (a, b) => b[0].length - a[0].length
-  );
-  for (const [name, glsl] of entries) {
-    if (input.includes(name)) {
-      return { name, glsl };
+    // Check named colors — longer matches first
+    const entries = Object.entries(COLOR_PALETTES).sort(
+        (a, b) => b[0].length - a[0].length
+    );
+    for (const [name, glsl] of entries) {
+        if (input.includes(name)) {
+            return { name, glsl };
+        }
     }
-  }
-  return null;
+    return null;
 }
 
 // ---- Preset matching (fallback from old system) ----
 
 interface PresetMatch {
-  keywords: string[];
-  presetIndex: number;
-  description: string;
-  modifications?: { find: string; replace: string }[];
+    keywords: string[];
+    presetIndex: number;
+    description: string;
+    modifications?: { find: string; replace: string }[];
 }
 
 const PRESET_MATCHES: PresetMatch[] = [
-  {
-    keywords: ['plasma', 'psychedelic', 'colorful waves'],
-    presetIndex: 0,
-    description: 'Plasma Wave — classic colorful plasma effect',
-  },
-  {
-    keywords: ['mandelbrot', 'fractal zoom', 'complex plane'],
-    presetIndex: 1,
-    description: 'Mandelbrot Set — classic fractal explorer',
-  },
-  {
-    keywords: ['voronoi', 'cells', 'cellular', 'bubbles'],
-    presetIndex: 4,
-    description: 'Voronoi Cells — animated cellular patterns',
-  },
-  {
-    keywords: ['julia', 'fractal morph', 'animated fractal'],
-    presetIndex: 7,
-    description: 'Fractal Julia — morphing Julia set',
-  },
-  {
-    keywords: ['sunset', 'sky', 'gradient'],
-    presetIndex: 8,
-    description: 'Sunset Gradient — warm sky with animated sun',
-  },
-  {
-    keywords: ['disco', 'party', 'strobe'],
-    presetIndex: 3,
-    description: 'Disco — fast hypnotic rings with strobe energy',
-    modifications: [
-      {
-        find: 'float rings = sin(d * 30.0 - u_time * 3.0);',
-        replace: 'float rings = sin(d * 40.0 - u_time * 8.0);',
-      },
-      {
-        find: 'float pulse = sin(u_time * 2.0) * 0.5 + 0.5;',
-        replace: 'float pulse = sin(u_time * 6.0) * 0.5 + 0.5;',
-      },
-    ],
-  },
-  {
-    keywords: ['lava', 'magma', 'volcanic'],
-    presetIndex: 4,
-    description: 'Lava — voronoi cells with molten red-orange palette',
-    modifications: [
-      {
-        find: 'vec3 col = 0.5 + 0.5 * cos(u_time + minPoint.xyx * 6.28 + vec3(0.0, 2.0, 4.0));',
-        replace:
-          'vec3 col = vec3(0.8, 0.2, 0.0) + 0.3 * cos(u_time + minPoint.xyx * 6.28 + vec3(0.0, 0.5, 1.0));',
-      },
-      {
-        find: 'col += 0.02 / minDist * vec3(0.2, 0.1, 0.3);',
-        replace: 'col += 0.03 / minDist * vec3(0.6, 0.2, 0.0);',
-      },
-    ],
-  },
-  {
-    keywords: ['hypnotic', 'rings', 'tunnel'],
-    presetIndex: 3,
-    description: 'Hypnotic Rings — pulsing concentric circles',
-  },
-  {
-    keywords: ['matrix', 'digital', 'hacker', 'code rain'],
-    presetIndex: 6,
-    description: 'Matrix Rain — digital rain effect',
-  },
-  {
-    keywords: ['fractal'],
-    presetIndex: 1,
-    description: 'Mandelbrot Set — classic fractal',
-  },
-  {
-    keywords: ['cyberpunk'],
-    presetIndex: 0,
-    description: 'Neon — plasma wave with electric neon glow',
-    modifications: [
-      {
-        find: 'vec3 col = vec3(sin(v), sin(v + 2.094), sin(v + 4.189)) * 0.5 + 0.5;',
-        replace:
-          'vec3 col = vec3(sin(v) * 0.5 + 0.5, 0.05, sin(v + 3.14) * 0.5 + 0.5) * 1.3;',
-      },
-    ],
-  },
+    {
+        keywords: ['plasma', 'psychedelic', 'colorful waves'],
+        presetIndex: 0,
+        description: 'Plasma Wave — classic colorful plasma effect',
+    },
+    {
+        keywords: ['mandelbrot', 'fractal zoom', 'complex plane'],
+        presetIndex: 1,
+        description: 'Mandelbrot Set — classic fractal explorer',
+    },
+    {
+        keywords: ['voronoi', 'cells', 'cellular', 'bubbles'],
+        presetIndex: 4,
+        description: 'Voronoi Cells — animated cellular patterns',
+    },
+    {
+        keywords: ['julia', 'fractal morph', 'animated fractal'],
+        presetIndex: 7,
+        description: 'Fractal Julia — morphing Julia set',
+    },
+    {
+        keywords: ['sunset', 'sky', 'gradient'],
+        presetIndex: 8,
+        description: 'Sunset Gradient — warm sky with animated sun',
+    },
+    {
+        keywords: ['disco', 'party', 'strobe'],
+        presetIndex: 3,
+        description: 'Disco — fast hypnotic rings with strobe energy',
+        modifications: [
+            {
+                find: 'float rings = sin(d * 30.0 - u_time * 3.0);',
+                replace: 'float rings = sin(d * 40.0 - u_time * 8.0);',
+            },
+            {
+                find: 'float pulse = sin(u_time * 2.0) * 0.5 + 0.5;',
+                replace: 'float pulse = sin(u_time * 6.0) * 0.5 + 0.5;',
+            },
+        ],
+    },
+    {
+        keywords: ['lava', 'magma', 'volcanic'],
+        presetIndex: 4,
+        description: 'Lava — voronoi cells with molten red-orange palette',
+        modifications: [
+            {
+                find: 'vec3 col = 0.5 + 0.5 * cos(u_time + minPoint.xyx * 6.28 + vec3(0.0, 2.0, 4.0));',
+                replace:
+                    'vec3 col = vec3(0.8, 0.2, 0.0) + 0.3 * cos(u_time + minPoint.xyx * 6.28 + vec3(0.0, 0.5, 1.0));',
+            },
+            {
+                find: 'col += 0.02 / minDist * vec3(0.2, 0.1, 0.3);',
+                replace: 'col += 0.03 / minDist * vec3(0.6, 0.2, 0.0);',
+            },
+        ],
+    },
+    {
+        keywords: ['hypnotic', 'rings', 'tunnel'],
+        presetIndex: 3,
+        description: 'Hypnotic Rings — pulsing concentric circles',
+    },
+    {
+        keywords: ['matrix', 'digital', 'hacker', 'code rain'],
+        presetIndex: 6,
+        description: 'Matrix Rain — digital rain effect',
+    },
+    {
+        keywords: ['fractal'],
+        presetIndex: 1,
+        description: 'Mandelbrot Set — classic fractal',
+    },
+    {
+        keywords: ['cyberpunk'],
+        presetIndex: 0,
+        description: 'Neon — plasma wave with electric neon glow',
+        modifications: [
+            {
+                find: 'vec3 col = vec3(sin(v), sin(v + 2.094), sin(v + 4.189)) * 0.5 + 0.5;',
+                replace:
+                    'vec3 col = vec3(sin(v) * 0.5 + 0.5, 0.05, sin(v + 3.14) * 0.5 + 0.5) * 1.3;',
+            },
+        ],
+    },
 ];
 
 function matchPresetFallback(
-  input: string
+    input: string
 ): { code: string; description: string } | null {
-  let bestScore = 0;
-  let bestMatch: PresetMatch | null = null;
+    let bestScore = 0;
+    let bestMatch: PresetMatch | null = null;
 
-  for (const pm of PRESET_MATCHES) {
-    let score = 0;
-    for (const kw of pm.keywords) {
-      if (input.includes(kw)) {
-        score += kw.length;
-      }
+    for (const pm of PRESET_MATCHES) {
+        let score = 0;
+        for (const kw of pm.keywords) {
+            if (input.includes(kw)) {
+                score += kw.length;
+            }
+        }
+        if (score > bestScore) {
+            bestScore = score;
+            bestMatch = pm;
+        }
     }
-    if (score > bestScore) {
-      bestScore = score;
-      bestMatch = pm;
+
+    if (!bestMatch || bestScore === 0) return null;
+
+    const basePreset = SHADER_PRESETS[bestMatch.presetIndex]!;
+    let shaderSource = basePreset.fragmentShader;
+
+    if (bestMatch.modifications) {
+        for (const mod of bestMatch.modifications) {
+            shaderSource = shaderSource.replace(mod.find, mod.replace);
+        }
     }
-  }
 
-  if (!bestMatch || bestScore === 0) return null;
-
-  const basePreset = SHADER_PRESETS[bestMatch.presetIndex]!;
-  let shaderSource = basePreset.fragmentShader;
-
-  if (bestMatch.modifications) {
-    for (const mod of bestMatch.modifications) {
-      shaderSource = shaderSource.replace(mod.find, mod.replace);
-    }
-  }
-
-  return {
-    code: shaderSource,
-    description: bestMatch.description,
-  };
+    return {
+        code: shaderSource,
+        description: bestMatch.description,
+    };
 }
 
 // ---- Main generation function ----
 
 export interface GeneratedShader {
-  code: string;
-  description: string;
-  isGenerated: boolean;
+    code: string;
+    description: string;
+    isGenerated: boolean;
 }
 
 export function generateShader(input: string): GeneratedShader | null {
-  const sanitized = sanitizePrompt(input);
-  if (!sanitized) return null;
+    const sanitized = sanitizePrompt(input);
+    if (!sanitized) return null;
 
-  // Find matched components
-  const matchedShapes = findMatchingComponents(sanitized, SHAPE_COMPONENTS);
-  const matchedEffects = findMatchingComponents(sanitized, EFFECT_COMPONENTS);
-  const matchedColor = findColor(sanitized);
+    // Find matched components
+    const matchedShapes = findMatchingComponents(sanitized, SHAPE_COMPONENTS);
+    const matchedEffects = findMatchingComponents(sanitized, EFFECT_COMPONENTS);
+    const matchedColor = findColor(sanitized);
 
-  const hasShape = matchedShapes.length > 0;
-  const hasEffect = matchedEffects.length > 0;
+    const hasShape = matchedShapes.length > 0;
+    const hasEffect = matchedEffects.length > 0;
 
-  // If nothing matched from the composition system, try preset fallback
-  if (!hasShape && !hasEffect && !matchedColor) {
-    const fallback = matchPresetFallback(sanitized);
-    if (fallback) {
-      return {
-        code: fallback.code,
-        description: fallback.description,
-        isGenerated: false,
-      };
+    // If nothing matched from the composition system, try preset fallback
+    if (!hasShape && !hasEffect && !matchedColor) {
+        const fallback = matchPresetFallback(sanitized);
+        if (fallback) {
+            return {
+                code: fallback.code,
+                description: fallback.description,
+                isGenerated: false,
+            };
+        }
+        return null;
     }
-    return null;
-  }
 
-  // Pick best shape (first match) and up to 2 effects
-  const shape = matchedShapes[0] ?? null;
-  const effects = matchedEffects.slice(0, 2);
+    // Pick best shape (first match) and up to 2 effects
+    const shape = matchedShapes[0] ?? null;
+    const effects = matchedEffects.slice(0, 2);
 
-  // Determine if we need noise helpers
-  const needsNoise =
-    (shape?.needsNoise ?? false) || effects.some((e) => e.needsNoise);
-  // Determine if we need rotation helper (for spin effect on shapes)
-  const hasRotation = effects.some((e) => e.name === 'rotation');
-  // Determine if we need hash helper
-  const needsHash =
-    effects.some((e) => e.name === 'particles') ||
-    (shape?.name === 'stars') ||
-    (shape?.name === 'grid');
+    // Determine if we need noise helpers
+    const needsNoise =
+        (shape?.needsNoise ?? false) || effects.some((e) => e.needsNoise);
+    // Determine if we need rotation helper (for spin effect on shapes)
+    const hasRotation = effects.some((e) => e.name === 'rotation');
+    // Determine if we need hash helper
+    const needsHash =
+        effects.some((e) => e.name === 'particles') ||
+        shape?.name === 'stars' ||
+        shape?.name === 'grid';
 
-  // Default color
-  const defaultColor = 'vec3(0.3, 0.6, 1.0)';
-  const colorExpr = matchedColor?.glsl ?? defaultColor;
+    // Default color
+    const defaultColor = 'vec3(0.3, 0.6, 1.0)';
+    const colorExpr = matchedColor?.glsl ?? defaultColor;
 
-  // Build the shader
-  let code = 'precision mediump float;\nuniform float u_time;\nuniform vec2 u_resolution;\n';
+    // Build the shader
+    let code =
+        'precision mediump float;\nuniform float u_time;\nuniform vec2 u_resolution;\n';
 
-  // Add helpers
-  if (needsNoise) {
-    code += GLSL_NOISE_HELPERS + '\n';
-  }
-  if (needsHash) {
-    code += GLSL_HASH_HELPER + '\n';
-  }
-  if (hasRotation) {
-    code += GLSL_ROTATION_HELPER + '\n';
-  }
-
-  // Add component functions
-  if (shape && shape.glsl) {
-    code += shape.glsl + '\n';
-  }
-  for (const eff of effects) {
-    if (eff.glsl) {
-      code += eff.glsl + '\n';
+    // Add helpers
+    if (needsNoise) {
+        code += GLSL_NOISE_HELPERS + '\n';
     }
-  }
+    if (needsHash) {
+        code += GLSL_HASH_HELPER + '\n';
+    }
+    if (hasRotation) {
+        code += GLSL_ROTATION_HELPER + '\n';
+    }
 
-  // Build main()
-  code += '\nvoid main() {\n';
-  code += '  vec2 uv = gl_FragCoord.xy / u_resolution;\n';
-
-  // Color variable — rainbow uses uv (already defined above)
-  code += `  vec3 COLOR = ${colorExpr};\n`;
-
-  code += '  vec3 col = vec3(0.0);\n';
-
-  // Apply rotation to uv if requested (only affects full-screen effects)
-  if (hasRotation) {
-    code += '  vec2 center = vec2(0.5);\n';
-    code += '  uv = (uv - center) * rot2d(u_time * 0.5) + center;\n';
-  }
-
-  // Determine what to render
-  if (shape) {
-    // Render shape
-    // If shape is fullscreen, use uv directly. Otherwise shapes use centered coords.
-    code += shape.mainCall + '\n';
-  }
-
-  if (!shape && hasEffect) {
-    // No shape — render full-screen effect(s)
+    // Add component functions
+    if (shape && shape.glsl) {
+        code += shape.glsl + '\n';
+    }
     for (const eff of effects) {
-      if (eff.mainCall.trim()) {
-        code += eff.mainCall + '\n';
-      }
+        if (eff.glsl) {
+            code += eff.glsl + '\n';
+        }
     }
-  } else if (shape && hasEffect) {
-    // Shape + effect: apply post-processing effects
+
+    // Build main()
+    code += '\nvoid main() {\n';
+    code += '  vec2 uv = gl_FragCoord.xy / u_resolution;\n';
+
+    // Color variable — rainbow uses uv (already defined above)
+    code += `  vec3 COLOR = ${colorExpr};\n`;
+
+    code += '  vec3 col = vec3(0.0);\n';
+
+    // Apply rotation to uv if requested (only affects full-screen effects)
+    if (hasRotation) {
+        code += '  vec2 center = vec2(0.5);\n';
+        code += '  uv = (uv - center) * rot2d(u_time * 0.5) + center;\n';
+    }
+
+    // Determine what to render
+    if (shape) {
+        // Render shape
+        // If shape is fullscreen, use uv directly. Otherwise shapes use centered coords.
+        code += shape.mainCall + '\n';
+    }
+
+    if (!shape && hasEffect) {
+        // No shape — render full-screen effect(s)
+        for (const eff of effects) {
+            if (eff.mainCall.trim()) {
+                code += eff.mainCall + '\n';
+            }
+        }
+    } else if (shape && hasEffect) {
+        // Shape + effect: apply post-processing effects
+        for (const eff of effects) {
+            // Skip fullscreen-only renderers when we already have a shape
+            // (waves, fire, noise produce full output — use them only if no shape)
+            // But particles can overlay on a shape, so allow those
+            if (eff.isFullscreen && eff.name !== 'particles') continue;
+            if (eff.mainCall.trim()) {
+                code += eff.mainCall + '\n';
+            }
+        }
+    }
+
+    // If no shape and no fullscreen effect but we have a color, make a simple gradient
+    if (!shape && !hasEffect) {
+        code += '  float d = length(uv - 0.5);\n';
+        code += '  col = COLOR * (1.0 - d * 0.8);\n';
+        code +=
+            '  col += COLOR * 0.3 * sin(uv.x * 10.0 + u_time) * sin(uv.y * 10.0 + u_time);\n';
+    }
+
+    code += '  gl_FragColor = vec4(col, 1.0);\n';
+    code += '}\n';
+
+    // Build description
+    const parts: string[] = [];
+    if (matchedColor) {
+        parts.push(matchedColor.name);
+    }
+    if (shape) {
+        parts.push(shape.name);
+    }
     for (const eff of effects) {
-      // Skip fullscreen-only renderers when we already have a shape
-      // (waves, fire, noise produce full output — use them only if no shape)
-      // But particles can overlay on a shape, so allow those
-      if (eff.isFullscreen && eff.name !== 'particles') continue;
-      if (eff.mainCall.trim()) {
-        code += eff.mainCall + '\n';
-      }
+        parts.push(eff.name);
     }
-  }
+    const description = parts.length > 0 ? parts.join(' + ') : 'custom shader';
 
-  // If no shape and no fullscreen effect but we have a color, make a simple gradient
-  if (!shape && !hasEffect) {
-    code += '  float d = length(uv - 0.5);\n';
-    code += '  col = COLOR * (1.0 - d * 0.8);\n';
-    code += '  col += COLOR * 0.3 * sin(uv.x * 10.0 + u_time) * sin(uv.y * 10.0 + u_time);\n';
-  }
-
-  code += '  gl_FragColor = vec4(col, 1.0);\n';
-  code += '}\n';
-
-  // Build description
-  const parts: string[] = [];
-  if (matchedColor) {
-    parts.push(matchedColor.name);
-  }
-  if (shape) {
-    parts.push(shape.name);
-  }
-  for (const eff of effects) {
-    parts.push(eff.name);
-  }
-  const description = parts.length > 0 ? parts.join(' + ') : 'custom shader';
-
-  return {
-    code,
-    description: description.charAt(0).toUpperCase() + description.slice(1),
-    isGenerated: true,
-  };
+    return {
+        code,
+        description: description.charAt(0).toUpperCase() + description.slice(1),
+        isGenerated: true,
+    };
 }

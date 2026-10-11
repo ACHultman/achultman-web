@@ -1,57 +1,81 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import Document, {
+    Html,
+    Head,
+    Main,
+    NextScript,
+    DocumentContext,
+} from 'next/document';
 import React from 'react';
 import createEmotionServer from '@emotion/server/create-instance';
 import { ColorModeScript } from '@chakra-ui/react';
 import theme from '../theme';
 import createEmotionCache from '../utils/createEmotionCache';
+import type { MyAppProps } from './_app';
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const originalRenderPage = ctx.renderPage;
+    static async getInitialProps(ctx: DocumentContext) {
+        const originalRenderPage = ctx.renderPage;
 
-    const cache = createEmotionCache();
-    const { extractCriticalToChunks } = createEmotionServer(cache);
+        const cache = createEmotionCache();
+        const { extractCriticalToChunks } = createEmotionServer(cache);
 
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: (App: any) => (props: any) =>
-          <App emotionCache={cache} {...props} />,
-      });
+        ctx.renderPage = () =>
+            originalRenderPage({
+                enhanceApp:
+                    (App: React.ComponentType<MyAppProps>) => (props) => (
+                        <App emotionCache={cache} {...props} />
+                    ),
+            });
 
-    const initialProps = await Document.getInitialProps(ctx);
+        const initialProps = await Document.getInitialProps(ctx);
 
-    const emotionStyles = extractCriticalToChunks(initialProps.html);
-    const emotionStyleTags = emotionStyles.styles.map((style) => (
-      <style
-        data-emotion={`${style.key} ${style.ids.join(' ')}`}
-        key={style.key}
-        dangerouslySetInnerHTML={{ __html: style.css }}
-      />
-    ));
+        const emotionStyles = extractCriticalToChunks(initialProps.html);
+        const emotionStyleTags = emotionStyles.styles.map((style) => (
+            <style
+                data-emotion={`${style.key} ${style.ids.join(' ')}`}
+                key={style.key}
+                dangerouslySetInnerHTML={{ __html: style.css }}
+            />
+        ));
 
-    return {
-      ...initialProps,
-      styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
-    };
-  }
+        return {
+            ...initialProps,
+            styles: [
+                ...React.Children.toArray(initialProps.styles),
+                ...emotionStyleTags,
+            ],
+        };
+    }
 
-  render() {
-    return (
-      <Html lang="en-US">
-        <Head>
-          <meta charSet="utf-8" />
-          <meta name="emotion-insertion-point" content="emotion-insertion-point" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link rel="dns-prefetch" href="https://us.i.posthog.com" />
-          {this.props.styles}
-        </Head>
-        <body>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
+    render() {
+        return (
+            <Html lang="en-US">
+                <Head>
+                    <meta charSet="utf-8" />
+                    <meta
+                        name="emotion-insertion-point"
+                        content="emotion-insertion-point"
+                    />
+                    <link
+                        rel="preconnect"
+                        href="https://fonts.googleapis.com"
+                    />
+                    <link
+                        rel="preconnect"
+                        href="https://fonts.gstatic.com"
+                        crossOrigin="anonymous"
+                    />
+                    <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+                    {this.props.styles}
+                </Head>
+                <body>
+                    <ColorModeScript
+                        initialColorMode={theme.config.initialColorMode}
+                    />
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
+    }
 }

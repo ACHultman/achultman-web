@@ -1,0 +1,15 @@
+.next/
+.vercel/
+.lighthouseci/
+test-results/
+node_modules/
+coverage/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+next-env.d.ts
+growth/
+.claude/
+
+# Imported CMS snapshots retain their original serialized representation.
+src/data/published-writing/

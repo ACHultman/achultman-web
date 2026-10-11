@@ -1,10 +1,11 @@
 import '../main.css';
-import React, { useEffect, useState } from 'react';
+import React, { useSyncExternalStore } from 'react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
+import { MotionConfig } from 'framer-motion';
 
 import createEmotionCache from '../utils/createEmotionCache';
 import theme from '../theme';
@@ -21,24 +22,24 @@ const Analytics = dynamic(
 
 const SpeedInsights = dynamic(
     () =>
-        import('@vercel/speed-insights/next').then(
-            (mod) => mod.SpeedInsights
-        ),
+        import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
     { ssr: false }
 );
 
-interface MyAppProps extends AppProps {
+export interface MyAppProps extends AppProps {
     emotionCache?: EmotionCache;
 }
 
+const subscribeHostname = () => () => {};
+const isRemoteBrowser = () =>
+    !['localhost', '127.0.0.1'].includes(window.location.hostname);
+const serverTelemetry = () => false;
 function SiteTelemetry() {
-    const [shouldLoad, setShouldLoad] = useState(false);
-
-    useEffect(() => {
-        setShouldLoad(
-            !['localhost', '127.0.0.1'].includes(window.location.hostname)
-        );
-    }, []);
+    const shouldLoad = useSyncExternalStore(
+        subscribeHostname,
+        isRemoteBrowser,
+        serverTelemetry
+    );
 
     if (!shouldLoad) return null;
 
@@ -62,11 +63,13 @@ function MyApp({
             <DefaultSeo {...SEO} />
             <SiteTelemetry />
             <ChakraProvider theme={theme} colorModeManager={colorModeManager}>
-                <ErrorBoundary>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </ErrorBoundary>
+                <MotionConfig reducedMotion="user">
+                    <ErrorBoundary>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </ErrorBoundary>
+                </MotionConfig>
             </ChakraProvider>
         </CacheProvider>
     );

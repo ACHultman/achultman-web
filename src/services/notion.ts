@@ -1,9 +1,9 @@
 import { Client } from '@notionhq/client';
 import type {
     PageObjectResponse,
-    QueryDatabaseParameters,
+    QueryDataSourceParameters,
     ListBlockChildrenResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+} from '@notionhq/client';
 import { serverConfig } from '../config';
 import {
     Book,
@@ -27,22 +27,28 @@ import { estimateReadingTime } from '../utils/readingTime';
 import { slugify } from '../utils/slug';
 import { publishedWriting } from './publishedWriting';
 
-const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
+const notion = new Client({
+    auth: serverConfig.NOTION_API_KEY,
+    notionVersion: '2026-03-11',
+});
 
 const MAP_DATABASE_CONFIG: {
     [K in DatabaseName]: {
         id: string | undefined;
-        defaultFilter: QueryDatabaseParameters['filter'];
+        dataSourceId: string | undefined;
+        defaultFilter: QueryDataSourceParameters['filter'];
         formatter: (page: PageObjectResponse) => FormatterReturnType<K> | null;
     };
 } = {
     books: {
         id: serverConfig.NOTION_DATABASE_ID_BOOKS,
+        dataSourceId: serverConfig.NOTION_DATA_SOURCE_ID_BOOKS,
         defaultFilter: undefined,
         formatter: formatBookData,
     },
     blog: {
         id: serverConfig.NOTION_DATABASE_ID_BLOG,
+        dataSourceId: serverConfig.NOTION_DATA_SOURCE_ID_BLOG,
         defaultFilter: {
             property: 'Published',
             date: { is_not_empty: true },
@@ -51,10 +57,43 @@ const MAP_DATABASE_CONFIG: {
     },
     bookmarks: {
         id: serverConfig.NOTION_DATABASE_ID_BOOKMARKS,
+        dataSourceId: serverConfig.NOTION_DATA_SOURCE_ID_BOOKMARKS,
         defaultFilter: undefined,
         formatter: formatBookmarkData,
     },
 };
+
+function sameId(left: string, right: string) {
+    return (
+        left.replaceAll('-', '').toLowerCase() ===
+        right.replaceAll('-', '').toLowerCase()
+    );
+}
+
+async function resolveDataSource(db: DatabaseName): Promise<string> {
+    const { id, dataSourceId } = MAP_DATABASE_CONFIG[db];
+    if (!id) throw new Error(`Missing Notion database for ${db}`);
+    const database = await notion.databases.retrieve({ database_id: id });
+    if (!('data_sources' in database))
+        throw new Error(`Cannot read Notion database for ${db}`);
+    const sources = database.data_sources;
+    if (dataSourceId) {
+        const source = sources.find((source) =>
+            sameId(source.id, dataSourceId)
+        );
+        if (!source)
+            throw new Error(
+                `Configured Notion data source does not belong to ${db}`
+            );
+        return source.id;
+    }
+    if (sources.length !== 1) {
+        throw new Error(
+            `Set NOTION_DATA_SOURCE_ID_${db.toUpperCase()} to select one of this database's data sources`
+        );
+    }
+    return sources[0]!.id;
+}
 
 function formatBookData(book: PageObjectResponse): Book | null {
     if (!pageIsPageObjectResponse(book)) {
@@ -116,8 +155,8 @@ function formatBookmarkData(bookmark: PageObjectResponse): Bookmark | null {
 interface NotionFetchOptions {
     page_size?: number;
     all?: boolean;
-    filter?: QueryDatabaseParameters['filter'];
-    sorts?: QueryDatabaseParameters['sorts'];
+    filter?: QueryDataSourceParameters['filter'];
+    sorts?: QueryDataSourceParameters['sorts'];
 }
 
 function assertBlogPreviewAllowed() {
@@ -154,11 +193,12 @@ export async function fetchNotions<T extends DatabaseName>(
     }
 
     try {
+        const dataSourceId = await resolveDataSource(db);
         const posts: FormatterReturnType<T>[] = [];
         let cursor: string | undefined;
         do {
-            const r = await notion.databases.query({
-                database_id: dbConfig.id,
+            const r = await notion.dataSources.query({
+                data_source_id: dataSourceId,
                 filter: filter ?? dbConfig.defaultFilter,
                 page_size,
                 sorts,
@@ -192,18 +232,29 @@ export async function fetchNotions<T extends DatabaseName>(
 async function listAllBlockChildren(
     blockId: string,
     maxPages = 5,
-    depth = 0
+    depth = 0,
+    budget = { requests: 0, blocks: 0 }
 ): Promise<ListBlockChildrenResponse> {
+    if (++budget.requests > 50)
+        throw new Error('Article exceeds the request limit');
     const first = await notion.blocks.children.list({ block_id: blockId });
+    budget.blocks += first.results.length;
+    if (budget.blocks > 2000)
+        throw new Error('Article exceeds the block limit');
     const results = [...first.results];
 
     let cursor = first.next_cursor;
     let page = 1;
     while (cursor && page < maxPages) {
+        if (++budget.requests > 50)
+            throw new Error('Article exceeds the request limit');
         const next = await notion.blocks.children.list({
             block_id: blockId,
             start_cursor: cursor,
         });
+        budget.blocks += next.results.length;
+        if (budget.blocks > 2000)
+            throw new Error('Article exceeds the block limit');
         results.push(...next.results);
         cursor = next.next_cursor;
         page++;
@@ -220,7 +271,8 @@ async function listAllBlockChildren(
                 const children = await listAllBlockChildren(
                     block.id,
                     maxPages,
-                    depth + 1
+                    depth + 1,
+                    budget
                 );
                 const content = (block as unknown as Record<string, object>)[
                     block.type
@@ -318,6 +370,18 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
         if (!pageIsPageObjectResponse(pageResponse)) {
             return null;
         }
+
+        // Enforce membership here as well as in routes, before reading any body.
+        const parent = pageResponse.parent;
+        const dataSourceId = await resolveDataSource(db);
+        if (
+            parent.type !== 'data_source_id' ||
+            !sameId(parent.data_source_id, dataSourceId) ||
+            pageResponse.archived ||
+            pageResponse.in_trash ||
+            (db === 'blog' && !getDateField(pageResponse, 'Published'))
+        )
+            return null;
 
         const blockChildrenResponse = await listAllBlockChildren(id);
         const filteredBlocks = blockChildrenResponse.results.filter(

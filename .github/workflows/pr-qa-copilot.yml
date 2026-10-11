@@ -14,9 +14,11 @@ jobs:
     critical-journeys:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+              with:
+                  persist-credentials: false
 
-            - uses: ACHultman/pr-qa-copilot@v0
+            - uses: ACHultman/pr-qa-copilot@f14b23a638872a59661c509e89e96ca2c60858ef
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   vercel_protection_bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
@@ -27,4 +29,4 @@ jobs:
                       /workflow-automation-roi-calculator
                   journey_file: .pr-qa-copilot/journeys.json
                   auto_paths: true
-                  fail_on_issues: false
+                  fail_on_issues: true

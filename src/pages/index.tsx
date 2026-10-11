@@ -11,9 +11,9 @@ export default function Index() {
     return (
         <>
             <NextSeo
-                title="Adam Hultman | Software & Independent Products"
+                title="Adam Hultman | Software Engineer in Vancouver"
                 titleTemplate="%s"
-                description="Adam Hultman builds software at Kopperfield and develops independent products through Perspective Labs Inc. Selected work, writing, and contact details."
+                description="Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI."
                 canonical="https://hultman.dev"
             />
             <JsonLd />
@@ -70,7 +70,8 @@ export default function Index() {
                     </div>
                 </div>
                 <p className="work-disciplines">
-                    Web <span>/</span> Mobile <span>/</span> Backend
+                    Web <span aria-hidden="true">/</span> Mobile{' '}
+                    <span aria-hidden="true">/</span> Backend
                 </p>
             </section>
             <section className="perspective-panel">
@@ -102,9 +103,20 @@ export default function Index() {
                         <p className="eyebrow">Writing</p>
                         <h2>Working notes</h2>
                         <p>
-                            Notes on building products, working with AI,
-                            <br className="desktop-break" /> and making better
-                            engineering decisions.
+                            Notes on{' '}
+                            <Link href="/blog#ai-development">
+                                AI-assisted development
+                            </Link>
+                            ,{' '}
+                            <Link href="/blog#react-nextjs">
+                                React and Next.js
+                            </Link>
+                            ,
+                            <br className="desktop-break" /> and{' '}
+                            <Link href="/blog#performance-and-systems">
+                                performance, architecture, and security
+                            </Link>
+                            .
                         </p>
                     </div>
                     <TextLink href="/blog">All writing</TextLink>

@@ -8,6 +8,9 @@ test('navigation stays reachable without moving the page and closes on outside t
     await page.evaluate(() => window.scrollTo(0, 900));
     const menu = page.getByRole('button', { name: 'Open menu', exact: true });
     await expect(menu).toBeInViewport();
+    // Let Playwright finish its tap-target scroll before measuring the menu.
+    // Mobile WebKit's visual viewport can partially clip the sticky toggle.
+    await menu.scrollIntoViewIfNeeded();
     const before = await page.evaluate(() => window.scrollY);
     await menu.tap();
     await expect(page.locator('#mobile-navigation')).toBeVisible();
@@ -142,6 +145,13 @@ test('writing opens a complete readable article with usable next links', async (
     ).toBeVisible();
     await page.setViewportSize({ width: 320, height: 740 });
     await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
+    expect(
+        await page.evaluate(() => document.documentElement.scrollWidth)
+    ).toBeLessThanOrEqual(320);
+    // Font loading and operating-system fallbacks must not break enlarged text.
+    await page.addStyleTag({
+        content: '.site-shell { font-family: Arial, sans-serif !important; }',
+    });
     expect(
         await page.evaluate(() => document.documentElement.scrollWidth)
     ).toBeLessThanOrEqual(320);

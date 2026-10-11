@@ -1,24 +1,16 @@
-import { WithContentValidationProps } from '@9gustin/react-notion-render/dist/hoc/withContentValidation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FiCheck, FiCopy } from 'react-icons/fi';
 import { highlightCode } from '../../utils/highlightCode';
 
-function BlockCode({ block }: WithContentValidationProps) {
+function BlockCode({ text, language }: { text: string; language: string }) {
     const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
-    const timer = useRef<ReturnType<typeof setTimeout>>();
+    const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     useEffect(() => () => clearTimeout(timer.current), []);
 
-    const text =
-        block.content?.text
-            .map((segment) => segment.plain_text || '')
-            .join('') ?? '';
-    const language = block.content?.language || 'Code';
     const highlighted = useMemo(
         () => highlightCode(text, language),
         [text, language]
     );
-
-    if (!block.content) return null;
 
     async function copy() {
         clearTimeout(timer.current);

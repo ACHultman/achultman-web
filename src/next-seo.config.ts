@@ -5,15 +5,15 @@ const baseUrl = getBaseUrl();
 
 const config: NextSeoProps = {
     titleTemplate: '%s | Adam Hultman',
-    defaultTitle: 'Adam Hultman | Software & Independent Products',
+    defaultTitle: 'Adam Hultman | Software Engineer in Vancouver',
     description:
-        'Adam Hultman builds software at Kopperfield and develops independent products through Perspective Labs Inc. Selected work, writing, and contact details.',
+        'Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
-        title: 'Adam Hultman | Software & Independent Products',
+        title: 'Adam Hultman | Software Engineer in Vancouver',
         description:
-            'Adam Hultman builds software at Kopperfield and develops independent products through Perspective Labs Inc. Selected work, writing, and contact details.',
+            'Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI.',
         siteName: 'Adam Hultman',
         images: [
             {

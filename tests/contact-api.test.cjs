@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
@@ -22,13 +21,14 @@ function setup({
     mailError = false,
     telemetryError = false,
     configured = true,
+    limitStatus = 200,
 } = {}) {
     const mail = [],
         events = [];
-    const module = { exports: {} };
+    const testModule = { exports: {} };
     vm.runInNewContext(code, {
-        module,
-        exports: module.exports,
+        module: testModule,
+        exports: testModule.exports,
         process: {
             env: configured
                 ? {
@@ -39,6 +39,13 @@ function setup({
         },
         console: { error() {} },
         require(name) {
+            if (name.endsWith('rate-limit'))
+                return {
+                    checkRateLimit: async () => ({
+                        status: limitStatus,
+                        headers: {},
+                    }),
+                };
             if (name === 'nodemailer')
                 return {
                     createTransport: () => ({
@@ -78,7 +85,16 @@ function setup({
             return this;
         },
     };
-    return { handler: module.exports.default, response, mail, events };
+    return {
+        handler: (request, response) =>
+            testModule.exports.default(
+                { headers: { 'content-type': 'application/json' }, ...request },
+                response
+            ),
+        response,
+        mail,
+        events,
+    };
 }
 const valid = {
     name: 'Taylor <script>\r\nInjected',
@@ -143,4 +159,26 @@ test('missing configuration and unsupported methods fail before SMTP', async () 
     await s.handler({ method: 'GET' }, s.response);
     assert.equal(s.response.code, 405);
     assert.equal(s.mail.length, 0);
+});
+
+test('limiter rejection, timeout, and unsupported media types never reach SMTP', async () => {
+    for (const limitStatus of [429, 503]) {
+        const s = setup({ limitStatus });
+        await s.handler({ method: 'POST', body: valid }, s.response);
+        assert.equal(s.response.code, limitStatus);
+        assert.equal(s.mail.length, 0);
+    }
+    for (const type of [
+        undefined,
+        'text/plain',
+        'application/x-www-form-urlencoded',
+    ]) {
+        const s = setup();
+        await s.handler(
+            { method: 'POST', headers: { 'content-type': type }, body: valid },
+            s.response
+        );
+        assert.equal(s.response.code, 415);
+        assert.equal(s.mail.length, 0);
+    }
 });

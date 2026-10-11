@@ -1,9 +1,10 @@
+import { safeUrl } from './safeUrl';
 import {
     PageObjectResponse,
     PartialPageObjectResponse,
     BlockObjectResponse,
     PartialBlockObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+} from '@notionhq/client';
 
 export function pageIsPageObjectResponse(
     page: PageObjectResponse | PartialPageObjectResponse
@@ -34,10 +35,10 @@ export function getTitle(
 
 export function getCover(page: PageObjectResponse): string | null {
     if (page.cover?.type === 'external') {
-        return page.cover.external.url;
+        return safeUrl(page.cover.external.url) || null;
     }
     if (page.cover?.type === 'file') {
-        return page.cover.file.url || null;
+        return safeUrl(page.cover.file.url) || null;
     }
     return null;
 }
@@ -81,7 +82,7 @@ export function getLink(
     propertyName: string
 ): string {
     if (page.properties[propertyName]?.type === 'url') {
-        return page.properties[propertyName].url || '';
+        return safeUrl(page.properties[propertyName].url, true) || '';
     }
     return '';
 }

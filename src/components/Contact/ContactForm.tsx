@@ -9,7 +9,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { captureEvent } from '../../lib/analytics';
 import { ContactFormField } from './ContactFormField';
 
@@ -22,12 +22,16 @@ type FormData = {
 
 export default function ContactForm() {
     const started = useRef(false);
+    const feedback = useRef<HTMLDivElement>(null);
     const {
         handleSubmit,
         register,
         formState: { errors, isSubmitting },
     } = useForm<FormData>();
     const [status, setStatus] = useState<'idle' | 'error' | 'success'>('idle');
+    useEffect(() => {
+        if (status === 'success') feedback.current?.focus();
+    }, [status]);
     const background = useColorModeValue('paper.50', 'ink.900');
     const border = useColorModeValue('ink.500', 'paper.300');
     const ink = useColorModeValue('ink.900', 'paper.50');
@@ -68,7 +72,7 @@ export default function ContactForm() {
 
     return (
         <Box>
-            <div role="status" aria-live="polite">
+            <div ref={feedback} tabIndex={-1} role="status" aria-live="polite">
                 {status === 'success' && (
                     <Alert status="success" borderRadius="4px">
                         <AlertIcon />
@@ -94,6 +98,7 @@ export default function ContactForm() {
                             error={errors.name?.message}
                         >
                             <Input
+                                type="text"
                                 autoComplete="name"
                                 enterKeyHint="next"
                                 maxLength={100}

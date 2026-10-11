@@ -1,29 +1,29 @@
 export interface DuelResponse {
-  model: string;
-  modelLabel: string;
-  text: string;
-  thinkingTime: string;
+    model: string;
+    modelLabel: string;
+    text: string;
+    thinkingTime: string;
 }
 
 export interface PromptDuel {
-  id: string;
-  category: string;
-  prompt: string;
-  responses: [DuelResponse, DuelResponse];
-  votesA: number;
-  votesB: number;
+    id: string;
+    category: string;
+    prompt: string;
+    responses: [DuelResponse, DuelResponse];
+    votesA: number;
+    votesB: number;
 }
 
 export const PROMPT_DUELS: PromptDuel[] = [
-  {
-    id: 'fizzbuzz-elegant',
-    category: 'Code',
-    prompt: 'Write the most elegant FizzBuzz in Python.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `def fizzbuzz(n):
+    {
+        id: 'fizzbuzz-elegant',
+        category: 'Code',
+        prompt: 'Write the most elegant FizzBuzz in Python.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `def fizzbuzz(n):
     for i in range(1, n + 1):
         output = ""
         if i % 3 == 0:
@@ -33,64 +33,64 @@ export const PROMPT_DUELS: PromptDuel[] = [
         print(output or i)
 
 fizzbuzz(100)`,
-        thinkingTime: '1.2s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `print(*("Fizz"*(i%3==0)+"Buzz"*(i%5==0) or i for i in range(1,101)), sep="\\n")`,
-        thinkingTime: '0.8s',
-      },
-    ],
-    votesA: 156,
-    votesB: 211,
-  },
-  {
-    id: 'haiku-about-debugging',
-    category: 'Creative Writing',
-    prompt: 'Write a haiku about debugging at 3am.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `Stack trace glows bright blue
+                thinkingTime: '1.2s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `print(*("Fizz"*(i%3==0)+"Buzz"*(i%5==0) or i for i in range(1,101)), sep="\\n")`,
+                thinkingTime: '0.8s',
+            },
+        ],
+        votesA: 156,
+        votesB: 211,
+    },
+    {
+        id: 'haiku-about-debugging',
+        category: 'Creative Writing',
+        prompt: 'Write a haiku about debugging at 3am.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `Stack trace glows bright blue
 Coffee cold, the bug hides deep—
 Semicolon. Found.`,
-        thinkingTime: '0.9s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `Three a.m. again
+                thinkingTime: '0.9s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `Three a.m. again
 The error was on line one
 I mass all along`,
-        thinkingTime: '1.1s',
-      },
-    ],
-    votesA: 89,
-    votesB: 134,
-  },
-  {
-    id: 'trolley-problem',
-    category: 'Reasoning',
-    prompt: 'Explain the trolley problem to a 5-year-old.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `Imagine you have a toy train on a track. The train is going really fast toward 5 teddy bears sitting on the track! Oh no!
+                thinkingTime: '1.1s',
+            },
+        ],
+        votesA: 89,
+        votesB: 134,
+    },
+    {
+        id: 'trolley-problem',
+        category: 'Reasoning',
+        prompt: 'Explain the trolley problem to a 5-year-old.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `Imagine you have a toy train on a track. The train is going really fast toward 5 teddy bears sitting on the track! Oh no!
 
 But wait — you can push a lever to make the train go on a different track. The problem is, there's 1 teddy bear sitting on that track.
 
 So here's the hard question: Do you push the lever? You can save 5 teddy bears, but 1 teddy bear would get bumped. Or do you do nothing, and 5 teddy bears get bumped?
 
 There's no wrong answer! It's just a thinking puzzle that even grown-ups disagree about.`,
-        thinkingTime: '2.1s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `OK so picture this: A runaway train is zooming down the tracks! 🚂💨
+                thinkingTime: '2.1s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `OK so picture this: A runaway train is zooming down the tracks! 🚂💨
 
 Five of your stuffed animals are on the tracks ahead. But you're standing next to a special switch.
 
@@ -101,21 +101,21 @@ The big question grown-ups think about: Should you flip the switch?
 Some people say "yes, save more friends!" Others say "but I don't want to choose who gets hurt!"
 
 Both answers are OK. It's a puzzle about being kind when things are tricky.`,
-        thinkingTime: '1.8s',
-      },
-    ],
-    votesA: 102,
-    votesB: 145,
-  },
-  {
-    id: 'vitamin-d-advice',
-    category: 'Health Advice',
-    prompt: 'Should I take vitamin D supplements?',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `It depends on several factors:
+                thinkingTime: '1.8s',
+            },
+        ],
+        votesA: 102,
+        votesB: 145,
+    },
+    {
+        id: 'vitamin-d-advice',
+        category: 'Health Advice',
+        prompt: 'Should I take vitamin D supplements?',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `It depends on several factors:
 
 **When supplementation may help:**
 - You live in a northern latitude (above 37°N) with limited sun exposure
@@ -132,12 +132,12 @@ Both answers are OK. It's a puzzle about being kind when things are tricky.`,
 **Caution:** Excessive vitamin D (>4000 IU/day long-term) can cause calcium buildup. More isn't always better.
 
 *Consult your healthcare provider for personalized advice.*`,
-        thinkingTime: '2.4s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `Great question! Here's the short answer: **maybe, but test first.**
+                thinkingTime: '2.4s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `Great question! Here's the short answer: **maybe, but test first.**
 
 🔬 **The evidence says:**
 - ~42% of US adults are vitamin D deficient
@@ -157,21 +157,21 @@ Both answers are OK. It's a puzzle about being kind when things are tricky.`,
 ⚠️ **Skip the megadoses.** High-dose vitamin D hasn't shown benefits and may increase fall risk in elderly (paradoxically).
 
 **Best move:** Ask your doctor for a blood test. It's cheap and gives you a real answer.`,
-        thinkingTime: '2.8s',
-      },
-    ],
-    votesA: 78,
-    votesB: 198,
-  },
-  {
-    id: 'regex-email',
-    category: 'Code',
-    prompt: 'Write a regex to validate email addresses and explain it.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `Here's a practical email regex:
+                thinkingTime: '2.8s',
+            },
+        ],
+        votesA: 78,
+        votesB: 198,
+    },
+    {
+        id: 'regex-email',
+        category: 'Code',
+        prompt: 'Write a regex to validate email addresses and explain it.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `Here's a practical email regex:
 
 \`\`\`
 ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$
@@ -189,12 +189,12 @@ Both answers are OK. It's a puzzle about being kind when things are tricky.`,
 **Note:** This covers 99% of real-world emails. The actual RFC 5322 spec allows quoted strings, comments, and other rarely-used syntax that would make the regex unreadable.
 
 For production, consider using your language's built-in email validation or a library.`,
-        thinkingTime: '1.5s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `**Honest answer: don't.**
+                thinkingTime: '1.5s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `**Honest answer: don't.**
 
 The "correct" regex for RFC 5322 email is over 6,000 characters long. Any shorter regex will either reject valid emails or accept invalid ones.
 
@@ -224,21 +224,21 @@ If you *must* use regex for a quick check:
 That's it. Anything more complex gives false confidence.
 
 The real validation is: can you deliver mail to it?`,
-        thinkingTime: '1.3s',
-      },
-    ],
-    votesA: 167,
-    votesB: 243,
-  },
-  {
-    id: 'short-story-twist',
-    category: 'Creative Writing',
-    prompt: 'Write a 100-word story with a twist ending.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `**The Last Customer**
+                thinkingTime: '1.3s',
+            },
+        ],
+        votesA: 167,
+        votesB: 243,
+    },
+    {
+        id: 'short-story-twist',
+        category: 'Creative Writing',
+        prompt: 'Write a 100-word story with a twist ending.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `**The Last Customer**
 
 The café closed at midnight, but she always stayed until 12:01. Every night for three years, ordering the same black coffee, reading the same worn book.
 
@@ -253,12 +253,12 @@ Last Tuesday, she didn't come. I found the book on her usual table, a note tucke
 *"Thank you for three years of coffee. The ending finally changed. —Dr. Sarah Chen, Temporal Mechanics Lab, Test Subject #1"*
 
 The book's last page was blank.`,
-        thinkingTime: '3.1s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `**Mirror**
+                thinkingTime: '3.1s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `**Mirror**
 
 Every morning, I wave at my neighbor through our kitchen windows. He waves back. Same coffee mug, same robe, same tired smile.
 
@@ -273,21 +273,21 @@ Last month, the house sold. New family moved in. I waved anyway.
 The mother squinted at me, then called her husband over.
 
 "Why is there a mirror mounted on the outside of this window?"`,
-        thinkingTime: '2.7s',
-      },
-    ],
-    votesA: 134,
-    votesB: 289,
-  },
-  {
-    id: 'explain-git-rebase',
-    category: 'Code',
-    prompt: 'Explain git rebase vs merge like I\'m a junior developer.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `Think of your Git history as a timeline.
+                thinkingTime: '2.7s',
+            },
+        ],
+        votesA: 134,
+        votesB: 289,
+    },
+    {
+        id: 'explain-git-rebase',
+        category: 'Code',
+        prompt: "Explain git rebase vs merge like I'm a junior developer.",
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `Think of your Git history as a timeline.
 
 **Merge** = "Let's combine our work"
 - Creates a new "merge commit" that ties two branches together
@@ -315,12 +315,12 @@ feature:           D'---E'
 - ✅ Rebase your own feature branches before merging
 - ❌ Never rebase shared/public branches
 - When in doubt, merge`,
-        thinkingTime: '1.9s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `OK here's the deal. Both combine code from two branches. The difference is *how*.
+                thinkingTime: '1.9s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `OK here's the deal. Both combine code from two branches. The difference is *how*.
 
 **Merge** is like shuffling two decks of cards together. You keep all the original cards and add a "merged!" card on top. Everyone can see exactly what happened and when.
 
@@ -335,42 +335,42 @@ feature:           D'---E'
 3. Already pushed? Don't rebase unless you know what you're doing.
 
 That's it. Don't overthink it.`,
-        thinkingTime: '2.2s',
-      },
-    ],
-    votesA: 145,
-    votesB: 178,
-  },
-  {
-    id: 'meaning-of-life',
-    category: 'Reasoning',
-    prompt: 'What is the meaning of life? Answer in exactly 3 sentences.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `The meaning of life is not a single answer waiting to be discovered, but a question each person must answer through their choices and relationships. Biologically, we exist to propagate our genes; philosophically, we exist to create meaning where none inherently exists. The most consistent finding across psychology research is that meaning comes from connection, contribution, and the courage to engage fully with our brief time.`,
-        thinkingTime: '1.4s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `There isn't one meaning — there are roughly 8 billion, updated continuously. The question itself is the point: animals don't ask it, and the asking is what makes us human. If forced to answer: find something worth suffering for, then suffer cheerfully.`,
-        thinkingTime: '1.0s',
-      },
-    ],
-    votesA: 167,
-    votesB: 312,
-  },
-  {
-    id: 'sleep-optimization',
-    category: 'Health Advice',
-    prompt: 'How can I optimize my sleep quality?',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `**Evidence-based sleep optimization:**
+                thinkingTime: '2.2s',
+            },
+        ],
+        votesA: 145,
+        votesB: 178,
+    },
+    {
+        id: 'meaning-of-life',
+        category: 'Reasoning',
+        prompt: 'What is the meaning of life? Answer in exactly 3 sentences.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `The meaning of life is not a single answer waiting to be discovered, but a question each person must answer through their choices and relationships. Biologically, we exist to propagate our genes; philosophically, we exist to create meaning where none inherently exists. The most consistent finding across psychology research is that meaning comes from connection, contribution, and the courage to engage fully with our brief time.`,
+                thinkingTime: '1.4s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `There isn't one meaning — there are roughly 8 billion, updated continuously. The question itself is the point: animals don't ask it, and the asking is what makes us human. If forced to answer: find something worth suffering for, then suffer cheerfully.`,
+                thinkingTime: '1.0s',
+            },
+        ],
+        votesA: 167,
+        votesB: 312,
+    },
+    {
+        id: 'sleep-optimization',
+        category: 'Health Advice',
+        prompt: 'How can I optimize my sleep quality?',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `**Evidence-based sleep optimization:**
 
 **High impact (do these first):**
 - **Consistent schedule:** Same wake time daily (±30 min), even weekends. This anchors your circadian rhythm.
@@ -388,12 +388,12 @@ That's it. Don't overthink it.`,
 - Magnesium glycinate (200-400mg) has modest evidence for sleep quality
 
 **Skip:** Melatonin for regular insomnia (it's for circadian shifts, not sleep quality), sleeping pills long-term.`,
-        thinkingTime: '2.6s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `Here's what actually works, ranked by how much effort it takes vs. how much it helps:
+                thinkingTime: '2.6s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `Here's what actually works, ranked by how much effort it takes vs. how much it helps:
 
 🏆 **Tier 1: Free and life-changing**
 - Wake up at the same time every day. Yes, weekends too. This is the #1 thing.
@@ -416,21 +416,21 @@ That's it. Don't overthink it.`,
 - "Sleep hygiene" alone without the schedule fix
 
 The schedule is everything. Start there.`,
-        thinkingTime: '2.3s',
-      },
-    ],
-    votesA: 123,
-    votesB: 201,
-  },
-  {
-    id: 'react-vs-vue',
-    category: 'Code',
-    prompt: 'React vs Vue in 2025 — which should I learn first?',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `**Short answer: React.**
+                thinkingTime: '2.3s',
+            },
+        ],
+        votesA: 123,
+        votesB: 201,
+    },
+    {
+        id: 'react-vs-vue',
+        category: 'Code',
+        prompt: 'React vs Vue in 2025 — which should I learn first?',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `**Short answer: React.**
 
 Not because it's better — but because it has more jobs, more resources, and more transferable concepts.
 
@@ -451,12 +451,12 @@ Not because it's better — but because it has more jobs, more resources, and mo
 - Next.js (React) and Nuxt (Vue) are both production-grade
 
 Learn one well. The second one takes days, not months.`,
-        thinkingTime: '2.0s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `Wrong question. Here's the right one: **"What do I want to build?"**
+                thinkingTime: '2.0s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `Wrong question. Here's the right one: **"What do I want to build?"**
 
 🏢 **Want a job at a big company?** → React. It's the lingua franca. FAANG, startups, agencies — React everywhere. Learn it, learn Next.js, get hired.
 
@@ -469,21 +469,21 @@ Learn one well. The second one takes days, not months.`,
 Pick one. Build 3 projects. Then learn the other in a weekend.
 
 The only wrong answer is spending 6 months comparing frameworks instead of building things.`,
-        thinkingTime: '1.7s',
-      },
-    ],
-    votesA: 156,
-    votesB: 234,
-  },
-  {
-    id: 'climate-individual',
-    category: 'Reasoning',
-    prompt: 'Can individual actions really help with climate change?',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `**Yes, but with important nuance.**
+                thinkingTime: '1.7s',
+            },
+        ],
+        votesA: 156,
+        votesB: 234,
+    },
+    {
+        id: 'climate-individual',
+        category: 'Reasoning',
+        prompt: 'Can individual actions really help with climate change?',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `**Yes, but with important nuance.**
 
 Individual actions matter in two ways:
 
@@ -503,12 +503,12 @@ Combined, these are significant per person but represent ~0.0000001% of global e
 - Local actions aggregate: if 10% of Americans went car-free, that's 80M tons/year
 
 **The evidence suggests:** Individual action is necessary but not sufficient. The biggest individual action is political: voting for climate policy has 1000x the impact of any personal change.`,
-        thinkingTime: '3.2s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `The honest answer is: **it's complicated, and people on both sides oversimplify it.**
+                thinkingTime: '3.2s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `The honest answer is: **it's complicated, and people on both sides oversimplify it.**
 
 ❌ **The "individual action is pointless" crowd ignores:**
 - 72% of emissions come from household consumption decisions (driving, heating, food, stuff)
@@ -527,21 +527,21 @@ Combined, these are significant per person but represent ~0.0000001% of global e
 4. **Don't burn out** — eco-anxiety helps nobody
 
 Skip the guilt. Focus on leverage.`,
-        thinkingTime: '2.8s',
-      },
-    ],
-    votesA: 189,
-    votesB: 267,
-  },
-  {
-    id: 'explain-recursion',
-    category: 'Code',
-    prompt: 'Explain recursion using a real-world analogy.',
-    responses: [
-      {
-        model: 'A',
-        modelLabel: 'Model A',
-        text: `**Recursion is like Russian nesting dolls (matryoshka).**
+                thinkingTime: '2.8s',
+            },
+        ],
+        votesA: 189,
+        votesB: 267,
+    },
+    {
+        id: 'explain-recursion',
+        category: 'Code',
+        prompt: 'Explain recursion using a real-world analogy.',
+        responses: [
+            {
+                model: 'A',
+                modelLabel: 'Model A',
+                text: `**Recursion is like Russian nesting dolls (matryoshka).**
 
 You open a doll and find a smaller doll inside. You open that one — another smaller doll. You keep opening until you find the tiniest doll that doesn't open (the **base case**).
 
@@ -561,12 +561,12 @@ def open_doll(doll):
 2. Otherwise → Open the next one and wait.
 
 That's recursion: a function that calls itself with a smaller version of the same problem, until it hits a case simple enough to solve directly.`,
-        thinkingTime: '1.8s',
-      },
-      {
-        model: 'B',
-        modelLabel: 'Model B',
-        text: `You're in a movie theater. You want to know what row you're in, but it's dark and the rows aren't numbered.
+                thinkingTime: '1.8s',
+            },
+            {
+                model: 'B',
+                modelLabel: 'Model B',
+                text: `You're in a movie theater. You want to know what row you're in, but it's dark and the rows aren't numbered.
 
 You tap the person in front of you: "What row are you in?"
 They don't know either. They tap the person in front of *them*.
@@ -589,12 +589,12 @@ Each person asking the one ahead is your **recursive call**.
 Adding 1 on the way back is your **computation**.
 
 And if nobody is in the front row? That's a **stack overflow**. 💥`,
-        thinkingTime: '1.5s',
-      },
-    ],
-    votesA: 178,
-    votesB: 256,
-  },
+                thinkingTime: '1.5s',
+            },
+        ],
+        votesA: 178,
+        votesB: 256,
+    },
 ];
 
 export const CATEGORIES = [...new Set(PROMPT_DUELS.map((d) => d.category))];

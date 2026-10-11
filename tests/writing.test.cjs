@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
@@ -28,6 +27,13 @@ const published = require('../src/data/published-writing/ai-assisted-development
 const { estimateReadingTime } = load('src/utils/readingTime.ts', {});
 const { isNotionId } = load('src/utils/slug.ts', {});
 function service({ configured = false, client = {}, settings = {} } = {}) {
+    client = {
+        ...client,
+        databases: {
+            retrieve: async () => ({ data_sources: [{ id: 'test-source' }] }),
+            ...client.databases,
+        },
+    };
     return load('src/services/notion.ts', {
         '@notionhq/client': {
             Client: function () {
@@ -51,7 +57,7 @@ function service({ configured = false, client = {}, settings = {} } = {}) {
             isBlockObjectResponse: (value) =>
                 value.object === 'block' && !!value.type,
             getTitle: () => 'Published note',
-            getDateField: () => '2026-01-01',
+            getDateField: (page) => (page.unpublished ? null : '2026-01-01'),
             getCover: () => null,
             getRichText: () => '',
             getTags: () => [],
@@ -78,7 +84,7 @@ test('unconfigured previews use published text and resolve legacy compact IDs', 
 test('an empty configured Notion collection does not resurrect snapshot posts', async () => {
     const api = service({
         configured: true,
-        client: { databases: { query: async () => ({ results: [] }) } },
+        client: { dataSources: { query: async () => ({ results: [] }) } },
     });
     assert.equal((await api.fetchNotions('blog')).length, 0);
 });
@@ -104,7 +110,7 @@ test('Notion remains authoritative after an edit and across every database page'
     const api = service({
         configured: true,
         client: {
-            databases: {
+            dataSources: {
                 query: async (query) => {
                     queries.push(query);
                     return {
@@ -141,7 +147,7 @@ test('CMS outages propagate instead of becoming empty archives or missing articl
     const api = service({
         configured: true,
         client: {
-            databases: {
+            dataSources: {
                 query: async () => {
                     throw outage;
                 },
@@ -172,7 +178,9 @@ test('CMS outages propagate instead of becoming empty archives or missing articl
 });
 
 test('formatted Notion titles and descriptions keep every rich-text segment', () => {
-    const { getTitle, getRichText } = load('src/utils/notion.ts', {});
+    const { getTitle, getRichText } = load('src/utils/notion.ts', {
+        './safeUrl': load('src/utils/safeUrl.ts', {}),
+    });
     const page = {
         properties: {
             Title: {
@@ -288,6 +296,7 @@ test('sitemap and RSS expose the full collection, valid XML, and retryable failu
                 },
                 '../utils/baseUrl': { getBaseUrl },
                 '../utils/xml': { escapeXml },
+                '../data/labPages': load('src/data/labPages.ts', {}),
             });
             const res = response();
             res.write = (body) => {
@@ -317,6 +326,10 @@ test('published articles retain paginated blocks and nested table rows', async (
                 retrieve: async () => ({
                     object: 'page',
                     id: 'published',
+                    parent: {
+                        type: 'data_source_id',
+                        data_source_id: 'test-source',
+                    },
                     properties: {},
                 }),
             },
@@ -431,4 +444,159 @@ test('the public post API preserves the published response shape', async () => {
     assert.equal(res.body.page.title, published.page.title);
     assert.equal(res.body.page.coverImage, null);
     assert.equal(res.body.blocks.results.length, 60);
+});
+
+test('the Notion service refuses foreign, archived, trashed, and unpublished pages before reading blocks', async () => {
+    for (const overrides of [
+        {
+            parent: {
+                type: 'data_source_id',
+                data_source_id: 'private-source',
+            },
+        },
+        { parent: { type: 'page_id', page_id: 'private-page' } },
+        { archived: true },
+        { in_trash: true },
+        { unpublished: true },
+    ]) {
+        let reads = 0;
+        const api = service({
+            configured: true,
+            client: {
+                pages: {
+                    retrieve: async () => ({
+                        object: 'page',
+                        id: 'post',
+                        properties: {},
+                        parent: {
+                            type: 'data_source_id',
+                            data_source_id: 'test-source',
+                        },
+                        ...overrides,
+                    }),
+                },
+                blocks: {
+                    children: {
+                        list: async () => {
+                            reads++;
+                            return { results: [] };
+                        },
+                    },
+                },
+            },
+        });
+        assert.equal(await api.fetchNotion('blog', 'post'), null);
+        assert.equal(reads, 0);
+    }
+});
+
+test('a wide nested Notion document cannot exceed the shared request budget', async () => {
+    let requests = 0;
+    const api = service({
+        configured: true,
+        client: {
+            pages: {
+                retrieve: async () => ({
+                    object: 'page',
+                    id: 'post',
+                    properties: {},
+                    parent: {
+                        type: 'data_source_id',
+                        data_source_id: 'test-source',
+                    },
+                }),
+            },
+            blocks: {
+                children: {
+                    list: async ({ block_id }) => {
+                        requests++;
+                        return {
+                            results:
+                                block_id === 'post'
+                                    ? Array.from({ length: 100 }, (_, i) => ({
+                                          object: 'block',
+                                          id: `child-${i}`,
+                                          type: 'paragraph',
+                                          has_children: true,
+                                          paragraph: { rich_text: [] },
+                                      }))
+                                    : [],
+                        };
+                    },
+                },
+            },
+        },
+    });
+    await assert.rejects(api.fetchNotion('blog', 'post'), /request limit/);
+    assert.ok(requests <= 50);
+});
+
+test('Notion resolves the configured database to a data source and queries that source', async () => {
+    const queries = [];
+    const api = service({
+        configured: true,
+        client: {
+            dataSources: {
+                query: async (query) => {
+                    queries.push(query);
+                    return { results: [] };
+                },
+            },
+        },
+    });
+    await api.fetchNotions('blog');
+    assert.equal(queries[0].data_source_id, 'test-source');
+    assert.equal('database_id' in queries[0], false);
+});
+
+test('multiple Notion sources require an explicit selection belonging to the database', async () => {
+    const client = {
+        databases: {
+            retrieve: async () => ({
+                data_sources: [{ id: 'first' }, { id: 'second' }],
+            }),
+        },
+        dataSources: {
+            query: async (query) => {
+                assert.equal(query.data_source_id, 'second');
+                return { results: [] };
+            },
+        },
+    };
+    await assert.rejects(
+        service({ configured: true, client }).fetchNotions('blog'),
+        /NOTION_DATA_SOURCE_ID_BLOG/
+    );
+    await assert.rejects(
+        service({
+            configured: true,
+            client,
+            settings: { NOTION_DATA_SOURCE_ID_BLOG: 'foreign' },
+        }).fetchNotions('blog'),
+        /does not belong/
+    );
+    assert.equal(
+        (
+            await service({
+                configured: true,
+                client,
+                settings: { NOTION_DATA_SOURCE_ID_BLOG: 'second' },
+            }).fetchNotions('blog')
+        ).length,
+        0
+    );
+});
+
+test('Notion discovery failures do not fall back to public fixtures', async () => {
+    const api = service({
+        configured: true,
+        client: {
+            databases: {
+                retrieve: async () => {
+                    throw new Error('Discovery unavailable');
+                },
+            },
+        },
+    });
+    await assert.rejects(api.fetchNotions('blog'), /Discovery unavailable/);
 });

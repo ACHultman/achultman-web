@@ -3,7 +3,36 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
 
+// Hash the exact Chakra bootstrap so static pages need no unsafe-inline scripts.
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { createHash } = require('node:crypto');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { getScriptSrc } = require('@chakra-ui/react');
+const colorModeHash = createHash('sha256')
+    .update(getScriptSrc({ initialColorMode: 'light' }))
+    .digest('base64');
+const development = process.env.NODE_ENV === 'development';
+const contentSecurityPolicy = [
+    "default-src 'self'",
+    `script-src 'self' ${development ? "'unsafe-inline' 'unsafe-eval'" : `'sha256-${colorModeHash}'`} https://va.vercel-scripts.com`,
+    "script-src-attr 'none'",
+    // Emotion and Chakra generate inline styles, including dynamic positioning.
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' https: data: blob:",
+    "font-src 'self'",
+    `connect-src 'self' https://vitals.vercel-insights.com https://us.i.posthog.com ${development ? 'ws: wss:' : ''}`,
+    "media-src 'self' https: blob:",
+    "worker-src 'self' blob:",
+    "frame-src 'none'",
+    "object-src 'none'",
+    "base-uri 'none'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    ...(development ? [] : ['upgrade-insecure-requests']),
+].join('; ');
+
 module.exports = withBundleAnalyzer({
+    poweredByHeader: false,
     serverExternalPackages: ['next-seo'],
     // This is required to support PostHog trailing slash API requests
     skipTrailingSlashRedirect: true,
@@ -19,96 +48,18 @@ module.exports = withBundleAnalyzer({
             },
         ];
     },
-    images: {
-        remotePatterns: [
-            // Book covers — Wiley
-            { protocol: 'https', hostname: 'media.wiley.com', pathname: '/**' },
-            {
-                protocol: 'https',
-                hostname: 'images.wiley.com',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.wiley.com.au',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.wiley.com.au.s3.amazonaws.com',
-                pathname: '/**',
-            },
-            // Book covers — O'Reilly
-            {
-                protocol: 'https',
-                hostname: 'learning.oreilly.com',
-                pathname: '/**',
-            },
-            // Book covers — Amazon
-            {
-                protocol: 'https',
-                hostname: 'images-na.ssl-images-amazon.com',
-                pathname: '/**',
-            },
-            // Bookmark / blog covers — GitHub
-            { protocol: 'https', hostname: 'github.com', pathname: '/**' },
-            {
-                protocol: 'https',
-                hostname: 'repository-images.githubusercontent.com',
-                pathname: '/**',
-            },
-            // Bookmark / blog covers — Google Storage
-            {
-                protocol: 'https',
-                hostname: 'storage.googleapis.com',
-                pathname: '/**',
-            },
-            // Notion cover images
-            {
-                protocol: 'https',
-                hostname: 's3.us-west-2.amazonaws.com',
-                pathname: '/secure.notion-static.com/**',
-            },
-            // Newer Notion workspaces serve uploaded files from this host —
-            // missing it 400s uploaded covers the same way app.notion.com did.
-            {
-                protocol: 'https',
-                hostname: 'prod-files-secure.s3.us-east-1.amazonaws.com',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 's3.us-east-1.amazonaws.com',
-                pathname: '/secure.notion-static.com/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'secure.notion-static.com',
-                pathname: '/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'www.notion.so',
-                pathname: '/images/page-cover/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'app.notion.com',
-                pathname: '/images/page-cover/**',
-            },
-            {
-                protocol: 'https',
-                hostname: 'images.unsplash.com',
-                pathname: '/**',
-            },
-        ],
-    },
+    // CMS images load in the browser; only local assets use the server optimizer.
+    images: { remotePatterns: [], dangerouslyAllowSVG: false },
     async headers() {
         return [
             {
                 // Security headers on all routes
                 source: '/:path*',
                 headers: [
+                    {
+                        key: 'Content-Security-Policy',
+                        value: contentSecurityPolicy,
+                    },
                     { key: 'X-Content-Type-Options', value: 'nosniff' },
                     { key: 'X-Frame-Options', value: 'DENY' },
                     {
@@ -121,7 +72,16 @@ module.exports = withBundleAnalyzer({
                     },
                     {
                         key: 'Permissions-Policy',
-                        value: 'camera=(), microphone=(), geolocation=()',
+                        value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+                    },
+                ],
+            },
+            {
+                source: '/labs/shader-playground',
+                headers: [
+                    {
+                        key: 'Permissions-Policy',
+                        value: 'camera=(), microphone=(self), geolocation=(), payment=(), usb=()',
                     },
                 ],
             },
