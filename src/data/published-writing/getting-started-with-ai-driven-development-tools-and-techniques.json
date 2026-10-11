@@ -1,0 +1,1380 @@
+{
+  "page": {
+    "id": "1244d7b8-9add-8005-b44b-e83904135859",
+    "slug": "getting-started-with-ai-driven-development-tools-and-techniques",
+    "title": "Getting started with AI-driven development: tools and techniques",
+    "publishedDate": "2024-10-18",
+    "tags": [
+      "AI",
+      "Development"
+    ],
+    "description": "A beginner-friendly look at using AI tools to write, review, debug, and ship software more effectively.",
+    "cover": null,
+    "url": "https://app.notion.com/p/Getting-started-with-AI-driven-development-tools-and-techniques-1244d7b89add8005b44be83904135859",
+    "created_time": "2024-10-19T00:38:00.000Z",
+    "last_edited_time": "2026-06-15T21:36:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8044-b71e-d646ed7dd461",
+        "created_time": "2024-10-19T00:41:00.000Z",
+        "last_edited_time": "2024-10-19T01:50:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Overview of Popular AI Tools",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Overview of Popular AI Tools",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-809c-9c4c-ed7b613d9485",
+        "created_time": "2024-10-19T01:50:00.000Z",
+        "last_edited_time": "2024-10-19T01:50:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The AI revolution isn’t just about building new apps with machine learning; it’s about making our own development processes smoother. Think of these tools as the new power tools in your developer toolbox—ready to help with coding, debugging, and even understanding codebases faster.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The AI revolution isn’t just about building new apps with machine learning; it’s about making our own development processes smoother. Think of these tools as the new power tools in your developer toolbox—ready to help with coding, debugging, and even understanding codebases faster.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-809a-8958-f33903e2b2d0",
+        "created_time": "2024-10-19T01:50:00.000Z",
+        "last_edited_time": "2024-10-19T01:50:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "GitHub Copilot",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "GitHub Copilot",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " is perhaps the most well-known among these. It’s like an assistant that sits right inside your code editor, suggesting whole lines or blocks of code as you type. The beauty of Copilot is that it understands the context of your code—whether you’re working on a JavaScript function, writing a SQL query, or even documenting a Python class, it tries to anticipate your next step. It’s trained on public repositories, so it’s pretty good at recognizing common patterns and best practices.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " is perhaps the most well-known among these. It’s like an assistant that sits right inside your code editor, suggesting whole lines or blocks of code as you type. The beauty of Copilot is that it understands the context of your code—whether you’re working on a JavaScript function, writing a SQL query, or even documenting a Python class, it tries to anticipate your next step. It’s trained on public repositories, so it’s pretty good at recognizing common patterns and best practices.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-807e-b630-fe5625bfaad8",
+        "created_time": "2024-10-19T01:50:00.000Z",
+        "last_edited_time": "2024-10-19T01:50:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "ChatGPT",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "ChatGPT",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", on the other hand, serves as a conversation partner for complex problem-solving. It’s ideal when you’re trying to understand a tricky algorithm or need advice on software architecture. For example, you can ask ChatGPT things like, “How should I structure a RESTful API in Node.js?” or “What’s the best approach for implementing caching in this scenario?” It’s like having a senior engineer who’s always available to chat, offering suggestions and explanations that can save you time and frustration.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", on the other hand, serves as a conversation partner for complex problem-solving. It’s ideal when you’re trying to understand a tricky algorithm or need advice on software architecture. For example, you can ask ChatGPT things like, “How should I structure a RESTful API in Node.js?” or “What’s the best approach for implementing caching in this scenario?” It’s like having a senior engineer who’s always available to chat, offering suggestions and explanations that can save you time and frustration.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80dd-bcbd-f72e8d859426",
+        "created_time": "2024-10-19T01:50:00.000Z",
+        "last_edited_time": "2024-10-19T01:50:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Then there’s ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Then there’s ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Hugging Face",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Hugging Face",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", which offers easy access to a whole ecosystem of AI models. While it’s best known for natural language processing (NLP), it’s a goldmine for developers who want to quickly integrate things like language translation or sentiment analysis into their apps. But beyond that, Hugging Face’s model hub can even be used to fine-tune models that might help in code analysis or automating documentation generation.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", which offers easy access to a whole ecosystem of AI models. While it’s best known for natural language processing (NLP), it’s a goldmine for developers who want to quickly integrate things like language translation or sentiment analysis into their apps. But beyond that, Hugging Face’s model hub can even be used to fine-tune models that might help in code analysis or automating documentation generation.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80fc-9769-fa59c8ff2afc",
+        "created_time": "2024-10-19T00:41:00.000Z",
+        "last_edited_time": "2024-10-19T01:51:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "How AI Enhances Coding: Practical Use Cases",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "How AI Enhances Coding: Practical Use Cases",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-801c-b993-d6c3341e7d55",
+        "created_time": "2024-10-19T01:51:00.000Z",
+        "last_edited_time": "2024-10-19T01:51:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you’ve ever felt that a lot of coding is just ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you’ve ever felt that a lot of coding is just ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "grunt work",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "grunt work",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", AI is here to lighten the load. But it’s not just about speed—it’s about getting the tedious parts out of the way so you can focus on the creative, problem-solving aspects of development.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", AI is here to lighten the load. But it’s not just about speed—it’s about getting the tedious parts out of the way so you can focus on the creative, problem-solving aspects of development.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80c7-ad25-d62cdfad930c",
+        "created_time": "2024-10-19T01:51:00.000Z",
+        "last_edited_time": "2024-10-19T01:51:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "1. Writing Boilerplate Code",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "1. Writing Boilerplate Code",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ":\nEver feel like you’re writing the same getter and setter functions over and over? Tools like Copilot can handle that. For instance, if you start typing out a class in JavaScript, Copilot will often suggest the standard methods you’ll need. This can shave minutes off each task, which quickly adds up when you’re working on a large project.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ":\nEver feel like you’re writing the same getter and setter functions over and over? Tools like Copilot can handle that. For instance, if you start typing out a class in JavaScript, Copilot will often suggest the standard methods you’ll need. This can shave minutes off each task, which quickly adds up when you’re working on a large project.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8050-bbdb-e74a805767e5",
+        "created_time": "2024-10-19T01:51:00.000Z",
+        "last_edited_time": "2024-10-19T01:51:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "2. Debugging with AI Insights",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "2. Debugging with AI Insights",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ":\nOne of the most time-consuming parts of development is finding out why your code isn’t working as expected. While Copilot can suggest code, ChatGPT can help analyze what might be going wrong. For example, you can paste an error message into ChatGPT and ask, “What does this error mean in the context of a React app?” The responses can often point you in the right direction before you even need to hit up Stack Overflow.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ":\nOne of the most time-consuming parts of development is finding out why your code isn’t working as expected. While Copilot can suggest code, ChatGPT can help analyze what might be going wrong. For example, you can paste an error message into ChatGPT and ask, “What does this error mean in the context of a React app?” The responses can often point you in the right direction before you even need to hit up Stack Overflow.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80f2-8a7c-ec8c15b4c2d8",
+        "created_time": "2024-10-19T01:51:00.000Z",
+        "last_edited_time": "2024-10-19T01:51:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "3. Code Refactoring and Optimization",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "3. Code Refactoring and Optimization",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ":\nLet’s say you have a chunk of code that’s functional but messy. Maybe it’s a loop that could be replaced with a more efficient algorithm, or a long-winded function that could be broken down into smaller parts. ChatGPT and tools like Copilot can suggest refactoring methods that not only make your code cleaner but also improve performance. It’s like a second set of eyes—ones that have seen a lot of code.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ":\nLet’s say you have a chunk of code that’s functional but messy. Maybe it’s a loop that could be replaced with a more efficient algorithm, or a long-winded function that could be broken down into smaller parts. ChatGPT and tools like Copilot can suggest refactoring methods that not only make your code cleaner but also improve performance. It’s like a second set of eyes—ones that have seen a lot of code.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8074-9662-cb541fe4be65",
+        "created_time": "2024-10-19T00:42:00.000Z",
+        "last_edited_time": "2024-10-19T01:51:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Using ChatGPT to Improve Your Workflow",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Using ChatGPT to Improve Your Workflow",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80ab-8fae-c19660cb0ee0",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You don’t need to create custom applications or integrate APIs to make use of AI in your development process. Sometimes, simply asking the right questions in ChatGPT can be the key to unlocking new insights.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You don’t need to create custom applications or integrate APIs to make use of AI in your development process. Sometimes, simply asking the right questions in ChatGPT can be the key to unlocking new insights.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-806b-92b9-e6ef4134f03a",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "1. Problem-Solving and Troubleshooting",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "1. Problem-Solving and Troubleshooting",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ":\nIf you’re stuck on a specific problem—like optimizing a query or figuring out why a certain piece of logic isn’t working—ChatGPT can be incredibly helpful. It’s like having a knowledgeable colleague who’s always ready to brainstorm. For example, you might ask:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ":\nIf you’re stuck on a specific problem—like optimizing a query or figuring out why a certain piece of logic isn’t working—ChatGPT can be incredibly helpful. It’s like having a knowledgeable colleague who’s always ready to brainstorm. For example, you might ask:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80e1-88a2-c51264eb3b37",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "quote",
+        "quote": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "“What’s the best way to handle pagination in a large dataset using MongoDB?”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "“What’s the best way to handle pagination in a large dataset using MongoDB?”",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8027-b8b7-d8879641fd59",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "And ChatGPT can walk you through the logic, suggest approaches like using ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "And ChatGPT can walk you through the logic, suggest approaches like using ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "skip",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "skip",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "limit",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "limit",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", or even recommend other methods like using cursors for better performance.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", or even recommend other methods like using cursors for better performance.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80e0-a03a-edfe4f7d3efa",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "2. Understanding New Concepts Quickly",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "2. Understanding New Concepts Quickly",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ":\nWhen you’re diving into a new technology or library, ChatGPT can help you get up to speed faster. Instead of sifting through documentation, you can ask direct questions like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ":\nWhen you’re diving into a new technology or library, ChatGPT can help you get up to speed faster. Instead of sifting through documentation, you can ask direct questions like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-801d-8c24-e3c8ff7bc25b",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "quote",
+        "quote": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "“How does React’s useMemo hook work?”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "“How does React’s useMemo hook work?”",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8015-b43b-ed211bbd38b8",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "ChatGPT will often provide a concise summary along with practical examples, saving you from having to parse through several articles or tutorials. It’s not about skipping the learning process, but about getting the essentials faster so you can focus on applying them.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "ChatGPT will often provide a concise summary along with practical examples, saving you from having to parse through several articles or tutorials. It’s not about skipping the learning process, but about getting the essentials faster so you can focus on applying them.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80a2-8d78-d4099da03025",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "3. Generating Code Snippets on the Fly",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "3. Generating Code Snippets on the Fly",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ":\nWhile Copilot can be great for code suggestions within your editor, sometimes you need a quick snippet that isn’t tied to a particular file. For example, you can ask ChatGPT:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ":\nWhile Copilot can be great for code suggestions within your editor, sometimes you need a quick snippet that isn’t tied to a particular file. For example, you can ask ChatGPT:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8068-9be2-d09870216733",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "quote",
+        "quote": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "“Write a function in JavaScript that converts RGB values to a hex code.”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "“Write a function in JavaScript that converts RGB values to a hex code.”",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8097-bbcb-ca927051a809",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Within seconds, you get a complete function that’s ready to drop into your codebase:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Within seconds, you get a complete function that’s ready to drop into your codebase:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8028-94b5-caa4252c2226",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "function rgbToHex(r, g, b) {\n    return \"#\" + [r, g, b]\n        .map(x => {\n            const hex = x.toString(16);\n            return hex.length === 1 ? \"0\" + hex : hex;\n        })\n        .join(\"\");\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "function rgbToHex(r, g, b) {\n    return \"#\" + [r, g, b]\n        .map(x => {\n            const hex = x.toString(16);\n            return hex.length === 1 ? \"0\" + hex : hex;\n        })\n        .join(\"\");\n}",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80d8-9964-cbfe3b63123b",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This can be a huge time-saver, especially when you’re working on small tasks that don’t necessarily require the full setup of an IDE.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This can be a huge time-saver, especially when you’re working on small tasks that don’t necessarily require the full setup of an IDE.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-807d-86f1-c500bdefb5c6",
+        "created_time": "2024-10-19T00:43:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Best Practices for Using AI in Development",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Best Practices for Using AI in Development",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8003-9ab7-ea70014f49c9",
+        "created_time": "2024-10-19T01:31:00.000Z",
+        "last_edited_time": "2024-10-19T01:34:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "image",
+        "image": {
+          "caption": [
+            {
+              "type": "text",
+              "text": {
+                "content": "GIF: Uncle Ben from Spiderman",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "GIF: Uncle Ben from Spiderman",
+              "href": null
+            }
+          ],
+          "type": "external",
+          "external": {
+            "url": "https://media4.giphy.com/media/MCZ39lz83o5lC/giphy.gif?cid=7941fdc60bh03n42mifn7h7ahueueyvkyad1a5yzo8v6mpio&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+          }
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-807f-9357-db8d212a29e1",
+        "created_time": "2024-10-19T01:15:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Of course, with great power comes the need for responsibility (thanks, Spider-Man). ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Of course, with great power comes the need for responsibility (thanks, Spider-Man). ",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80a2-abdc-fab3ba95bac9",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "With all these tools at your disposal, it’s easy to get excited and use them everywhere. But AI is most effective when you treat it like a tool, not a crutch. Here are a few things to keep in mind:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "With all these tools at your disposal, it’s easy to get excited and use them everywhere. But AI is most effective when you treat it like a tool, not a crutch. Here are a few things to keep in mind:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8005-bcb5-e3c1394ee075",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Don’t Rely Blindly on Suggestions",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Don’t Rely Blindly on Suggestions",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ": Copilot and ChatGPT are great at suggesting code, but they don’t always understand the full context of your project. Use their suggestions as a starting point, and refine them to fit your specific needs.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ": Copilot and ChatGPT are great at suggesting code, but they don’t always understand the full context of your project. Use their suggestions as a starting point, and refine them to fit your specific needs.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80e5-b794-f37f9d7e6bdb",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Keep Security in Mind",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Keep Security in Mind",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ": AI can suggest code that might be insecure if used directly. Always review any AI-generated code for potential vulnerabilities, especially when it comes to handling user input or sensitive data.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ": AI can suggest code that might be insecure if used directly. Always review any AI-generated code for potential vulnerabilities, especially when it comes to handling user input or sensitive data.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-8071-a486-ff0b37ddc51c",
+        "created_time": "2024-10-19T01:52:00.000Z",
+        "last_edited_time": "2024-10-19T01:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Balance Speed with Thoughtfulness",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Balance Speed with Thoughtfulness",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ": It’s tempting to use AI to speed through a project, but don’t forget to take a step back and understand what’s happening under the hood. After all, part of the joy of coding is the “aha!” moments that come from solving a tricky problem yourself.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ": It’s tempting to use AI to speed through a project, but don’t forget to take a step back and understand what’s happening under the hood. After all, part of the joy of coding is the “aha!” moments that come from solving a tricky problem yourself.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-80f4-9c32-fea1f937eedf",
+        "created_time": "2024-10-19T01:16:00.000Z",
+        "last_edited_time": "2024-10-19T01:16:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1244d7b8-9add-804d-a68e-c08f13c17df0",
+        "created_time": "2024-10-19T00:43:00.000Z",
+        "last_edited_time": "2024-10-19T01:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In a world where deadlines are always looming, AI tools like Copilot, ChatGPT, and Hugging Face can make a real difference. They let you focus on solving the big problems while automating the mundane. By using these tools wisely, you can become not just a faster developer, but a better one.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In a world where deadlines are always looming, AI tools like Copilot, ChatGPT, and Hugging Face can make a real difference. They let you focus on solving the big problems while automating the mundane. By using these tools wisely, you can become not just a faster developer, but a better one.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "f9e5ba14-8095-49c0-ac05-0eaf0f4180cf"
+  }
+}

@@ -5,8 +5,6 @@ on:
         branches:
             - main
     pull_request:
-        branches:
-            - main
 
 permissions:
     contents: read
@@ -18,19 +16,23 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+              with:
+                  persist-credentials: false
 
             - name: Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
               with:
-                  node-version: 20.x
+                  node-version: 24.x
                   cache: 'npm'
 
             - name: Install dependencies
+              env:
+                  PUPPETEER_SKIP_DOWNLOAD: true
               run: npm ci
 
-            - name: Audit production dependencies
-              run: npm audit --omit=dev --audit-level=critical
+            - name: Audit all dependencies
+              run: npm audit --audit-level=low
 
             - name: Get Vercel deployment URL
               id: vercel_deployment
@@ -58,21 +60,23 @@ jobs:
                   exit 1
 
             - name: Confirm deployment URL
-              run: echo "Deployment ready at ${{ steps.vercel_deployment.outputs.url }}"
+              env:
+                  DEPLOYMENT_URL: ${{ steps.vercel_deployment.outputs.url }}
+              run: printf 'Deployment ready at %s\n' "$DEPLOYMENT_URL"
+
+            - name: Install audit browser
+              run: npx playwright install --with-deps chromium
 
             - name: Run Lighthouse CI
-              uses: treosh/lighthouse-ci-action@v12
               env:
                   VERCEL_ENV: preview
                   VERCEL_PREVIEW_URL: ${{ steps.vercel_deployment.outputs.url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-              with:
-                  urls: ${{ steps.vercel_deployment.outputs.url }}
-                  configPath: .lighthouserc.js
+              run: npx --no-install lhci autorun --config=.lighthouserc.js
 
-            - name: Run Pa11y CI
+            - name: Run accessibility checks
               env:
                   CI: true
                   VERCEL_PREVIEW_URL: ${{ steps.vercel_deployment.outputs.url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-              run: npx pa11y-ci --config .pa11yci.js
+              run: npm run a11y -- --workers=2

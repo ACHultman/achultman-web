@@ -1,24 +1,56 @@
-import { WithContentValidationProps } from '@9gustin/react-notion-render/dist/hoc/withContentValidation';
-import { Box } from '@chakra-ui/react';
-import { CopyBlock, dracula } from 'react-code-blocks';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { FiCheck, FiCopy } from 'react-icons/fi';
+import { highlightCode } from '../../utils/highlightCode';
 
-function BlockCode({ block }: WithContentValidationProps) {
-    if (!block.content) {
-        return null;
+function BlockCode({ text, language }: { text: string; language: string }) {
+    const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+    const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    useEffect(() => () => clearTimeout(timer.current), []);
+
+    const highlighted = useMemo(
+        () => highlightCode(text, language),
+        [text, language]
+    );
+
+    async function copy() {
+        clearTimeout(timer.current);
+        try {
+            await navigator.clipboard.writeText(text);
+            setStatus('copied');
+        } catch {
+            setStatus('error');
+        }
+        timer.current = setTimeout(() => setStatus('idle'), 3000);
     }
 
     return (
-        <Box mb="1.5rem">
-            <CopyBlock
-                text={block.content.text
-                    .map((text) => text.plain_text || '')
-                    .join('\n')}
-                language={block.content.language || ''}
-                theme={dracula}
-                showLineNumbers
-                codeBlock
-            />
-        </Box>
+        <div className="code-block">
+            <div className="code-toolbar">
+                <span>{language}</span>
+                <button type="button" onClick={copy} aria-label="Copy code">
+                    {status === 'copied' ? (
+                        <FiCheck aria-hidden="true" />
+                    ) : (
+                        <FiCopy aria-hidden="true" />
+                    )}
+                    <span aria-live="polite">
+                        {status === 'copied'
+                            ? 'Copied'
+                            : status === 'error'
+                              ? 'Select code to copy'
+                              : 'Copy'}
+                    </span>
+                </button>
+            </div>
+            <pre tabIndex={0} aria-label={`${language} code`}>
+                {highlighted ? (
+                    // Prism escapes source text before emitting token spans.
+                    <code dangerouslySetInnerHTML={{ __html: highlighted }} />
+                ) : (
+                    <code>{text}</code>
+                )}
+            </pre>
+        </div>
     );
 }
 

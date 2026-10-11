@@ -5,22 +5,22 @@ const baseUrl = getBaseUrl();
 
 const config: NextSeoProps = {
     titleTemplate: '%s | Adam Hultman',
-    defaultTitle: 'Custom software development | Adam Hultman',
+    defaultTitle: 'Adam Hultman | Software Engineer in Vancouver',
     description:
-        'I build internal tools, AI features and web products. Based in Vancouver. Independent projects from $5,000 USD.',
+        'Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
-        title: 'Custom software development | Adam Hultman',
+        title: 'Adam Hultman | Software Engineer in Vancouver',
         description:
-            'I build internal tools, AI features and web products. Based in Vancouver. Independent projects from $5,000 USD.',
+            'Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI.',
         siteName: 'Adam Hultman',
         images: [
             {
                 url: `${baseUrl}/og_homepage.png`,
                 width: 1200,
                 height: 630,
-                alt: 'Adam Hultman, full-stack engineer and software consultant',
+                alt: 'Adam Hultman | Software & Independent Products',
             },
         ],
     },
@@ -31,7 +31,7 @@ const config: NextSeoProps = {
     additionalMetaTags: [
         {
             name: 'theme-color',
-            content: '#536647',
+            content: '#182D28',
         },
     ],
     additionalLinkTags: [
@@ -47,7 +47,7 @@ const config: NextSeoProps = {
         {
             rel: 'mask-icon',
             href: '/safari-pinned-tab.svg',
-            color: '#536647',
+            color: '#182D28',
         },
         {
             rel: 'icon',

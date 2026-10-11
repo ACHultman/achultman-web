@@ -1,0 +1,2581 @@
+{
+  "page": {
+    "id": "1284d7b8-9add-8064-a993-d268ec515f88",
+    "slug": "optimizing-frontend-performance-beyond-lighthouse-scores",
+    "title": "Optimizing frontend performance: beyond Lighthouse scores",
+    "publishedDate": "2024-10-23",
+    "tags": [
+      "Frontend",
+      "Webpack",
+      "Optimization"
+    ],
+    "description": "How to improve real user performance in React apps through bundle analysis, hydration fixes, code-splitting, and runtime profiling.",
+    "cover": null,
+    "url": "https://app.notion.com/p/Optimizing-frontend-performance-beyond-Lighthouse-scores-1284d7b89add8064a993d268ec515f88",
+    "created_time": "2024-10-23T07:41:00.000Z",
+    "last_edited_time": "2026-06-15T22:17:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80fc-917e-d71869a26dde",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Lighthouse scores are often the go-to metric for evaluating a website’s performance. While they provide a great starting point, truly optimizing your frontend goes beyond what Lighthouse can measure. Real-world performance involves understanding how browsers render content, optimizing bundle size, and ensuring that your app is as fast as possible for users on all devices and networks. In this post, we'll look into techniques like bundle analysis, optimizing hydration, critical CSS, and code-splitting to make your apps snappier and more responsive.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Lighthouse scores are often the go-to metric for evaluating a website’s performance. While they provide a great starting point, truly optimizing your frontend goes beyond what Lighthouse can measure. Real-world performance involves understanding how browsers render content, optimizing bundle size, and ensuring that your app is as fast as possible for users on all devices and networks. In this post, we'll look into techniques like bundle analysis, optimizing hydration, critical CSS, and code-splitting to make your apps snappier and more responsive.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80f6-9f4d-caddbf760bbe",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8030-8e42-e32643b883e2",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_3",
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Lighthouse: A Good Start, But Not the Whole Story",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Lighthouse: A Good Start, But Not the Whole Story",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80df-a409-cfcad6c81506",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Lighthouse is a fantastic tool that gives you a quick overview of your web app’s performance. It scores your app on aspects like ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Lighthouse is a fantastic tool that gives you a quick overview of your web app’s performance. It scores your app on aspects like ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "First Contentful Paint (FCP)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "First Contentful Paint (FCP)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Time to Interactive (TTI)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Time to Interactive (TTI)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", and ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", and ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Cumulative Layout Shift (CLS)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Cumulative Layout Shift (CLS)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". But hitting a perfect score doesn’t necessarily mean your app is truly optimized for all real-world scenarios.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". But hitting a perfect score doesn’t necessarily mean your app is truly optimized for all real-world scenarios.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8091-8367-cd9735116922",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Real users come with different devices, network conditions, and expectations. A site that scores 100 in Lighthouse might still feel slow on an older mobile device or when dealing with a flaky network connection. This is where going ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Real users come with different devices, network conditions, and expectations. A site that scores 100 in Lighthouse might still feel slow on an older mobile device or when dealing with a flaky network connection. This is where going ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "beyond Lighthouse",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "beyond Lighthouse",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " becomes crucial.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " becomes crucial.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-806a-b706-d8dad8c5f49e",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80bf-b23c-d818432ef9dc",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_3",
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Analyzing Bundle Size with Webpack Bundle Analyzer",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Analyzing Bundle Size with Webpack Bundle Analyzer",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8031-a722-c850346d1a45",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "One of the key factors that affect your app's load time is the ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "One of the key factors that affect your app's load time is the ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "bundle size",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "bundle size",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". The larger your JavaScript bundle, the more time the browser takes to download, parse, and execute it. This is especially crucial for mobile users who may have slower network connections.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". The larger your JavaScript bundle, the more time the browser takes to download, parse, and execute it. This is especially crucial for mobile users who may have slower network connections.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-807a-b0f2-ebbfc2e4fe1b",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "To analyze your bundle, install the Webpack Bundle Analyzer:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "To analyze your bundle, install the Webpack Bundle Analyzer:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80fb-a686-e1606c493cce",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Run the following in your terminal:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Run the following in your terminal:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80a9-9613-f04ce4861a6f",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "npm install --save-dev webpack-bundle-analyzer",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "npm install --save-dev webpack-bundle-analyzer",
+              "href": null
+            }
+          ],
+          "language": "shell"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80f4-95e3-d5777bcdfc07",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Next, add it to your Webpack configuration:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Next, add it to your Webpack configuration:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8094-90b6-f48cc5c74480",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');\n\nmodule.exports = {\n    plugins: [\n        new BundleAnalyzerPlugin()\n    ]\n};",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');\n\nmodule.exports = {\n    plugins: [\n        new BundleAnalyzerPlugin()\n    ]\n};",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-804f-bd9f-cbaaa78dc619",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Once you run your build process, the Bundle Analyzer will provide a visual representation of your bundle size. This helps you identify large dependencies that might be slowing down your app.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Once you run your build process, the Bundle Analyzer will provide a visual representation of your bundle size. This helps you identify large dependencies that might be slowing down your app.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8041-a08d-d387585b8190",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Look for opportunities to reduce the size of your bundle by tree-shaking unused code, using dynamic imports for rarely used components, and replacing large libraries with smaller alternatives. For example, swapping out ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Look for opportunities to reduce the size of your bundle by tree-shaking unused code, using dynamic imports for rarely used components, and replacing large libraries with smaller alternatives. For example, swapping out ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "lodash",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "lodash",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " with ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " with ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "lodash-es",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "lodash-es",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " can reduce the bundle size if you’re only using a few functions.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " can reduce the bundle size if you’re only using a few functions.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-808e-82b9-eeee8b126dee",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8063-ae48-c18c01a9182f",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_3",
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Optimizing Hydration Time in SSR Apps",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Optimizing Hydration Time in SSR Apps",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80d0-b459-f4ed0110cbbf",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you’re using ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you’re using ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Server-Side Rendering (SSR)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Server-Side Rendering (SSR)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " with frameworks like ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " with frameworks like ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Next.js",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Next.js",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", the hydration phase can significantly impact user experience. Hydration is the process where the server-rendered HTML becomes interactive in the browser, but if it takes too long, users might see content without being able to interact with it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", the hydration phase can significantly impact user experience. Hydration is the process where the server-rendered HTML becomes interactive in the browser, but if it takes too long, users might see content without being able to interact with it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8054-9222-f71336bd0cb2",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "To optimize hydration:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "To optimize hydration:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-809a-9d96-c0db7965fbdc",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Use dynamic imports for components that are not immediately needed. For example, in a Next.js app, you can use dynamic imports like this:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Use dynamic imports for components that are not immediately needed. For example, in a Next.js app, you can use dynamic imports like this:",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80bf-905a-d043ca3a4dd9",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('../components/HeavyComponent'), {\n    ssr: false,\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('../components/HeavyComponent'), {\n    ssr: false,\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80dc-8e87-dcd241b7d484",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This loads ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This loads ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "HeavyComponent",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "HeavyComponent",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " only on the client side, reducing the initial load for SSR.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " only on the client side, reducing the initial load for SSR.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8087-a9c9-fd14b343ccae",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Defer non-critical JavaScript. If a script isn’t needed for the initial page load, consider loading it with the ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Defer non-critical JavaScript. If a script isn’t needed for the initial page load, consider loading it with the ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "defer",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "defer",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " attribute.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " attribute.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-806c-8597-cb1ae472ffd5",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "<script src=\"non-critical.js\" defer></script>",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "<script src=\"non-critical.js\" defer></script>",
+              "href": null
+            }
+          ],
+          "language": "html"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-801d-989b-e1ab11b3265e",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Prioritize above-the-fold content. Render the most critical content first, and delay the rendering of non-essential components until after the main content is hydrated.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Prioritize above-the-fold content. Render the most critical content first, and delay the rendering of non-essential components until after the main content is hydrated.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-804d-8d0b-c9a328fae5f0",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "By optimizing the hydration process, you can reduce the ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "By optimizing the hydration process, you can reduce the ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Time to Interactive (TTI)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Time to Interactive (TTI)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and ensure that users can start interacting with your app as soon as possible.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and ensure that users can start interacting with your app as soon as possible.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-808f-a12d-dea6e67c47d1",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80b6-896b-d7432d0ba227",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_3",
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Understanding Browser Rendering: Optimizing the Critical Rendering Path",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Understanding Browser Rendering: Optimizing the Critical Rendering Path",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8085-85d7-c07ba3f2543a",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Critical Rendering Path (CRP)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Critical Rendering Path (CRP)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " is the sequence of steps that the browser takes to render content on the screen. To optimize this process, focus on reducing ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " is the sequence of steps that the browser takes to render content on the screen. To optimize this process, focus on reducing ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Render Blocking Resources",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Render Blocking Resources",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "—these are the CSS, JavaScript, and fonts that the browser must load before rendering content.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "—these are the CSS, JavaScript, and fonts that the browser must load before rendering content.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8001-ab1c-f8b73a27876d",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Here are a few ways to optimize the CRP:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Here are a few ways to optimize the CRP:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-801b-a792-e10a3daa9c37",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Minimize Critical CSS. Inline the CSS that is necessary for rendering above-the-fold content directly in your HTML. For example:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Minimize Critical CSS. Inline the CSS that is necessary for rendering above-the-fold content directly in your HTML. For example:",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-801e-a51e-e46046f7ba79",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:52:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "<style>\n    /* Inline only the critical CSS */\n    body { margin: 0; padding: 0; }\n    .header { background-color: #333; color: #fff; }\n</style>",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "<style>\n    /* Inline only the critical CSS */\n    body { margin: 0; padding: 0; }\n    .header { background-color: #333; color: #fff; }\n</style>",
+              "href": null
+            }
+          ],
+          "language": "html"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-806f-9c79-f3b951a43fa9",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Use ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Use ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "preload",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "preload",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "async",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "async",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " for JavaScript. This helps the browser prioritize scripts that are critical for rendering:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " for JavaScript. This helps the browser prioritize scripts that are critical for rendering:",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8004-b18a-e61389125bf3",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "<link rel=\"preload\" href=\"/styles.css\" as=\"style\">\n<script src=\"/important-script.js\" async></script>",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "<link rel=\"preload\" href=\"/styles.css\" as=\"style\">\n<script src=\"/important-script.js\" async></script>",
+              "href": null
+            }
+          ],
+          "language": "html"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80f5-9aa6-e9d8031684e5",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Optimize Fonts. Fonts can be render-blocking if not handled properly. Use ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Optimize Fonts. Fonts can be render-blocking if not handled properly. Use ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "font-display: swap",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "font-display: swap",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " in your CSS to ensure that text is rendered using a fallback font until the custom font is loaded:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " in your CSS to ensure that text is rendered using a fallback font until the custom font is loaded:",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80ab-a6aa-d84bbe07496d",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "@font-face {\n    font-family: 'MyFont';\n    src: url('myfont.woff2') format('woff2');\n    font-display: swap;\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "@font-face {\n    font-family: 'MyFont';\n    src: url('myfont.woff2') format('woff2');\n    font-display: swap;\n}",
+              "href": null
+            }
+          ],
+          "language": "css"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80f9-ab13-c82dd25fd91b",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8017-b59c-e1deaf309a08",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_3",
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Case Study: Reducing Time to Interactive by 30%",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Case Study: Reducing Time to Interactive by 30%",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80d6-bf0a-fdd141b64aca",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In one project, I faced a challenge where the app’s ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In one project, I faced a challenge where the app’s ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Time to Interactive (TTI)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Time to Interactive (TTI)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " was over 8 seconds on slower devices. Here’s how I brought it down by 30%:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " was over 8 seconds on slower devices. Here’s how I brought it down by 30%:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8076-81e0-e61d999f7891",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Identified the biggest offenders using ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Identified the biggest offenders using ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Webpack Bundle Analyzer",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Webpack Bundle Analyzer",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ". I discovered that a large third-party library (",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". I discovered that a large third-party library (",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "moment.js",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "moment.js",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ") was included across multiple pages. Replacing it with ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ") was included across multiple pages. Replacing it with ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "date-fns",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "date-fns",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and using ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and using ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "dynamic imports",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "dynamic imports",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " for date formatting functions reduced the bundle size by over 100 KB.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " for date formatting functions reduced the bundle size by over 100 KB.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80bf-b929-e61a614f9671",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Inlined critical CSS for the above-the-fold content, which reduced ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Inlined critical CSS for the above-the-fold content, which reduced ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "First Contentful Paint (FCP)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "First Contentful Paint (FCP)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " by nearly 1.5 seconds.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " by nearly 1.5 seconds.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-80d0-94db-e300df67835e",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Implemented lazy loading for images using the ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Implemented lazy loading for images using the ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "loading=\"lazy\"",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "loading=\"lazy\"",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " attribute, which prevented them from blocking the initial page load:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " attribute, which prevented them from blocking the initial page load:",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8002-8538-eb5dd6d28f7a",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:53:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "<img src=\"large-image.jpg\" loading=\"lazy\" alt=\"Lazy Loaded Image\">",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "<img src=\"large-image.jpg\" loading=\"lazy\" alt=\"Lazy Loaded Image\">",
+              "href": null
+            }
+          ],
+          "language": "html"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8061-b604-fab2fd115466",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Cached SSR responses for frequently accessed pages using a CDN, which reduced the time to serve HTML for those pages. This made the app feel faster on repeated visits.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Cached SSR responses for frequently accessed pages using a CDN, which reduced the time to serve HTML for those pages. This made the app feel faster on repeated visits.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-805c-bb18-d804cd88a338",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-801c-91f2-f431f167a77a",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_3",
+        "heading_3": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Code-Splitting and Lazy-Loading in Large Apps",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Code-Splitting and Lazy-Loading in Large Apps",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8061-9fd6-d326e0dfea3a",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Code-splitting",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Code-splitting",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "lazy-loading",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "lazy-loading",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " are essential for large apps with many routes and components. It allows you to split your JavaScript bundle into smaller chunks that are loaded on demand.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " are essential for large apps with many routes and components. It allows you to split your JavaScript bundle into smaller chunks that are loaded on demand.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8096-9bcc-fc91f1e072b6",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For React components, ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For React components, ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "React.lazy",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "React.lazy",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " combined with ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " combined with ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Suspense",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "Suspense",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " is a straightforward way to load components lazily:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " is a straightforward way to load components lazily:",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8018-bfb5-d5c2ab031f92",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import React, { Suspense, lazy } from 'react';\n\nconst LazyComponent = lazy(() => import('./LazyComponent'));\n\nfunction App() {\n    return (\n        <Suspense fallback={<div>Loading...</div>}>\n            <LazyComponent />\n        </Suspense>\n    );\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import React, { Suspense, lazy } from 'react';\n\nconst LazyComponent = lazy(() => import('./LazyComponent'));\n\nfunction App() {\n    return (\n        <Suspense fallback={<div>Loading...</div>}>\n            <LazyComponent />\n        </Suspense>\n    );\n}",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-807f-8b60-de72241e65ac",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This improves ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This improves ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Time to Interactive (TTI)",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Time to Interactive (TTI)",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " by only loading components when they’re needed, keeping the initial bundle small.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " by only loading components when they’re needed, keeping the initial bundle small.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-8027-9818-efc0e369ed27",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-804c-a2ea-df5619c1357e",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "True performance optimization is about understanding the nuances of how your app loads and renders, and going beyond the surface-level metrics provided by tools like Lighthouse. By analyzing your bundle size, optimizing the critical rendering path, and fine-tuning how your app hydrates and loads, you can create a faster, more responsive experience for users on all devices.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "True performance optimization is about understanding the nuances of how your app loads and renders, and going beyond the surface-level metrics provided by tools like Lighthouse. By analyzing your bundle size, optimizing the critical rendering path, and fine-tuning how your app hydrates and loads, you can create a faster, more responsive experience for users on all devices.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "1284d7b8-9add-804b-8821-df3b0eb29e8b",
+        "created_time": "2024-10-23T07:49:00.000Z",
+        "last_edited_time": "2024-10-23T07:49:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Remember, a high Lighthouse score is great, but real-world performance is what your users will actually experience. With the right techniques, you can ensure that your app is not just fast in the lab, but fast in the wild too.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Remember, a high Lighthouse score is great, but real-world performance is what your users will actually experience. With the right techniques, you can ensure that your app is not just fast in the lab, but fast in the wild too.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "7b0babbf-9141-4774-9da5-31a8b6a9cb13"
+  }
+}

@@ -1,273 +1,222 @@
-import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Heading,
-    Text,
-    useColorModeValue,
-    VStack,
-} from '@chakra-ui/react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { NextSeo } from 'next-seo';
-
-import Contact from '@components/Contact';
+import { PageIntro, PageSeo, TextLink } from '@components/Editorial';
 import WorkflowCostCalculator from '@components/Home/WorkflowCostCalculator';
+import BreadcrumbJsonLd from '@components/BreadcrumbJsonLd';
+import { getBaseUrl } from '../utils/baseUrl';
 
-const SITE_URL = 'https://hultman.dev';
+const baseUrl = getBaseUrl();
+const path = '/workflow-automation-roi-calculator';
+const description =
+    'Estimate workflow automation ROI, payback, and time savings with your own implementation and monthly operating costs. Free calculator with a worked example.';
 
-const calculatorSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: 'Workflow Automation ROI Calculator',
-    url: `${SITE_URL}/workflow-automation-roi-calculator`,
-    description:
-        'A free calculator for estimating monthly workflow cost and the value of time saved, compared with a $5,000 project starting price.',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Any',
-    browserRequirements: 'Requires a modern web browser.',
-    isAccessibleForFree: true,
-    offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-    },
-    creator: {
-        '@type': 'Person',
-        name: 'Adam Hultman',
-        url: SITE_URL,
-    },
-};
-
-const FORMULAS = [
-    {
-        title: 'Monthly labour cost',
-        formula: 'people × weekly hours × loaded hourly cost × 4.33',
-        detail: 'The estimate uses 4.33 weeks per month',
-    },
-    {
-        title: 'Monthly value of time saved',
-        formula: 'monthly labour cost × expected time reduction',
-        detail: 'This values the hours saved. Payroll costs may stay the same',
-    },
-    {
-        title: 'Time savings worth $5,000',
-        formula: '$5,000 ÷ monthly value of time saved',
-        detail: 'The result is in months. It uses my project starting price and excludes software costs and ongoing fees',
-    },
+const formulas = [
+    [
+        'Monthly hours saved',
+        'people × weekly hours × (52 ÷ 12) × (time reduction ÷ 100)',
+    ],
+    ['Monthly time value', 'monthly hours saved × loaded hourly cost'],
+    ['First-year cost', 'implementation cost + (monthly operating cost × 12)'],
+    [
+        'First-year ROI',
+        '((monthly time value × 12 − first-year cost) ÷ first-year cost) × 100',
+    ],
+    [
+        'Simple payback in months',
+        'implementation cost ÷ (monthly time value − monthly operating cost)',
+    ],
 ];
 
-const ESTIMATE_CHECKS = [
-    {
-        title: 'Use a weekly task',
-        detail: 'Pick something that happens often. One-off work makes the monthly number look tidier than it is',
-    },
-    {
-        title: 'Know where the time goes',
-        detail: 'If the team gets hours back, decide what they would do with them',
-    },
-    {
-        title: 'Leave decisions with people',
-        detail: 'Keep approvals and higher-risk calls with the team. Estimate the routine work around them',
-    },
-];
-
-function WorkflowAutomationRoiCalculatorPage() {
-    const muted = useColorModeValue('ink.600', 'paper.300');
-    const border = useColorModeValue('paper.300', 'ink.700');
-    const formulaBg = useColorModeValue('moss.100', 'ink.900');
-
+export default function WorkflowAutomationRoiCalculatorPage() {
     return (
         <>
-            <NextSeo
-                title="Workflow Automation ROI Calculator | Adam Hultman"
-                titleTemplate="%s"
-                description="A free, plain-English calculator for checking whether a manual workflow might justify a $5,000 automation project."
-                canonical={`${SITE_URL}/workflow-automation-roi-calculator`}
-                openGraph={{
-                    title: 'Workflow Automation ROI Calculator | Adam Hultman',
-                    description:
-                        'Estimate monthly workflow cost and the value of time saved, compared with a $5,000 project starting price.',
-                    url: `${SITE_URL}/workflow-automation-roi-calculator`,
-                }}
+            <PageSeo
+                title="Workflow Automation ROI Calculator"
+                path={path}
+                description={description}
+            />
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', url: baseUrl },
+                    { name: 'Consulting', url: `${baseUrl}/consulting` },
+                    {
+                        name: 'Workflow automation ROI calculator',
+                        url: `${baseUrl}${path}`,
+                    },
+                ]}
             />
             <Head>
                 <script
+                    key="workflow-calculator-jsonld"
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(calculatorSchema),
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'WebApplication',
+                            name: 'Workflow Automation ROI Calculator',
+                            url: `${baseUrl}${path}`,
+                            description,
+                            applicationCategory: 'BusinessApplication',
+                            operatingSystem: 'Any',
+                            browserRequirements: 'Requires JavaScript.',
+                            isAccessibleForFree: true,
+                            offers: {
+                                '@type': 'Offer',
+                                price: '0',
+                                priceCurrency: 'CAD',
+                            },
+                            creator: {
+                                '@type': 'Person',
+                                '@id': `${baseUrl}/#person`,
+                                name: 'Adam Hultman',
+                                url: `${baseUrl}/about`,
+                            },
+                        }).replace(/</g, '\\u003c'),
                     }}
-                    key="workflow-calculator-jsonld"
                 />
             </Head>
-
-            <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
-                <Box
-                    as="section"
-                    pt={{ base: 14, md: 20 }}
-                    pb={{ base: 6, md: 10 }}
+            <div className="page-container roi-page">
+                <PageIntro
+                    label="Free planning tool"
+                    title="Workflow automation ROI calculator."
                 >
-                    <Text className="section-label">
-                        Workflow automation ROI calculator
-                    </Text>
-                    <Heading
-                        as="h1"
-                        mt={4}
-                        maxW="900px"
-                        fontSize={{ base: '44px', sm: '60px', md: '72px' }}
-                        lineHeight={{ base: 1, md: 0.98 }}
-                        letterSpacing="-0.04em"
-                    >
-                        Is this workflow worth fixing?
-                    </Heading>
-                    <Text
-                        mt={7}
-                        maxW="640px"
-                        color={muted}
-                        fontSize={{ base: 'lg', md: 'xl' }}
-                        lineHeight="1.75"
-                    >
-                        Add four rough numbers before you scope a project or
-                        book a call.
-                    </Text>
-                    <Button
-                        as={Link}
-                        href="#calculator"
-                        mt={8}
-                        bg="ink.900"
-                        color="paper.50"
-                        _hover={{
-                            bg: 'moss.700',
-                            transform: 'translateY(-2px)',
-                            textDecoration: 'none',
-                        }}
-                        _active={{ transform: 'translateY(0)' }}
-                    >
-                        Try the calculator
-                    </Button>
-                </Box>
-
+                    Compare the value of time saved with the cost to build and
+                    run an automation. Use your own numbers to estimate
+                    first-year return and simple payback before scoping a
+                    project.
+                </PageIntro>
                 <WorkflowCostCalculator showMethodLink={false} />
-
-                <Box
-                    as="section"
-                    py={{ base: 16, md: 24 }}
-                    borderTop="1px solid"
-                    borderColor={border}
-                >
-                    <Grid
-                        templateColumns={{ base: '1fr', lg: '0.8fr 1.2fr' }}
-                        gap={{ base: 10, lg: 20 }}
-                    >
-                        <Box>
-                            <Heading
-                                as="h2"
-                                fontSize={{ base: '42px', md: '58px' }}
-                            >
-                                How the estimate works
-                            </Heading>
-                            <Text
-                                mt={6}
-                                maxW="500px"
-                                color={muted}
-                                lineHeight="1.75"
-                            >
-                                The estimate values time saved using your
-                                inputs. A project decision also needs to account
-                                for ongoing costs, adoption and errors.
-                            </Text>
-                        </Box>
-                        <VStack align="stretch" spacing={0}>
-                            {FORMULAS.map(({ title, formula, detail }) => (
-                                <Box
-                                    key={title}
-                                    py={7}
-                                    borderBottom="1px solid"
-                                    borderColor={border}
-                                >
-                                    <Heading as="h3" fontSize="2xl">
-                                        {title}
-                                    </Heading>
-                                    <Text
-                                        mt={4}
-                                        px={4}
-                                        py={3}
-                                        bg={formulaBg}
-                                        borderRadius="6px"
-                                        fontFamily="mono"
-                                        fontSize={{ base: 'sm', md: 'md' }}
-                                        overflowWrap="anywhere"
-                                    >
-                                        {formula}
-                                    </Text>
-                                    <Text mt={4} color={muted} lineHeight="1.7">
-                                        {detail}
-                                    </Text>
-                                </Box>
+                <section className="about-row" aria-labelledby="roi-method">
+                    <h2 id="roi-method">How the estimate works</h2>
+                    <div className="prose">
+                        <p>
+                            This model values saved hours at your loaded hourly
+                            cost. It assumes 52 working weeks, with savings and
+                            running costs beginning immediately and staying
+                            constant for 12 months.
+                        </p>
+                        <dl className="roi-formulas">
+                            {formulas.map(([label, formula]) => (
+                                <div key={label}>
+                                    <dt>{label}</dt>
+                                    <dd>{formula}</dd>
+                                </div>
                             ))}
-                        </VStack>
-                    </Grid>
-                </Box>
-
-                <Box
-                    as="section"
-                    py={{ base: 16, md: 24 }}
-                    borderTop="1px solid"
-                    borderColor={border}
-                >
-                    <Heading
-                        as="h2"
-                        maxW="760px"
-                        fontSize={{ base: '42px', md: '58px' }}
-                    >
-                        Before you trust the answer
-                    </Heading>
-                    <Grid
-                        mt={{ base: 10, md: 14 }}
-                        templateColumns={{ base: '1fr', lg: '0.75fr 1.25fr' }}
-                        columnGap={{ base: 0, lg: 20 }}
-                    >
-                        {ESTIMATE_CHECKS.map(({ title, detail }) => (
-                            <Box
-                                key={title}
-                                display="grid"
-                                gridColumn={{ base: '1', lg: '1 / -1' }}
-                                gridTemplateColumns={{
-                                    base: '1fr',
-                                    lg: '0.75fr 1.25fr',
-                                }}
-                                columnGap={{ base: 0, lg: 20 }}
-                                py={7}
-                                borderBottom="1px solid"
-                                borderColor={border}
+                        </dl>
+                        <p>
+                            ROI is undefined when total modeled costs are zero.
+                            There is no payback when the monthly time value does
+                            not exceed operating costs. Payback can extend
+                            beyond the first year; the ROI percentage covers
+                            only the first 12 months.
+                        </p>
+                        <p>
+                            The model excludes taxes, financing, discounting,
+                            ramp-up delays, and changes in workload. Include
+                            training and internal implementation time in the
+                            upfront cost, and allow for ongoing reviews and
+                            exceptions in the time-reduction estimate.
+                        </p>
+                    </div>
+                </section>
+                <section className="about-row" aria-labelledby="roi-example">
+                    <h2 id="roi-example">A worked example</h2>
+                    <div className="prose">
+                        <p>
+                            Suppose two people each spend five hours a week
+                            preparing a report. At a loaded cost of $60 an hour,
+                            a 50% net time reduction returns about 21.7 hours
+                            per month, valued at $1,300.
+                        </p>
+                        <p>
+                            With $6,000 in implementation costs and $100 a month
+                            in operating costs, the modeled first-year benefit
+                            is $15,600 against $7,200 in total costs. That
+                            leaves $8,400 in net time value, a 116.7% modeled
+                            ROI, and a five-month payback.
+                        </p>
+                        <p>
+                            This is a hypothetical example, not a client result
+                            or a project quote. The “Try an example” button
+                            loads these inputs. If salaries stay unchanged, the
+                            immediate benefit is time for other work, not $8,400
+                            added to the bank account.
+                        </p>
+                    </div>
+                </section>
+                <section className="about-row">
+                    <h2>What to include in the inputs</h2>
+                    <div className="principles">
+                        <div>
+                            <h3>Measure the recurring work.</h3>
+                            <p>
+                                Track a representative week. Count the time
+                                spent preparing data, chasing missing
+                                information, checking results, and fixing
+                                errors. Avoid using the busiest week as the
+                                baseline.
+                            </p>
+                        </div>
+                        <div>
+                            <h3>Leave room for human review.</h3>
+                            <p>
+                                A draft still needs an editor. An extracted
+                                record may need checking. Estimate the time left
+                                after automation, including exceptions, before
+                                choosing the reduction percentage.
+                            </p>
+                        </div>
+                        <div>
+                            <h3>Count what it takes to run.</h3>
+                            <p>
+                                Software subscriptions, AI model calls, hosting,
+                                maintenance, and support can change the result.
+                                Try a conservative scenario with lower time
+                                savings and higher operating costs.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section className="about-row">
+                    <h2>From estimate to a useful tool</h2>
+                    <div className="prose">
+                        <p>
+                            The calculator tests one part of the decision. A
+                            build also depends on data access, the cost of
+                            mistakes, and whether people will use the result. I
+                            help teams work through those questions and build
+                            internal tools and AI integrations.
+                        </p>
+                        <div className="inline-actions">
+                            <TextLink href="/consulting#internal-tools">
+                                Workflow automation consulting
+                            </TextLink>
+                            <TextLink href="/contact">
+                                Discuss your workflow
+                            </TextLink>
+                        </div>
+                        <p className="roi-source">
+                            For background, read{' '}
+                            <a
+                                href="https://www.bdc.ca/en/articles-tools/entrepreneur-toolkit/financial-tools/return-on-total-assets"
+                                target="_blank"
+                                rel="noreferrer"
                             >
-                                <Heading as="h3" fontSize="2xl">
-                                    {title}
-                                </Heading>
-                                <Text
-                                    mt={{ base: 3, lg: 0 }}
-                                    color={muted}
-                                    lineHeight="1.75"
-                                    maxW="680px"
-                                >
-                                    {detail}
-                                </Text>
-                            </Box>
-                        ))}
-                    </Grid>
-                    <Text mt={8} maxW="760px" color={muted} lineHeight="1.75">
-                        If the numbers only work with heroic assumptions, pick
-                        another workflow.
-                    </Text>
-                </Box>
-
-                <Box id="contact" scrollMarginTop="110px">
-                    <Contact />
-                </Box>
-            </Container>
+                                BDC’s explanation of ROI
+                            </a>
+                            . The formulas above define this calculator’s
+                            specific time-value model.
+                        </p>
+                        <p className="roi-source">
+                            Built by{' '}
+                            <Link href="/about" rel="author">
+                                Adam Hultman
+                            </Link>
+                            , a software engineer in Vancouver.
+                        </p>
+                    </div>
+                </section>
+            </div>
         </>
     );
 }
-
-export default WorkflowAutomationRoiCalculatorPage;

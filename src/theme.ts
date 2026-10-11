@@ -1,35 +1,55 @@
 import { extendTheme, ThemeConfig } from '@chakra-ui/react';
+import type { StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 const config: ThemeConfig = {
     initialColorMode: 'light',
     useSystemColorMode: true,
-    disableTransitionOnChange: false,
+    disableTransitionOnChange: true,
 };
 
 const theme = extendTheme({
     config,
+    semanticTokens: {
+        colors: Object.fromEntries(
+            [
+                'gray',
+                'blue',
+                'green',
+                'orange',
+                'purple',
+                'red',
+                'teal',
+                'cyan',
+                'pink',
+                'yellow',
+            ].map((color) => [
+                `accessible.${color}`,
+                { default: `${color}.800`, _dark: `${color}.200` },
+            ])
+        ),
+    },
     fonts: {
         body: 'var(--font-body), system-ui, sans-serif',
-        heading: 'var(--font-display), system-ui, sans-serif',
+        heading: 'var(--font-body), system-ui, sans-serif',
         mono: "'SFMono-Regular', Consolas, monospace",
     },
     colors: {
         paper: {
-            50: '#f7f4ec',
-            100: '#eee9dc',
-            200: '#ded6c4',
-            300: '#c8bda8',
+            50: '#F5F4EF',
+            100: '#EDEEE7',
+            200: '#D7DDD6',
+            300: '#BBCBC0',
         },
         ink: {
             50: '#f2f3ef',
             100: '#dfe2d9',
             400: '#7c8175',
             500: '#63695e',
-            600: '#50564c',
+            600: '#58635E',
             700: '#363b32',
             800: '#272b24',
-            900: '#1d211b',
-            950: '#11140f',
+            900: '#182522',
+            950: '#13211D',
         },
         moss: {
             50: '#f0f3ec',
@@ -38,8 +58,8 @@ const theme = extendTheme({
             300: '#9daf86',
             400: '#82966d',
             500: '#687b57',
-            600: '#536647',
-            700: '#405039',
+            600: '#2D6658',
+            700: '#285C50',
             800: '#313d2d',
             900: '#243021',
         },
@@ -47,15 +67,14 @@ const theme = extendTheme({
             50: '#f0f3ec',
             100: '#dce4d2',
             500: '#687b57',
-            600: '#536647',
-            700: '#405039',
+            600: '#2D6658',
+            700: '#285C50',
         },
     },
     styles: {
         global: {
             html: {
-                scrollBehavior: 'smooth',
-                scrollPaddingTop: '100px',
+                scrollBehavior: 'auto',
             },
             body: {
                 bg: 'paper.50',
@@ -73,6 +92,25 @@ const theme = extendTheme({
     },
     components: {
         Button: {
+            variants: {
+                solid: ({ colorScheme, colorMode }: StyleFunctionProps) =>
+                    colorScheme === 'gray'
+                        ? {}
+                        : {
+                              bg: `${colorScheme}.${colorMode === 'dark' ? 300 : 800}`,
+                              color:
+                                  colorMode === 'dark' ? 'gray.900' : 'white',
+                              _hover: {
+                                  bg: `${colorScheme}.${colorMode === 'dark' ? 200 : 800}`,
+                              },
+                              _active: {
+                                  bg: `${colorScheme}.${colorMode === 'dark' ? 100 : 900}`,
+                              },
+                          },
+                outline: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    color: `${colorScheme}.${colorMode === 'dark' ? 200 : 800}`,
+                }),
+            },
             baseStyle: {
                 borderRadius: '6px',
                 fontWeight: '700',
@@ -81,6 +119,20 @@ const theme = extendTheme({
                 _focusVisible: {
                     boxShadow: '0 0 0 3px var(--chakra-colors-moss-300)',
                 },
+            },
+        },
+        Badge: {
+            variants: {
+                subtle: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    color: `${colorScheme}.${colorMode === 'dark' ? 100 : 800}`,
+                }),
+                solid: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    bg: `${colorScheme}.${colorMode === 'dark' ? 300 : 800}`,
+                    color: colorMode === 'dark' ? 'gray.900' : 'white',
+                }),
+                outline: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    color: `${colorScheme}.${colorMode === 'dark' ? 200 : 800}`,
+                }),
             },
         },
         Heading: {

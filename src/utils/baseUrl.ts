@@ -5,23 +5,15 @@
  *
  *   `${getBaseUrl()}/blog/${id}` -> "https://hultman.dev/blog/<id>"
  *
- * A trailing slash on the SITE_URL / NEXT_PUBLIC_APP_BASE_URL env var would
+ * A trailing slash on the NEXT_PUBLIC_SITE_URL env var would
  * otherwise leak into canonical, og:url, JSON-LD, sitemap, and RSS URLs.
  *
- * On the client the current origin is preferred; on the server the value is
- * resolved from environment configuration, falling back to the production
- * domain.
+ * This is the canonical public site origin, not the current request origin.
+ * Keeping it identical during SSR and hydration prevents localhost/preview
+ * hosts from replacing production SEO URLs.
  */
 export function getBaseUrl(): string {
-    const resolved =
-        typeof window !== 'undefined'
-            ? window.location.origin
-            : process.env.SITE_URL ||
-              process.env.NEXT_PUBLIC_APP_BASE_URL ||
-              (process.env.VERCEL_PROJECT_PRODUCTION_URL
-                  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-                  : null) ||
-              'https://hultman.dev';
+    const resolved = process.env.NEXT_PUBLIC_SITE_URL || 'https://hultman.dev';
 
     return stripTrailingSlashes(resolved);
 }

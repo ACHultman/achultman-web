@@ -15,10 +15,12 @@ function BookmarksList({ bookmarks }: Props) {
     const [limit, setLimit] = useState(12);
 
     // Sort tags by frequency, cap at MAX_TAGS
-    const tagCounts = bookmarks.flatMap((bm) => bm.tags).reduce<Record<string, number>>((acc, tag) => {
-        acc[tag] = (acc[tag] ?? 0) + 1;
-        return acc;
-    }, {});
+    const tagCounts = bookmarks
+        .flatMap((bm) => bm.tags)
+        .reduce<Record<string, number>>((acc, tag) => {
+            acc[tag] = (acc[tag] ?? 0) + 1;
+            return acc;
+        }, {});
     const tags = Object.entries(tagCounts)
         .sort(([, a], [, b]) => b - a)
         .slice(0, MAX_TAGS)

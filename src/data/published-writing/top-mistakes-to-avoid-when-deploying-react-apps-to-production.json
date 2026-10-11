@@ -1,0 +1,4772 @@
+{
+  "page": {
+    "id": "1244d7b8-9add-80e2-8034-fc93d05c0582",
+    "slug": "top-mistakes-to-avoid-when-deploying-react-apps-to-production",
+    "title": "Top mistakes to avoid when deploying react apps to production",
+    "publishedDate": "2024-10-18",
+    "tags": [
+      "React",
+      "Deployment"
+    ],
+    "description": "Common production issues in React apps, and how to avoid them before they reach users.",
+    "cover": null,
+    "url": "https://app.notion.com/p/Top-mistakes-to-avoid-when-deploying-react-apps-to-production-1244d7b89add80e28034fc93d05c0582",
+    "created_time": "2024-10-19T03:02:00.000Z",
+    "last_edited_time": "2026-06-15T22:13:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8056-b65b-c86cc22dfd32",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Deploying a React app can feel like the finish line of a project, but it’s really just the start of a new phase. Once real users are in the app, things get a lot less predictable. People are on slower networks, older devices, different browsers, and sometimes they click things in ways you absolutely did not expect.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Deploying a React app can feel like the finish line of a project, but it’s really just the start of a new phase. Once real users are in the app, things get a lot less predictable. People are on slower networks, older devices, different browsers, and sometimes they click things in ways you absolutely did not expect.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8018-ac79-de873c0d6c1a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A good production deployment is not just about making sure the app works. It’s about making sure it works well, stays secure, loads quickly, and gives you enough visibility to fix issues when something goes wrong.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A good production deployment is not just about making sure the app works. It’s about making sure it works well, stays secure, loads quickly, and gives you enough visibility to fix issues when something goes wrong.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803c-a3a2-d40973c62595",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Here are some of the most common mistakes developers make when deploying React apps to production, plus a few practical ways to avoid them.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Here are some of the most common mistakes developers make when deploying React apps to production, plus a few practical ways to avoid them.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-808c-89ad-d75816cf2167",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8064-b248-fc73953cb260",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "1. Not Handling Environment Variables Securely",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "1. Not Handling Environment Variables Securely",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80eb-bbb0-d0f2eec6eb54",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Environment variables are one of those things that seem simple until they bite you.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Environment variables are one of those things that seem simple until they bite you.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-808f-a7ec-f5471e09529a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "They’re useful for storing configuration values like API URLs, feature flags, and environment-specific settings. But in frontend apps, you have to be careful. Some environment variables are bundled into the JavaScript that gets sent to the browser. That means they are not private.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "They’re useful for storing configuration values like API URLs, feature flags, and environment-specific settings. But in frontend apps, you have to be careful. Some environment variables are bundled into the JavaScript that gets sent to the browser. That means they are not private.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c7-860c-d8b8f3da7454",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In Create React App, variables starting with this are exposed to the client:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In Create React App, variables starting with this are exposed to the client:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d5-8e22-d2392125dcd2",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "REACT_APP_",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "REACT_APP_",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e4-8317-d24567107439",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In Vite, variables starting with this are exposed:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In Vite, variables starting with this are exposed:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8072-a8e3-c7858d5b55f9",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "VITE_",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "VITE_",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8047-984a-f60a54f96faa",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In Next.js, variables starting with this are exposed:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In Next.js, variables starting with this are exposed:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8042-a78b-d0275f89a915",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "NEXT_PUBLIC_",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "NEXT_PUBLIC_",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806b-83be-db2f079c36fb",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That is fine for values like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That is fine for values like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8045-9904-edc9e4a27f24",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "NEXT_PUBLIC_API_URL\nVITE_APP_ENV\nREACT_APP_SITE_NAME",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "NEXT_PUBLIC_API_URL\nVITE_APP_ENV\nREACT_APP_SITE_NAME",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ee-ad56-f79528deaa69",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It is not fine for secrets like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It is not fine for secrets like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80dc-a7b8-d9bae839a082",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "DATABASE_URL\nSTRIPE_SECRET_KEY\nJWT_SECRET\nAWS_SECRET_ACCESS_KEY",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "DATABASE_URL\nSTRIPE_SECRET_KEY\nJWT_SECRET\nAWS_SECRET_ACCESS_KEY",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80eb-a7e6-ffdf7307b529",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If a secret ends up in your client bundle, it is no longer a secret. Anyone can inspect the JavaScript and find it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If a secret ends up in your client bundle, it is no longer a secret. Anyone can inspect the JavaScript and find it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ce-a4ca-fda4a2bf44be",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A good pattern is to keep sensitive values on the server and only expose values that are safe for the browser. You can also keep an example environment file in your repo so other developers know what values are needed:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A good pattern is to keep sensitive values on the server and only expose values that are safe for the browser. You can also keep an example environment file in your repo so other developers know what values are needed:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8013-b744-d150cae05f1a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": ".env.example\n.env.local\n.env.production.local",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ".env.example\n.env.local\n.env.production.local",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ee-8f1b-f3adf3f056d0",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Then make sure your real local environment files are ignored:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Then make sure your real local environment files are ignored:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8065-8d53-c802f22056dc",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "# .gitignore\n.env.local\n.env.*.local",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "# .gitignore\n.env.local\n.env.*.local",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f9-99e1-e1bb6afeeed6",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The main rule is simple: if the browser needs it, assume users can see it. If it is sensitive, keep it server-side.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The main rule is simple: if the browser needs it, assume users can see it. If it is sensitive, keep it server-side.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d7-8477-dd9bc47a228a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8024-b6ba-d617dc150f10",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "2. Misconfiguring the Production Build",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "2. Misconfiguring the Production Build",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8083-91e6-e11732e6326e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A common deployment mistake is assuming that if the app works locally, it is ready for production.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A common deployment mistake is assuming that if the app works locally, it is ready for production.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806a-97e2-d9fa4ee595cf",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Development mode and production mode are not the same thing. Development builds are usually larger, slower, and include extra warnings or debugging behavior. Production builds are optimized for real users.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Development mode and production mode are not the same thing. Development builds are usually larger, slower, and include extra warnings or debugging behavior. Production builds are optimized for real users.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8084-b068-fd32cd986fc9",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For most React apps, you want to run a proper production build before deploying:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For most React apps, you want to run a proper production build before deploying:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c1-8ca7-e54ae6bb50cb",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "npm run build",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "npm run build",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a5-8fe1-db40969a16d4",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For Vite, that usually means:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For Vite, that usually means:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8051-9765-e82dfb316ae5",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "vite build",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "vite build",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b3-bae2-fa16586ae98f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For Next.js:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For Next.js:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806e-b078-e9664ff40c48",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "next build",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "next build",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803e-937f-c0832ada3e97",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "These commands create optimized production output. They minify code, optimize assets, and remove development-only behavior.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "These commands create optimized production output. They minify code, optimize assets, and remove development-only behavior.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8011-9538-cafe78210f8d",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It’s also worth testing the production build locally before shipping it. A surprising number of issues only show up after the app is built.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It’s also worth testing the production build locally before shipping it. A surprising number of issues only show up after the app is built.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e6-91e7-d2d0c1b633b9",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For Vite, you can do:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For Vite, you can do:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804f-b3dc-d55b74a44008",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "vite build\nvite preview",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "vite build\nvite preview",
+              "href": null
+            }
+          ],
+          "language": "bash"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8019-98ba-eedc28d93c1a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "When testing the production build, check the boring but important stuff:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "When testing the production build, check the boring but important stuff:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f5-9ddf-d4c74e62d2ca",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Does the app load from a fresh browser session?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Does the app load from a fresh browser session?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804f-9ecc-fa85ed16ba6b",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Do routes work after refreshing the page?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Do routes work after refreshing the page?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8049-956a-d4a9725c4f9c",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Are API calls going to the right environment?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Are API calls going to the right environment?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d5-83ac-ce415ad31780",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Are images, fonts, and static assets loading?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Are images, fonts, and static assets loading?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8016-9231-efb2e02641dd",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Do protected pages still work?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Do protected pages still work?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8076-afd1-d9cf6ef58985",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Are error tracking and analytics running correctly?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Are error tracking and analytics running correctly?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ed-a2f0-f05ae36f0eb4",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Production should not depend on someone remembering the right command from their laptop. Ideally, your CI/CD pipeline should run the build the same way every time.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Production should not depend on someone remembering the right command from their laptop. Ideally, your CI/CD pipeline should run the build the same way every time.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ac-9ebb-d38c33cc58e4",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801d-b2d3-c464d5af6039",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "3. Forgetting to Optimize Bundle Size",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "3. Forgetting to Optimize Bundle Size",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bc-8d46-fc3f70f7077d",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "One of the fastest ways to make a React app feel slow is to ship too much JavaScript.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "One of the fastest ways to make a React app feel slow is to ship too much JavaScript.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8054-9c05-e0925392321f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:09:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A big bundle means the browser has more code to download, parse, and execute before the user can really interact with the app. On a fast laptop, that might not seem like a big deal. On a mid-range phone with a weak connection, it can feel painfully slow. Minimize the bytes that are sent over the wire.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A big bundle means the browser has more code to download, parse, and execute before the user can really interact with the app. On a fast laptop, that might not seem like a big deal. On a mid-range phone with a weak connection, it can feel painfully slow. Minimize the bytes that are sent over the wire.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80cf-86c1-e812a3dd59e9",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A few common causes of bundle bloat are:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A few common causes of bundle bloat are:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8071-b0d2-f993726bf372",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Importing entire libraries when you only need one function",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Importing entire libraries when you only need one function",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806b-a658-ea17b94a3268",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Loading heavy components on the initial page",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Loading heavy components on the initial page",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805a-abb3-cb9898d3f64e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Including admin-only code for regular users",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Including admin-only code for regular users",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802b-99c1-fc2938d3b4da",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Shipping large charting, map, editor, or analytics libraries everywhere",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Shipping large charting, map, editor, or analytics libraries everywhere",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8050-a99d-fc9727198157",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Never checking what is actually inside the bundle",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Never checking what is actually inside the bundle",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f1-b009-f39486925f69",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For example, avoid importing an entire library if you only need one part of it:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For example, avoid importing an entire library if you only need one part of it:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809e-85f9-dce22ee94f2e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "// Avoid this if you only need one function\nimport * as _ from 'lodash';\n\n// Better\nimport debounce from 'lodash/debounce';",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "// Avoid this if you only need one function\nimport * as _ from 'lodash';\n\n// Better\nimport debounce from 'lodash/debounce';",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804c-9de4-e441b78d21e8",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "You can also split heavier parts of your app so they only load when needed:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "You can also split heavier parts of your app so they only load when needed:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8094-9beb-e606ea007735",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import React, { Suspense, lazy } from 'react';\n\nconst HeavyComponent = lazy(() => import('./HeavyComponent'));\n\nexport default function App() {\n  return (\n    <Suspense fallback={<div>Loading...</div>}>\n      <HeavyComponent />\n    </Suspense>\n  );\n}",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import React, { Suspense, lazy } from 'react';\n\nconst HeavyComponent = lazy(() => import('./HeavyComponent'));\n\nexport default function App() {\n  return (\n    <Suspense fallback={<div>Loading...</div>}>\n      <HeavyComponent />\n    </Suspense>\n  );\n}",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8044-9baf-c65e7182f38f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In Next.js, you can use dynamic imports:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In Next.js, you can use dynamic imports:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8017-9573-ffdb12bf3c78",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('./HeavyComponent'), {\n  loading: () => <p>Loading...</p>,\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import dynamic from 'next/dynamic';\n\nconst HeavyComponent = dynamic(() => import('./HeavyComponent'), {\n  loading: () => <p>Loading...</p>,\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80fc-9758-cfd2a35cf65d",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Be a little careful with ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Be a little careful with ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "ssr: false",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "ssr: false",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " in Next.js. It can be useful for browser-only components, but it should not be the default solution for every heavy component. Sometimes it can hurt performance or SEO.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " in Next.js. It can be useful for browser-only components, but it should not be the default solution for every heavy component. Sometimes it can hurt performance or SEO.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8093-a937-c6fb25643676",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The best approach is to measure. Use a bundle analyzer, look at what is actually being shipped, and clean up the biggest offenders first.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The best approach is to measure. Use a bundle analyzer, look at what is actually being shipped, and clean up the biggest offenders first.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8044-8a89-ce28b9d10321",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8077-9136-d74424960a74",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "4. Skipping Error Monitoring and Logging",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "4. Skipping Error Monitoring and Logging",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f5-8a9d-f3aa5e8d9451",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Once your app is live, things will go wrong. That is not pessimism. That is just production.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Once your app is live, things will go wrong. That is not pessimism. That is just production.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8099-8c26-e4e75ea55984",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Users will run into edge cases you did not test. APIs will fail. Browsers will behave differently. A deployment will look fine at first, then one route will quietly break for 15 percent of users.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Users will run into edge cases you did not test. APIs will fail. Browsers will behave differently. A deployment will look fine at first, then one route will quietly break for 15 percent of users.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800e-9272-d0f9665a2236",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you do not have error monitoring, you may not know until someone complains.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you do not have error monitoring, you may not know until someone complains.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8060-9f7a-f450654b2704",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Sentry is a popular option for React apps:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Sentry is a popular option for React apps:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a0-b00e-d871bdcadd0f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import * as Sentry from '@sentry/react';\n\nSentry.init({\n  dsn: process.env.SENTRY_DSN,\n  environment: process.env.NODE_ENV,\n});",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import * as Sentry from '@sentry/react';\n\nSentry.init({\n  dsn: process.env.SENTRY_DSN,\n  environment: process.env.NODE_ENV,\n});",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a4-a088-e602bfcc9fef",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Good error monitoring should tell you things like:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Good error monitoring should tell you things like:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-a167-d359a413ee08",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "What error happened?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "What error happened?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8034-84fe-e362965561ac",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Which release introduced it?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Which release introduced it?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8085-a9f5-e1a5d7f79e09",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "How many users are affected?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "How many users are affected?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c0-b0dd-dbe26c619af2",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "What browser or device was involved?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "What browser or device was involved?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804f-aaa2-f41348467a82",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "What route or action triggered it?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "What route or action triggered it?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8072-8883-ef79160990dc",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It is also helpful to track failed API requests, slow network calls, and important user actions. Tools like Datadog, LogRocket, CloudWatch, and Sentry can all help depending on your stack.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It is also helpful to track failed API requests, slow network calls, and important user actions. Tools like Datadog, LogRocket, CloudWatch, and Sentry can all help depending on your stack.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d7-95dd-d968fe755051",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "One small but important note: do not log secrets, tokens, passwords, or sensitive user data. Logs are useful, but they should not become a second accidental database of things you really did not want exposed.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "One small but important note: do not log secrets, tokens, passwords, or sensitive user data. Logs are useful, but they should not become a second accidental database of things you really did not want exposed.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c9-91e5-ff54728ba557",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bc-a5f4-c0abca60c51d",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "5. Ignoring Security Best Practices",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "5. Ignoring Security Best Practices",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8069-94cd-c634f9cc255c",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Security can feel like something you deal with later, but production is exactly where small mistakes start to matter.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Security can feel like something you deal with later, but production is exactly where small mistakes start to matter.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802c-bd66-fbcc5b4cb7b4",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A few basics go a long way.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A few basics go a long way.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ee-9ffa-c1a27a393adb",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "First, make sure your app is served over HTTPS. Most platforms like Vercel, Netlify, Cloudflare, and Render handle this for you, but it is still worth confirming. Also make sure HTTP redirects to HTTPS.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "First, make sure your app is served over HTTPS. Most platforms like Vercel, Netlify, Cloudflare, and Render handle this for you, but it is still worth confirming. Also make sure HTTP redirects to HTTPS.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8084-b170-dd65099faf5e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Second, be careful with user-generated content. React escapes values by default, which helps protect against cross-site scripting. This is generally safe:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Second, be careful with user-generated content. React escapes values by default, which helps protect against cross-site scripting. This is generally safe:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-809a-9ce7-f8ff2d890b12",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "<p>{userInput}</p>",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "<p>{userInput}</p>",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800e-9a56-f89d764bf7ef",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "But rendering raw HTML is a different story:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "But rendering raw HTML is a different story:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8060-99c7-e7a158481696",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "<div dangerouslySetInnerHTML={{ __html: userInputHtml }} />",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "<div dangerouslySetInnerHTML={{ __html: userInputHtml }} />",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8035-8c7b-e9517ff101a3",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you need to render user-provided HTML, sanitize it first:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you need to render user-provided HTML, sanitize it first:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c7-88e3-c9cc74dd110b",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "import DOMPurify from 'dompurify';\n\nconst sanitizedHtml = DOMPurify.sanitize(userInputHtml);",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "import DOMPurify from 'dompurify';\n\nconst sanitizedHtml = DOMPurify.sanitize(userInputHtml);",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b8-8881-f4a7c9690f57",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Third, consider adding basic security headers. In a Next.js app, you can configure headers like this:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Third, consider adding basic security headers. In a Next.js app, you can configure headers like this:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801b-a70c-cfc7a640f08e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "code",
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "module.exports = {\n  async headers() {\n    return [\n      {\n        source: '/(.*)',\n        headers: [\n          {\n            key: 'Content-Security-Policy',\n            value: \"default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self';\",\n          },\n          {\n            key: 'X-Frame-Options',\n            value: 'DENY',\n          },\n          {\n            key: 'X-Content-Type-Options',\n            value: 'nosniff',\n          },\n        ],\n      },\n    ];\n  },\n};",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "module.exports = {\n  async headers() {\n    return [\n      {\n        source: '/(.*)',\n        headers: [\n          {\n            key: 'Content-Security-Policy',\n            value: \"default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self';\",\n          },\n          {\n            key: 'X-Frame-Options',\n            value: 'DENY',\n          },\n          {\n            key: 'X-Content-Type-Options',\n            value: 'nosniff',\n          },\n        ],\n      },\n    ];\n  },\n};",
+              "href": null
+            }
+          ],
+          "language": "javascript"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f2-af1f-df15f2ffd950",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A Content Security Policy can help reduce the damage from XSS by limiting which scripts and resources your app is allowed to load. Just make sure to test it carefully before rolling it out. A strict CSP is great until it accidentally blocks something your app actually needs.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A Content Security Policy can help reduce the damage from XSS by limiting which scripts and resources your app is allowed to load. Just make sure to test it carefully before rolling it out. A strict CSP is great until it accidentally blocks something your app actually needs.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a8-91e4-c8a58cf5a26c",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8028-9c45-da6d651d3008",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "6. Forgetting About Caching",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "6. Forgetting About Caching",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8025-a45f-f622e02fa8b8",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Caching can make your app much faster, but bad caching can create confusing production bugs.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Caching can make your app much faster, but bad caching can create confusing production bugs.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8016-8b29-d912526711ba",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Static assets like JavaScript and CSS files are usually safe to cache for a long time when their filenames include a content hash. If the file changes, the filename changes too.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Static assets like JavaScript and CSS files are usually safe to cache for a long time when their filenames include a content hash. If the file changes, the filename changes too.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ca-98b2-ee7a4787779b",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "HTML and content pages are different. If those are cached too aggressively, users might load an old version of a page even after the content has been updated. This gets especially painful on publishing sites, where authors expect “publish” to mean “the page is live now.”",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "HTML and content pages are different. If those are cached too aggressively, users might load an old version of a page even after the content has been updated. This gets especially painful on publishing sites, where authors expect “publish” to mean “the page is live now.”",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8085-ac16-f0015a9c5b36",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "In reality, there might be multiple caches involved:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "In reality, there might be multiple caches involved:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805d-b5e0-cc2379362712",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Browser cache",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Browser cache",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8048-98c8-efcfbcfac11f",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "CDN cache",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "CDN cache",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b6-bcbf-d5236cfbf892",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Framework cache",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Framework cache",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8009-89f3-d24a25e4adc0",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "API cache",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "API cache",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805a-9941-da8b78707261",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "CMS cache",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "CMS cache",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804c-83d0-f5346775c0bb",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Server-side rendered page cache",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Server-side rendered page cache",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8097-9ea6-d36c4c77f1b5",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Service worker cache, if you use one",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Service worker cache, if you use one",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b1-bf19-f814a5b59107",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "When something looks stale, it is not always obvious which layer is holding onto the old version. That can lead to the classic production debugging loop: the editor says the article is wrong, you refresh and see the new version, someone else still sees the old version, and now everyone is haunted.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "When something looks stale, it is not always obvious which layer is holding onto the old version. That can lead to the classic production debugging loop: the editor says the article is wrong, you refresh and see the new version, someone else still sees the old version, and now everyone is haunted.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802a-897b-d539122eaf72",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This is where cache invalidation matters. For content-heavy apps, you usually want a reliable way to purge or revalidate specific pages when content changes. That might mean clearing CDN paths, using cache tags, calling a revalidation endpoint, or wiring your CMS publish event into your frontend cache strategy.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This is where cache invalidation matters. For content-heavy apps, you usually want a reliable way to purge or revalidate specific pages when content changes. That might mean clearing CDN paths, using cache tags, calling a revalidation endpoint, or wiring your CMS publish event into your frontend cache strategy.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-bcb3-d41bb7e8157a",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A healthy setup usually looks like this:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A healthy setup usually looks like this:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ea-9033-c2ceea6ad7a1",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Cache hashed JS and CSS assets aggressively",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Cache hashed JS and CSS assets aggressively",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8008-b79b-dc4f0c5a2a1b",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Revalidate HTML and content pages more carefully",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Revalidate HTML and content pages more carefully",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8087-80a2-c3ce8e8bb572",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Invalidate specific pages when content changes",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Invalidate specific pages when content changes",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bf-a3a9-dfb72fbd1517",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Avoid full-site cache purges unless you really need them",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Avoid full-site cache purges unless you really need them",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804c-899b-ebd9c251f548",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Make cache status visible in headers or tooling",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Make cache status visible in headers or tooling",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c2-b34b-d734562f00d2",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Test service workers carefully if you use them",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Test service workers carefully if you use them",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80bb-ba59-f9a351511730",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Make sure rollbacks still work with cached clients",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Make sure rollbacks still work with cached clients",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8084-9b0f-d3f487ab346d",
+        "created_time": "2026-06-15T22:13:00.000Z",
+        "last_edited_time": "2026-06-15T22:13:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Caching is one of those things that feels simple until it crosses three systems and a confused author is asking why their typo fix only exists on half the internet.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Caching is one of those things that feels simple until it crosses three systems and a confused author is asking why their typo fix only exists on half the internet.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8012-9a00-ce765d50bd7f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807a-a9c4-d000dfcaa0c6",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "7. Not Having a Rollback Plan",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "7. Not Having a Rollback Plan",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8099-9b71-fb66a29ee42e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Every deployment should have an escape hatch.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Every deployment should have an escape hatch.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a6-a306-e733530ba09b",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Even with good testing, things can break. A bad build can go out. A feature flag can behave unexpectedly. An API change can break a page you forgot about.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Even with good testing, things can break. A bad build can go out. A feature flag can behave unexpectedly. An API change can break a page you forgot about.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802f-8211-f5cd930f4316",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Before deploying, ask:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Before deploying, ask:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8049-880e-e333c6eda259",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Can we roll this back quickly?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Can we roll this back quickly?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8032-b2ec-d03afce5ebaa",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Do we know which version is currently live?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Do we know which version is currently live?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80e6-9a0f-f6849848a61a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Are database migrations safe to reverse or tolerate?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Are database migrations safe to reverse or tolerate?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8082-8bd5-f0491e353a7f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Are risky changes behind feature flags?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Are risky changes behind feature flags?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8011-9a90-fd25df1e2d37",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Will someone notice if the deploy causes errors?",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Will someone notice if the deploy causes errors?",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80aa-91c8-cbe2219b642e",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Platforms like Vercel, Netlify, and Cloudflare Pages make rollbacks pretty easy, but you still need to know how your team handles them.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Platforms like Vercel, Netlify, and Cloudflare Pages make rollbacks pretty easy, but you still need to know how your team handles them.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8021-abdc-ec45c2160e44",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The best rollback plan is the one you understand before everything is on fire.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The best rollback plan is the one you understand before everything is on fire.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8050-9c0a-f2dc536f1991",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a3-ae4f-cd17f868b113",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "8. Not Measuring Real User Performance",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "8. Not Measuring Real User Performance",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ba-9e5e-d7e0003a4e5f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Lighthouse scores are useful, but they do not tell the whole story.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Lighthouse scores are useful, but they do not tell the whole story.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802b-bc71-c424c562b5dd",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Your app might be fast on your machine and slow for actual users. Real users have different devices, networks, browsers, extensions, and cached states. Production performance needs to be measured in production.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Your app might be fast on your machine and slow for actual users. Real users have different devices, networks, browsers, extensions, and cached states. Production performance needs to be measured in production.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8036-8ddf-ca2d0c5e5abc",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Useful metrics to watch include:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Useful metrics to watch include:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8095-9ac6-c38e2b6eb60a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Largest Contentful Paint",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Largest Contentful Paint",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8086-9c4b-e05ebee86f7a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Interaction to Next Paint",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Interaction to Next Paint",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8051-be2f-d8c55cf7cf65",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Cumulative Layout Shift",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Cumulative Layout Shift",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ab-8175-d8759935b380",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "API latency",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "API latency",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8046-b775-fc1148c58c4f",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "JavaScript errors",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "JavaScript errors",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8082-93f1-c57fec8a48df",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Slow routes",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Slow routes",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8054-9331-d888cf4ca251",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Performance by device type",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Performance by device type",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801c-ace4-c407c7aab59a",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Tools like Datadog RUM, Sentry Performance, Vercel Analytics, Google Analytics, and SpeedCurve can help you see what users are actually experiencing.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Tools like Datadog RUM, Sentry Performance, Vercel Analytics, Google Analytics, and SpeedCurve can help you see what users are actually experiencing.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8062-a21a-d7f48e32ae69",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Performance is not something you optimize once and forget. It is more like keeping your apartment clean. Ignore it long enough and suddenly there is a chair covered in laundry.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Performance is not something you optimize once and forget. It is more like keeping your apartment clean. Ignore it long enough and suddenly there is a chair covered in laundry.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b5-8f81-fb1c1dfb2f70",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "divider",
+        "divider": {},
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8002-bfa4-e2c9283d7717",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "heading_2",
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Final Thoughts",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Final Thoughts",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d9-b020-d1c15e608d96",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Deploying a React app is more than running ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Deploying a React app is more than running ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "npm run build",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "npm run build",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " and calling it a day.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " and calling it a day.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-800e-83e2-ce5de2aa68e4",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A good production deployment means thinking about configuration, bundle size, security, monitoring, caching, rollback plans, and real user performance. None of these things need to be overly complicated, but they do need to be handled intentionally.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A good production deployment means thinking about configuration, bundle size, security, monitoring, caching, rollback plans, and real user performance. None of these things need to be overly complicated, but they do need to be handled intentionally.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8037-92d6-d171e1acda67",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The little things matter. Keeping secrets out of the client bundle, testing the production build, watching errors, and measuring performance can save you a lot of painful debugging later.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The little things matter. Keeping secrets out of the client bundle, testing the production build, watching errors, and measuring performance can save you a lot of painful debugging later.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8092-9945-e5ca83989f1d",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Ship the app, but ship it like real people are going to use it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Ship the app, but ship it like real people are going to use it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a5-918f-d72b11fe16f2",
+        "created_time": "2026-06-15T22:06:00.000Z",
+        "last_edited_time": "2026-06-15T22:06:00.000Z",
+        "has_children": false,
+        "in_trash": false,
+        "type": "paragraph",
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Because they are.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Because they are.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        },
+        "archived": false
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "5760ff8a-697a-4869-b802-76dcdba6e777"
+  }
+}

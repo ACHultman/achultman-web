@@ -1,6 +1,6 @@
 import { Tag, Wrap, WrapItem } from '@chakra-ui/react';
 
-const activeBg = 'green.600';
+const activeBg = 'green.700';
 const inactiveBg = 'gray.600';
 
 interface Props {
@@ -14,8 +14,13 @@ function BookmarkTags({ tags, selectedTag, setSelectedTag }: Props) {
         <Wrap spacing={2} justify="center">
             <WrapItem>
                 <Tag
+                    as="button"
+                    type="button"
+                    color="white"
+                    minH="44px"
                     size="lg"
                     variant="solid"
+                    aria-pressed={!selectedTag}
                     bg={!selectedTag ? activeBg : inactiveBg}
                     cursor="pointer"
                     onClick={() => setSelectedTag(null)}
@@ -27,8 +32,13 @@ function BookmarkTags({ tags, selectedTag, setSelectedTag }: Props) {
             {tags.map((tag) => (
                 <WrapItem key={tag}>
                     <Tag
+                        as="button"
+                        type="button"
+                        color="white"
+                        minH="44px"
                         size="lg"
                         variant="solid"
+                        aria-pressed={selectedTag === tag}
                         bg={selectedTag === tag ? activeBg : inactiveBg}
                         cursor="pointer"
                         onClick={() => setSelectedTag(tag)}

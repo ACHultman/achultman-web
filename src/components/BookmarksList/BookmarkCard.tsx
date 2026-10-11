@@ -52,7 +52,7 @@ function BookmarkCard({ bookmark }: Props) {
                         textDecoration="none"
                         _hover={{ textDecoration: 'none' }}
                     >
-                        <Heading as="h6" size="md" mb={2}>
+                        <Heading as="h2" size="md" mb={2}>
                             {bookmark.title}
                         </Heading>
                         <Paragraph fontSize="sm">

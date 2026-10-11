@@ -15,7 +15,7 @@
                 {
                     "action": "expectText",
                     "selector": "h1",
-                    "value": "I like software that earns its place"
+                    "value": "A bit about me"
                 }
             ]
         }

@@ -1,0 +1,2298 @@
+{
+  "page": {
+    "id": "3804d7b8-9add-80b2-88bd-e3a060aefad5",
+    "slug": "ai-assisted-development-at-kopperfield",
+    "title": "AI-assisted development at Kopperfield",
+    "publishedDate": "2026-06-15",
+    "tags": [
+      "AI",
+      "Engineering"
+    ],
+    "description": "How a small team at Kopperfield turns AI-assisted coding into trusted, shippable software without lowering the bar.",
+    "cover": null,
+    "url": "https://app.notion.com/p/AI-assisted-development-at-Kopperfield-3804d7b89add80b288bde3a060aefad5",
+    "created_time": "2026-06-15T17:00:00.000Z",
+    "last_edited_time": "2026-06-15T21:21:00.000Z"
+  },
+  "blocks": {
+    "object": "list",
+    "results": [
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80df-aeca-eec541e7a109",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If an engineering friend asked me how AI is going at Kopperfield, I’d give them the honest answer: better than I expected.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If an engineering friend asked me how AI is going at Kopperfield, I’d give them the honest answer: better than I expected.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8081-a57d-d21d48bb6ebb",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Yes, velocity is up. Yes, we mostly use Claude, wired into the systems we already work in through MCP servers. And yes, our CEO now ships real code while still running the company.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Yes, velocity is up. Yes, we mostly use Claude, wired into the systems we already work in through MCP servers. And yes, our CEO now ships real code while still running the company.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803a-b10e-ebd6deaf75d6",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We’ve created practices that turn fast, AI-assisted contribution into work we can actually trust and merge.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We’ve created practices that turn fast, AI-assisted contribution into work we can actually trust and merge.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804d-b7cb-f62052288039",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "At Kopperfield we build software for electrical contractors, where a wrong load calculation fails an inspection. The math has to be correct, and we cannot just wave AI output through. We have to treat it like mission-critical software. Here’s how that has played out so far.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "At Kopperfield we build software for electrical contractors, where a wrong load calculation fails an inspection. The math has to be correct, and we cannot just wave AI output through. We have to treat it like mission-critical software. Here’s how that has played out so far.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8004-9913-efb7adae63dd",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "AI made coding accessible but wasn’t shippable",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "AI made coding accessible but wasn’t shippable",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b2-9d21-e3008d362b95",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "AI didn’t just make our engineers faster. It opened the door for people who aren’t full-time engineers to contribute real changes. Our CEO has sharp product judgment. Suddenly he could turn an idea into a working branch in an afternoon.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "AI didn’t just make our engineers faster. It opened the door for people who aren’t full-time engineers to contribute real changes. Our CEO has sharp product judgment. Suddenly he could turn an idea into a working branch in an afternoon.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8050-957f-fd950df516b9",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That’s a real unlock, but it also became a source of pain.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That’s a real unlock, but it also became a source of pain.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8078-9930-d12e75b84368",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Early AI-assisted work looked plausible, and the demo worked. But “close” and “ship-ready” are different states, and the gap between them is where the cost hides:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Early AI-assisted work looked plausible, and the demo worked. But “close” and “ship-ready” are different states, and the gap between them is where the cost hides:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805b-bde2-ca21e259795c",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Unclear scope",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Unclear scope",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " that crept past what the change needed to do",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " that crept past what the change needed to do",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-801f-8e8c-c45b1c7975af",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Architectural side effects",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Architectural side effects",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " nobody flagged up front",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " nobody flagged up front",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807b-b0ad-d63aeff1c8f0",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Missing tests",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Missing tests",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", easy to skip when you’re moving fast",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", easy to skip when you’re moving fast",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8053-a064-ec05d81d0516",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Weak handoff artifacts",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Weak handoff artifacts",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " that left the reviewer reconstructing intent",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " that left the reviewer reconstructing intent",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-806f-8ef9-d940361419ed",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Feedback arriving too late",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Feedback arriving too late",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", after the finished pull request, when changing course costs the most",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", after the finished pull request, when changing course costs the most",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8052-a5c7-eb656c5ed040",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This produces a familiar, uncomfortable moment. The new contributor says, “I already built this and showed you. Why is it taking so long to merge?” From engineering’s side, the hard part was just starting: scope, tests, side effects, production risk. Closing that gap is where we most needed to iterate.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This produces a familiar, uncomfortable moment. The new contributor says, “I already built this and showed you. Why is it taking so long to merge?” From engineering’s side, the hard part was just starting: scope, tests, side effects, production risk. Closing that gap is where we most needed to iterate.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c4-b7ce-d65aa2aff5a6",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It started as a schema cheat sheet",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It started as a schema cheat sheet",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8097-92c2-e136da7df5fc",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A year ago, our entire AI setup was one file. It was called CLAUDE.md, it ran 195 lines, and its only job was helping Claude write better SQL. No agents. No automation. No plan. Just a list of our database tables with a one-line note on each.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A year ago, our entire AI setup was one file. It was called CLAUDE.md, it ran 195 lines, and its only job was helping Claude write better SQL. No agents. No automation. No plan. Just a list of our database tables with a one-line note on each.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80c7-95fa-f9854e3ced56",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "One line stood out:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "One line stood out:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8068-a2eb-cab9c6222d3f",
+        "type": "code",
+        "has_children": false,
+        "code": {
+          "caption": [],
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "# Don't join the project table to load calculations unless it's the only way",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "# Don't join the project table to load calculations unless it's the only way",
+              "href": null
+            }
+          ],
+          "language": "plain text"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ac-88d4-fa0008170944",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We learned that ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We learned that ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "clear context for the model really helps.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "clear context for the model really helps.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b4-bfaf-f63159066984",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We got the upkeep wrong, though. The hand-written list drifted, and Claude started suggesting columns that no longer existed, because keeping a snapshot in sync by hand is a losing game, and we mostly didn’t.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We got the upkeep wrong, though. The hand-written list drifted, and Claude started suggesting columns that no longer existed, because keeping a snapshot in sync by hand is a losing game, and we mostly didn’t.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8068-bc3d-e0e390da0c64",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "So we stopped trying to keep a schema file in sync by hand. The real schema had been in the repo the whole time: thousands of lines of Django models that change with the application itself. The better move was to help Claude find and read those directly.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "So we stopped trying to keep a schema file in sync by hand. The real schema had been in the repo the whole time: thousands of lines of Django models that change with the application itself. The better move was to help Claude find and read those directly.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8085-ad36-ea3c40e5d974",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That required a map. In a repo this size, Claude could not reliably discover the right models, tools, and flows on its own. So we built docs that point it through the codebase: where the schema lives, where each tool’s code sits, and how the main data flows connect. With that map, Claude can use the application code as ground truth instead of grepping blindly or trusting a stale copy.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That required a map. In a repo this size, Claude could not reliably discover the right models, tools, and flows on its own. So we built docs that point it through the codebase: where the schema lives, where each tool’s code sits, and how the main data flows connect. With that map, Claude can use the application code as ground truth instead of grepping blindly or trusting a stale copy.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80f5-ad8f-f59d41ad69b2",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The old schema digest still exists, but only as quick orientation now, not the source of truth. And through MCP, Claude can go past the code entirely: it can query live data and inspect the systems around it without anyone pasting context into a chat.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The old schema digest still exists, but only as quick orientation now, not the source of truth. And through MCP, Claude can go past the code entirely: it can query live data and inspect the systems around it without anyone pasting context into a chat.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a6-bc57-d72de61ef2ca",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Bottom line:",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Bottom line:",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " writing down our world helped, but pointing the model at the parts of the system that already stay true is what kept it from rotting. That was step one toward shippable.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " writing down our world helped, but pointing the model at the parts of the system that already stay true is what kept it from rotting. That was step one toward shippable.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8044-a5de-de5771996134",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Specialists are easy to build, hard to trust",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Specialists are easy to build, hard to trust",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802d-92fc-e7bbabbf04cb",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Our first subagent was a SQL helper for our internal reporting tool, a markdown file with a focused prompt Claude could lean on when a question turned into a query.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Our first subagent was a SQL helper for our internal reporting tool, a markdown file with a focused prompt Claude could lean on when a question turned into a query.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b3-8b40-cb353cdde676",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The lesson came from getting it wrong first. Our early specialists were padded with instructions on how to ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The lesson came from getting it wrong first. Our early specialists were padded with instructions on how to ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "think",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "think",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " about the craft, how to write good SQL, how to structure a query, and almost none of it mattered, because the model already knows that. The ones that earn their keep are lean: they don’t teach Claude its craft, they hand it our world and its edges, which tables are tenant-scoped, which mutations need a transaction, which files are legacy.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " about the craft, how to write good SQL, how to structure a query, and almost none of it mattered, because the model already knows that. The ones that earn their keep are lean: they don’t teach Claude its craft, they hand it our world and its edges, which tables are tenant-scoped, which mutations need a transaction, which files are legacy.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8029-8055-d92c0f7b695d",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The harder lesson came from a specialist we built and then backed away from. We shipped a GitHub Action so anyone could mention ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The harder lesson came from a specialist we built and then backed away from. We shipped a GitHub Action so anyone could mention ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@claude",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@claude",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " on a pull request and get a review. It worked, and it went nearly unused, because no one triggers a one-off, confused ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " on a pull request and get a review. It worked, and it went nearly unused, because no one triggers a one-off, confused ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "@claude",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@claude",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " run when they can just open a Claude tab and converse directly. We could have forced the issue and run it on every pull request automatically. We deliberately didn’t: the reviews weren’t good enough to sit in the path of a merge, and a weak reviewer that fires on everything doesn’t raise the bar, it just teaches engineers to ignore it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " run when they can just open a Claude tab and converse directly. We could have forced the issue and run it on every pull request automatically. We deliberately didn’t: the reviews weren’t good enough to sit in the path of a merge, and a weak reviewer that fires on everything doesn’t raise the bar, it just teaches engineers to ignore it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8043-b9b8-c05d6c0aa58e",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That’s the line we’ve held since. A tool only earns a place in the critical path once its output is worth trusting there. Narrow specialists earned it quickly, because their job was small and checkable. Reliable code review took longer, and in the end it took a different reviewer than this one, which we’ll get to.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That’s the line we’ve held since. A tool only earns a place in the critical path once its output is worth trusting there. Narrow specialists earned it quickly, because their job was small and checkable. Reliable code review took longer, and in the end it took a different reviewer than this one, which we’ll get to.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d0-bc3e-ff3e555eb8c0",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Tools fixed retrieval, not judgment",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Tools fixed retrieval, not judgment",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8086-876f-df2e651acc5c",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "For a while, triaging a bug meant opening Sentry in the browser, copying the stack trace, pasting it into a Claude tab, and asking for help. Tedious, and easy to skip.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "For a while, triaging a bug meant opening Sentry in the browser, copying the stack trace, pasting it into a Claude tab, and asking for help. Tedious, and easy to skip.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-9297-c464c8ebeb15",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Then we connected our tools through MCP. Now you type a short command and Claude pulls the issue, the related events, and the breadcrumbs in one shot. It can query our task tracker, search our PR history, or check which accounts are on a trial, all without leaving the session.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Then we connected our tools through MCP. Now you type a short command and Claude pulls the issue, the related events, and the breadcrumbs in one shot. It can query our task tracker, search our PR history, or check which accounts are on a trial, all without leaving the session.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80af-ad8b-d2103b523eb8",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This was the real turning point. Not any single integration, but the fact that Claude could suddenly do far more inside one session. A few days after we wired up all this context, a database migration slipped through with a locking risk none of our checks caught, and we rolled it back within minutes. Claude had reviewed the pull request and hadn’t flagged it, because the danger lived in runtime behaviour it couldn’t see, not in the code it could. Tools fix retrieval gaps. They don’t fix knowledge gaps.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "This was the real turning point. Not any single integration, but the fact that Claude could suddenly do far more inside one session. A few days after we wired up all this context, a database migration slipped through with a locking risk none of our checks caught, and we rolled it back within minutes. Claude had reviewed the pull request and hadn’t flagged it, because the danger lived in runtime behaviour it couldn’t see, not in the code it could. Tools fix retrieval gaps. They don’t fix knowledge gaps.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ef-85d0-ec32fb771839",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That scare led straight to our first hard guardrail.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That scare led straight to our first hard guardrail.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-802c-8081-f0b7f1170cc0",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Some rules can’t depend on judgment",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Some rules can’t depend on judgment",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ab-8afb-c4a4d4b2e382",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Not long after, we shipped our first hook, a small script called protect.sh. It blocks two things: edits to environment files and edits to migrations that have already shipped. When it blocks, it tells Claude exactly why, so the model redirects on its own without anyone stepping in.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Not long after, we shipped our first hook, a small script called protect.sh. It blocks two things: edits to environment files and edits to migrations that have already shipped. When it blocks, it tells Claude exactly why, so the model redirects on its own without anyone stepping in.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8009-aa74-f8c670d24c42",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "It exists because of near-misses. Claude tried to edit a committed migration to “fix” a column type, which is one of the few truly unrecoverable moves in our stack. So we made it impossible.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "It exists because of near-misses. Claude tried to edit a committed migration to “fix” a column type, which is one of the few truly unrecoverable moves in our stack. So we made it impossible.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8021-94d8-c6716c8f067e",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The principle underneath it: ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The principle underneath it: ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "a rule that depends on the model’s judgment isn’t a rule. It’s a preference.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "a rule that depends on the model’s judgment isn’t a rule. It’s a preference.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " If a violation is recoverable, a preference is fine. If it means data loss, a security hole, or money moving the wrong way, you encode it as a hard gate. That’s also how we kept review from becoming personal. When a gate blocks a change, it’s not one engineer second-guessing another. It’s the same rule, every time, for everyone, including the CEO.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " If a violation is recoverable, a preference is fine. If it means data loss, a security hole, or money moving the wrong way, you encode it as a hard gate. That’s also how we kept review from becoming personal. When a gate blocks a change, it’s not one engineer second-guessing another. It’s the same rule, every time, for everyone, including the CEO.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805e-a9a0-fc83afc4daa5",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We started writing down our scars",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We started writing down our scars",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80b3-b9a8-f4941f820100",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "By early 2026, our output was outpacing our review. Common mistakes from the coding agent were slowing down merges, and faster output without matching checks was creating debt.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "By early 2026, our output was outpacing our review. Common mistakes from the coding agent were slowing down merges, and faster output without matching checks was creating debt.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d9-aa85-c07ba038a00b",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The fix was an in-repo file we call ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The fix was an in-repo file we call ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "LEARNINGS.md",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "LEARNINGS.md",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", plus a quick command to keep it fed. It captures what a fresh session would trip on: failure patterns from past sessions, non-obvious invariants in our own code, local environment gotchas, and workarounds for tooling that drifts out of sync.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", plus a quick command to keep it fed. It captures what a fresh session would trip on: failure patterns from past sessions, non-obvious invariants in our own code, local environment gotchas, and workarounds for tooling that drifts out of sync.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805f-94d7-f6f37b464479",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We overdid it at first, logging trivial preferences like quote style until the file became noise. We trimmed hard. The test now is simple: ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We overdid it at first, logging trivial preferences like quote style until the file became noise. We trimmed hard. The test now is simple: ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "would a fresh session trip on this without the entry?",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "would a fresh session trip on this without the entry?",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " If not, delete it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " If not, delete it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804a-9185-ec067e42a5aa",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "That file is the compounding loop. Every gotcha we write down is one the system catches next time, without a person having to remember it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "That file is the compounding loop. Every gotcha we write down is one the system catches next time, without a person having to remember it.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8088-b81c-f708c7805f71",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The same idea covers the rest of the docs. We have commands and a doc-updater agent to regenerate them as the code moves, on the same principle as the schema: don’t trust memory to keep a copy true. We don’t always win, docs still drift, but the closer a doc sits to something the system can regenerate, the less it rots.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The same idea covers the rest of the docs. We have commands and a doc-updater agent to regenerate them as the code moves, on the same principle as the schema: don’t trust memory to keep a copy true. We don’t always win, docs still drift, but the closer a doc sits to something the system can regenerate, the less it rots.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-807b-8311-ce00af30dcff",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The fixes that actually closed the gap",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The fixes that actually closed the gap",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803e-be7c-d58809b736cf",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "On the human side, we tightened how work moves between people:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "On the human side, we tightened how work moves between people:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d2-8b3d-dbbc3ccc5438",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Changes arrive with ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Changes arrive with ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "handoff context",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "handoff context",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ": what it does, what it touches, what it deliberately leaves alone.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ": what it does, what it touches, what it deliberately leaves alone.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80a3-b7d5-cd77cc867116",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We agree on ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We agree on ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "scope early",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "scope early",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", before the agent runs too far in the wrong direction.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", before the agent runs too far in the wrong direction.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8030-8925-c20d883f419d",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If a change is likely to ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If a change is likely to ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "move architecture",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "move architecture",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", that’s a conversation, not a quick branch.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", that’s a conversation, not a quick branch.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-805a-91b8-f5c677dcc237",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "We give ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "We give ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "feedback while the work is in flight",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "feedback while the work is in flight",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": ", not only at the finished PR.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ", not only at the finished PR.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803a-92b2-c47a6feeae4c",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "On the engineering side, we let the system enforce the bar:",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "On the engineering side, we let the system enforce the bar:",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-803b-ba44-c8da27ef37f4",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Lint rules",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Lint rules",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " that exposed and reduced real bugs, not just style nits.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " that exposed and reduced real bugs, not just style nits.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8000-b725-e4e90f615a3f",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Tests and passing checks as hard gates.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Tests and passing checks as hard gates.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " Changes ship with tests, and those tests pass. No exception for speed.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " Changes ship with tests, and those tests pass. No exception for speed.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8047-9846-de4c876cabd6",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "AI review with the right reviewer.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "AI review with the right reviewer.",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " Claude wasn’t strong enough to give us reliable review signal, so we kept looking. Propel cleared the bar it couldn't, and it's the reviewer we trust for that signal now.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " Claude wasn’t strong enough to give us reliable review signal, so we kept looking. Propel cleared the bar it couldn't, and it's the reviewer we trust for that signal now.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ea-949f-e19d53c99c92",
+        "type": "bulleted_list_item",
+        "has_children": false,
+        "bulleted_list_item": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Human sign-off",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Human sign-off",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " that still matters. A named engineer stands behind every merge.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " that still matters. A named engineer stands behind every merge.",
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80ae-adf7-d85005064c91",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Bottom line:",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Bottom line:",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " the conversation fixes set expectations, and the gates held them. Together they turned “demo-ready” into “ship-ready” without making every quality call a personal one.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " the conversation fixes set expectations, and the gates held them. Together they turned “demo-ready” into “ship-ready” without making every quality call a personal one.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8065-b2b8-d86a20e18fab",
+        "type": "heading_2",
+        "has_children": false,
+        "heading_2": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Leadership matters more, not less",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Leadership matters more, not less",
+              "href": null
+            }
+          ],
+          "is_toggleable": false,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-804a-b02a-f4def32ab015",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Our engineering work has shifted. Less of it is typing code, more of it is helping the company use tools well: setting scope, building the guardrails, deciding what “shippable” means. And someone with strong product instincts but no traditional engineering background, our CEO among them, can now turn an idea from a customer conversation into a reviewed, tested change in days instead of a line item in a backlog. For a company our size, that’s the difference between shipping like a small team and shipping like a much larger one, without lowering the bar that keeps our customers’ numbers right.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Our engineering work has shifted. Less of it is typing code, more of it is helping the company use tools well: setting scope, building the guardrails, deciding what “shippable” means. And someone with strong product instincts but no traditional engineering background, our CEO among them, can now turn an idea from a customer conversation into a reviewed, tested change in days instead of a line item in a backlog. For a company our size, that’s the difference between shipping like a small team and shipping like a much larger one, without lowering the bar that keeps our customers’ numbers right.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-8088-84bc-e5bd59a4f33f",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Where it goes next follows the same line. The context layer is now rich enough that a terse instruction produces work we’d actually merge, because the model already has our schema, our conventions, and our scars in front of it.  The end state we’re building toward is not AI that writes all the code. It’s a system that turns less and less human direction into more and more shippable change, while the judgment, what to build, what risk is acceptable, where the bar sits, stays with us.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Where it goes next follows the same line. The context layer is now rich enough that a terse instruction produces work we’d actually merge, because the model already has our schema, our conventions, and our scars in front of it.  The end state we’re building toward is not AI that writes all the code. It’s a system that turns less and less human direction into more and more shippable change, while the judgment, what to build, what risk is acceptable, where the bar sits, stays with us.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      },
+      {
+        "object": "block",
+        "id": "3804d7b8-9add-80d7-b0d6-cd7889c41b85",
+        "type": "paragraph",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "If you’re trying to make AI work on a team that can’t afford to be wrong, our advice is that speed follows the safety, not the other way around.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "If you’re trying to make AI work on a team that can’t afford to be wrong, our advice is that speed follows the safety, not the other way around.",
+              "href": null
+            }
+          ],
+          "icon": null,
+          "color": "default"
+        }
+      }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "block",
+    "block": {},
+    "request_id": "aad367d0-2e59-4cb8-8784-055ba815f8cb"
+  }
+}

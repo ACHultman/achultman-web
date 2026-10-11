@@ -1,9 +1,9 @@
 import { Client } from '@notionhq/client';
 import type {
     PageObjectResponse,
-    QueryDatabaseParameters,
+    QueryDataSourceParameters,
     ListBlockChildrenResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+} from '@notionhq/client';
 import { serverConfig } from '../config';
 import {
     Book,
@@ -11,6 +11,7 @@ import {
     BlogPost,
     DatabaseName,
     FormatterReturnType,
+    NotionPageWithBlocks,
 } from '../types/notion';
 import {
     getDateField,
@@ -24,23 +25,30 @@ import {
 } from '../utils/notion';
 import { estimateReadingTime } from '../utils/readingTime';
 import { slugify } from '../utils/slug';
+import { publishedWriting } from './publishedWriting';
 
-const notion = new Client({ auth: serverConfig.NOTION_API_KEY });
+const notion = new Client({
+    auth: serverConfig.NOTION_API_KEY,
+    notionVersion: '2026-03-11',
+});
 
 const MAP_DATABASE_CONFIG: {
     [K in DatabaseName]: {
-        id: string;
-        defaultFilter: QueryDatabaseParameters['filter'];
+        id: string | undefined;
+        dataSourceId: string | undefined;
+        defaultFilter: QueryDataSourceParameters['filter'];
         formatter: (page: PageObjectResponse) => FormatterReturnType<K> | null;
     };
 } = {
     books: {
         id: serverConfig.NOTION_DATABASE_ID_BOOKS,
+        dataSourceId: serverConfig.NOTION_DATA_SOURCE_ID_BOOKS,
         defaultFilter: undefined,
         formatter: formatBookData,
     },
     blog: {
         id: serverConfig.NOTION_DATABASE_ID_BLOG,
+        dataSourceId: serverConfig.NOTION_DATA_SOURCE_ID_BLOG,
         defaultFilter: {
             property: 'Published',
             date: { is_not_empty: true },
@@ -49,10 +57,43 @@ const MAP_DATABASE_CONFIG: {
     },
     bookmarks: {
         id: serverConfig.NOTION_DATABASE_ID_BOOKMARKS,
+        dataSourceId: serverConfig.NOTION_DATA_SOURCE_ID_BOOKMARKS,
         defaultFilter: undefined,
         formatter: formatBookmarkData,
     },
 };
+
+function sameId(left: string, right: string) {
+    return (
+        left.replaceAll('-', '').toLowerCase() ===
+        right.replaceAll('-', '').toLowerCase()
+    );
+}
+
+async function resolveDataSource(db: DatabaseName): Promise<string> {
+    const { id, dataSourceId } = MAP_DATABASE_CONFIG[db];
+    if (!id) throw new Error(`Missing Notion database for ${db}`);
+    const database = await notion.databases.retrieve({ database_id: id });
+    if (!('data_sources' in database))
+        throw new Error(`Cannot read Notion database for ${db}`);
+    const sources = database.data_sources;
+    if (dataSourceId) {
+        const source = sources.find((source) =>
+            sameId(source.id, dataSourceId)
+        );
+        if (!source)
+            throw new Error(
+                `Configured Notion data source does not belong to ${db}`
+            );
+        return source.id;
+    }
+    if (sources.length !== 1) {
+        throw new Error(
+            `Set NOTION_DATA_SOURCE_ID_${db.toUpperCase()} to select one of this database's data sources`
+        );
+    }
+    return sources[0]!.id;
+}
 
 function formatBookData(book: PageObjectResponse): Book | null {
     if (!pageIsPageObjectResponse(book)) {
@@ -86,7 +127,9 @@ function formatBlogPostData(page: PageObjectResponse): BlogPost | null {
         title,
         publishedDate: getDateField(page, 'Published'),
         tags: getTags(page, 'Tags'),
-        description: getRichText(page, 'AI custom autofill'),
+        description:
+            getRichText(page, 'Description') ||
+            getRichText(page, 'AI custom autofill'),
         cover: getCover(page),
         url: page.url,
         created_time: page.created_time,
@@ -111,38 +154,71 @@ function formatBookmarkData(bookmark: PageObjectResponse): Bookmark | null {
 
 interface NotionFetchOptions {
     page_size?: number;
-    filter?: QueryDatabaseParameters['filter'];
-    sorts?: QueryDatabaseParameters['sorts'];
+    all?: boolean;
+    filter?: QueryDataSourceParameters['filter'];
+    sorts?: QueryDataSourceParameters['sorts'];
+}
+
+function assertBlogPreviewAllowed() {
+    if (serverConfig.NOTION_API_KEY || serverConfig.NOTION_DATABASE_ID_BLOG) {
+        throw new Error(
+            'Both NOTION_API_KEY and NOTION_DATABASE_ID_BLOG are required'
+        );
+    }
+    if (
+        serverConfig.NODE_ENV === 'production' &&
+        !serverConfig.NOTION_PREVIEW_MODE
+    ) {
+        throw new Error(
+            'Notion is required for production writing. Set NOTION_PREVIEW_MODE=true only for a standalone preview.'
+        );
+    }
 }
 
 export async function fetchNotions<T extends DatabaseName>(
     db: T,
-    { page_size = 10, filter, sorts }: NotionFetchOptions = {}
+    { page_size = 10, all = false, filter, sorts }: NotionFetchOptions = {}
 ) {
     const dbConfig = MAP_DATABASE_CONFIG[db];
 
-    if (!dbConfig.id) {
+    if (!dbConfig.id || !serverConfig.NOTION_API_KEY) {
+        if (db === 'blog' && !filter) {
+            assertBlogPreviewAllowed();
+            const posts = publishedWriting.map(({ page }) => page);
+            return (
+                all ? posts : posts.slice(0, page_size)
+            ) as FormatterReturnType<T>[];
+        }
         return [];
     }
 
     try {
-        const r = await notion.databases.query({
-            database_id: dbConfig.id,
-            filter: filter ?? dbConfig.defaultFilter,
-            page_size,
-            sorts,
-        });
-
-        return r.results
-            .map((p) => {
-                if (p.object === 'page' && pageIsPageObjectResponse(p)) {
-                    return dbConfig.formatter(p);
-                }
-                return null;
-            })
-            .filter(Boolean) as FormatterReturnType<T>[];
+        const dataSourceId = await resolveDataSource(db);
+        const posts: FormatterReturnType<T>[] = [];
+        let cursor: string | undefined;
+        do {
+            const r = await notion.dataSources.query({
+                data_source_id: dataSourceId,
+                filter: filter ?? dbConfig.defaultFilter,
+                page_size,
+                sorts,
+                ...(cursor && { start_cursor: cursor }),
+            });
+            for (const p of r.results) {
+                if (p.object !== 'page' || !pageIsPageObjectResponse(p))
+                    continue;
+                const post = dbConfig.formatter(p);
+                if (post) posts.push(post);
+            }
+            cursor =
+                all && r.has_more ? (r.next_cursor ?? undefined) : undefined;
+        } while (cursor);
+        return posts;
     } catch (error) {
         console.error('Error fetching notions:', error);
+        // Let ISR retain the last successful page instead of caching an empty
+        // archive or replacing a published article with a false 404.
+        if (db === 'blog') throw error;
         return [];
     }
 }
@@ -150,28 +226,63 @@ export async function fetchNotions<T extends DatabaseName>(
 /**
  * List a page's top-level child blocks, following pagination.
  *
- * Notion returns at most 100 blocks per call; long posts would otherwise be
- * silently truncated in both rendering and reading-time estimation. Bounded by
- * `maxPages` to keep on-demand renders fast. Nested children (toggles, columns)
- * are still not recursed — that would require a call per parent block.
+ * Follow pagination and load children so tables and nested lists are preserved.
+ * Bounds prevent unexpectedly large documents from monopolizing a render.
  */
 async function listAllBlockChildren(
     blockId: string,
-    maxPages = 5
+    maxPages = 5,
+    depth = 0,
+    budget = { requests: 0, blocks: 0 }
 ): Promise<ListBlockChildrenResponse> {
+    if (++budget.requests > 50)
+        throw new Error('Article exceeds the request limit');
     const first = await notion.blocks.children.list({ block_id: blockId });
+    budget.blocks += first.results.length;
+    if (budget.blocks > 2000)
+        throw new Error('Article exceeds the block limit');
     const results = [...first.results];
 
     let cursor = first.next_cursor;
     let page = 1;
     while (cursor && page < maxPages) {
+        if (++budget.requests > 50)
+            throw new Error('Article exceeds the request limit');
         const next = await notion.blocks.children.list({
             block_id: blockId,
             start_cursor: cursor,
         });
+        budget.blocks += next.results.length;
+        if (budget.blocks > 2000)
+            throw new Error('Article exceeds the block limit');
         results.push(...next.results);
         cursor = next.next_cursor;
         page++;
+    }
+
+    if (cursor) throw new Error('Article exceeds the block pagination limit');
+
+    for (let i = 0; i < results.length; i += 3) {
+        await Promise.all(
+            results.slice(i, i + 3).map(async (block, offset) => {
+                if (!isBlockObjectResponse(block) || !block.has_children)
+                    return;
+                if (depth >= 5) throw new Error('Article nesting is too deep');
+                const children = await listAllBlockChildren(
+                    block.id,
+                    maxPages,
+                    depth + 1,
+                    budget
+                );
+                const content = (block as unknown as Record<string, object>)[
+                    block.type
+                ];
+                results[i + offset] = {
+                    ...block,
+                    [block.type]: { ...content, children: children.results },
+                };
+            })
+        );
     }
 
     return { ...first, results, has_more: false, next_cursor: null };
@@ -206,6 +317,16 @@ export async function fetchBlogPostsWithReadingTime(
 ): Promise<BlogPost[]> {
     const posts = await fetchNotions('blog', options);
 
+    if (!serverConfig.NOTION_API_KEY || !serverConfig.NOTION_DATABASE_ID_BLOG) {
+        return posts.map((post) => ({
+            ...post,
+            readingTime: estimateReadingTime(
+                publishedWriting.find(({ page }) => page.id === post.id)?.blocks
+                    .results ?? []
+            ),
+        }));
+    }
+
     const BATCH_SIZE = 5;
     const enriched: BlogPost[] = [];
 
@@ -228,6 +349,19 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
         return null;
     }
 
+    if (!serverConfig.NOTION_API_KEY || !MAP_DATABASE_CONFIG[db].id) {
+        if (db === 'blog') assertBlogPreviewAllowed();
+        return (
+            db === 'blog'
+                ? (publishedWriting.find(
+                      ({ page }) =>
+                          page.id.replaceAll('-', '').toLowerCase() ===
+                          id.replaceAll('-', '').toLowerCase()
+                  ) ?? null)
+                : null
+        ) as NotionPageWithBlocks<T> | null;
+    }
+
     try {
         const pageResponse = await notion.pages.retrieve({
             page_id: id,
@@ -236,6 +370,18 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
         if (!pageIsPageObjectResponse(pageResponse)) {
             return null;
         }
+
+        // Enforce membership here as well as in routes, before reading any body.
+        const parent = pageResponse.parent;
+        const dataSourceId = await resolveDataSource(db);
+        if (
+            parent.type !== 'data_source_id' ||
+            !sameId(parent.data_source_id, dataSourceId) ||
+            pageResponse.archived ||
+            pageResponse.in_trash ||
+            (db === 'blog' && !getDateField(pageResponse, 'Published'))
+        )
+            return null;
 
         const blockChildrenResponse = await listAllBlockChildren(id);
         const filteredBlocks = blockChildrenResponse.results.filter(
@@ -254,6 +400,12 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
         };
     } catch (error) {
         console.error('Error fetching page:', error);
+        if (db === 'blog') {
+            // Callers resolve membership through the published database first.
+            // Notion can also report object_not_found for a permission problem,
+            // so a failed body read must not replace a known article with a 404.
+            throw error;
+        }
         return null;
     }
 }

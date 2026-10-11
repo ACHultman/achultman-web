@@ -1,267 +1,210 @@
 import {
+    Alert,
+    AlertIcon,
+    Box,
     Button,
     Input,
-    Select,
     Textarea,
-    useColorModeValue,
     VStack,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useRef, useState } from 'react';
-import { captureClientException, captureEvent } from '../../lib/analytics';
+import { useEffect, useRef, useState } from 'react';
+import { captureEvent } from '../../lib/analytics';
 import { ContactFormField } from './ContactFormField';
-import { ContactAlert } from './ContactAlert';
-import { ContactError } from './ContactError';
 
 type FormData = {
     name: string;
     email: string;
-    company: string;
-    budget: string;
-    workflow: string;
+    message: string;
+    website: string;
 };
 
-type Attribution = {
-    landingPage: string;
-    referrer: string;
-    utmSource: string;
-    utmMedium: string;
-    utmCampaign: string;
-};
-
-const BUDGET_OPTIONS = [
-    { value: '', label: 'Select a range' },
-    { value: '5k-10k', label: '$5k-$10k' },
-    { value: '10k-25k', label: '$10k-$25k' },
-    { value: '25k+', label: '$25k+' },
-    { value: 'unsure', label: 'Not sure yet' },
-];
-
-function ContactForm() {
-    const hasTrackedStart = useRef(false);
+export default function ContactForm() {
+    const started = useRef(false);
+    const feedback = useRef<HTMLDivElement>(null);
     const {
         handleSubmit,
         register,
         formState: { errors, isSubmitting },
-        getValues,
     } = useForm<FormData>();
-
-    const displayFirstName = getValues('name')?.split(' ')[0] || 'there';
-    const fieldBg = useColorModeValue('paper.50', 'ink.900');
-    const fieldBorder = useColorModeValue('paper.300', 'ink.600');
+    const [status, setStatus] = useState<'idle' | 'error' | 'success'>('idle');
+    useEffect(() => {
+        if (status === 'success') feedback.current?.focus();
+    }, [status]);
+    const background = useColorModeValue('paper.50', 'ink.900');
+    const border = useColorModeValue('ink.500', 'paper.300');
+    const ink = useColorModeValue('ink.900', 'paper.50');
     const fieldStyles = {
-        borderColor: fieldBorder,
-        bg: fieldBg,
-        borderRadius: '6px',
-        _hover: { borderColor: 'moss.500' },
+        bg: background,
+        borderColor: border,
+        color: ink,
+        borderRadius: '4px',
+        fontSize: '1.0625rem',
+        minH: '50px',
+        _hover: { borderColor: ink },
         _focusVisible: {
-            borderColor: 'moss.600',
-            boxShadow: '0 0 0 1px var(--chakra-colors-moss-600)',
+            outline: '2px solid',
+            outlineColor: ink,
+            outlineOffset: '3px',
+            boxShadow: 'none',
         },
     };
-    const [submitStatus, setSubmitStatus] = useState<
-        'idle' | 'error' | 'success'
-    >('idle');
 
-    function trackFormStart() {
-        if (hasTrackedStart.current) return;
-        hasTrackedStart.current = true;
-        captureEvent('qualified_lead_form_started');
-    }
-
-    async function onSubmitForm({
-        name,
-        email,
-        company,
-        budget,
-        workflow,
-    }: FormData) {
-        const searchParams = new URLSearchParams(window.location.search);
-        const attribution: Attribution = {
-            landingPage: window.location.href,
-            referrer: document.referrer,
-            utmSource: searchParams.get('utm_source') || '',
-            utmMedium: searchParams.get('utm_medium') || '',
-            utmCampaign: searchParams.get('utm_campaign') || '',
-        };
-
+    async function submit(values: FormData) {
+        setStatus('idle');
         try {
             const response = await fetch('/api/v1/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    company,
-                    budget,
-                    workflow,
-                    attribution,
-                }),
+                body: JSON.stringify(values),
             });
-
-            if (response.ok) {
-                setSubmitStatus('success');
-                captureEvent('qualified_lead_submitted', {
-                    budget: budget || 'unspecified',
-                    has_company: Boolean(company),
-                });
-                return;
-            }
-
-            setSubmitStatus('error');
-            captureEvent('contact_form_failed', {
-                status_code: response.status,
-            });
-        } catch (error) {
-            setSubmitStatus('error');
-            captureClientException(error);
-            captureEvent('contact_form_failed', {
-                reason: 'network_error',
-            });
+            const result = await response.json();
+            if (!response.ok || result.success !== true)
+                throw new Error('Submission failed');
+            setStatus('success');
+            captureEvent('contact_form_submitted');
+        } catch {
+            setStatus('error');
+            captureEvent('contact_form_failed');
         }
     }
 
-    if (submitStatus === 'success') {
-        return (
-            <ContactAlert
-                status="success"
-                title={`Got it, ${displayFirstName}`}
-                description="I'll read through this and get back to you within one business day."
-            />
-        );
-    }
-
-    if (submitStatus === 'error') {
-        return (
-            <ContactError
-                firstName={displayFirstName}
-                onRetry={() => setSubmitStatus('idle')}
-            />
-        );
-    }
-
     return (
-        <form
-            onSubmit={handleSubmit(onSubmitForm)}
-            onFocusCapture={trackFormStart}
-        >
-            <VStack spacing={5} align="stretch">
-                <ContactFormField
-                    label="Name"
-                    isRequired
-                    error={errors.name?.message}
+        <Box>
+            <div ref={feedback} tabIndex={-1} role="status" aria-live="polite">
+                {status === 'success' && (
+                    <Alert status="success" borderRadius="4px">
+                        <AlertIcon />
+                        Thanks. Your message has been sent.
+                    </Alert>
+                )}
+            </div>
+            {status !== 'success' && (
+                <form
+                    noValidate
+                    onSubmit={handleSubmit(submit)}
+                    onFocusCapture={() => {
+                        if (!started.current) {
+                            started.current = true;
+                            captureEvent('contact_form_started');
+                        }
+                    }}
                 >
-                    <Input
-                        type="text"
-                        autoComplete="name"
-                        placeholder="Your name"
-                        {...fieldStyles}
-                        {...register('name', {
-                            required: 'Name is required',
-                            maxLength: {
-                                value: 100,
-                                message:
-                                    'Please keep this under 100 characters',
-                            },
-                        })}
-                    />
-                </ContactFormField>
-
-                <ContactFormField
-                    label="Email"
-                    isRequired
-                    error={errors.email?.message}
-                >
-                    <Input
-                        type="email"
-                        autoComplete="email"
-                        placeholder="you@company.com"
-                        {...fieldStyles}
-                        {...register('email', {
-                            required: 'Email is required',
-                            pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: 'Enter a valid email address',
-                            },
-                        })}
-                    />
-                </ContactFormField>
-
-                <ContactFormField
-                    label="Company"
-                    isRequired
-                    error={errors.company?.message}
-                >
-                    <Input
-                        type="text"
-                        autoComplete="organization"
-                        placeholder="Company or team"
-                        {...fieldStyles}
-                        {...register('company', {
-                            required: 'Company is required',
-                            maxLength: {
-                                value: 120,
-                                message:
-                                    'Please keep this under 120 characters',
-                            },
-                        })}
-                    />
-                </ContactFormField>
-
-                <ContactFormField label="Rough budget (optional)">
-                    <Select {...fieldStyles} {...register('budget')}>
-                        {BUDGET_OPTIONS.map(({ value, label }) => (
-                            <option key={value} value={value}>
-                                {label}
-                            </option>
-                        ))}
-                    </Select>
-                </ContactFormField>
-
-                <ContactFormField
-                    label="What are you trying to make or improve?"
-                    isRequired
-                    error={errors.workflow?.message}
-                >
-                    <Textarea
-                        placeholder="What exists today, who uses it and what would make it better?"
-                        rows={6}
-                        resize="vertical"
-                        {...fieldStyles}
-                        {...register('workflow', {
-                            required:
-                                'Briefly describe what you want to make or improve',
-                            minLength: {
-                                value: 20,
-                                message:
-                                    'A little more detail will help me respond usefully',
-                            },
-                            maxLength: {
-                                value: 4500,
-                                message:
-                                    'Please keep this under 4,500 characters',
-                            },
-                        })}
-                    />
-                </ContactFormField>
-
-                <Button
-                    bg="ink.900"
-                    color="paper.50"
-                    width="full"
-                    isLoading={isSubmitting}
-                    loadingText="Sending"
-                    type="submit"
-                    size="lg"
-                    mt={1}
-                    _hover={{ bg: 'moss.700', transform: 'translateY(-2px)' }}
-                    _active={{ transform: 'translateY(0)' }}
-                >
-                    Send it over
-                </Button>
-            </VStack>
-        </form>
+                    <VStack align="stretch" spacing={6}>
+                        <ContactFormField
+                            label="Name"
+                            isRequired
+                            error={errors.name?.message}
+                        >
+                            <Input
+                                type="text"
+                                autoComplete="name"
+                                enterKeyHint="next"
+                                maxLength={100}
+                                {...fieldStyles}
+                                {...register('name', {
+                                    validate: (value) =>
+                                        !!value?.trim() || 'Enter your name.',
+                                    maxLength: 100,
+                                })}
+                            />
+                        </ContactFormField>
+                        <ContactFormField
+                            label="Email"
+                            isRequired
+                            error={errors.email?.message}
+                        >
+                            <Input
+                                type="email"
+                                inputMode="email"
+                                autoComplete="email"
+                                autoCapitalize="none"
+                                spellCheck={false}
+                                enterKeyHint="next"
+                                maxLength={254}
+                                {...fieldStyles}
+                                {...register('email', {
+                                    required: 'Enter a valid email address.',
+                                    pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: 'Enter a valid email address.',
+                                    },
+                                    maxLength: 254,
+                                })}
+                            />
+                        </ContactFormField>
+                        <ContactFormField
+                            label="Message"
+                            isRequired
+                            error={errors.message?.message}
+                        >
+                            <Textarea
+                                rows={6}
+                                resize="vertical"
+                                maxLength={4500}
+                                {...fieldStyles}
+                                {...register('message', {
+                                    validate: (value) =>
+                                        !!value?.trim() ||
+                                        'Add a short message.',
+                                    maxLength: {
+                                        value: 4500,
+                                        message:
+                                            'Keep your message under 4,500 characters.',
+                                    },
+                                })}
+                            />
+                        </ContactFormField>
+                        <div hidden aria-hidden="true">
+                            <label htmlFor="contact-website">
+                                Leave this field empty
+                            </label>
+                            <input
+                                id="contact-website"
+                                tabIndex={-1}
+                                autoComplete="off"
+                                {...register('website')}
+                            />
+                        </div>
+                        {status === 'error' && (
+                            <Alert
+                                status="error"
+                                role="alert"
+                                alignItems="flex-start"
+                                fontSize="15px"
+                                borderRadius="4px"
+                            >
+                                <AlertIcon />
+                                Your message wasn’t sent. Your text is still
+                                here. Try again or email me directly.
+                            </Alert>
+                        )}
+                        <Button
+                            type="submit"
+                            isLoading={isSubmitting}
+                            loadingText="Sending…"
+                            alignSelf="flex-start"
+                            width={{ base: '100%', md: 'auto' }}
+                            minH="50px"
+                            px={7}
+                            bg={ink}
+                            color={background}
+                            fontWeight="500"
+                            fontSize="15px"
+                            borderRadius="4px"
+                            _hover={{ opacity: 0.85 }}
+                            _focusVisible={{
+                                outline: '2px solid',
+                                outlineColor: ink,
+                                outlineOffset: '4px',
+                            }}
+                        >
+                            Send message
+                        </Button>
+                    </VStack>
+                </form>
+            )}
+        </Box>
     );
 }
-
-export default ContactForm;

@@ -1,9 +1,10 @@
+import { safeUrl } from './safeUrl';
 import {
     PageObjectResponse,
     PartialPageObjectResponse,
     BlockObjectResponse,
     PartialBlockObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+} from '@notionhq/client';
 
 export function pageIsPageObjectResponse(
     page: PageObjectResponse | PartialPageObjectResponse
@@ -27,15 +28,17 @@ export function getTitle(
         (prop): prop is Extract<typeof prop, { type: 'title' }> =>
             prop.type === 'title'
     );
-    return titleProp?.title[0]?.plain_text || defaultValue;
+    return (
+        titleProp?.title.map((part) => part.plain_text).join('') || defaultValue
+    );
 }
 
 export function getCover(page: PageObjectResponse): string | null {
     if (page.cover?.type === 'external') {
-        return page.cover.external.url;
+        return safeUrl(page.cover.external.url) || null;
     }
     if (page.cover?.type === 'file') {
-        return page.cover.file.url || null;
+        return safeUrl(page.cover.file.url) || null;
     }
     return null;
 }
@@ -45,7 +48,9 @@ export function getRichText(
     propertyName: string
 ): string {
     if (page.properties[propertyName]?.type === 'rich_text') {
-        return page.properties[propertyName].rich_text[0]?.plain_text || '';
+        return page.properties[propertyName].rich_text
+            .map((part) => part.plain_text)
+            .join('');
     }
     return '';
 }
@@ -77,7 +82,7 @@ export function getLink(
     propertyName: string
 ): string {
     if (page.properties[propertyName]?.type === 'url') {
-        return page.properties[propertyName].url || '';
+        return safeUrl(page.properties[propertyName].url, true) || '';
     }
     return '';
 }
