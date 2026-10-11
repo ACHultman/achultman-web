@@ -9,6 +9,7 @@ const routes = [
     '/work',
     '/about',
     '/contact',
+    '/consulting',
     '/blog',
     '/blog/ai-assisted-development-at-kopperfield',
     '/books',

@@ -34,9 +34,10 @@ Contact also requires `application/json`, rejects invalid/oversized input, retai
 - Fixed foreground, button, badge, and focus contrast through light/dark semantic theme tokens. Decorative separators are hidden from assistive technology.
 - Respected reduced-motion preferences, disabled automatic agent-flow playback, and paused the shader animation for reduced motion.
 - Moved focus to the contact confirmation after successful submission, so removing the form does not lose keyboard focus.
+- Let footer link columns collapse as text grows, preventing horizontal overflow at 320px with 200% text size.
 - Removed duplicate derived tag-filter state and unused rendering/chat code to reduce maintenance work.
 
-Automated axe checks target WCAG 2.0/2.1/2.2 A and AA rules on 28 routes in both themes, plus a keyboard interaction flow, eight interactive-state checks, and twelve mobile checks (77 cases total). Pa11y provides a second check of 10 main routes. Neither tool proves full WCAG conformance. Informative article images still require author-supplied descriptive captions; complex visual labs need manual screen-reader, high-zoom, and interaction review beyond these automated checks.
+Automated axe checks target WCAG 2.0/2.1/2.2 A and AA rules on 29 routes in both themes, including the current consulting page, plus a keyboard interaction flow, eight interactive-state checks, and twelve mobile checks (79 cases total). Pa11y provides a second check of 10 main routes. Neither tool proves full WCAG conformance. Informative article images still require author-supplied descriptive captions; complex visual labs need manual screen-reader, high-zoom, and interaction review beyond these automated checks.
 
 ## Verification
 
@@ -67,12 +68,12 @@ Final results:
 
 | Check | Result |
 | --- | --- |
-| Security/content/contact/tooling unit tests | 30 passed; SMTP and Redis are mocked |
+| Security/content/contact/tooling/calculator unit tests | 35 passed; SMTP and Redis are mocked |
 | TypeScript | Passed, including a check without generated `.next` types |
 | ESLint | Passed with `--max-warnings=0`; removed the unused ToolCard import, typed the Emotion document wrapper, and narrowed reading-time input safely |
-| Production build | Passed with explicit public preview fixtures; 37 pages generated |
-| Desktop Chrome, Mobile Chrome, Mobile Safari journeys | 52 passed against the HTTPS production preview |
-| Accessibility regression suite | 77 passed against the local production preview, including a rerun after the tooling updates; zero reported axe violations in the tested states |
+| Production build | Passed with explicit public preview fixtures; 38 pages generated |
+| Desktop Chrome, Mobile Chrome, Mobile Safari journeys | 57 passed against the HTTPS production preview, including current consulting/search/calculator behavior and 200% text reflow |
+| Accessibility regression suite | 79 passed against the local production preview, including the current consulting page; zero reported axe violations in the tested states |
 | Pa11y WCAG AA | 10/10 main routes passed |
 | Lighthouse CI with Lighthouse 13.5.0 | All assertions passed on six local production routes; one run per route, preview thresholds, provided throttling |
 | Production security checks | Injected inline script blocked; hydration/theme persistence/article rendering worked; remote optimizer returned 400; missing Redis returned uncached 503 even with a loopback header; non-JSON contact returned 415 |
@@ -123,4 +124,4 @@ Other explicit limits:
 5. Require the updated checks before merging. Keep production dependencies and action pins current; rerun both production and full dependency audits.
 6. Recheck CSP in a production build after changing Chakra bootstrap, analytics, or third-party integrations. Do not fix CSP failures by adding broad script wildcards or `unsafe-inline`.
 
-The changes in this audit are local and have not been deployed.
+Release status and hosted verification are recorded in the associated pull request. The evidence above describes local audit checks unless explicitly stated otherwise.
