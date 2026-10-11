@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import {
   Box,
@@ -290,6 +292,7 @@ export default function ASTExplorerPage() {
 
   return (
     <Container maxW="container.xl" py={8}>
+      <PageSeo {...labPages['ast-explorer']} />
       <SlideFade in offsetY={20}>
         <VStack spacing={8} align="stretch">
           {/* Header */}

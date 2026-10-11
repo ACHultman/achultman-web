@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Box,
@@ -416,6 +418,7 @@ export default function DistributedPage() {
 
   return (
     <Container maxW="container.xl" py={8}>
+      <PageSeo {...labPages['distributed']} />
       <SlideFade in offsetY={20}>
         <VStack spacing={6} align="stretch">
           {/* Header */}

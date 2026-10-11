@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
-import { NextSeo } from 'next-seo';
+import { PageSeo } from '@components/Editorial';
 import {
   Box,
   Container,
@@ -533,10 +533,10 @@ function EvidenceViz() {
 
   return (
     <>
-      <NextSeo
+      <PageSeo
         title="Evidence Strength Visualizer | Labs"
         description="Interactive visualization of scientific evidence quality for popular supplements. Explore study counts, quality ratings, and evidence grades."
-        canonical="https://hultman.dev/labs/evidence-viz"
+        path="/labs/evidence-viz"
       />
       <Container maxW="container.lg">
         <SlideFade in={true} offsetY={80}>

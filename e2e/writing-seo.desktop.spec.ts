@@ -3,6 +3,97 @@ import { test, expect } from '@playwright/test';
 const slug = 'ai-assisted-development-at-kopperfield';
 const canonical = `https://hultman.dev/blog/${slug}`;
 
+test('writing topics preserve every published article and link from the personal homepage', async ({
+    page,
+    request,
+}) => {
+    await page.goto('/');
+    await expect(page).toHaveTitle(
+        'Adam Hultman | Software Engineer in Vancouver'
+    );
+    await expect(
+        page
+            .getByRole('navigation', { name: 'Main navigation' })
+            .getByRole('link', { name: 'Consulting', exact: true })
+    ).toHaveCount(0);
+    await expect(page.locator('.consulting-preview')).toHaveCount(0);
+    await expect(
+        page.getByRole('link', {
+            name: 'React: compound components vs render props vs custom hooks',
+            exact: true,
+        })
+    ).toHaveAttribute(
+        'href',
+        '/blog/react-compound-components-vs-render-props-vs-custom-hooks'
+    );
+    await page
+        .locator('.writing-preview')
+        .getByRole('link', { name: 'React and Next.js', exact: true })
+        .click();
+    await expect(page).toHaveURL('/blog#react-nextjs');
+    await expect(
+        page.getByRole('heading', { name: 'React and Next.js', exact: true })
+    ).toBeVisible();
+    const response = await request.get('/blog');
+    expect(response.status()).toBe(200);
+    const server = await page.evaluate(
+        (source) => {
+            const document = new DOMParser().parseFromString(
+                source,
+                'text/html'
+            );
+            return {
+                expected: JSON.parse(
+                    document.querySelector('#__NEXT_DATA__')!.textContent!
+                )
+                    .props.pageProps.posts.map(
+                        (post: { slug: string }) => `/blog/${post.slug}`
+                    )
+                    .sort(),
+                rendered: Array.from(
+                    document.querySelectorAll(
+                        '.writing-topic .article-row h3 a'
+                    )
+                )
+                    .map((link) => link.getAttribute('href'))
+                    .sort(),
+            };
+        },
+        await response.text()
+    );
+    expect(server.rendered).toEqual(server.expected);
+    const actual = await page
+        .locator('.writing-topic .article-row h3 a')
+        .evaluateAll((links) =>
+            links.map((link) => link.getAttribute('href')).sort()
+        );
+    expect(actual).toEqual(server.expected);
+    for (const [id, article] of [
+        ['ai-development', 'ai-assisted-development-at-kopperfield'],
+        [
+            'react-nextjs',
+            'react-compound-components-vs-render-props-vs-custom-hooks',
+        ],
+        [
+            'performance-and-systems',
+            'optimizing-frontend-performance-beyond-lighthouse-scores',
+        ],
+    ]) {
+        await expect(
+            page.locator(`#${id} a[href="/blog/${article}"]`)
+        ).toBeVisible();
+    }
+    for (const width of [320, 390, 768, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        expect(
+            await page.evaluate(
+                () => document.documentElement.scrollWidth <= window.innerWidth
+            ),
+            `${width}px`
+        ).toBe(true);
+    }
+});
+
 test('articles ship readable HTML and consistent canonical/author/schema metadata', async ({
     page,
 }) => {
@@ -81,7 +172,7 @@ test('every archive article appears in the sitemap and RSS feed', async ({
 }) => {
     await page.goto('/blog');
     const paths = await page
-        .locator('.article-row h2 a')
+        .locator('.article-row :is(h2, h3) a')
         .evaluateAll((links) =>
             links.map((link) => link.getAttribute('href')!)
         );

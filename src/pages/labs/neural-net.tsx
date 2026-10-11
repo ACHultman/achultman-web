@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import {
   Box,
@@ -533,6 +535,7 @@ export default function NeuralNetPlayground() {
 
   return (
     <Container maxW="container.lg" py={10}>
+      <PageSeo {...labPages['neural-net']} />
       <SlideFade in offsetY={20}>
         <VStack spacing={8} align="stretch">
           {/* Header */}

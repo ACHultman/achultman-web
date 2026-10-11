@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Box,
@@ -153,6 +155,7 @@ export default function RegexDebuggerPage() {
 
   return (
     <Container maxW="container.lg" py={8}>
+      <PageSeo {...labPages['regex-debugger']} />
       <SlideFade in offsetY={20}>
         <VStack spacing={8} align="stretch">
           {/* Header */}

@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import {
   Box,
@@ -644,6 +646,7 @@ export default function GpuPipelinePage() {
 
   return (
     <Container maxW="container.xl" py={8}>
+      <PageSeo {...labPages['gpu-pipeline']} />
       <VStack spacing={8} align="stretch">
         {/* Header */}
         <Box>

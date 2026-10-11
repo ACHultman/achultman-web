@@ -4,7 +4,6 @@ on:
     push:
         branches: [main]
     pull_request:
-        branches: [main]
 
 permissions:
     contents: read
@@ -31,7 +30,7 @@ jobs:
               run: npm ci
 
             - name: Run ESLint
-              run: npm run lint
+              run: npm run lint -- --max-warnings=0
 
             - name: Type check
               run: npm run typecheck

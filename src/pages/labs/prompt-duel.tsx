@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { NextSeo } from 'next-seo';
+import { PageSeo } from '@components/Editorial';
 import {
   Box,
   Container,
@@ -253,10 +253,10 @@ function PromptDuelPage() {
 
   return (
     <>
-      <NextSeo
+      <PageSeo
         title="AI Prompt Duel | Labs"
         description="Compare AI model responses side-by-side and vote for the best one. Explore how different models handle code, creative writing, reasoning, and health advice."
-        canonical="https://hultman.dev/labs/prompt-duel"
+        path="/labs/prompt-duel"
       />
       <Container maxW="container.lg">
         <SlideFade in={true} offsetY={80}>

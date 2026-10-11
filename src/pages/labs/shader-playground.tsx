@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import NextLink from 'next/link';
 import { motion } from 'framer-motion';
@@ -508,6 +510,7 @@ export default function ShaderPlayground() {
 
   return (
     <Container maxW="container.xl" py={8}>
+      <PageSeo {...labPages['shader-playground']} />
       <SlideFade in offsetY={20}>
         <VStack spacing={8} align="stretch">
           {/* Header */}

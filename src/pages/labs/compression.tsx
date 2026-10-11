@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useMemo, useCallback } from 'react';
 import {
   Box,
@@ -827,6 +829,7 @@ export default function CompressionPage() {
 
   return (
     <Container maxW="container.xl" py={8}>
+      <PageSeo {...labPages['compression']} />
       <VStack spacing={8} align="stretch">
         {/* Header */}
         <Box>

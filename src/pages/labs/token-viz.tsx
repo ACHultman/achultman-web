@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { NextSeo } from 'next-seo';
+import { PageSeo } from '@components/Editorial';
 import {
   Box,
   Container,
@@ -172,10 +172,10 @@ function TokenViz() {
 
   return (
     <>
-      <NextSeo
+      <PageSeo
         title="Token Probability Visualizer | Labs"
         description="Visualize how large language models choose tokens. See probability distributions for each generated word."
-        canonical="https://hultman.dev/labs/token-viz"
+        path="/labs/token-viz"
       />
       <Container maxW="container.md">
         <SlideFade in={true} offsetY={80}>

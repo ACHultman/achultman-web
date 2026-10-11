@@ -20,6 +20,7 @@ export default function Footer() {
                     </p>
                 </div>
                 <div className="footer-links" aria-label="More about Adam">
+                    <Link href="/consulting">Consulting</Link>
                     <Link href="/resume">Résumé</Link>
                     <a
                         href="https://github.com/ACHultman"
