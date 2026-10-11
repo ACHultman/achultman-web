@@ -14,11 +14,14 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   Textarea,
   Collapse,
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import {
+  ArrowBackIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import Paragraph from '@components/Paragraph';
@@ -107,7 +110,11 @@ function TreeNode({
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        role="treeitem"
+        as="button"
+        type="button"
+        width="100%"
+        textAlign="left"
+        aria-pressed={isSelected}
         aria-expanded={hasChildren ? expanded : undefined}
       >
         {hasChildren ? (
@@ -129,11 +136,16 @@ function TreeNode({
           {node.type}
         </Badge>
         {label && (
-          <Text fontSize="xs" fontFamily="mono" color={subtleText} noOfLines={1}>
+          <Text
+            fontSize="xs"
+            fontFamily="mono"
+            color={subtleText}
+            noOfLines={1}
+          >
             {label}
           </Text>
         )}
-        <Text fontSize="xs" color={subtleText} ml="auto" flexShrink={0} opacity={0.6}>
+        <Text fontSize="xs" color={subtleText} ml="auto" flexShrink={0}>
           [{node.start}:{node.end}]
         </Text>
       </Flex>
@@ -192,7 +204,9 @@ export default function ASTExplorerPage() {
   const [parseTime, setParseTime] = useState(0);
   const [selectedNode, setSelectedNode] = useState<ASTNode | null>(null);
   const [hoveredNode, setHoveredNode] = useState<ASTNode | null>(null);
-  const [hoveredCharOffset, setHoveredCharOffset] = useState<number | null>(null);
+  const [hoveredCharOffset, setHoveredCharOffset] = useState<number | null>(
+    null,
+  );
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const cardBg = useColorModeValue('gray.50', 'gray.700');
@@ -200,7 +214,7 @@ export default function ASTExplorerPage() {
   const subtleText = useColorModeValue('gray.600', 'gray.400');
   const editorBg = useColorModeValue('gray.900', 'gray.900');
   const editorText = useColorModeValue('gray.50', 'gray.50');
-  const lineNumColor = useColorModeValue('gray.500', 'gray.500');
+  const lineNumColor = useColorModeValue('gray.400', 'gray.400');
   const treeBg = useColorModeValue('white', 'gray.800');
   const hoverBg = useColorModeValue('gray.100', 'gray.600');
   const selectedBg = useColorModeValue('blue.50', 'blue.900');
@@ -284,14 +298,16 @@ export default function ASTExplorerPage() {
           {/* Header */}
           <Box>
             <HStack mb={4}>
-              <Link as={NextLink} href="/labs">
-                <IconButton
-                  aria-label="Go back"
-                  icon={<ArrowBackIcon />}
-                  variant="ghost"
-                  size="sm"
-                />
-              </Link>
+              <IconButton
+                as={NextLink}
+                href="/labs"
+                minH="44px"
+                minW="44px"
+                aria-label="Go back"
+                icon={<ArrowBackIcon />}
+                variant="ghost"
+                size="sm"
+              />
               <Badge colorScheme="blue" fontSize="xs">
                 Languages
               </Badge>
@@ -300,10 +316,11 @@ export default function ASTExplorerPage() {
               {'\uD83C\uDF33 AST Explorer'}
             </Heading>
             <Paragraph>
-              Write JavaScript and watch a recursive-descent parser tokenize and build an
-              abstract syntax tree in real time. Click tree nodes to highlight their source
-              range, or hover over code to find the corresponding AST node. No external
-              parsing libraries are used &mdash; the parser is built from scratch.
+              Write JavaScript and watch a recursive-descent parser tokenize and
+              build an abstract syntax tree in real time. Click tree nodes to
+              highlight their source range, or hover over code to find the
+              corresponding AST node. No external parsing libraries are used
+              &mdash; the parser is built from scratch.
             </Paragraph>
           </Box>
 
@@ -357,12 +374,15 @@ export default function ASTExplorerPage() {
                   <Box position="relative" flex={1} overflow="auto">
                     {renderHighlightedSource()}
                     <Textarea
+                      aria-label="JavaScript source code"
                       ref={textareaRef}
                       value={code}
                       onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                         setCode(e.target.value)
                       }
-                      onMouseMove={(e: React.MouseEvent<HTMLTextAreaElement>) => {
+                      onMouseMove={(
+                        e: React.MouseEvent<HTMLTextAreaElement>,
+                      ) => {
                         const ta = e.currentTarget;
                         // Approximate character offset from mouse position
                         const rect = ta.getBoundingClientRect();
@@ -378,7 +398,7 @@ export default function ASTExplorerPage() {
                         for (let i = 0; i < line && i < lines.length; i++) {
                           offset += lines[i]!.length + 1;
                         }
-                        offset += Math.min(col, (lines[line]?.length ?? 0));
+                        offset += Math.min(col, lines[line]?.length ?? 0);
                         if (offset >= 0 && offset < code.length) {
                           setHoveredCharOffset(offset);
                         }
@@ -394,7 +414,10 @@ export default function ASTExplorerPage() {
                       minH="300px"
                       py={4}
                       px={0}
-                      _focus={{ boxShadow: 'none', border: 'none' }}
+                      _focus={{
+                        boxShadow: 'none',
+                        border: 'none',
+                      }}
                       _hover={{ border: 'none' }}
                       spellCheck={false}
                       position="relative"
@@ -422,7 +445,11 @@ export default function ASTExplorerPage() {
                         border="1px"
                         borderColor="red.400"
                       >
-                        <Text fontSize="xs" fontFamily="mono" color="red.400">
+                        <Text
+                          fontSize="xs"
+                          fontFamily="mono"
+                          color="accessible.red"
+                        >
                           Error at position {err.position}: {err.message}
                         </Text>
                       </Box>
@@ -446,7 +473,8 @@ export default function ASTExplorerPage() {
                 overflowY="auto"
                 minH="300px"
                 py={2}
-                role="tree"
+                role="group"
+                aria-label="Abstract syntax tree"
               >
                 {result && (
                   <TreeNode
@@ -546,24 +574,25 @@ export default function ASTExplorerPage() {
             </Heading>
             <VStack align="stretch" spacing={2}>
               <Paragraph>
-                This explorer uses a hand-built recursive-descent parser with two phases:
-                first a <strong>tokenizer</strong> scans the source into tokens (keywords,
-                identifiers, numbers, strings, operators, punctuation), then a{' '}
-                <strong>parser</strong> consumes tokens and builds a tree following JavaScript
-                grammar rules.
+                This explorer uses a hand-built recursive-descent parser with
+                two phases: first a <strong>tokenizer</strong> scans the source
+                into tokens (keywords, identifiers, numbers, strings, operators,
+                punctuation), then a <strong>parser</strong> consumes tokens and
+                builds a tree following JavaScript grammar rules.
               </Paragraph>
               <Paragraph>
-                Operator precedence is handled by layering parse functions &mdash;
-                multiplicative operators bind tighter than additive, which bind tighter than
-                comparison, and so on. The parser gracefully recovers from errors: when it
-                encounters an unexpected token it records an error and skips ahead, producing
+                Operator precedence is handled by layering parse functions
+                &mdash; multiplicative operators bind tighter than additive,
+                which bind tighter than comparison, and so on. The parser
+                gracefully recovers from errors: when it encounters an
+                unexpected token it records an error and skips ahead, producing
                 a partial AST rather than crashing.
               </Paragraph>
               <Paragraph>
-                Each node stores its <strong>character offsets</strong> in the original
-                source, enabling the bidirectional highlighting: click a tree node to see its
-                source range, or hover over source characters to find the deepest AST node
-                that covers them.
+                Each node stores its <strong>character offsets</strong> in the
+                original source, enabling the bidirectional highlighting: click
+                a tree node to see its source range, or hover over source
+                characters to find the deepest AST node that covers them.
               </Paragraph>
             </VStack>
           </Box>

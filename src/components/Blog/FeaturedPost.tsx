@@ -66,6 +66,8 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                             src={post.cover}
                             alt=""
                             fill
+                            unoptimized
+                            referrerPolicy="no-referrer"
                             style={{ objectFit: 'cover' }}
                             placeholder="empty"
                             priority

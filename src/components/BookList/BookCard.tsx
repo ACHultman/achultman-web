@@ -17,7 +17,7 @@ function BookCard({ book }: BookCardProps) {
         return null;
     }
 
-    const { title, author, link, cover, coverWidth, coverHeight } = book;
+    const { title, author, link, cover } = book;
 
     return (
         <ExternalLink href={link} underline={false}>
@@ -31,10 +31,11 @@ function BookCard({ book }: BookCardProps) {
                 }}
                 width="100%"
             >
-                {cover && coverWidth && coverHeight ? (
+                {cover ? (
                     <Flex
                         position="relative"
                         width="100%"
+                        height="260px"
                         overflow="hidden"
                         borderTopRadius={5}
                         p={2}
@@ -42,12 +43,13 @@ function BookCard({ book }: BookCardProps) {
                     >
                         <Image
                             src={cover}
-                            alt={title}
-                            width={coverWidth}
-                            height={coverHeight}
-                            priority
+                            alt=""
+                            fill
+                            unoptimized
+                            referrerPolicy="no-referrer"
+                            sizes="(max-width: 768px) 50vw, 240px"
                             style={{
-                                objectFit: 'cover',
+                                objectFit: 'contain',
                                 borderRadius: '5px 5px 0 0',
                             }}
                         />
@@ -59,7 +61,7 @@ function BookCard({ book }: BookCardProps) {
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
-                        color="gray.500"
+                        color="accessible.gray"
                         fontSize="lg"
                         p={4}
                     >
@@ -74,7 +76,7 @@ function BookCard({ book }: BookCardProps) {
                     width="100%"
                 >
                     <Box p={4}>
-                        <Heading as="h6" size="md">
+                        <Heading as="h2" size="md">
                             {title}
                         </Heading>
                         <Paragraph mt={1} fontSize="sm">

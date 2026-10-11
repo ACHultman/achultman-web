@@ -13,11 +13,14 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   SimpleGrid,
   Input,
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import {
+  ArrowBackIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Paragraph from '@components/Paragraph';
@@ -43,7 +46,12 @@ interface TreePos {
   children: { child: TreePos; direction: 'left' | 'right' }[];
 }
 
-function layoutTree(node: HuffmanNode | null, x: number, y: number, spread: number): TreePos | null {
+function layoutTree(
+  node: HuffmanNode | null,
+  x: number,
+  y: number,
+  spread: number,
+): TreePos | null {
   if (!node) return null;
   const pos: TreePos = { x, y, node, children: [] };
   const leftPos = layoutTree(node.left, x - spread, y + 70, spread * 0.55);
@@ -70,7 +78,11 @@ function isOnHighlightPath(
   pos: TreePos,
   highlightPath: ('left' | 'right')[],
   root: TreePos,
-): { onPath: boolean; edgeHighlighted: boolean; direction: 'left' | 'right' | null } {
+): {
+  onPath: boolean;
+  edgeHighlighted: boolean;
+  direction: 'left' | 'right' | null;
+} {
   // Walk the highlight path from root to see if this node is on it
   let current: TreePos | null = root;
   const visited = new Set<TreePos>();
@@ -86,7 +98,11 @@ function isOnHighlightPath(
     }
   }
 
-  return { onPath: visited.has(pos), edgeHighlighted: false, direction: null };
+  return {
+    onPath: visited.has(pos),
+    edgeHighlighted: false,
+    direction: null,
+  };
 }
 
 function isEdgeHighlighted(
@@ -123,7 +139,7 @@ function HuffmanTreeSVG({
   const internalBg = useColorModeValue('#F7FAFC', '#2D3748');
   const edgeColor = useColorModeValue('#A0AEC0', '#4A5568');
   const highlightColor = '#D69E2E';
-  const labelColor = useColorModeValue('#718096', '#A0AEC0');
+  const labelColor = useColorModeValue('#4A5568', '#CBD5E0');
 
   if (!tree) {
     return (
@@ -177,7 +193,12 @@ function HuffmanTreeSVG({
         x2: c.child.x + offsetX,
         y2: c.child.y,
         direction: c.direction,
-        highlighted: isEdgeHighlighted(pos, c.direction, highlightPath, rootPos),
+        highlighted: isEdgeHighlighted(
+          pos,
+          c.direction,
+          highlightPath,
+          rootPos,
+        ),
       });
       collectEdges(c.child);
     }
@@ -224,11 +245,20 @@ function HuffmanTreeSVG({
           const r = isLeaf ? 18 : 14;
 
           return (
-            <g key={`node-${i}`} transform={`translate(${pos.x + offsetX}, ${pos.y})`}>
+            <g
+              key={`node-${i}`}
+              transform={`translate(${pos.x + offsetX}, ${pos.y})`}
+            >
               <circle
                 r={r}
                 fill={isLeaf ? leafBg : internalBg}
-                stroke={onPath && highlightPath.length > 0 ? highlightColor : isLeaf ? leafColor : nodeColor}
+                stroke={
+                  onPath && highlightPath.length > 0
+                    ? highlightColor
+                    : isLeaf
+                      ? leafColor
+                      : nodeColor
+                }
                 strokeWidth={onPath && highlightPath.length > 0 ? 3 : 1.5}
               />
               <text
@@ -238,7 +268,11 @@ function HuffmanTreeSVG({
                 fontWeight="bold"
                 fill={isLeaf ? leafColor : nodeColor}
               >
-                {isLeaf ? (pos.node.char === ' ' ? 'SP' : pos.node.char) : pos.node.freq}
+                {isLeaf
+                  ? pos.node.char === ' '
+                    ? 'SP'
+                    : pos.node.char
+                  : pos.node.freq}
               </text>
               {isLeaf && pos.node.code && (
                 <text
@@ -262,13 +296,7 @@ function HuffmanTreeSVG({
 // Stats Panel
 // ---------------------------------------------------------------------------
 
-function StatsPanel({
-  step,
-  input,
-}: {
-  step: CompressionStep;
-  input: string;
-}) {
+function StatsPanel({ step, input }: { step: CompressionStep; input: string }) {
   const cardBg = useColorModeValue('white', 'gray.800');
   const cardBorder = useColorModeValue('gray.200', 'gray.700');
   const subtleText = useColorModeValue('gray.600', 'gray.400');
@@ -276,7 +304,10 @@ function StatsPanel({
 
   const originalBits = input.length * 8;
   const compressedBits = step.encodedBits.length;
-  const ratio = originalBits > 0 ? ((1 - compressedBits / originalBits) * 100).toFixed(1) : '0';
+  const ratio =
+    originalBits > 0
+      ? ((1 - compressedBits / originalBits) * 100).toFixed(1)
+      : '0';
 
   // Build frequency map from nodes
   const freqEntries = step.nodes
@@ -286,8 +317,15 @@ function StatsPanel({
 
   // Color palette for characters
   const CHAR_COLORS = [
-    'blue.400', 'green.400', 'purple.400', 'orange.400', 'cyan.400',
-    'pink.400', 'teal.400', 'red.400', 'yellow.400',
+    'blue.400',
+    'green.400',
+    'purple.400',
+    'orange.400',
+    'cyan.400',
+    'pink.400',
+    'teal.400',
+    'red.400',
+    'yellow.400',
   ];
 
   return (
@@ -300,31 +338,49 @@ function StatsPanel({
       borderRadius="lg"
       p={4}
     >
-      <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wide">
+      <Text
+        fontWeight="bold"
+        fontSize="sm"
+        textTransform="uppercase"
+        letterSpacing="wide"
+      >
         Statistics
       </Text>
 
       <SimpleGrid columns={2} spacing={2}>
         <Box>
-          <Text fontSize="xs" color={subtleText}>Original</Text>
+          <Text fontSize="xs" color={subtleText}>
+            Original
+          </Text>
           <Text fontWeight="bold" fontFamily="mono" fontSize="sm">
             {input.length} chars ({originalBits} bits)
           </Text>
         </Box>
         <Box>
-          <Text fontSize="xs" color={subtleText}>Compressed</Text>
+          <Text fontSize="xs" color={subtleText}>
+            Compressed
+          </Text>
           <Text fontWeight="bold" fontFamily="mono" fontSize="sm">
             {compressedBits > 0 ? `${compressedBits} bits` : '--'}
           </Text>
         </Box>
         <Box>
-          <Text fontSize="xs" color={subtleText}>Ratio</Text>
-          <Text fontWeight="bold" fontFamily="mono" fontSize="sm" color={Number(ratio) > 0 ? 'green.400' : undefined}>
+          <Text fontSize="xs" color={subtleText}>
+            Ratio
+          </Text>
+          <Text
+            fontWeight="bold"
+            fontFamily="mono"
+            fontSize="sm"
+            color={Number(ratio) > 0 ? 'accessible.green' : undefined}
+          >
             {compressedBits > 0 ? `${ratio}% saved` : '--'}
           </Text>
         </Box>
         <Box>
-          <Text fontSize="xs" color={subtleText}>Unique chars</Text>
+          <Text fontSize="xs" color={subtleText}>
+            Unique chars
+          </Text>
           <Text fontWeight="bold" fontFamily="mono" fontSize="sm">
             {freqEntries.length}
           </Text>
@@ -333,7 +389,12 @@ function StatsPanel({
 
       <Divider />
 
-      <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wide">
+      <Text
+        fontWeight="bold"
+        fontSize="sm"
+        textTransform="uppercase"
+        letterSpacing="wide"
+      >
         Frequencies
       </Text>
 
@@ -343,10 +404,21 @@ function StatsPanel({
           const barWidth = `${(entry.freq / maxFreq) * 100}%`;
           return (
             <HStack key={`${entry.char}-${i}`} spacing={2} fontSize="sm">
-              <Text fontFamily="mono" fontWeight="bold" w="24px" textAlign="center">
+              <Text
+                fontFamily="mono"
+                fontWeight="bold"
+                w="24px"
+                textAlign="center"
+              >
                 {entry.char === ' ' ? 'SP' : entry.char}
               </Text>
-              <Box flex={1} bg={barBg} borderRadius="sm" h="16px" position="relative">
+              <Box
+                flex={1}
+                bg={barBg}
+                borderRadius="sm"
+                h="16px"
+                position="relative"
+              >
                 <Box
                   bg={color}
                   h="100%"
@@ -355,11 +427,23 @@ function StatsPanel({
                   transition="width 0.3s"
                 />
               </Box>
-              <Text fontFamily="mono" fontSize="xs" w="24px" textAlign="right" color={subtleText}>
+              <Text
+                fontFamily="mono"
+                fontSize="xs"
+                w="24px"
+                textAlign="right"
+                color={subtleText}
+              >
                 {entry.freq}
               </Text>
               {entry.code && (
-                <Text fontFamily="mono" fontSize="xs" color={subtleText} w="60px" textAlign="right">
+                <Text
+                  fontFamily="mono"
+                  fontSize="xs"
+                  color={subtleText}
+                  w="60px"
+                  textAlign="right"
+                >
                   {entry.code}
                 </Text>
               )}
@@ -375,6 +459,18 @@ function StatsPanel({
 // Encoded Bits Display
 // ---------------------------------------------------------------------------
 
+const ENCODED_CHAR_COLORS = [
+  'blue',
+  'green',
+  'purple',
+  'orange',
+  'cyan',
+  'pink',
+  'teal',
+  'red',
+  'yellow',
+];
+
 function EncodedBitsDisplay({
   step,
   input,
@@ -386,20 +482,15 @@ function EncodedBitsDisplay({
   const cardBorder = useColorModeValue('gray.200', 'gray.700');
   const subtleText = useColorModeValue('gray.600', 'gray.400');
 
-  const CHAR_COLORS = [
-    'blue', 'green', 'purple', 'orange', 'cyan',
-    'pink', 'teal', 'red', 'yellow',
-  ];
-
   // Build a color map per character
   const charColorMap = useMemo(() => {
     const map = new Map<string, string>();
     const uniqueChars = [...new Set(input.split(''))];
     uniqueChars.forEach((ch, i) => {
-      map.set(ch, CHAR_COLORS[i % CHAR_COLORS.length]!);
+      map.set(ch, ENCODED_CHAR_COLORS[i % ENCODED_CHAR_COLORS.length]!);
     });
     return map;
-  }, [input, CHAR_COLORS]);
+  }, [input]);
 
   // Build code map from nodes
   const codeMap = useMemo(() => {
@@ -438,13 +529,20 @@ function EncodedBitsDisplay({
       borderRadius="lg"
       p={4}
     >
-      <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wide" mb={2}>
+      <Text
+        fontWeight="bold"
+        fontSize="sm"
+        textTransform="uppercase"
+        letterSpacing="wide"
+        mb={2}
+      >
         Original Text
       </Text>
       <HStack spacing={0} mb={3} flexWrap="wrap">
         {input.split('').map((ch, i) => {
           const color = charColorMap.get(ch) ?? 'gray';
-          const isCurrent = step.currentChar === ch && step.phase === 'encoding';
+          const isCurrent =
+            step.currentChar === ch && step.phase === 'encoding';
           return (
             <Box
               key={i}
@@ -453,6 +551,7 @@ function EncodedBitsDisplay({
               fontFamily="mono"
               fontSize="sm"
               bg={isCurrent ? `${color}.200` : 'transparent'}
+              color={isCurrent ? 'gray.900' : undefined}
               borderRadius="sm"
               fontWeight={isCurrent ? 'bold' : 'normal'}
             >
@@ -462,7 +561,13 @@ function EncodedBitsDisplay({
         })}
       </HStack>
 
-      <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wide" mb={2}>
+      <Text
+        fontWeight="bold"
+        fontSize="sm"
+        textTransform="uppercase"
+        letterSpacing="wide"
+        mb={2}
+      >
         Encoded Bits
       </Text>
       <HStack spacing={0} flexWrap="wrap">
@@ -473,7 +578,7 @@ function EncodedBitsDisplay({
             py={0.5}
             fontFamily="mono"
             fontSize="xs"
-            color={`${seg.color}.400`}
+            color={`accessible.${seg.color}`}
             borderBottom="2px solid"
             borderColor={`${seg.color}.400`}
             title={`'${seg.char}' = ${seg.bits}`}
@@ -513,12 +618,19 @@ function RLEVisualization({ step }: { step: RLEStep }) {
         borderRadius="lg"
         p={4}
       >
-        <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wide" mb={3}>
+        <Text
+          fontWeight="bold"
+          fontSize="sm"
+          textTransform="uppercase"
+          letterSpacing="wide"
+          mb={3}
+        >
           Input String
         </Text>
         <HStack spacing={0} flexWrap="wrap">
           {step.input.split('').map((ch, i) => {
-            const inRun = i >= step.position && i < step.position + step.currentRun.count;
+            const inRun =
+              i >= step.position && i < step.position + step.currentRun.count;
             const isStart = i === step.position;
             return (
               <Box
@@ -540,7 +652,9 @@ function RLEVisualization({ step }: { step: RLEStep }) {
           })}
         </HStack>
         <Text fontSize="xs" color={subtleText} mt={2}>
-          Current run: &apos;{step.currentRun.char === ' ' ? 'SPACE' : step.currentRun.char}&apos; x {step.currentRun.count}
+          Current run: &apos;
+          {step.currentRun.char === ' ' ? 'SPACE' : step.currentRun.char}
+          &apos; x {step.currentRun.count}
         </Text>
       </Box>
 
@@ -552,12 +666,22 @@ function RLEVisualization({ step }: { step: RLEStep }) {
         borderRadius="lg"
         p={4}
       >
-        <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wide" mb={3}>
+        <Text
+          fontWeight="bold"
+          fontSize="sm"
+          textTransform="uppercase"
+          letterSpacing="wide"
+          mb={3}
+        >
           RLE Encoded Output
         </Text>
         <HStack spacing={0} flexWrap="wrap">
           {step.encoded.split('').map((ch, i) => {
-            const isNew = i >= step.encoded.length - (step.currentRun.char.length + String(step.currentRun.count).length);
+            const isNew =
+              i >=
+              step.encoded.length -
+                (step.currentRun.char.length +
+                  String(step.currentRun.count).length);
             return (
               <MotionBox
                 key={i}
@@ -568,7 +692,7 @@ function RLEVisualization({ step }: { step: RLEStep }) {
                 fontFamily="mono"
                 fontSize="lg"
                 fontWeight={isNew ? 'bold' : 'normal'}
-                color={isNew ? 'orange.400' : undefined}
+                color={isNew ? 'accessible.orange' : undefined}
               >
                 {ch}
               </MotionBox>
@@ -582,27 +706,68 @@ function RLEVisualization({ step }: { step: RLEStep }) {
 
       {/* Stats */}
       <SimpleGrid columns={3} spacing={4}>
-        <Box bg={cardBg} borderWidth="1px" borderColor={cardBorder} borderRadius="lg" p={4} textAlign="center">
-          <Text fontSize="xs" color={subtleText}>Original</Text>
-          <Text fontWeight="bold" fontFamily="mono" fontSize="lg">{step.input.length}</Text>
-          <Text fontSize="xs" color={subtleText}>chars</Text>
+        <Box
+          bg={cardBg}
+          borderWidth="1px"
+          borderColor={cardBorder}
+          borderRadius="lg"
+          p={4}
+          textAlign="center"
+        >
+          <Text fontSize="xs" color={subtleText}>
+            Original
+          </Text>
+          <Text fontWeight="bold" fontFamily="mono" fontSize="lg">
+            {step.input.length}
+          </Text>
+          <Text fontSize="xs" color={subtleText}>
+            chars
+          </Text>
         </Box>
-        <Box bg={cardBg} borderWidth="1px" borderColor={cardBorder} borderRadius="lg" p={4} textAlign="center">
-          <Text fontSize="xs" color={subtleText}>Encoded</Text>
-          <Text fontWeight="bold" fontFamily="mono" fontSize="lg">{step.encoded.length}</Text>
-          <Text fontSize="xs" color={subtleText}>chars</Text>
+        <Box
+          bg={cardBg}
+          borderWidth="1px"
+          borderColor={cardBorder}
+          borderRadius="lg"
+          p={4}
+          textAlign="center"
+        >
+          <Text fontSize="xs" color={subtleText}>
+            Encoded
+          </Text>
+          <Text fontWeight="bold" fontFamily="mono" fontSize="lg">
+            {step.encoded.length}
+          </Text>
+          <Text fontSize="xs" color={subtleText}>
+            chars
+          </Text>
         </Box>
-        <Box bg={cardBg} borderWidth="1px" borderColor={cardBorder} borderRadius="lg" p={4} textAlign="center">
-          <Text fontSize="xs" color={subtleText}>Ratio</Text>
+        <Box
+          bg={cardBg}
+          borderWidth="1px"
+          borderColor={cardBorder}
+          borderRadius="lg"
+          p={4}
+          textAlign="center"
+        >
+          <Text fontSize="xs" color={subtleText}>
+            Ratio
+          </Text>
           <Text
             fontWeight="bold"
             fontFamily="mono"
             fontSize="lg"
-            color={step.encoded.length < step.input.length ? 'green.400' : 'red.400'}
+            color={
+              step.encoded.length < step.input.length
+                ? 'accessible.green'
+                : 'accessible.red'
+            }
           >
             {((1 - step.encoded.length / step.input.length) * 100).toFixed(0)}%
           </Text>
-          <Text fontSize="xs" color={subtleText}>saved</Text>
+          <Text fontSize="xs" color={subtleText}>
+            saved
+          </Text>
         </Box>
       </SimpleGrid>
     </VStack>
@@ -622,7 +787,10 @@ export default function CompressionPage() {
   const example = EXAMPLES[exampleIdx]!;
   const inputText = example.name === 'Custom' ? customText : example.input;
 
-  const huffmanSteps = useMemo(() => generateHuffmanSteps(inputText), [inputText]);
+  const huffmanSteps = useMemo(
+    () => generateHuffmanSteps(inputText),
+    [inputText],
+  );
   const rleSteps = useMemo(() => generateRLESteps(inputText), [inputText]);
 
   const steps = tab === 'huffman' ? huffmanSteps : rleSteps;
@@ -644,10 +812,13 @@ export default function CompressionPage() {
     setStepIdx(0);
   }, []);
 
-  const handleCustomTextChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomText(e.target.value);
-    setStepIdx(0);
-  }, []);
+  const handleCustomTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCustomText(e.target.value);
+      setStepIdx(0);
+    },
+    [],
+  );
 
   const PHASE_COLORS: Record<string, string> = {
     frequency: 'blue',
@@ -663,14 +834,16 @@ export default function CompressionPage() {
         {/* Header */}
         <Box>
           <HStack mb={3}>
-            <Link as={NextLink} href="/labs">
-              <IconButton
-                aria-label="Go back"
-                icon={<ArrowBackIcon />}
-                variant="ghost"
-                size="sm"
-              />
-            </Link>
+            <IconButton
+              as={NextLink}
+              href="/labs"
+              minH="44px"
+              minW="44px"
+              aria-label="Go back"
+              icon={<ArrowBackIcon />}
+              variant="ghost"
+              size="sm"
+            />
             <Badge colorScheme="orange" fontSize="sm">
               Algorithms
             </Badge>
@@ -679,8 +852,9 @@ export default function CompressionPage() {
             {'\uD83D\uDDDC\uFE0F Compression Visualizer'}
           </Heading>
           <Paragraph>
-            Step through Huffman coding and Run-Length Encoding to see how text compression actually
-            works. Watch trees build, codes assign, and bits encode in real time.
+            Step through Huffman coding and Run-Length Encoding to see how text
+            compression actually works. Watch trees build, codes assign, and
+            bits encode in real time.
           </Paragraph>
         </Box>
 
@@ -695,6 +869,7 @@ export default function CompressionPage() {
             py={2}
             borderRadius="full"
             cursor="pointer"
+            aria-pressed={tab === 'huffman'}
             onClick={() => switchTab('huffman')}
           >
             Huffman Coding
@@ -708,6 +883,7 @@ export default function CompressionPage() {
             py={2}
             borderRadius="full"
             cursor="pointer"
+            aria-pressed={tab === 'rle'}
             onClick={() => switchTab('rle')}
           >
             Run-Length Encoding
@@ -726,6 +902,7 @@ export default function CompressionPage() {
               borderRadius="lg"
               borderWidth="2px"
               borderColor={i === exampleIdx ? activeBorder : cardBorder}
+              aria-pressed={i === exampleIdx}
               onClick={() => selectExample(i)}
               cursor="pointer"
               _hover={{ borderColor: activeBorder }}
@@ -744,6 +921,8 @@ export default function CompressionPage() {
         {/* Custom text input */}
         {example.name === 'Custom' && (
           <Input
+            aria-label="Text to compress"
+            maxLength={2000}
             placeholder="Type your own text..."
             value={customText}
             onChange={handleCustomTextChange}
@@ -781,13 +960,20 @@ export default function CompressionPage() {
                   variant="outline"
                   colorScheme="orange"
                 />
-                <Text fontFamily="mono" fontSize="sm" minW="100px" textAlign="center">
+                <Text
+                  fontFamily="mono"
+                  fontSize="sm"
+                  minW="100px"
+                  textAlign="center"
+                >
                   Step {stepIdx + 1} / {totalSteps}
                 </Text>
                 <IconButton
                   aria-label="Next step"
                   icon={<ChevronRightIcon boxSize={6} />}
-                  onClick={() => setStepIdx((i: number) => Math.min(totalSteps - 1, i + 1))}
+                  onClick={() =>
+                    setStepIdx((i: number) => Math.min(totalSteps - 1, i + 1))
+                  }
                   isDisabled={stepIdx === totalSteps - 1}
                   variant="outline"
                   colorScheme="orange"
@@ -799,7 +985,10 @@ export default function CompressionPage() {
                     Phase:
                   </Text>
                   <Badge
-                    colorScheme={PHASE_COLORS[(currentStep as CompressionStep).phase] ?? 'gray'}
+                    colorScheme={
+                      PHASE_COLORS[(currentStep as CompressionStep).phase] ??
+                      'gray'
+                    }
                     fontSize="sm"
                     px={3}
                     py={1}
@@ -821,27 +1010,52 @@ export default function CompressionPage() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
               >
-                <Box bg={cardBg} p={5} borderRadius="lg" borderWidth="1px" borderColor={cardBorder}>
-                  {tab === 'huffman' && currentStep && 'phase' in currentStep && (
-                    <>
-                      <Heading size="md" mb={2}>
-                        {(currentStep as CompressionStep).title}
-                      </Heading>
-                      <Text color={subtleText} lineHeight="tall">
-                        {(currentStep as CompressionStep).description}
-                      </Text>
-                    </>
-                  )}
-                  {tab === 'rle' && currentStep && 'currentRun' in currentStep && (
-                    <>
-                      <Heading size="md" mb={2}>
-                        Step {(currentStep as RLEStep).stepNumber}: Run of &apos;{(currentStep as RLEStep).currentRun.char === ' ' ? 'SPACE' : (currentStep as RLEStep).currentRun.char}&apos;
-                      </Heading>
-                      <Text color={subtleText} lineHeight="tall">
-                        Found {(currentStep as RLEStep).currentRun.count} consecutive &apos;{(currentStep as RLEStep).currentRun.char === ' ' ? 'SPACE' : (currentStep as RLEStep).currentRun.char}&apos; character{(currentStep as RLEStep).currentRun.count > 1 ? 's' : ''} starting at position {(currentStep as RLEStep).position}.
-                      </Text>
-                    </>
-                  )}
+                <Box
+                  bg={cardBg}
+                  p={5}
+                  borderRadius="lg"
+                  borderWidth="1px"
+                  borderColor={cardBorder}
+                >
+                  {tab === 'huffman' &&
+                    currentStep &&
+                    'phase' in currentStep && (
+                      <>
+                        <Heading size="md" mb={2}>
+                          {(currentStep as CompressionStep).title}
+                        </Heading>
+                        <Text color={subtleText} lineHeight="tall">
+                          {(currentStep as CompressionStep).description}
+                        </Text>
+                      </>
+                    )}
+                  {tab === 'rle' &&
+                    currentStep &&
+                    'currentRun' in currentStep && (
+                      <>
+                        <Heading size="md" mb={2}>
+                          Step {(currentStep as RLEStep).stepNumber}: Run of
+                          &apos;
+                          {(currentStep as RLEStep).currentRun.char === ' '
+                            ? 'SPACE'
+                            : (currentStep as RLEStep).currentRun.char}
+                          &apos;
+                        </Heading>
+                        <Text color={subtleText} lineHeight="tall">
+                          Found {(currentStep as RLEStep).currentRun.count}{' '}
+                          consecutive &apos;
+                          {(currentStep as RLEStep).currentRun.char === ' '
+                            ? 'SPACE'
+                            : (currentStep as RLEStep).currentRun.char}
+                          &apos; character
+                          {(currentStep as RLEStep).currentRun.count > 1
+                            ? 's'
+                            : ''}{' '}
+                          starting at position{' '}
+                          {(currentStep as RLEStep).position}.
+                        </Text>
+                      </>
+                    )}
                 </Box>
               </MotionBox>
             </AnimatePresence>
@@ -851,25 +1065,42 @@ export default function CompressionPage() {
               <Flex direction={{ base: 'column', lg: 'row' }} gap={6}>
                 {/* Left: Tree */}
                 <Box flex={1}>
-                  <Text fontSize="sm" fontWeight="bold" mb={3} textTransform="uppercase" letterSpacing="wide">
+                  <Text
+                    fontSize="sm"
+                    fontWeight="bold"
+                    mb={3}
+                    textTransform="uppercase"
+                    letterSpacing="wide"
+                  >
                     Huffman Tree
                   </Text>
                   <HuffmanTreeSVG
                     tree={(currentStep as CompressionStep).tree}
-                    highlightPath={(currentStep as CompressionStep).highlightPath}
+                    highlightPath={
+                      (currentStep as CompressionStep).highlightPath
+                    }
                   />
                 </Box>
 
                 {/* Right: Stats */}
                 <Box w={{ base: '100%', lg: '320px' }} flexShrink={0}>
-                  <StatsPanel step={currentStep as CompressionStep} input={inputText} />
+                  <StatsPanel
+                    step={currentStep as CompressionStep}
+                    input={inputText}
+                  />
                 </Box>
               </Flex>
             )}
 
-            {tab === 'huffman' && currentStep && 'phase' in currentStep && (currentStep as CompressionStep).encodedBits && (
-              <EncodedBitsDisplay step={currentStep as CompressionStep} input={inputText} />
-            )}
+            {tab === 'huffman' &&
+              currentStep &&
+              'phase' in currentStep &&
+              (currentStep as CompressionStep).encodedBits && (
+                <EncodedBitsDisplay
+                  step={currentStep as CompressionStep}
+                  input={inputText}
+                />
+              )}
 
             {tab === 'rle' && currentStep && 'currentRun' in currentStep && (
               <RLEVisualization step={currentStep as RLEStep} />

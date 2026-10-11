@@ -16,7 +16,6 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   Button,
   Textarea,
   Tooltip,
@@ -50,7 +49,7 @@ export default function ShaderPlayground() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [promptInput, setPromptInput] = useState('');
   const [promptResult, setPromptResult] = useState<GeneratedShader | null>(
-    null
+    null,
   );
   const [promptError, setPromptError] = useState(false);
 
@@ -81,12 +80,18 @@ export default function ShaderPlayground() {
   const cardBg = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.600', 'gray.400');
 
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      setIsPaused(true);
+  }, []);
+
   // --- Shareable URL: decode hash on mount ---
   useEffect(() => {
     const hash = window.location.hash.slice(1);
-    if (hash) {
+    if (hash && hash.length <= 64000) {
       try {
         const decoded = decodeURIComponent(atob(hash));
+        if (decoded.length > 16000) return;
         setCode(decoded);
         setSelectedPreset(-1);
       } catch {
@@ -122,7 +127,7 @@ export default function ShaderPlayground() {
 
     // Determine frequency bin boundaries based on sample rate
     const sampleRate = audioContextRef.current?.sampleRate || 44100;
-    const binHz = sampleRate / (analyser.fftSize);
+    const binHz = sampleRate / analyser.fftSize;
 
     const bin200 = Math.min(Math.floor(200 / binHz), bufferLength);
     const bin2000 = Math.min(Math.floor(2000 / binHz), bufferLength);
@@ -157,7 +162,9 @@ export default function ShaderPlayground() {
     if (audioEnabled) {
       // Disable audio
       if (audioStreamRef.current) {
-        audioStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        audioStreamRef.current
+          .getTracks()
+          .forEach((track: MediaStreamTrack) => track.stop());
         audioStreamRef.current = null;
       }
       if (audioContextRef.current) {
@@ -175,7 +182,9 @@ export default function ShaderPlayground() {
 
     // Enable audio — AudioContext created on user gesture
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
       const ctx = new AudioContext();
       const source = ctx.createMediaStreamSource(stream);
       const analyser = ctx.createAnalyser();
@@ -200,7 +209,9 @@ export default function ShaderPlayground() {
   useEffect(() => {
     return () => {
       if (audioStreamRef.current) {
-        audioStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        audioStreamRef.current
+          .getTracks()
+          .forEach((track: MediaStreamTrack) => track.stop());
       }
       if (audioContextRef.current) {
         audioContextRef.current.close();
@@ -212,7 +223,7 @@ export default function ShaderPlayground() {
     (
       gl: WebGLRenderingContext,
       source: string,
-      type: number
+      type: number,
     ): WebGLShader | null => {
       const shader = gl.createShader(type);
       if (!shader) return null;
@@ -228,7 +239,7 @@ export default function ShaderPlayground() {
       }
       return shader;
     },
-    []
+    [],
   );
 
   const buildProgram = useCallback(
@@ -265,7 +276,7 @@ export default function ShaderPlayground() {
       setCompileTimeMs(Math.round(t1 - t0));
       return prog;
     },
-    [compileShader]
+    [compileShader],
   );
 
   const recompile = useCallback(
@@ -280,7 +291,7 @@ export default function ShaderPlayground() {
         programRef.current = newProg;
       }
     },
-    [buildProgram]
+    [buildProgram],
   );
 
   // Initialize WebGL
@@ -305,7 +316,7 @@ export default function ShaderPlayground() {
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
 
     // Build initial program
@@ -505,14 +516,16 @@ export default function ShaderPlayground() {
           {/* Header */}
           <Box>
             <HStack spacing={3} mb={4}>
-              <Link as={NextLink} href="/labs">
-                <IconButton
-                  aria-label="Go back"
-                  icon={<ArrowBackIcon />}
-                  variant="ghost"
-                  size="sm"
-                />
-              </Link>
+              <IconButton
+                as={NextLink}
+                href="/labs"
+                minH="44px"
+                minW="44px"
+                aria-label="Go back"
+                icon={<ArrowBackIcon />}
+                variant="ghost"
+                size="sm"
+              />
               <Badge colorScheme="pink" fontSize="sm" px={2} py={1}>
                 Graphics
               </Badge>
@@ -540,7 +553,7 @@ export default function ShaderPlayground() {
               <InputGroup flex={1}>
                 <InputLeftElement
                   pointerEvents="none"
-                  color="gray.500"
+                  color="accessible.gray"
                   fontSize="sm"
                 >
                   &gt;
@@ -583,7 +596,10 @@ export default function ShaderPlayground() {
                       borderRadius="full"
                       fontSize="xs"
                       onClick={() => handleChipClick(chip)}
-                      _hover={{ opacity: 0.8, transform: 'scale(1.05)' }}
+                      _hover={{
+                        opacity: 0.8,
+                        transform: 'scale(1.05)',
+                      }}
                       transition="all 0.15s"
                     >
                       {chip}
@@ -592,8 +608,8 @@ export default function ShaderPlayground() {
                 ))}
               </Wrap>
               <HStack spacing={1} flexShrink={0} ml={2}>
-                <LockIcon boxSize={3} color="gray.500" />
-                <Text fontSize="xs" color="gray.500">
+                <LockIcon boxSize={3} color="accessible.gray" />
+                <Text fontSize="xs" color="accessible.gray">
                   Runs locally
                 </Text>
               </HStack>
@@ -616,7 +632,7 @@ export default function ShaderPlayground() {
               </MotionBox>
             )}
             {promptError && (
-              <Text fontSize="sm" color="gray.500">
+              <Text fontSize="sm" color="accessible.gray">
                 No match found — try different words like shapes (sphere, heart,
                 torus) or effects (fire, waves, noise)
               </Text>
@@ -631,7 +647,7 @@ export default function ShaderPlayground() {
             <Wrap spacing={2}>
               {SHADER_PRESETS.map((preset, i) => {
                 const cat = SHADER_CATEGORIES.find(
-                  (c) => c.name === preset.category
+                  (c) => c.name === preset.category,
                 );
                 return (
                   <WrapItem key={preset.name}>
@@ -645,7 +661,10 @@ export default function ShaderPlayground() {
                         borderRadius="full"
                         fontSize="sm"
                         onClick={() => handlePresetSelect(i)}
-                        _hover={{ opacity: 0.8, transform: 'scale(1.05)' }}
+                        _hover={{
+                          opacity: 0.8,
+                          transform: 'scale(1.05)',
+                        }}
                         transition="all 0.15s"
                       >
                         {preset.name}
@@ -660,11 +679,7 @@ export default function ShaderPlayground() {
           <Divider />
 
           {/* Main Editor + Preview */}
-          <Flex
-            direction={{ base: 'column', lg: 'row' }}
-            gap={4}
-            minH="500px"
-          >
+          <Flex direction={{ base: 'column', lg: 'row' }} gap={4} minH="500px">
             {/* Code Editor */}
             <Box flex={1} minW={0}>
               <HStack justify="space-between" mb={2}>
@@ -683,11 +698,7 @@ export default function ShaderPlayground() {
                   >
                     Reset
                   </Button>
-                  <Button
-                    size="xs"
-                    variant="outline"
-                    onClick={handleCopyLink}
-                  >
+                  <Button size="xs" variant="outline" onClick={handleCopyLink}>
                     Copy Link
                   </Button>
                   <Button
@@ -724,7 +735,7 @@ export default function ShaderPlayground() {
                         key={i}
                         fontSize="xs"
                         fontFamily="mono"
-                        color="gray.500"
+                        color="gray.400"
                         lineHeight="20px"
                       >
                         {i + 1}
@@ -734,8 +745,12 @@ export default function ShaderPlayground() {
                 </Box>
                 {/* Textarea */}
                 <Textarea
+                  maxLength={16000}
+                  aria-label="Fragment shader source code"
                   value={code}
-                  onChange={(e: { target: { value: string } }) => setCode(e.target.value)}
+                  onChange={(e: { target: { value: string } }) =>
+                    setCode(e.target.value)
+                  }
                   fontFamily="mono"
                   fontSize="xs"
                   color="green.300"
@@ -747,7 +762,10 @@ export default function ShaderPlayground() {
                   px={3}
                   lineHeight="20px"
                   spellCheck={false}
-                  _focus={{ border: 'none', boxShadow: 'none' }}
+                  _focus={{
+                    border: 'none',
+                    boxShadow: 'none',
+                  }}
                   _hover={{ border: 'none' }}
                   overflowY="auto"
                 />
@@ -759,7 +777,7 @@ export default function ShaderPlayground() {
                   animate={{ opacity: 1, height: 'auto' }}
                   mt={2}
                 >
-                  <Text fontSize="xs" fontFamily="mono" color="gray.500">
+                  <Text fontSize="xs" fontFamily="mono" color="accessible.gray">
                     Audio uniforms available: uniform float u_bass; // 0-1 low
                     freq | uniform float u_mid; // 0-1 mid freq | uniform float
                     u_treble; // 0-1 high freq
@@ -820,6 +838,8 @@ export default function ShaderPlayground() {
                 position="relative"
               >
                 <canvas
+                  role="img"
+                  aria-label="Live preview of the fragment shader source"
                   ref={canvasRef}
                   style={{
                     width: '100%',
@@ -830,7 +850,7 @@ export default function ShaderPlayground() {
               </Box>
               {/* Audio error */}
               {audioError && (
-                <Text fontSize="xs" color="red.400" mt={1}>
+                <Text fontSize="xs" color="accessible.red" mt={1}>
                   Microphone error: {audioError}
                 </Text>
               )}
@@ -952,8 +972,8 @@ export default function ShaderPlayground() {
                   every pixel on screen. It receives the pixel coordinate (
                   <code>gl_FragCoord</code>) and outputs a color (
                   <code>gl_FragColor</code>). Because the GPU runs thousands of
-                  these in parallel, complex mathematical patterns render in real
-                  time.
+                  these in parallel, complex mathematical patterns render in
+                  real time.
                 </Text>
               </Box>
               <Box bg={cardBg} p={4} borderRadius="md" shadow="sm">

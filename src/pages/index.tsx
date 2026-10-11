@@ -70,7 +70,7 @@ export default function Index() {
                     </div>
                 </div>
                 <p className="work-disciplines">
-                    Web <span>/</span> Mobile <span>/</span> Backend
+                    Web <span aria-hidden="true">/</span> Mobile <span aria-hidden="true">/</span> Backend
                 </p>
             </section>
             <section className="perspective-panel">

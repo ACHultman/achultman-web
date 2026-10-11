@@ -4,7 +4,9 @@ on:
     push:
         branches: [main]
     pull_request:
-        branches: [main]
+
+permissions:
+    contents: read
 
 jobs:
     lint:
@@ -12,16 +14,29 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v3
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+              with:
+                  persist-credentials: false
 
             - name: Set up Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
               with:
                   node-version: 24.x
                   cache: 'npm'
 
             - name: Install dependencies
+              env:
+                  PUPPETEER_SKIP_DOWNLOAD: true
               run: npm ci
 
             - name: Run ESLint
-              run: npm run lint
+              run: npm run lint -- --max-warnings=0
+
+            - name: Type check
+              run: npm run typecheck
+
+            - name: Security and content regression tests
+              run: npm test
+
+            - name: Audit all dependencies
+              run: npm audit --audit-level=low

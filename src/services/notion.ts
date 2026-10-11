@@ -192,18 +192,29 @@ export async function fetchNotions<T extends DatabaseName>(
 async function listAllBlockChildren(
     blockId: string,
     maxPages = 5,
-    depth = 0
+    depth = 0,
+    budget = { requests: 0, blocks: 0 }
 ): Promise<ListBlockChildrenResponse> {
+    if (++budget.requests > 50)
+        throw new Error('Article exceeds the request limit');
     const first = await notion.blocks.children.list({ block_id: blockId });
+    budget.blocks += first.results.length;
+    if (budget.blocks > 2000)
+        throw new Error('Article exceeds the block limit');
     const results = [...first.results];
 
     let cursor = first.next_cursor;
     let page = 1;
     while (cursor && page < maxPages) {
+        if (++budget.requests > 50)
+            throw new Error('Article exceeds the request limit');
         const next = await notion.blocks.children.list({
             block_id: blockId,
             start_cursor: cursor,
         });
+        budget.blocks += next.results.length;
+        if (budget.blocks > 2000)
+            throw new Error('Article exceeds the block limit');
         results.push(...next.results);
         cursor = next.next_cursor;
         page++;
@@ -220,7 +231,8 @@ async function listAllBlockChildren(
                 const children = await listAllBlockChildren(
                     block.id,
                     maxPages,
-                    depth + 1
+                    depth + 1,
+                    budget
                 );
                 const content = (block as unknown as Record<string, object>)[
                     block.type
@@ -318,6 +330,18 @@ export async function fetchNotion<T extends DatabaseName>(db: T, id: string) {
         if (!pageIsPageObjectResponse(pageResponse)) {
             return null;
         }
+
+        // Enforce membership here as well as in routes, before reading any body.
+        const parent = pageResponse.parent;
+        if (
+            parent.type !== 'database_id' ||
+            parent.database_id.replaceAll('-', '').toLowerCase() !==
+                MAP_DATABASE_CONFIG[db].id?.replaceAll('-', '').toLowerCase() ||
+            pageResponse.archived ||
+            pageResponse.in_trash ||
+            (db === 'blog' && !getDateField(pageResponse, 'Published'))
+        )
+            return null;
 
         const blockChildrenResponse = await listAllBlockChildren(id);
         const filteredBlocks = blockChildrenResponse.results.filter(

@@ -6,7 +6,7 @@ const WORDS_PER_MINUTE = 200;
  * bulleted/numbered list item, quote, callout, and toggle blocks.
  */
 export function estimateReadingTime(
-    blocks: { type?: string; [key: string]: any }[]
+    blocks: { type?: string; [key: string]: unknown }[]
 ): number {
     let wordCount = 0;
 
@@ -15,14 +15,21 @@ export function estimateReadingTime(
         if (!type) continue;
 
         const content = block[type];
-        if (!content) continue;
+        if (!content || typeof content !== 'object') continue;
 
         // Extract text from rich_text arrays
-        const richText: { plain_text?: string }[] =
-            content.rich_text ?? content.text ?? [];
+        const richText =
+            ('rich_text' in content ? content.rich_text : undefined) ??
+            ('text' in content ? content.text : undefined);
+        if (!Array.isArray(richText)) continue;
 
         for (const segment of richText) {
-            if (segment.plain_text) {
+            if (
+                segment &&
+                typeof segment === 'object' &&
+                'plain_text' in segment &&
+                typeof segment.plain_text === 'string'
+            ) {
                 wordCount += segment.plain_text.split(/\s+/).filter(Boolean).length;
             }
         }

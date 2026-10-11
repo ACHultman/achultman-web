@@ -1,4 +1,5 @@
 import { extendTheme, ThemeConfig } from '@chakra-ui/react';
+import type { StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 const config: ThemeConfig = {
     initialColorMode: 'light',
@@ -8,6 +9,25 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
     config,
+    semanticTokens: {
+        colors: Object.fromEntries(
+            [
+                'gray',
+                'blue',
+                'green',
+                'orange',
+                'purple',
+                'red',
+                'teal',
+                'cyan',
+                'pink',
+                'yellow',
+            ].map((color) => [
+                `accessible.${color}`,
+                { default: `${color}.800`, _dark: `${color}.200` },
+            ])
+        ),
+    },
     fonts: {
         body: 'var(--font-body), system-ui, sans-serif',
         heading: 'var(--font-body), system-ui, sans-serif',
@@ -72,6 +92,25 @@ const theme = extendTheme({
     },
     components: {
         Button: {
+            variants: {
+                solid: ({ colorScheme, colorMode }: StyleFunctionProps) =>
+                    colorScheme === 'gray'
+                        ? {}
+                        : {
+                              bg: `${colorScheme}.${colorMode === 'dark' ? 300 : 800}`,
+                              color:
+                                  colorMode === 'dark' ? 'gray.900' : 'white',
+                              _hover: {
+                                  bg: `${colorScheme}.${colorMode === 'dark' ? 200 : 800}`,
+                              },
+                              _active: {
+                                  bg: `${colorScheme}.${colorMode === 'dark' ? 100 : 900}`,
+                              },
+                          },
+                outline: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    color: `${colorScheme}.${colorMode === 'dark' ? 200 : 800}`,
+                }),
+            },
             baseStyle: {
                 borderRadius: '6px',
                 fontWeight: '700',
@@ -80,6 +119,20 @@ const theme = extendTheme({
                 _focusVisible: {
                     boxShadow: '0 0 0 3px var(--chakra-colors-moss-300)',
                 },
+            },
+        },
+        Badge: {
+            variants: {
+                subtle: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    color: `${colorScheme}.${colorMode === 'dark' ? 100 : 800}`,
+                }),
+                solid: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    bg: `${colorScheme}.${colorMode === 'dark' ? 300 : 800}`,
+                    color: colorMode === 'dark' ? 'gray.900' : 'white',
+                }),
+                outline: ({ colorScheme, colorMode }: StyleFunctionProps) => ({
+                    color: `${colorScheme}.${colorMode === 'dark' ? 200 : 800}`,
+                }),
             },
         },
         Heading: {

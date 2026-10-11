@@ -14,7 +14,6 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   Button,
   SimpleGrid,
   Tooltip,
@@ -69,7 +68,9 @@ interface RaceResult {
 }
 
 export default function SortArenaPage() {
-  const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>(['bubbleSort']);
+  const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>([
+    'bubbleSort',
+  ]);
   const [array, setArray] = useState<number[]>(ARRAY_PRESETS[0]!.array);
   const [speed, setSpeed] = useState(200);
   const [isRacing, setIsRacing] = useState(false);
@@ -85,24 +86,37 @@ export default function SortArenaPage() {
 
   const initAudioContext = useCallback(() => {
     if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      audioCtxRef.current = new (
+        window.AudioContext ||
+        (
+          window as unknown as {
+            webkitAudioContext: typeof AudioContext;
+          }
+        ).webkitAudioContext
+      )();
     }
   }, []);
 
-  const playTone = useCallback((value: number, duration: number = 50) => {
-    if (!audioCtxRef.current || !soundEnabled) return;
-    const osc = audioCtxRef.current.createOscillator();
-    const gain = audioCtxRef.current.createGain();
-    osc.connect(gain);
-    gain.connect(audioCtxRef.current.destination);
-    // Map value (0-100) to frequency (200-800 Hz)
-    osc.frequency.value = 200 + (value / 100) * 600;
-    osc.type = 'sine';
-    gain.gain.value = 0.05;
-    osc.start();
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtxRef.current.currentTime + duration / 1000);
-    osc.stop(audioCtxRef.current.currentTime + duration / 1000);
-  }, [soundEnabled]);
+  const playTone = useCallback(
+    (value: number, duration: number = 50) => {
+      if (!audioCtxRef.current || !soundEnabled) return;
+      const osc = audioCtxRef.current.createOscillator();
+      const gain = audioCtxRef.current.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtxRef.current.destination);
+      // Map value (0-100) to frequency (200-800 Hz)
+      osc.frequency.value = 200 + (value / 100) * 600;
+      osc.type = 'sine';
+      gain.gain.value = 0.05;
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioCtxRef.current.currentTime + duration / 1000,
+      );
+      osc.stop(audioCtxRef.current.currentTime + duration / 1000);
+    },
+    [soundEnabled],
+  );
 
   const toggleSound = useCallback(() => {
     initAudioContext();
@@ -259,21 +273,33 @@ export default function SortArenaPage() {
   const getBarColor = (step: SortStep | undefined, index: number): string => {
     if (!step) return barDefaultColor;
     if (step.sorted.includes(index)) return 'green.400';
-    if (step.swapping && (step.swapping[0] === index || step.swapping[1] === index))
+    if (
+      step.swapping &&
+      (step.swapping[0] === index || step.swapping[1] === index)
+    )
       return 'red.400';
-    if (step.comparing && (step.comparing[0] === index || step.comparing[1] === index))
+    if (
+      step.comparing &&
+      (step.comparing[0] === index || step.comparing[1] === index)
+    )
       return 'yellow.400';
     if (step.pivot === index) return 'blue.400';
     return barDefaultColor;
   };
 
-  const getBarBorder = (step: SortStep | undefined, index: number): string | undefined => {
+  const getBarBorder = (
+    step: SortStep | undefined,
+    index: number,
+  ): string | undefined => {
     if (!step) return undefined;
     if (step.pivot === index) return '2px solid';
     return undefined;
   };
 
-  const getBarBorderColor = (step: SortStep | undefined, index: number): string | undefined => {
+  const getBarBorderColor = (
+    step: SortStep | undefined,
+    index: number,
+  ): string | undefined => {
     if (!step) return undefined;
     if (step.pivot === index) return 'blue.300';
     return undefined;
@@ -372,15 +398,23 @@ export default function SortArenaPage() {
         <VStack spacing={6} align="stretch">
           {/* Header */}
           <HStack spacing={4}>
-            <Link as={NextLink} href="/labs">
-              <IconButton
-                aria-label="Go back"
-                icon={<ArrowBackIcon />}
-                variant="ghost"
-                size="sm"
-              />
-            </Link>
-            <Badge colorScheme="pink" fontSize="sm" px={2} py={1} borderRadius="md">
+            <IconButton
+              as={NextLink}
+              href="/labs"
+              minH="44px"
+              minW="44px"
+              aria-label="Go back"
+              icon={<ArrowBackIcon />}
+              variant="ghost"
+              size="sm"
+            />
+            <Badge
+              colorScheme="pink"
+              fontSize="sm"
+              px={2}
+              py={1}
+              borderRadius="md"
+            >
               CS Fundamentals
             </Badge>
           </HStack>
@@ -390,14 +424,21 @@ export default function SortArenaPage() {
               {'🏎️ Sorting Algorithm Arena'}
             </Heading>
             <Paragraph>
-              Race sorting algorithms head-to-head. Watch every comparison and swap in real time.
+              Race sorting algorithms head-to-head. Watch every comparison and
+              swap in real time.
             </Paragraph>
           </Box>
 
           <Divider />
 
           {/* Controls */}
-          <Box bg={cardBg} p={5} borderRadius="xl" border="1px solid" borderColor={borderColor}>
+          <Box
+            bg={cardBg}
+            p={5}
+            borderRadius="xl"
+            border="1px solid"
+            borderColor={borderColor}
+          >
             <VStack spacing={4} align="stretch">
               {/* Array presets */}
               <Box>
@@ -456,11 +497,20 @@ export default function SortArenaPage() {
                 </Text>
                 <Flex wrap="wrap" gap={2}>
                   {Object.entries(ALGORITHMS).map(([key, algo]) => (
-                    <Tooltip key={key} label={algo.description} placement="top" hasArrow>
+                    <Tooltip
+                      key={key}
+                      label={algo.description}
+                      placement="top"
+                      hasArrow
+                    >
                       <Button
                         size="sm"
-                        variant={selectedAlgorithms.includes(key) ? 'solid' : 'outline'}
-                        colorScheme={selectedAlgorithms.includes(key) ? algo.color : 'gray'}
+                        variant={
+                          selectedAlgorithms.includes(key) ? 'solid' : 'outline'
+                        }
+                        colorScheme={
+                          selectedAlgorithms.includes(key) ? algo.color : 'gray'
+                        }
                         onClick={() => toggleAlgorithm(key)}
                         isDisabled={isRacing}
                       >
@@ -486,11 +536,19 @@ export default function SortArenaPage() {
                   {'🏁 Race!'}
                 </Button>
                 {isRacing && (
-                  <Button size="lg" variant="outline" colorScheme="red" onClick={stopRace}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    colorScheme="red"
+                    onClick={stopRace}
+                  >
                     Stop
                   </Button>
                 )}
-                <Tooltip label={soundEnabled ? 'Mute sound' : 'Enable sound'} hasArrow>
+                <Tooltip
+                  label={soundEnabled ? 'Mute sound' : 'Enable sound'}
+                  hasArrow
+                >
                   <Button
                     size="lg"
                     variant={soundEnabled ? 'solid' : 'outline'}
@@ -509,7 +567,9 @@ export default function SortArenaPage() {
             renderVisualization(selectedAlgorithms[0]!)
           ) : (
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-              {selectedAlgorithms.map((alg: string) => renderVisualization(alg))}
+              {selectedAlgorithms.map((alg: string) =>
+                renderVisualization(alg),
+              )}
             </SimpleGrid>
           )}
 
@@ -544,9 +604,14 @@ export default function SortArenaPage() {
                     <Tbody>
                       {raceResults.map((result: RaceResult, idx: number) => {
                         const algo = ALGORITHMS[result.algorithm]!;
-                        const isWinner = raceResults.length === 2 && winnerIdx === idx;
-                        const complexity = ALGORITHM_COMPLEXITY[result.algorithm];
-                        const detectedCase = detectComplexityCase(result.algorithm, array);
+                        const isWinner =
+                          raceResults.length === 2 && winnerIdx === idx;
+                        const complexity =
+                          ALGORITHM_COMPLEXITY[result.algorithm];
+                        const detectedCase = detectComplexityCase(
+                          result.algorithm,
+                          array,
+                        );
                         const caseLabel =
                           detectedCase === 'best'
                             ? 'Best case'
@@ -560,12 +625,19 @@ export default function SortArenaPage() {
                               ? 'red'
                               : 'gray';
                         const caseComplexity =
-                          complexity?.[detectedCase === 'avg' ? 'avg' : detectedCase] ?? '';
+                          complexity?.[
+                            detectedCase === 'avg' ? 'avg' : detectedCase
+                          ] ?? '';
                         return (
-                          <Tr key={result.algorithm} fontWeight={isWinner ? 'bold' : 'normal'}>
+                          <Tr
+                            key={result.algorithm}
+                            fontWeight={isWinner ? 'bold' : 'normal'}
+                          >
                             <Td>
                               <HStack>
-                                <Badge colorScheme={algo.color}>{algo.name}</Badge>
+                                <Badge colorScheme={algo.color}>
+                                  {algo.name}
+                                </Badge>
                                 {isWinner && (
                                   <Badge colorScheme="green" variant="solid">
                                     {'🏆 Winner'}
@@ -582,7 +654,11 @@ export default function SortArenaPage() {
                             <Td>{algo.complexity.space}</Td>
                             <Td>
                               <VStack spacing={0} align="start">
-                                <Badge colorScheme={caseBadgeColor} variant="solid" fontSize="xs">
+                                <Badge
+                                  colorScheme={caseBadgeColor}
+                                  variant="solid"
+                                  fontSize="xs"
+                                >
                                   {caseLabel}
                                 </Badge>
                                 <Text fontSize="xs" color={subtleText}>
@@ -666,7 +742,14 @@ export default function SortArenaPage() {
               </Text>
             </HStack>
             <HStack spacing={1}>
-              <Box w={3} h={3} bg="blue.400" borderRadius="sm" border="2px solid" borderColor="blue.300" />
+              <Box
+                w={3}
+                h={3}
+                bg="blue.400"
+                borderRadius="sm"
+                border="2px solid"
+                borderColor="blue.300"
+              />
               <Text fontSize="xs" color={subtleText}>
                 Pivot
               </Text>

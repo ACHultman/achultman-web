@@ -154,7 +154,7 @@ function TokenViz() {
   const isLight = useColorModeValue(true, false);
   const cardBg = useColorModeValue('gray.50', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
-  const dimText = useColorModeValue('gray.500', 'gray.400');
+  const dimText = useColorModeValue('gray.600', 'gray.300');
   const chipBg = useColorModeValue('gray.100', 'gray.700');
 
   const handleGenerate = useCallback(() => {
@@ -396,7 +396,7 @@ function TokenViz() {
                 <Link
                   href="https://github.com/ACHultman/achultman-web"
                   isExternal
-                  color="purple.400"
+                  color="accessible.purple"
                 >
                   View Source →
                 </Link>

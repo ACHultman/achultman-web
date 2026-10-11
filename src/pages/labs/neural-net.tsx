@@ -13,7 +13,6 @@ import {
   SlideFade,
   Divider,
   IconButton,
-  Link,
   Button,
   SimpleGrid,
   Slider,
@@ -53,10 +52,12 @@ const BOUNDARY_UPDATE_INTERVAL = 5;
 export default function NeuralNetPlayground() {
   const [presetIdx, setPresetIdx] = useState(0);
   const [config, setConfig] = useState<NetworkConfig>(
-    PRESET_NETWORKS[0]!.config
+    PRESET_NETWORKS[0]!.config,
   );
   const [datasetKey, setDatasetKey] = useState(PRESET_NETWORKS[0]!.datasetKey);
   const [customPoints, setCustomPoints] = useState<DataPoint[]>([]);
+  const [pointX, setPointX] = useState(0);
+  const [pointY, setPointY] = useState(0);
   const [activations, setActivations] = useState<number[][] | null>(null);
   const [animatingLayer, setAnimatingLayer] = useState<number | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -123,12 +124,12 @@ export default function NeuralNetPlayground() {
 
   const boundary = useMemo(
     () => generateDecisionBoundary(config, 30, activationFn),
-    [config, activationFn]
+    [config, activationFn],
   );
 
   const accuracy = useMemo(
     () => computeAccuracy(config, dataset, activationFn),
-    [config, dataset, activationFn]
+    [config, dataset, activationFn],
   );
 
   const totalParams = useMemo(() => countParams(config), [config]);
@@ -174,7 +175,7 @@ export default function NeuralNetPlayground() {
         fullDs,
         learningRateRef.current,
         Math.min(8, fullDs.points.length),
-        activationFnRef.current
+        activationFnRef.current,
       );
       currentConfig = result.config;
       totalLoss += result.loss;
@@ -246,7 +247,7 @@ export default function NeuralNetPlayground() {
       activationFnRef.current = 'sigmoid';
       if (animationRef.current) clearTimeout(animationRef.current);
     },
-    [stopTraining]
+    [stopTraining],
   );
 
   const handleResetAndLearn = useCallback(() => {
@@ -326,7 +327,7 @@ export default function NeuralNetPlayground() {
         cy: Math.max(-1, Math.min(1, y)),
       };
     },
-    []
+    [],
   );
 
   // Click on decision boundary to add a custom point
@@ -342,7 +343,7 @@ export default function NeuralNetPlayground() {
         { x: cx, y: cy, label },
       ]);
     },
-    [drawMode, getDataCoordsFromEvent]
+    [drawMode, getDataCoordsFromEvent],
   );
 
   // Paint mode: mouse down
@@ -358,7 +359,7 @@ export default function NeuralNetPlayground() {
         { x: cx, y: cy, label: paintClass },
       ]);
     },
-    [drawMode, paintClass, getDataCoordsFromEvent]
+    [drawMode, paintClass, getDataCoordsFromEvent],
   );
 
   // Paint mode: mouse move (throttled by distance)
@@ -380,7 +381,7 @@ export default function NeuralNetPlayground() {
         { x: cx, y: cy, label: paintClass },
       ]);
     },
-    [drawMode, paintClass, getDataCoordsFromEvent]
+    [drawMode, paintClass, getDataCoordsFromEvent],
   );
 
   // Paint mode: mouse up
@@ -414,7 +415,7 @@ export default function NeuralNetPlayground() {
         const y = svgHeight / 2 - totalHeight / 2 + ni * 48;
         return { x, y };
       });
-    }
+    },
   );
 
   // Build connections
@@ -539,14 +540,16 @@ export default function NeuralNetPlayground() {
         <VStack spacing={8} align="stretch">
           {/* Header */}
           <HStack spacing={4}>
-            <Link as={NextLink} href="/labs">
-              <IconButton
-                aria-label="Back to labs"
-                icon={<ArrowBackIcon />}
-                variant="ghost"
-                size="sm"
-              />
-            </Link>
+            <IconButton
+              as={NextLink}
+              href="/labs"
+              minH="44px"
+              minW="44px"
+              aria-label="Back to labs"
+              icon={<ArrowBackIcon />}
+              variant="ghost"
+              size="sm"
+            />
             <Badge colorScheme="cyan" fontSize="xs">
               ML Experiment
             </Badge>
@@ -623,7 +626,10 @@ export default function NeuralNetPlayground() {
               px={8}
               fontWeight="bold"
               shadow="md"
-              _hover={{ shadow: 'lg', transform: 'translateY(-1px)' }}
+              _hover={{
+                shadow: 'lg',
+                transform: 'translateY(-1px)',
+              }}
               transition="all 0.2s"
             >
               Reset &amp; Watch it Learn
@@ -680,10 +686,7 @@ export default function NeuralNetPlayground() {
                   {/* Glow filter for training */}
                   <defs>
                     <filter id="glow">
-                      <feGaussianBlur
-                        stdDeviation="3"
-                        result="coloredBlur"
-                      />
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                       <feMerge>
                         <feMergeNode in="coloredBlur" />
                         <feMergeNode in="SourceGraphic" />
@@ -701,9 +704,9 @@ export default function NeuralNetPlayground() {
                     // Gradient overlay mode
                     const gradMag =
                       showGradients && gradientMagnitudes
-                        ? gradientMagnitudes[c.layerIdx]?.[c.toNeuron]?.[
+                        ? (gradientMagnitudes[c.layerIdx]?.[c.toNeuron]?.[
                             c.fromNeuron
-                          ] ?? 0
+                          ] ?? 0)
                         : null;
                     const useGradientColor =
                       showGradients && gradMag !== null && isTraining;
@@ -716,10 +719,8 @@ export default function NeuralNetPlayground() {
                     const strokeWidth = useGradientColor
                       ? Math.min(
                           1.5 +
-                            (maxGradient > 0
-                              ? (gradMag / maxGradient) * 5
-                              : 0),
-                          7
+                            (maxGradient > 0 ? (gradMag / maxGradient) * 5 : 0),
+                          7,
                         )
                       : Math.min(absW * 2.5, 6);
                     const opacity = useGradientColor
@@ -727,8 +728,8 @@ export default function NeuralNetPlayground() {
                           0.1,
                           Math.min(
                             maxGradient > 0 ? gradMag / maxGradient : 0.1,
-                            1
-                          )
+                            1,
+                          ),
                         )
                       : isTraining
                         ? Math.min(0.3 + absW * 0.15, 0.95)
@@ -801,7 +802,7 @@ export default function NeuralNetPlayground() {
                           )}
                         </g>
                       );
-                    })
+                    }),
                   )}
 
                   {/* Layer labels */}
@@ -851,6 +852,10 @@ export default function NeuralNetPlayground() {
                   fontSize="xs"
                 >
                   <Badge
+                    as="button"
+                    type="button"
+                    aria-pressed={drawMode}
+                    minH="32px"
                     colorScheme={drawMode ? 'orange' : 'purple'}
                     variant={drawMode ? 'solid' : 'subtle'}
                     fontSize="xs"
@@ -925,7 +930,8 @@ export default function NeuralNetPlayground() {
                   {dataset.points.map((pt, idx) => {
                     const px = ((pt.x + 1) / 2) * 270;
                     const py = (1 - (pt.y + 1) / 2) * 270;
-                    const isCustom = idx >= (DATASETS[datasetKey]?.points.length ?? 0);
+                    const isCustom =
+                      idx >= (DATASETS[datasetKey]?.points.length ?? 0);
                     return (
                       <circle
                         key={idx}
@@ -939,6 +945,78 @@ export default function NeuralNetPlayground() {
                     );
                   })}
                 </svg>
+              </Box>
+              <Box as="fieldset" mt={4}>
+                <legend>Add a training point</legend>
+                <Flex gap={2} wrap="wrap" mt={2}>
+                  <label>
+                    X{' '}
+                    <input
+                      type="number"
+                      min={-1}
+                      max={1}
+                      step={0.1}
+                      value={pointX}
+                      onChange={(event) =>
+                        setPointX(Number(event.target.value))
+                      }
+                      style={{
+                        width: '5em',
+                        color: 'inherit',
+                        background: 'transparent',
+                        border: '1px solid currentColor',
+                        padding: '6px',
+                      }}
+                    />
+                  </label>
+                  <label>
+                    Y{' '}
+                    <input
+                      type="number"
+                      min={-1}
+                      max={1}
+                      step={0.1}
+                      value={pointY}
+                      onChange={(event) =>
+                        setPointY(Number(event.target.value))
+                      }
+                      style={{
+                        width: '5em',
+                        color: 'inherit',
+                        background: 'transparent',
+                        border: '1px solid currentColor',
+                        padding: '6px',
+                      }}
+                    />
+                  </label>
+                  {[0, 1].map((label) => (
+                    <Button
+                      key={label}
+                      size="sm"
+                      onClick={() => {
+                        if (
+                          Number.isFinite(pointX) &&
+                          Number.isFinite(pointY) &&
+                          Math.abs(pointX) <= 1 &&
+                          Math.abs(pointY) <= 1
+                        )
+                          setCustomPoints((previous) => [
+                            ...previous,
+                            {
+                              x: pointX,
+                              y: pointY,
+                              label,
+                            },
+                          ]);
+                      }}
+                    >
+                      Add class {label}
+                    </Button>
+                  ))}
+                </Flex>
+                <Text fontSize="sm" role="status">
+                  {customPoints.length} custom points
+                </Text>
               </Box>
               {customPoints.length > 0 && (
                 <HStack justify="center" mt={2}>
@@ -1005,6 +1083,7 @@ export default function NeuralNetPlayground() {
                   Speed
                 </Text>
                 <Slider
+                  aria-label="Training steps per frame"
                   min={1}
                   max={50}
                   value={stepsPerFrame}
@@ -1028,6 +1107,7 @@ export default function NeuralNetPlayground() {
                   LR
                 </Text>
                 <Select
+                  aria-label="Learning rate"
                   size="xs"
                   value={learningRate}
                   onChange={(e) => setLearningRate(parseFloat(e.target.value))}
@@ -1086,15 +1166,13 @@ export default function NeuralNetPlayground() {
               >
                 {/* Gradient fill */}
                 <defs>
-                  <linearGradient
-                    id="lossGrad"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
+                  <linearGradient id="lossGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#E53E3E" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#E53E3E" stopOpacity="0.02" />
+                    <stop
+                      offset="100%"
+                      stopColor="#E53E3E"
+                      stopOpacity="0.02"
+                    />
                   </linearGradient>
                 </defs>
                 <polygon
@@ -1151,9 +1229,7 @@ export default function NeuralNetPlayground() {
                     fontWeight="bold"
                     color={accuracyPulse ? pulseColor : undefined}
                     animate={
-                      accuracyPulse
-                        ? { scale: [1, 1.2, 1] }
-                        : { scale: 1 }
+                      accuracyPulse ? { scale: [1, 1.2, 1] } : { scale: 1 }
                     }
                     transition={{ duration: 0.3 }}
                   >
@@ -1217,14 +1293,14 @@ export default function NeuralNetPlayground() {
               </Paragraph>
               <Paragraph>
                 During <strong>training</strong>, the network learns by
-                adjusting its weights through{' '}
-                <strong>backpropagation</strong>. For each data point, the
-                network computes its prediction (forward pass), then calculates
-                how wrong it was using <strong>binary cross-entropy loss</strong>
-                . The error signal propagates backward through the network,
-                computing gradients — how much each weight contributed to the
-                error. Weights are then nudged in the direction that reduces
-                the loss using <strong>stochastic gradient descent</strong>.
+                adjusting its weights through <strong>backpropagation</strong>.
+                For each data point, the network computes its prediction
+                (forward pass), then calculates how wrong it was using{' '}
+                <strong>binary cross-entropy loss</strong>. The error signal
+                propagates backward through the network, computing gradients —
+                how much each weight contributed to the error. Weights are then
+                nudged in the direction that reduces the loss using{' '}
+                <strong>stochastic gradient descent</strong>.
               </Paragraph>
               <Paragraph>
                 The <strong>decision boundary</strong> visualization shows how
@@ -1233,8 +1309,8 @@ export default function NeuralNetPlayground() {
                 above 0.5 (class 1). Watch how the boundary evolves from random
                 noise into clean separation as the network trains. The{' '}
                 <strong>learning rate</strong> controls how big each weight
-                update is — too high and the network overshoots, too low and
-                it learns slowly.
+                update is — too high and the network overshoots, too low and it
+                learns slowly.
               </Paragraph>
               <Paragraph>
                 In the network diagram, <strong>green connections</strong>{' '}

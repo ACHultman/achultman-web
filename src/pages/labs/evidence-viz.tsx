@@ -17,6 +17,7 @@ import {
   Wrap,
   WrapItem,
   CloseButton,
+  Select,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
@@ -46,18 +47,24 @@ function BubbleChart({
 }) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
+  const [tooltipPos, setTooltipPos] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 });
 
   const isLight = useColorModeValue(true, false);
-  const axisColor = useColorModeValue('gray.400', 'gray.500');
+  const axisColor = useColorModeValue('gray.600', 'gray.300');
   const chartBg = useColorModeValue('white', 'gray.800');
 
   useEffect(() => {
     const updateDimensions = () => {
       if (canvasRef.current) {
         const rect = canvasRef.current.getBoundingClientRect();
-        setDimensions({ width: rect.width, height: Math.min(rect.width * 0.65, 500) });
+        setDimensions({
+          width: rect.width,
+          height: Math.min(rect.width * 0.65, 500),
+        });
       }
     };
     updateDimensions();
@@ -161,7 +168,12 @@ function BubbleChart({
       <svg
         width={dimensions.width}
         height={dimensions.height}
-        style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none',
+        }}
       >
         {/* Horizontal grid */}
         {yTicks.map((tick) => {
@@ -266,7 +278,11 @@ function BubbleChart({
               scale: isHovered ? 1.15 : 1,
               opacity,
             }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            transition={{
+              type: 'spring',
+              stiffness: 300,
+              damping: 20,
+            }}
             style={{ pointerEvents: 'none' }}
           >
             {b.r > 14 && (
@@ -314,7 +330,7 @@ function BubbleChart({
             <HStack spacing={2} mb={1}>
               <Badge
                 bg={gradeColorMap[hoveredSupplement.grade]}
-                color="white"
+                color="gray.900"
                 fontSize="xs"
               >
                 Grade {hoveredSupplement.grade}
@@ -328,7 +344,7 @@ function BubbleChart({
               <Text>Quality: {hoveredSupplement.avgQuality}/10</Text>
               <Text>Popularity: {hoveredSupplement.popularity}/100</Text>
             </VStack>
-            <Text fontSize="xs" color={isLight ? 'gray.500' : 'gray.400'} mt={1}>
+            <Text fontSize="xs" color="accessible.gray" mt={1}>
               Click for details
             </Text>
           </MotionBox>
@@ -349,7 +365,7 @@ function SupplementDetail({
   const colors = isLight
     ? GRADE_COLORS[supplement.grade]
     : GRADE_COLORS_DARK[supplement.grade];
-  const dimText = useColorModeValue('gray.500', 'gray.400');
+  const dimText = useColorModeValue('gray.600', 'gray.300');
   const cardBg = useColorModeValue('white', 'gray.800');
   const claimBg = useColorModeValue('red.50', 'red.900');
   const claimBorder = useColorModeValue('red.200', 'red.700');
@@ -493,7 +509,7 @@ function EvidenceViz() {
 
   const cardBg = useColorModeValue('gray.50', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
-  const dimText = useColorModeValue('gray.500', 'gray.400');
+  const dimText = useColorModeValue('gray.600', 'gray.300');
   const chipBg = useColorModeValue('gray.100', 'gray.700');
 
   const gradeColorMap: Record<EvidenceGrade, string> = {
@@ -547,37 +563,41 @@ function EvidenceViz() {
               📊 Evidence Strength Visualizer
             </Heading>
             <Paragraph fontSize="lg" mb={4}>
-              How strong is the science behind your supplements? Explore the evidence
-              landscape — from well-studied compounds to marketing hype.
+              How strong is the science behind your supplements? Explore the
+              evidence landscape — from well-studied compounds to marketing
+              hype.
             </Paragraph>
             <Text fontSize="sm" color={dimText} mb={8}>
-              Bubble size = popularity · X axis = number of studies · Y axis = average study quality ·
-              Color = evidence grade
+              Bubble size = popularity · X axis = number of studies · Y axis =
+              average study quality · Color = evidence grade
             </Text>
 
             {/* Grade legend */}
             <Wrap spacing={3} mb={4}>
-              {(Object.entries(GRADE_INFO) as [EvidenceGrade, typeof GRADE_INFO.A][]).map(
-                ([grade, info]) => (
-                  <WrapItem key={grade}>
-                    <Badge
-                      as="button"
-                      colorScheme={gradeColorMap[grade]}
-                      variant={activeGrade === grade ? 'solid' : 'outline'}
-                      cursor="pointer"
-                      fontSize="xs"
-                      px={3}
-                      py={1}
-                      borderRadius="full"
-                      onClick={() =>
-                        setActiveGrade(activeGrade === grade ? null : grade)
-                      }
-                    >
-                      {grade}: {info.label}
-                    </Badge>
-                  </WrapItem>
-                ),
-              )}
+              {(
+                Object.entries(GRADE_INFO) as [
+                  EvidenceGrade,
+                  typeof GRADE_INFO.A,
+                ][]
+              ).map(([grade, info]) => (
+                <WrapItem key={grade}>
+                  <Badge
+                    as="button"
+                    colorScheme={gradeColorMap[grade]}
+                    variant={activeGrade === grade ? 'solid' : 'outline'}
+                    cursor="pointer"
+                    fontSize="xs"
+                    px={3}
+                    py={1}
+                    borderRadius="full"
+                    onClick={() =>
+                      setActiveGrade(activeGrade === grade ? null : grade)
+                    }
+                  >
+                    {grade}: {info.label}
+                  </Badge>
+                </WrapItem>
+              ))}
               {activeGrade && (
                 <WrapItem>
                   <Badge
@@ -625,6 +645,26 @@ function EvidenceViz() {
               ))}
             </Wrap>
 
+            <label htmlFor="supplement-selection">Inspect a supplement</label>
+            <Select
+              id="supplement-selection"
+              mb={4}
+              value={selectedSupplement?.name ?? ''}
+              onChange={(event) =>
+                handleSelect(
+                  filteredSupplements.find(
+                    (item) => item.name === event.target.value,
+                  ) ?? null,
+                )
+              }
+            >
+              <option value="">Select a supplement</option>
+              {filteredSupplements.map((item) => (
+                <option key={item.name} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </Select>
             {/* Chart */}
             <Box
               bg={cardBg}
@@ -673,33 +713,34 @@ function EvidenceViz() {
               >
                 Evidence Overview
               </Text>
-              <Flex
-                wrap="wrap"
-                gap={6}
-                justify="center"
-              >
-                {(Object.entries(GRADE_INFO) as [EvidenceGrade, typeof GRADE_INFO.A][]).map(
-                  ([grade, info]) => {
-                    const count = SUPPLEMENTS.filter((s) => s.grade === grade).length;
-                    return (
-                      <VStack key={grade} spacing={1}>
-                        <Text
-                          fontSize="2xl"
-                          fontWeight="bold"
-                          color={`${gradeColorMap[grade]}.400`}
-                        >
-                          {count}
-                        </Text>
-                        <Badge colorScheme={gradeColorMap[grade]} fontSize="xs">
-                          Grade {grade}
-                        </Badge>
-                        <Text fontSize="xs" color={dimText}>
-                          {info.label}
-                        </Text>
-                      </VStack>
-                    );
-                  },
-                )}
+              <Flex wrap="wrap" gap={6} justify="center">
+                {(
+                  Object.entries(GRADE_INFO) as [
+                    EvidenceGrade,
+                    typeof GRADE_INFO.A,
+                  ][]
+                ).map(([grade, info]) => {
+                  const count = SUPPLEMENTS.filter(
+                    (s) => s.grade === grade,
+                  ).length;
+                  return (
+                    <VStack key={grade} spacing={1}>
+                      <Text
+                        fontSize="2xl"
+                        fontWeight="bold"
+                        color={`accessible.${gradeColorMap[grade]}`}
+                      >
+                        {count}
+                      </Text>
+                      <Badge colorScheme={gradeColorMap[grade]} fontSize="xs">
+                        Grade {grade}
+                      </Badge>
+                      <Text fontSize="xs" color={dimText}>
+                        {info.label}
+                      </Text>
+                    </VStack>
+                  );
+                })}
               </Flex>
             </Box>
 
@@ -710,30 +751,34 @@ function EvidenceViz() {
                 How it works
               </Heading>
               <Text fontSize="sm" color={dimText} mb={3}>
-                This visualization maps {SUPPLEMENTS.length} popular supplements across
-                two key dimensions: <strong>quantity of research</strong> (number of studies)
-                and <strong>quality of research</strong> (average methodological rigor).
-                Bubble size represents consumer popularity, and color indicates the overall
-                evidence grade.
+                This visualization maps {SUPPLEMENTS.length} popular supplements
+                across two key dimensions: <strong>quantity of research</strong>{' '}
+                (number of studies) and <strong>quality of research</strong>{' '}
+                (average methodological rigor). Bubble size represents consumer
+                popularity, and color indicates the overall evidence grade.
               </Text>
               <Text fontSize="sm" color={dimText} mb={3}>
-                Evidence grades follow a systematic framework: Grade A requires multiple
-                large randomized controlled trials with consistent results. Grade D indicates
-                insufficient evidence or research that contradicts popular claims. Data is
-                sourced from systematic reviews and meta-analyses.
+                Evidence grades follow a systematic framework: Grade A requires
+                multiple large randomized controlled trials with consistent
+                results. Grade D indicates insufficient evidence or research
+                that contradicts popular claims. Data is sourced from systematic
+                reviews and meta-analyses.
               </Text>
               <Text fontSize="sm" color={dimText} mb={3}>
-                <strong>Key insight:</strong> The supplements with the highest popularity
-                don&apos;t always have the strongest evidence. Some of the most marketed
-                supplements (like apple cider vinegar and biotin for hair) have the weakest
-                scientific support.
+                <strong>Key insight:</strong> The supplements with the highest
+                popularity don&apos;t always have the strongest evidence. Some
+                of the most marketed supplements (like apple cider vinegar and
+                biotin for hair) have the weakest scientific support.
               </Text>
               <HStack spacing={4} fontSize="xs" color={dimText}>
-                <Text>Built with: Next.js · Chakra UI · Framer Motion · Custom SVG chart</Text>
+                <Text>
+                  Built with: Next.js · Chakra UI · Framer Motion · Custom SVG
+                  chart
+                </Text>
                 <Link
                   href="https://github.com/ACHultman/achultman-web"
                   isExternal
-                  color="teal.400"
+                  color="accessible.teal"
                 >
                   View Source →
                 </Link>

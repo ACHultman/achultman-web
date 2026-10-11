@@ -14,12 +14,15 @@ import {
   Divider,
   Flex,
   IconButton,
-  Link,
   Input,
   Button,
   Tooltip,
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import {
+  ArrowBackIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Paragraph from '@components/Paragraph';
@@ -158,14 +161,16 @@ export default function RegexDebuggerPage() {
           {/* Header */}
           <Box>
             <HStack mb={4}>
-              <Link as={NextLink} href="/labs">
-                <IconButton
-                  aria-label="Go back"
-                  icon={<ArrowBackIcon />}
-                  variant="ghost"
-                  size="sm"
-                />
-              </Link>
+              <IconButton
+                as={NextLink}
+                href="/labs"
+                minH="44px"
+                minW="44px"
+                aria-label="Go back"
+                icon={<ArrowBackIcon />}
+                variant="ghost"
+                size="sm"
+              />
               <Badge colorScheme="orange" fontSize="xs">
                 Developer Tool
               </Badge>
@@ -180,7 +185,13 @@ export default function RegexDebuggerPage() {
           </Box>
 
           {/* Input Card */}
-          <Box bg={cardBg} p={6} borderRadius="lg" border="1px" borderColor={borderColor}>
+          <Box
+            bg={cardBg}
+            p={6}
+            borderRadius="lg"
+            border="1px"
+            borderColor={borderColor}
+          >
             <VStack spacing={4} align="stretch">
               <Box>
                 <Text fontSize="sm" fontWeight="bold" mb={1} color={subtleText}>
@@ -188,7 +199,9 @@ export default function RegexDebuggerPage() {
                 </Text>
                 <Input
                   value={pattern}
-                  onChange={(e: { target: { value: string } }) => setPattern(e.target.value)}
+                  onChange={(e: { target: { value: string } }) =>
+                    setPattern(e.target.value)
+                  }
                   fontFamily="mono"
                   placeholder="Enter regex pattern..."
                   focusBorderColor="orange.400"
@@ -201,7 +214,9 @@ export default function RegexDebuggerPage() {
                 </Text>
                 <Input
                   value={testString}
-                  onChange={(e: { target: { value: string } }) => setTestString(e.target.value)}
+                  onChange={(e: { target: { value: string } }) =>
+                    setTestString(e.target.value)
+                  }
                   fontFamily="mono"
                   placeholder="Enter test string..."
                   focusBorderColor="orange.400"
@@ -245,7 +260,12 @@ export default function RegexDebuggerPage() {
               <VStack spacing={6} align="stretch">
                 {/* Test string characters */}
                 <Box>
-                  <Text fontSize="sm" fontWeight="bold" mb={2} color={subtleText}>
+                  <Text
+                    fontSize="sm"
+                    fontWeight="bold"
+                    mb={2}
+                    color={subtleText}
+                  >
                     Test String
                   </Text>
                   <Flex wrap="wrap" gap={1}>
@@ -255,7 +275,10 @@ export default function RegexDebuggerPage() {
                       if (idx === activePosition) {
                         bgColor = activeBg;
                         borderCol = 'orange.400';
-                      } else if (matchedPositions.has(idx) && !failedPositions.has(idx)) {
+                      } else if (
+                        matchedPositions.has(idx) &&
+                        !failedPositions.has(idx)
+                      ) {
                         bgColor = matchedBg;
                         borderCol = 'green.400';
                       }
@@ -274,7 +297,9 @@ export default function RegexDebuggerPage() {
                             fontSize="sm"
                             fontWeight="medium"
                             bg={bgColor}
-                            style={{ transition: 'all 0.2s ease' }}
+                            style={{
+                              transition: 'all 0.2s ease',
+                            }}
                             animate={
                               !currentStepData?.matched &&
                               idx === activePosition
@@ -297,7 +322,12 @@ export default function RegexDebuggerPage() {
 
                 {/* Pattern characters */}
                 <Box>
-                  <Text fontSize="sm" fontWeight="bold" mb={2} color={subtleText}>
+                  <Text
+                    fontSize="sm"
+                    fontWeight="bold"
+                    mb={2}
+                    color={subtleText}
+                  >
                     Pattern
                   </Text>
                   <Flex wrap="wrap" gap={1}>
@@ -321,7 +351,7 @@ export default function RegexDebuggerPage() {
                             idx ===
                               pattern.indexOf(
                                 currentStepData.patternChar[0] ?? '',
-                                0
+                                0,
                               ) +
                                 (currentStepData.patternChar.indexOf(char) ?? 0)
                               ? 'orange.400'
@@ -416,7 +446,12 @@ export default function RegexDebuggerPage() {
 
                 {/* Step Log */}
                 <Box>
-                  <Text fontSize="sm" fontWeight="bold" mb={2} color={subtleText}>
+                  <Text
+                    fontSize="sm"
+                    fontWeight="bold"
+                    mb={2}
+                    color={subtleText}
+                  >
                     Step Log
                   </Text>
                   <Box
@@ -430,7 +465,7 @@ export default function RegexDebuggerPage() {
                   >
                     {steps.map((step: RegexStep, idx: number) => {
                       const isActive = idx === currentStep;
-                      const isPast = idx < currentStep;
+
                       return (
                         <Box
                           key={idx}
@@ -438,12 +473,18 @@ export default function RegexDebuggerPage() {
                           px={4}
                           py={2}
                           bg={isActive ? activeStepBg : 'transparent'}
-                          opacity={isPast || isActive ? 1 : 0.4}
+                          as="button"
+                          type="button"
+                          width="100%"
+                          textAlign="left"
+                          aria-pressed={isActive}
                           borderBottom="1px"
                           borderColor={borderColor}
                           cursor="pointer"
                           onClick={() => setCurrentStep(idx)}
-                          _hover={{ bg: isActive ? activeStepBg : stepHoverBg }}
+                          _hover={{
+                            bg: isActive ? activeStepBg : stepHoverBg,
+                          }}
                           transition="all 0.15s"
                         >
                           <Flex align="center" gap={3}>
@@ -478,7 +519,9 @@ export default function RegexDebuggerPage() {
                             <Text
                               fontSize="sm"
                               fontWeight={step.matched ? 'normal' : 'medium'}
-                              color={step.matched ? undefined : 'red.400'}
+                              color={
+                                step.matched ? undefined : 'accessible.red'
+                              }
                             >
                               {step.matched ? '✓' : '✗'}
                             </Text>
@@ -508,7 +551,7 @@ export default function RegexDebuggerPage() {
                           <Text fontWeight="bold">
                             {didMatch ? 'Match Found!' : 'No Match'}
                           </Text>
-                          <Text fontSize="sm" color={subtleText}>
+                          <Text fontSize="sm" color="accessible.gray">
                             {finalStep?.description}
                           </Text>
                         </Box>
@@ -526,29 +569,31 @@ export default function RegexDebuggerPage() {
                   </Heading>
                   <VStack align="stretch" spacing={2}>
                     <Paragraph>
-                      This debugger breaks down regex matching into individual steps.
-                      At each step, the engine compares the current character in the
-                      test string against the current element in the pattern.
+                      This debugger breaks down regex matching into individual
+                      steps. At each step, the engine compares the current
+                      character in the test string against the current element
+                      in the pattern.
                     </Paragraph>
                     <Paragraph>
                       <strong>Literal characters</strong> must match exactly.{' '}
                       <strong>.</strong> matches any character. Quantifiers like{' '}
-                      <strong>*</strong>, <strong>+</strong>, and <strong>?</strong>{' '}
-                      control how many times the preceding element can repeat.
-                      Character classes like <strong>[a-z]</strong> match any character
-                      in the set.
+                      <strong>*</strong>, <strong>+</strong>, and{' '}
+                      <strong>?</strong> control how many times the preceding
+                      element can repeat. Character classes like{' '}
+                      <strong>[a-z]</strong> match any character in the set.
                     </Paragraph>
                     <Paragraph>
-                      Anchors <strong>^</strong> and <strong>$</strong> assert position
-                      at the start or end of the string rather than matching characters.
-                      Shorthand classes like <strong>\d</strong>, <strong>\w</strong>,
-                      and <strong>\s</strong> match digits, word characters, and
+                      Anchors <strong>^</strong> and <strong>$</strong> assert
+                      position at the start or end of the string rather than
+                      matching characters. Shorthand classes like{' '}
+                      <strong>\d</strong>, <strong>\w</strong>, and{' '}
+                      <strong>\s</strong> match digits, word characters, and
                       whitespace respectively.
                     </Paragraph>
                     <Paragraph>
-                      Use the step controls to advance through the matching process and
-                      see exactly how the engine decides whether each character is a
-                      match.
+                      Use the step controls to advance through the matching
+                      process and see exactly how the engine decides whether
+                      each character is a match.
                     </Paragraph>
                   </VStack>
                 </Box>
