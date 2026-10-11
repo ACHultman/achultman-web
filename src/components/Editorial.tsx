@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
 import { PropsWithChildren } from 'react';
 import { NextSeo } from 'next-seo';
+import { getBaseUrl } from '../utils/baseUrl';
 
 export function PageSeo({
     title,
@@ -12,18 +13,19 @@ export function PageSeo({
     description: string;
     path: string;
 }) {
+    const baseUrl = getBaseUrl();
     return (
         <NextSeo
             title={title}
             description={description}
-            canonical={`https://hultman.dev${path}`}
+            canonical={`${baseUrl}${path}`}
             openGraph={{
                 title: `${title} | Adam Hultman`,
                 description,
-                url: `https://hultman.dev${path}`,
+                url: `${baseUrl}${path}`,
                 images: [
                     {
-                        url: `https://hultman.dev/api/og?title=${encodeURIComponent(title)}`,
+                        url: `${baseUrl}/api/og?title=${encodeURIComponent(title)}`,
                         width: 1200,
                         height: 630,
                         alt: `${title} | Adam Hultman`,

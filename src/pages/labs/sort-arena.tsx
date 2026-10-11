@@ -1,3 +1,5 @@
+import { PageSeo } from '@components/Editorial';
+import { labPages } from '../../data/labPages';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Box,
@@ -365,6 +367,7 @@ export default function SortArenaPage() {
 
   return (
     <Container maxW="container.xl" py={8}>
+      <PageSeo {...labPages['sort-arena']} />
       <SlideFade in offsetY={20}>
         <VStack spacing={6} align="stretch">
           {/* Header */}
@@ -383,7 +386,7 @@ export default function SortArenaPage() {
           </HStack>
 
           <Box>
-            <Heading size="xl" mb={2}>
+            <Heading as="h1" size="xl" mb={2}>
               {'🏎️ Sorting Algorithm Arena'}
             </Heading>
             <Paragraph>

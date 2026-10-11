@@ -390,7 +390,7 @@ a {
 }
 .work-disciplines span {
     margin-inline: 18px;
-    color: var(--site-rule);
+    color: var(--site-muted);
 }
 .perspective-panel {
     background: #182d28;
@@ -571,6 +571,20 @@ a {
 }
 .company-suffix {
     display: block;
+}
+.consulting-page .page-intro h1 {
+    max-width: 900px;
+    text-wrap: balance;
+}
+.consulting-actions {
+    margin-bottom: 40px;
+}
+.consulting-lead {
+    color: var(--site-ink);
+    font-size: 1.25rem;
+}
+.consulting-preview h2 {
+    margin-top: 20px;
 }
 .work-section-content {
     color: var(--site-muted);

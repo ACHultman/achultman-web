@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { NextSeo } from 'next-seo';
+import { PageSeo } from '@components/Editorial';
 import {
   Box,
   Container,
@@ -155,10 +155,10 @@ function InteractionChecker() {
 
   return (
     <>
-      <NextSeo
+      <PageSeo
         title="Supplement Interaction Checker | Labs"
         description="Check for interactions between common medications and supplements. Powered by evidence-based data."
-        canonical="https://hultman.dev/labs/interaction-checker"
+        path="/labs/interaction-checker"
       />
       <Container maxW="container.md">
         <SlideFade in={true} offsetY={80}>

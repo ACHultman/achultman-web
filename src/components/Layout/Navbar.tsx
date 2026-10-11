@@ -6,6 +6,7 @@ import { useColorMode } from '@chakra-ui/react';
 import { captureLeadIntent } from '../../lib/analytics';
 
 const links = [
+    { name: 'Consulting', href: '/consulting' },
     { name: 'Work', href: '/work' },
     { name: 'About', href: '/about' },
     { name: 'Writing', href: '/blog' },

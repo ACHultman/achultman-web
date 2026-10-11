@@ -11,9 +11,9 @@ export default function Index() {
     return (
         <>
             <NextSeo
-                title="Adam Hultman | Software & Independent Products"
+                title="Adam Hultman | Software Engineer & AI Consultant"
                 titleTemplate="%s"
-                description="Adam Hultman builds software at Kopperfield and develops independent products through Perspective Labs Inc. Selected work, writing, and contact details."
+                description="Vancouver software engineer and AI consultant. AI integrations, workflow automation, and custom web applications. Explore my work or discuss a project."
                 canonical="https://hultman.dev"
             />
             <JsonLd />
@@ -53,6 +53,27 @@ export default function Index() {
                         priority
                         sizes="(max-width: 767px) 72px, (max-width: 900px) 230px, (max-width: 1100px) 280px, 320px"
                     />
+                </div>
+            </section>
+            <section className="page-container consulting-preview">
+                <div className="about-row">
+                    <div>
+                        <p className="eyebrow">Independent consulting</p>
+                        <h2>Software for the work your team needs to do.</h2>
+                    </div>
+                    <div className="prose">
+                        <p>
+                            I help teams with AI integrations, internal tools,
+                            and custom web applications. Based in Vancouver,
+                            with experience in publishing workflows and software
+                            for electrical contractors.
+                        </p>
+                        <div className="inline-actions">
+                            <TextLink href="/consulting">
+                                AI and software consulting
+                            </TextLink>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section id="work" className="professional-preview page-container">

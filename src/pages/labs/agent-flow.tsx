@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { NextSeo } from 'next-seo';
+import { PageSeo } from '@components/Editorial';
 import {
   Box,
   Container,
@@ -234,10 +234,10 @@ function AgentFlow() {
 
   return (
     <>
-      <NextSeo
+      <PageSeo
         title="Multi-Agent Workflow Visualizer | Labs"
         description="Watch 4 AI agents coordinate in real time — strategy, research, engineering, and ops working in parallel."
-        canonical="https://hultman.dev/labs/agent-flow"
+        path="/labs/agent-flow"
       />
       <Container maxW="container.md">
         <SlideFade in={true} offsetY={80}>

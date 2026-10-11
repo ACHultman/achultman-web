@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
-import { NextSeo } from 'next-seo';
+import { PageSeo } from '@components/Editorial';
 import {
   Box,
   Container,
@@ -317,10 +317,10 @@ export default function BeatMaker() {
 
   return (
     <>
-      <NextSeo
+      <PageSeo
         title="BeatMaker — Labs"
         description="Describe a beat in plain text and hear it come alive. Interactive browser-based beat sequencer powered by Tone.js."
-        canonical="https://hultman.dev/labs/beatmaker"
+        path="/labs/beatmaker"
       />
       <Container maxW="container.lg" pb={10}>
         <SlideFade in={true} offsetY={80}>

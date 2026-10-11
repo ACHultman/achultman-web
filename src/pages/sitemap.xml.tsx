@@ -3,6 +3,7 @@ import { fetchNotions } from '../services/notion';
 import type { BlogPost } from '../types/notion';
 import { getBaseUrl } from '../utils/baseUrl';
 import { escapeXml } from '../utils/xml';
+import { labPages } from '../data/labPages';
 
 const SITE_URL = getBaseUrl();
 
@@ -15,7 +16,8 @@ function Sitemap() {
 // happens to be requested. False daily updates waste crawl attention and make
 // the signal less useful to search engines.
 const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
-    { path: '', lastmod: '2026-10-10' },
+    { path: '', lastmod: '2026-10-11' },
+    { path: '/consulting', lastmod: '2026-10-11' },
     { path: '/work', lastmod: '2026-10-10' },
     { path: '/contact', lastmod: '2026-10-10' },
     { path: '/resume', lastmod: '2026-10-10' },
@@ -35,6 +37,10 @@ const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
     { path: '/labs/agent-flow', lastmod: '2026-03-09' },
     { path: '/labs/evidence-viz', lastmod: '2026-03-09' },
     { path: '/labs/beatmaker', lastmod: '2026-03-09' },
+    ...Object.values(labPages).map(({ path }) => ({
+        path,
+        lastmod: '2026-10-11',
+    })),
 ];
 
 interface SitemapUrl {
