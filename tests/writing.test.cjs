@@ -4,7 +4,7 @@ const { readFileSync } = require('node:fs');
 const vm = require('node:vm');
 const ts = require('typescript');
 
-function load(file, dependencies) {
+function load(file, dependencies, globals = {}) {
     const testModule = { exports: {} };
     const code = ts.transpileModule(readFileSync(file, 'utf8'), {
         compilerOptions: {
@@ -19,6 +19,7 @@ function load(file, dependencies) {
         exports: testModule.exports,
         console: { error() {} },
         process: { env: {} },
+        ...globals,
         require: (name) => dependencies[name] ?? require(name),
     });
     return testModule.exports;
@@ -220,7 +221,7 @@ test('syntax highlighting escapes code as text and leaves unsupported languages 
 
 test('article ISR keeps failures distinct from genuine 404s and legacy redirects', async () => {
     let mode = 'published';
-    const { getStaticProps } = load('src/pages/blog/[slug].tsx', {
+    const dependencies = {
         '../../components/RenderBlocks': {},
         '../../components/BlogPostingJsonLd': {},
         '../../components/BreadcrumbJsonLd': {},
@@ -247,6 +248,13 @@ test('article ISR keeps failures distinct from genuine 404s and legacy redirects
         '../../utils/date': {},
         '../../utils/slug': { isNotionId },
         '../../utils/relatedPosts': { getRelatedPosts: () => [] },
+    };
+    const logs = [];
+    const { getStaticProps } = load('src/pages/blog/[slug].tsx', dependencies, {
+        console: {
+            error: (...values) =>
+                logs.push(require('node:util').format(...values)),
+        },
     });
     const request = { params: { slug: published.page.slug } };
     const page = await getStaticProps(request);
@@ -267,6 +275,15 @@ test('article ISR keeps failures distinct from genuine 404s and legacy redirects
     assert.ok((await getStaticProps(request)).props.seo.description);
     mode = 'listing-outage';
     await assert.rejects(getStaticProps(request), /Notion listing timeout/);
+    logs.length = 0;
+    await assert.rejects(
+        getStaticProps({ params: { slug: '%s\r\nFORGED_LOG_ENTRY' } }),
+        /Notion listing timeout/
+    );
+    assert.equal(logs.length, 1);
+    assert.ok(!/[\r\n]/.test(logs[0]), 'an outage emits one log line');
+    assert.ok(!logs[0].includes('FORGED_LOG_ENTRY'));
+    assert.ok(!logs[0].includes('%s'));
     mode = 'body-outage';
     await assert.rejects(getStaticProps(request), /Notion body timeout/);
     mode = 'unpublished';

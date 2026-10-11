@@ -221,7 +221,7 @@ export async function getStaticProps({
             revalidate: 3600,
         };
     } catch (error) {
-        console.error(`Error fetching blog post with slug ${slug}:`, error);
+        console.error('Error fetching blog post');
         // Throwing preserves the last successful ISR page on upstream failure.
         throw error;
     }
