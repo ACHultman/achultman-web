@@ -23,7 +23,7 @@ const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
     { path: '/resume', lastmod: '2026-10-10' },
     {
         path: '/workflow-automation-roi-calculator',
-        lastmod: '2026-09-05',
+        lastmod: '2026-10-11',
     },
     { path: '/about', lastmod: '2026-10-10' },
     { path: '/privacy', lastmod: '2026-10-10' },

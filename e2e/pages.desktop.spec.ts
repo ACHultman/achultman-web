@@ -5,7 +5,7 @@ test('homepage presents the new identity and selected writing', async ({
 }) => {
     await page.goto('/');
     await expect(page).toHaveTitle(
-        'Adam Hultman | Software & Independent Products'
+        'Adam Hultman | Software Engineer & AI Consultant'
     );
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
@@ -83,12 +83,12 @@ test.describe('Workflow automation ROI calculator', () => {
         );
         await expect(page.locator('meta[name="description"]')).toHaveAttribute(
             'content',
-            'A free, plain-English calculator for checking whether a manual workflow might justify a $5,000 automation project.'
+            'Estimate workflow automation ROI, payback, and time savings with your own implementation and monthly operating costs. Free calculator with a worked example.'
         );
         await expect(
             page.getByRole('heading', {
                 level: 1,
-                name: 'Is this workflow worth fixing?',
+                name: 'Workflow automation ROI calculator.',
             })
         ).toBeVisible();
         await expect(
@@ -97,21 +97,38 @@ test.describe('Workflow automation ROI calculator', () => {
             })
         ).toBeVisible();
 
-        await page.getByLabel('People doing the work').fill('2');
-        await page.getByLabel('Hours each person spends weekly').fill('6');
-        await page.getByLabel('Loaded hourly cost (USD)').fill('75');
-        await page.getByLabel('Time the tool could give back (%)').fill('50');
-
-        await expect(page.getByText('$3,897')).toBeVisible();
-        await expect(page.getByText('$1,949')).toBeVisible();
-        await expect(page.getByText('2.6 months')).toBeVisible();
+        await page.getByRole('button', { name: 'Try an example' }).click();
+        const results = page.locator('.roi-results');
         await expect(
-            page.getByText('Estimated monthly value of time saved', {
-                exact: true,
-            })
+            results.getByText('21.7 hours', { exact: true })
         ).toBeVisible();
         await expect(
-            page.getByText(/Software costs and ongoing fees are excluded/)
+            results.getByText('$1,300', { exact: true })
+        ).toBeVisible();
+        await expect(
+            results.getByText('$1,200', { exact: true })
+        ).toBeVisible();
+        await expect(
+            results.getByText('$8,400', { exact: true })
+        ).toBeVisible();
+        await expect(
+            results.getByText('116.7%', { exact: true })
+        ).toBeVisible();
+        await expect(
+            results.getByText('5.0 months', { exact: true })
+        ).toBeVisible();
+        await expect(
+            results.getByText(
+                /only becomes cash savings if spending actually falls/
+            )
+        ).toBeVisible();
+        await page.getByLabel('Currency', { exact: true }).selectOption('USD');
+        await expect(results.getByText('Your estimate · USD')).toBeVisible();
+        await expect(
+            page.getByLabel('One-time implementation cost', { exact: true })
+        ).toHaveValue('6000');
+        await expect(
+            results.getByText('116.7%', { exact: true })
         ).toBeVisible();
 
         const structuredData = await page
@@ -127,6 +144,71 @@ test.describe('Workflow automation ROI calculator', () => {
                 }),
             ])
         );
+    });
+    test('handles losses, zero costs, invalid inputs, and the consulting link', async ({
+        page,
+    }) => {
+        await page.goto('/workflow-automation-roi-calculator');
+        await page.getByRole('button', { name: 'Try an example' }).click();
+        const results = page.locator('.roi-results');
+        await page
+            .getByLabel('Monthly operating cost', { exact: true })
+            .fill('1500');
+        await expect(
+            results.getByText('No payback at these inputs')
+        ).toBeVisible();
+        await expect(
+            results.getByText('-35.0%', { exact: true })
+        ).toBeVisible();
+        await page
+            .getByLabel('Monthly operating cost', { exact: true })
+            .fill('0');
+        await page
+            .getByLabel('One-time implementation cost', { exact: true })
+            .fill('0');
+        await expect(
+            results.getByText('Undefined with zero costs')
+        ).toBeVisible();
+        await expect(
+            results.getByText('No upfront cost to recover')
+        ).toBeVisible();
+        await page.getByLabel('People doing the work').fill('1.5');
+        await expect(page.getByLabel('People doing the work')).toHaveAttribute(
+            'aria-invalid',
+            'true'
+        );
+        await expect(
+            results.getByRole('heading', {
+                name: 'Check the highlighted inputs',
+            })
+        ).toBeVisible();
+        await page.getByLabel('People doing the work').fill('');
+        await expect(
+            results.getByRole('heading', { name: 'Add your six estimates' })
+        ).toBeVisible();
+        await page.getByRole('button', { name: 'Try an example' }).click();
+        for (const width of [320, 390, 768, 1440]) {
+            await page.setViewportSize({ width, height: 900 });
+            expect(
+                await page.evaluate(
+                    () =>
+                        document.documentElement.scrollWidth <=
+                        window.innerWidth
+                ),
+                `${width}px`
+            ).toBe(true);
+        }
+        await results
+            .getByRole('link', {
+                name: /Explore workflow automation consulting/,
+            })
+            .click();
+        await expect(page).toHaveURL('/consulting#internal-tools');
+        await expect(
+            page.getByRole('heading', {
+                name: 'Internal tools and workflow automation',
+            })
+        ).toBeVisible();
     });
 });
 

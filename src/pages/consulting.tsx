@@ -172,6 +172,11 @@ export default function Consulting() {
                                 AI features, include examples of wrong answers
                                 and how the application should respond.
                             </p>
+                            <div className="inline-actions">
+                                <TextLink href="/workflow-automation-roi-calculator">
+                                    Estimate workflow automation ROI
+                                </TextLink>
+                            </div>
                         </div>
                     </div>
                 </section>

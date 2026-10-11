@@ -18,7 +18,11 @@ test('consulting and every lab have indexable, page-specific server HTML', async
     const xml = await sitemap.text();
     const titles = new Set<string>();
 
-    for (const route of ['/consulting', ...labPaths]) {
+    for (const route of [
+        '/consulting',
+        '/workflow-automation-roi-calculator',
+        ...labPaths,
+    ]) {
         const response = await request.get(route);
         expect(response.status(), route).toBe(200);
         expect(response.headers()['x-robots-tag'] || '').not.toMatch(/noindex/);
