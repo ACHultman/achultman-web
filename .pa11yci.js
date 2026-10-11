@@ -14,12 +14,15 @@ module.exports = {
                 '--headless',
             ],
         },
-        headers: process.env.VERCEL_AUTOMATION_BYPASS_SECRET
-            ? {
-                  'x-vercel-protection-bypass':
-                      process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
-              }
-            : {},
+        headers: {
+            'x-vercel-skip-toolbar': '1',
+            ...(process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+                ? {
+                      'x-vercel-protection-bypass':
+                          process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+                  }
+                : {}),
+        },
         timeout: 30000,
     },
     urls: [

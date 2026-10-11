@@ -103,6 +103,8 @@ The upstream tool packages still select older transitive releases, so the root m
 
 Both CI audit gates now check **all** dependencies and fail on any reported severity. The performance workflow calls the repository's locked Lighthouse CLI instead of the third-party action's separate dependency tree. Lighthouse and Pa11y use the Playwright-managed Chromium executable; CI installs it explicitly and skips Puppeteer's unused separate browser download. Reports are written to ignored `.lighthouseci/reports/` instead of public storage because report settings can include the protected-preview access header.
 
+Browser audits send Vercel's documented `x-vercel-skip-toolbar` header so the platform's injected preview toolbar does not interfere with the site's CSP or audit results. The site's security policy and Lighthouse score thresholds remain enforced.
+
 Other explicit limits:
 
 - Per-IP API limits do not provide a global traffic ceiling for page generation or replace hosting-level protection against volumetric attacks. Hosting controls were outside this local audit.

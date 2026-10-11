@@ -21,6 +21,7 @@ module.exports = {
                     '--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu',
                 throttlingMethod: 'provided',
                 extraHeaders: JSON.stringify({
+                    'x-vercel-skip-toolbar': '1',
                     'x-vercel-protection-bypass':
                         process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
                 }),
