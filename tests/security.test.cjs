@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const React = require('react');
@@ -129,21 +128,33 @@ test('production rate limiting never bypasses missing or loopback identities and
         remaining: 4,
         reset: Date.now() + 10000,
     };
-    const { checkRateLimit } = load('src/lib/rate-limit.ts', {
-        '@vercel/kv': { kv: {} },
-        '@upstash/ratelimit': {
-            Ratelimit: class {
-                static slidingWindow() {
-                    return {};
-                }
-                async limit(ip) {
-                    calls.push(ip);
-                    if (result instanceof Error) throw result;
-                    return result;
-                }
+    const { checkRateLimit } = load(
+        'src/lib/rate-limit.ts',
+        {
+            '@upstash/redis': { Redis: class {} },
+            '@upstash/ratelimit': {
+                Ratelimit: class {
+                    static slidingWindow() {
+                        return {};
+                    }
+                    async limit(ip) {
+                        calls.push(ip);
+                        if (result instanceof Error) throw result;
+                        return result;
+                    }
+                },
             },
         },
-    });
+        {
+            process: {
+                env: {
+                    NODE_ENV: 'production',
+                    UPSTASH_REDIS_REST_URL: 'https://redis.example',
+                    UPSTASH_REDIS_REST_TOKEN: 'test',
+                },
+            },
+        }
+    );
     for (const ip of ['unknown', '127.0.0.1'])
         assert.equal((await checkRateLimit(ip, true)).status, 200);
     assert.deepEqual(calls, ['unknown', '127.0.0.1']);
@@ -155,4 +166,70 @@ test('production rate limiting never bypasses missing or loopback identities and
     assert.equal((await checkRateLimit('visitor', true)).status, 503);
     result = new Error('redis failed');
     assert.equal((await checkRateLimit('visitor', true)).status, 503);
+});
+
+test('Redis accepts a complete legacy pair but rejects missing or mixed credentials', async () => {
+    for (const [env, expected] of [
+        [{}, 503],
+        [
+            {
+                KV_REST_API_URL: 'https://legacy.example',
+                KV_REST_API_TOKEN: 'test',
+            },
+            200,
+        ],
+        [
+            {
+                UPSTASH_REDIS_REST_URL: 'https://current.example',
+                UPSTASH_REDIS_REST_TOKEN: 'test',
+            },
+            200,
+        ],
+        [
+            {
+                UPSTASH_REDIS_REST_URL: 'https://current.example',
+                KV_REST_API_TOKEN: 'test',
+            },
+            503,
+        ],
+        [
+            {
+                UPSTASH_REDIS_REST_URL: 'https://current.example',
+                KV_REST_API_URL: 'https://legacy.example',
+                KV_REST_API_TOKEN: 'test',
+            },
+            503,
+        ],
+    ]) {
+        const { checkRateLimit } = load(
+            'src/lib/rate-limit.ts',
+            {
+                '@upstash/redis': {
+                    Redis: class {
+                        constructor({ url, token }) {
+                            assert.ok(url);
+                            assert.ok(token);
+                        }
+                    },
+                },
+                '@upstash/ratelimit': {
+                    Ratelimit: class {
+                        static slidingWindow() {
+                            return {};
+                        }
+                        async limit() {
+                            return {
+                                success: true,
+                                limit: 5,
+                                remaining: 4,
+                                reset: Date.now() + 10000,
+                            };
+                        }
+                    },
+                },
+            },
+            { process: { env: { NODE_ENV: 'production', ...env } } }
+        );
+        assert.equal((await checkRateLimit('unknown')).status, expected);
+    }
 });

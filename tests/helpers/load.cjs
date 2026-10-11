@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { readFileSync, existsSync } = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -18,6 +17,7 @@ module.exports = function load(file, mocks = {}, globals = {}) {
         source,
         {
             URL,
+            TextEncoder,
             console,
             setTimeout,
             clearTimeout,

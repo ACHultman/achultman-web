@@ -4,7 +4,7 @@ import { checkRateLimit } from './lib/rate-limit';
 
 export const config = { matcher: '/api/:path*' };
 
-export default async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
     // Contact enforces its own limit at the SMTP boundary, even without middleware.
     if (request.nextUrl.pathname.replace(/\/$/, '') === '/api/v1/contact') {
         return NextResponse.next();

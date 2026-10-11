@@ -8,6 +8,9 @@ test('navigation stays reachable without moving the page and closes on outside t
     await page.evaluate(() => window.scrollTo(0, 900));
     const menu = page.getByRole('button', { name: 'Open menu', exact: true });
     await expect(menu).toBeInViewport();
+    // Let Playwright finish its tap-target scroll before measuring the menu.
+    // Mobile WebKit's visual viewport can partially clip the sticky toggle.
+    await menu.scrollIntoViewIfNeeded();
     const before = await page.evaluate(() => window.scrollY);
     await menu.tap();
     await expect(page.locator('#mobile-navigation')).toBeVisible();

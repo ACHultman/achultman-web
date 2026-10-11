@@ -4,7 +4,7 @@ import {
     PartialPageObjectResponse,
     BlockObjectResponse,
     PartialBlockObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+} from '@notionhq/client';
 
 export function pageIsPageObjectResponse(
     page: PageObjectResponse | PartialPageObjectResponse

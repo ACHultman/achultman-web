@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -189,4 +188,22 @@ test('Lighthouse CI can fetch through its updated proxy agent on Node 24', async
     });
     assert.equal(response.status, 200);
     assert.equal(await response.text(), 'transport OK');
+});
+
+test('Next bundled React, accessibility, and import rules run under ESLint 10', async () => {
+    const { ESLint } = require('eslint');
+    const eslint = new ESLint();
+    const [result] = await eslint.lintText(
+        'export default () => <div>{[1, 2].map(n => <span>{n}</span>)}<img src="/x.png" /></div>;',
+        { filePath: 'src/components/ToolingCompatibility.tsx' }
+    );
+    const rules = new Set(result.messages.map((message) => message.ruleId));
+    for (const rule of [
+        'react/jsx-key',
+        'jsx-a11y/alt-text',
+        'import/no-anonymous-default-export',
+    ]) {
+        assert.ok(rules.has(rule), `Missing expected ${rule} diagnostic`);
+    }
+    assert.ok(!result.messages.some((message) => message.fatal));
 });

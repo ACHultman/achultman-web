@@ -73,7 +73,9 @@ test('lab inspection controls and bookmark filters work from the keyboard', asyn
     await page.goto('/labs/neural-net');
     await page.getByRole('button', { name: 'Add class 0' }).focus();
     await page.keyboard.press('Enter');
-    await expect(page.getByRole('status')).toContainText('1 custom points');
+    await expect(
+        page.getByRole('status', { name: 'Custom training points' })
+    ).toContainText('1 custom points');
 });
 
 for (const mode of ['light', 'dark']) {

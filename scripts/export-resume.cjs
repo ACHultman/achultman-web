@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { chromium } = require('@playwright/test');
 const path = require('node:path');
 

@@ -1,11 +1,7 @@
 import {
-    PageObjectResponse,
-    PartialPageObjectResponse,
-    PartialDatabaseObjectResponse,
-    DatabaseObjectResponse,
-    ListBlockChildrenResponse,
     BlockObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+    ListBlockChildrenResponse,
+} from '@notionhq/client';
 
 export type DatabaseName = 'books' | 'blog' | 'bookmarks';
 
@@ -50,12 +46,6 @@ export type FormatterReturnType<T extends DatabaseName> = T extends 'books'
         ? Bookmark
         : never;
 
-export type FormatterArgument =
-    | PageObjectResponse
-    | PartialPageObjectResponse
-    | PartialDatabaseObjectResponse
-    | DatabaseObjectResponse;
-
 type FilteredListBlockChildrenResponse = Omit<
     ListBlockChildrenResponse,
     'results'
@@ -67,9 +57,3 @@ export type NotionPageWithBlocks<T extends DatabaseName> = {
     page: FormatterReturnType<T>;
     blocks: FilteredListBlockChildrenResponse;
 };
-
-export function pageIsPageObjectResponse(
-    page: FormatterArgument
-): page is PageObjectResponse {
-    return page.object === 'page';
-}

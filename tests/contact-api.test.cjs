@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
@@ -26,10 +25,10 @@ function setup({
 } = {}) {
     const mail = [],
         events = [];
-    const module = { exports: {} };
+    const testModule = { exports: {} };
     vm.runInNewContext(code, {
-        module,
-        exports: module.exports,
+        module: testModule,
+        exports: testModule.exports,
         process: {
             env: configured
                 ? {
@@ -88,7 +87,7 @@ function setup({
     };
     return {
         handler: (request, response) =>
-            module.exports.default(
+            testModule.exports.default(
                 { headers: { 'content-type': 'application/json' }, ...request },
                 response
             ),

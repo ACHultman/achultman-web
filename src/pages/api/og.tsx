@@ -1,9 +1,5 @@
 import { ImageResponse } from 'next/og';
-import type { NextRequest } from 'next/server';
-
-export const config = {
-    runtime: 'edge',
-};
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 const BG = '#F5F4EF';
 const ACCENT = '#2D6658';
@@ -16,11 +12,21 @@ const MUTED = '#58635E';
  *
  * Usage: /api/og?title=<post title>
  */
-export default function handler(req: NextRequest) {
-    const { searchParams } = new URL(req.url);
-    const title = (searchParams.get('title') || 'Adam Hultman').slice(0, 110);
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+        res.setHeader('Allow', 'GET, HEAD');
+        return res.status(405).end();
+    }
+    const title = (
+        typeof req.query.title === 'string' && req.query.title
+            ? req.query.title
+            : 'Adam Hultman'
+    ).slice(0, 110);
 
-    return new ImageResponse(
+    const image = new ImageResponse(
         <div
             style={{
                 height: '100%',
@@ -78,4 +84,11 @@ export default function handler(req: NextRequest) {
             },
         }
     );
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader(
+        'Cache-Control',
+        'public, max-age=604800, stale-while-revalidate=86400'
+    );
+    if (req.method === 'HEAD') return res.status(200).end();
+    return res.status(200).send(Buffer.from(await image.arrayBuffer()));
 }
