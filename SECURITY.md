@@ -92,6 +92,8 @@ Formatting, zero-warning lint, types, tests, and the full dependency audit are e
 
 Local verification for this follow-up uses a clean `npm ci`, 54 unit tests, 139 browser cases (79 accessibility and 60 user journeys), and a 38-page production build. Release-specific connected Notion, Redis, CSP, and production evidence belongs in the follow-up PR. Automated accessibility checks do not establish full WCAG conformance or replace manual assistive-technology review.
 
+The first full CodeQL analysis after merging the stack into `main` identified two alerts in the article ISR error logger: an externally controlled format string and log injection. The logger now emits a fixed message without interpolating the requested slug or upstream error. The original exception still propagates so failed regeneration preserves the last successful article. The ISR regression test verifies that a slug containing format specifiers and forged log lines cannot enter the application log.
+
 ## Dependency results and remaining risks
 
 `npm audit` reported 66 advisories before changes (1 critical, 31 high, 24 moderate, 10 low). After changes, `npm audit --omit=dev` reports **zero production advisories**. This is an advisory database result, not a claim that the application has no vulnerabilities.
