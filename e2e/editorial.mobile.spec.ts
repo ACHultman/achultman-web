@@ -148,6 +148,13 @@ test('writing opens a complete readable article with usable next links', async (
     expect(
         await page.evaluate(() => document.documentElement.scrollWidth)
     ).toBeLessThanOrEqual(320);
+    // Font loading and operating-system fallbacks must not break enlarged text.
+    await page.addStyleTag({
+        content: '.site-shell { font-family: Arial, sans-serif !important; }',
+    });
+    expect(
+        await page.evaluate(() => document.documentElement.scrollWidth)
+    ).toBeLessThanOrEqual(320);
     await page
         .getByRole('link', { name: 'All writing', exact: true })
         .last()

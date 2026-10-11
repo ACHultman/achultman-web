@@ -8,7 +8,7 @@ const labPaths = readdirSync(path.join(process.cwd(), 'src/pages/labs'))
     .filter((file) => file.endsWith('.tsx') && file !== 'index.tsx')
     .map((file) => `/labs/${file.replace(/\.tsx$/, '')}`);
 
-test('consulting and every lab have indexable, page-specific server HTML', async ({
+test('consulting and every lab have page-specific server HTML and correct indexing', async ({
     page,
     request,
 }) => {
@@ -25,7 +25,12 @@ test('consulting and every lab have indexable, page-specific server HTML', async
     ]) {
         const response = await request.get(route);
         expect(response.status(), route).toBe(200);
-        expect(response.headers()['x-robots-tag'] || '').not.toMatch(/noindex/);
+        const robotsHeader = response.headers()['x-robots-tag'] || '';
+        if (process.env.PLAYWRIGHT_PREVIEW === 'true') {
+            expect(robotsHeader, route).toMatch(/noindex/);
+        } else {
+            expect(robotsHeader, route).not.toMatch(/noindex/);
+        }
         const html = await response.text();
         const seo = await page.evaluate((source) => {
             const document = new DOMParser().parseFromString(

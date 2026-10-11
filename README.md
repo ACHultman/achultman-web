@@ -68,7 +68,7 @@ PLAYWRIGHT_PRODUCTION=true npm run test:e2e -- --workers=2
 
 `check` runs Prettier, zero-warning ESLint, TypeScript, and unit tests. The browser command starts a loopback-only HTTPS proxy and the production server, using a temporary self-signed certificate. It requires OpenSSL. The certificate is trusted only by this local test context; normal deployed tests retain TLS verification.
 
-Without `PLAYWRIGHT_PRODUCTION`, Playwright starts the development server. Set `PLAYWRIGHT_BASE_URL` to test an existing deployment. `npm run a11y` selects the axe suite; `npx pa11y-ci --config .pa11yci.js` checks ten routes on a running server. See [SECURITY.md](SECURITY.md) for scope and limitations.
+Without `PLAYWRIGHT_PRODUCTION`, Playwright starts the development server. Set `PLAYWRIGHT_BASE_URL` to test an existing deployment. For a Vercel preview, also set `PLAYWRIGHT_PREVIEW=true`: the SEO test requires its platform `noindex` header; the default production assertion requires indexable responses. `npm run a11y` selects the axe suite; `npx pa11y-ci --config .pa11yci.js` checks ten routes on a running server. See [SECURITY.md](SECURITY.md) for scope and limitations.
 
 Unit tests cover contact validation, publication boundaries, pagination, rendering, rate-limit failures, dependency compatibility, calculator economics, sorting and compression correctness, neural training, and browser-resource teardown. Browser tests cover navigation, forms, articles, SEO, themes, mobile layouts, and accessibility. The same production browser suite runs in CI for every PR, without service credentials.
 
