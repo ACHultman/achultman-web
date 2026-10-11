@@ -4,7 +4,7 @@ import { highlightCode } from '../../utils/highlightCode';
 
 function BlockCode({ text, language }: { text: string; language: string }) {
     const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
-    const timer = useRef<ReturnType<typeof setTimeout>>();
+    const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     useEffect(() => () => clearTimeout(timer.current), []);
 
     const highlighted = useMemo(

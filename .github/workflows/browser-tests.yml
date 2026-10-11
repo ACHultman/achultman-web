@@ -1,0 +1,35 @@
+name: Browser journeys
+
+on:
+    pull_request:
+    push:
+        branches: [main]
+
+permissions:
+    contents: read
+
+concurrency:
+    group: browser-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    browser-tests:
+        name: Production browser journeys
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        env:
+            PUPPETEER_SKIP_DOWNLOAD: true
+            NOTION_PREVIEW_MODE: 'true'
+            PLAYWRIGHT_PRODUCTION: 'true'
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+              with:
+                  persist-credentials: false
+            - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+              with:
+                  node-version: 24.x
+                  cache: npm
+            - run: npm ci
+            - run: npx playwright install --with-deps chromium webkit
+            - run: npm run build
+            - run: npm run test:e2e -- --workers=2

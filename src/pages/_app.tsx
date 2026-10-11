@@ -1,5 +1,5 @@
 import '../main.css';
-import React, { useEffect, useState } from 'react';
+import React, { useSyncExternalStore } from 'react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
@@ -30,14 +30,16 @@ export interface MyAppProps extends AppProps {
     emotionCache?: EmotionCache;
 }
 
+const subscribeHostname = () => () => {};
+const isRemoteBrowser = () =>
+    !['localhost', '127.0.0.1'].includes(window.location.hostname);
+const serverTelemetry = () => false;
 function SiteTelemetry() {
-    const [shouldLoad, setShouldLoad] = useState(false);
-
-    useEffect(() => {
-        setShouldLoad(
-            !['localhost', '127.0.0.1'].includes(window.location.hostname)
-        );
-    }, []);
+    const shouldLoad = useSyncExternalStore(
+        subscribeHostname,
+        isRemoteBrowser,
+        serverTelemetry
+    );
 
     if (!shouldLoad) return null;
 

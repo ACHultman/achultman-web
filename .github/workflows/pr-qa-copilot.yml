@@ -29,4 +29,4 @@ jobs:
                       /workflow-automation-roi-calculator
                   journey_file: .pr-qa-copilot/journeys.json
                   auto_paths: true
-                  fail_on_issues: false
+                  fail_on_issues: true

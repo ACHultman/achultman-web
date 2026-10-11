@@ -30,7 +30,9 @@ export function estimateReadingTime(
                 'plain_text' in segment &&
                 typeof segment.plain_text === 'string'
             ) {
-                wordCount += segment.plain_text.split(/\s+/).filter(Boolean).length;
+                wordCount += segment.plain_text
+                    .split(/\s+/)
+                    .filter(Boolean).length;
             }
         }
     }

@@ -3,6 +3,11 @@ import path from 'path';
 const externalURL =
     process.env.PLAYWRIGHT_BASE_URL || process.env.VERCEL_PREVIEW_URL;
 
+const productionPreview = process.env.PLAYWRIGHT_PRODUCTION === 'true';
+const localURL = productionPreview
+    ? 'https://127.0.0.1:3443'
+    : 'http://localhost:3000';
+
 const config: PlaywrightTestConfig = {
     timeout: 30 * 1000,
     testDir: path.join(__dirname, 'e2e'),
@@ -12,15 +17,19 @@ const config: PlaywrightTestConfig = {
     webServer: externalURL
         ? undefined
         : {
-              command: 'npm run dev',
-              port: 3000,
+              command: productionPreview
+                  ? 'node scripts/serve-test-preview.cjs'
+                  : 'npm run dev',
+              url: localURL,
+              ignoreHTTPSErrors: productionPreview,
               timeout: 120 * 1000,
               reuseExistingServer: !process.env.CI,
           },
 
     use: {
         trace: 'retry-with-trace',
-        baseURL: externalURL || 'http://localhost:3000',
+        baseURL: externalURL || localURL,
+        ignoreHTTPSErrors: productionPreview && !externalURL,
         extraHTTPHeaders: {
             'x-vercel-skip-toolbar': '1',
             ...(process.env.VERCEL_AUTOMATION_BYPASS_SECRET

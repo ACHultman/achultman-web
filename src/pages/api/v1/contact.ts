@@ -79,14 +79,12 @@ export default async function handler(
     for (const [name, value] of Object.entries(limit.headers))
         res.setHeader(name, value);
     if (limit.status !== 200) {
-        return res
-            .status(limit.status)
-            .json({
-                message:
-                    limit.status === 429
-                        ? 'Too many messages. Please try again later.'
-                        : 'Contact form temporarily unavailable. Please email directly.',
-            });
+        return res.status(limit.status).json({
+            message:
+                limit.status === 429
+                    ? 'Too many messages. Please try again later.'
+                    : 'Contact form temporarily unavailable. Please email directly.',
+        });
     }
 
     const { name, email, message } = parsed.data;

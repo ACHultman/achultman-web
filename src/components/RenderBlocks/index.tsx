@@ -3,7 +3,7 @@ import { Image } from '@chakra-ui/react';
 import type {
     BlockObjectResponse,
     RichTextItemResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+} from '@notionhq/client';
 import { safeUrl } from '../../utils/safeUrl';
 import BlockCode from './BlockCode';
 
