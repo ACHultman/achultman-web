@@ -26,7 +26,8 @@ export function getAnalytics(): Promise<PostHog | null> {
                 ui_host: 'https://us.posthog.com',
                 defaults: '2026-01-30',
                 autocapture: false,
-                capture_pageview: true,
+                // Vercel Analytics owns page views; PostHog records explicit events.
+                capture_pageview: false,
                 capture_pageleave: false,
                 disable_session_recording: true,
                 disable_surveys: true,

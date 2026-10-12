@@ -39,7 +39,7 @@ Algorithm tests assert outcomes and lifecycle tests assert teardown. Browser and
 
 **ESLint 10:** flat configuration retains Next, React, hooks, TypeScript, import, and accessibility rules. The Next-bundled React, import, and JSX accessibility plugins still advertise ESLint peer ranges ending at 9. Scoped peer overrides select the installed ESLint 10; consumer tests exercise their diagnostics and the complete project lint runs with zero warnings. This is a tested compatibility accommodation, not an upstream support guarantee. Remove it when their published peer ranges include ESLint 10.
 
-Client analytics loads after the initial document load at idle, or on the first explicit event. Initialization is shared and failures never interrupt application actions. Remote recording, surveys, and autocapture remain disabled.
+Vercel Analytics records page views. The larger PostHog client loads only for an explicit tracked action or exception, avoiding duplicate page-view collection and unnecessary downloads for passive visits. Initialization is shared and failures never interrupt application actions. Remote recording, surveys, autocapture, and PostHog page views remain disabled.
 
 ## Dependency exceptions
 

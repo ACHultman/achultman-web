@@ -30,6 +30,7 @@ test('concurrent analytics calls share one initialization and preserve event pro
     assert.equal(calls.filter(([name]) => name === 'init').length, 1);
     assert.equal(calls[0][2].disable_session_recording, true);
     assert.equal(calls[0][2].autocapture, false);
+    assert.equal(calls[0][2].capture_pageview, false);
     assert.deepEqual(calls[1], [
         'bookmark_clicked',
         { bookmark_tags: ['code', 'design'] },

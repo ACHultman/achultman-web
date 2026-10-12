@@ -61,6 +61,10 @@ jobs:
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               run: npx --no-install lhci autorun --config=.lighthouserc.js
 
+            - name: Summarize audit metrics without authentication data
+              if: always()
+              run: node scripts/audit-metrics.cjs
+
             - name: Run accessibility checks
               env:
                   CI: true
