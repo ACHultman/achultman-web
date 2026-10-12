@@ -14,6 +14,7 @@ jobs:
     perf-access:
         name: Lighthouse & Accessibility Audit
         runs-on: ubuntu-latest
+        timeout-minutes: 30
         steps:
             - name: Checkout code
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -41,7 +42,7 @@ jobs:
                   GH_REPO: ${{ github.repository }}
                   DEPLOYMENT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
               run: |
-                  for attempt in {1..36}; do
+                  for attempt in {1..90}; do
                     deployment_id="$(gh api "repos/${GH_REPO}/deployments?sha=${DEPLOYMENT_SHA}&per_page=10" --jq '.[0].id // empty')"
 
                     if [ -n "$deployment_id" ]; then
@@ -69,7 +70,8 @@ jobs:
 
             - name: Run Lighthouse CI
               env:
-                  VERCEL_ENV: preview
+                  VERCEL_ENV: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
+                  AUDIT_BASE_URL: ${{ github.event_name == 'push' && 'https://hultman.dev' || steps.vercel_deployment.outputs.url }}
                   VERCEL_PREVIEW_URL: ${{ steps.vercel_deployment.outputs.url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               run: npx --no-install lhci autorun --config=.lighthouserc.js
@@ -77,6 +79,7 @@ jobs:
             - name: Run accessibility checks
               env:
                   CI: true
+                  PLAYWRIGHT_BASE_URL: ${{ github.event_name == 'push' && 'https://hultman.dev' || steps.vercel_deployment.outputs.url }}
                   VERCEL_PREVIEW_URL: ${{ steps.vercel_deployment.outputs.url }}
                   VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
               run: npm run a11y -- --workers=2

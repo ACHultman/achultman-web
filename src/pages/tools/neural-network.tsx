@@ -14,13 +14,13 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { PageSeo } from '@components/Editorial';
-import NeuralVisualization from '@components/labs/neural-network/NeuralVisualization';
-import TrainingControls from '@components/labs/neural-network/TrainingControls';
-import TrainingMetrics from '@components/labs/neural-network/TrainingMetrics';
+import NeuralVisualization from '@components/tools/neural-network/NeuralVisualization';
+import TrainingControls from '@components/tools/neural-network/TrainingControls';
+import TrainingMetrics from '@components/tools/neural-network/TrainingMetrics';
 import Paragraph from '@components/Paragraph';
 import { PRESET_NETWORKS, type ActivationFn } from '@data/neuralNetData';
 import NextLink from 'next/link';
-import { labPages } from '../../data/labPages';
+import { toolPages } from '../../data/toolPages';
 
 import { useNeuralNetwork } from '../../hooks/useNeuralNetwork';
 export default function NeuralNetPlayground() {
@@ -91,17 +91,17 @@ export default function NeuralNetPlayground() {
     } = useNeuralNetwork();
     return (
         <Container maxW="container.lg" py={10}>
-            <PageSeo {...labPages['neural-net']} />
+            <PageSeo {...toolPages['neural-network']} />
             <SlideFade in offsetY={20}>
                 <VStack spacing={8} align="stretch">
                     {/* Header */}
                     <HStack spacing={4}>
                         <IconButton
                             as={NextLink}
-                            href="/labs"
+                            href="/tools"
                             minH="44px"
                             minW="44px"
-                            aria-label="Back to labs"
+                            aria-label="Back to tools"
                             icon={<ArrowBackIcon />}
                             variant="ghost"
                             size="sm"
@@ -113,7 +113,7 @@ export default function NeuralNetPlayground() {
 
                     <Box>
                         <Heading as="h1" size="xl" mb={2}>
-                            {'🧠 Neural Network Playground'}
+                            {'Neural network'}
                         </Heading>
                         <Text fontSize="lg" color={dimText}>
                             Watch a neural network learn in real time

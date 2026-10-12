@@ -98,7 +98,7 @@ function frameHarness() {
 test('training loop cancels on teardown and cannot restart from an already queued callback', () => {
     const frames = frameHarness();
     const { startFrameLoop } = load(
-        'src/lib/labs/frame-loop.ts',
+        'src/lib/tools/frame-loop.ts',
         {},
         frames.globals
     );
@@ -160,7 +160,7 @@ test('shader pause freezes time, failed compilation retains the last program, an
     ])
         gl[name] = () => {};
     const { createShaderRenderer } = load(
-        'src/lib/labs/shader-renderer.ts',
+        'src/lib/tools/shader-renderer.ts',
         {
             '../../data/shaderData': { DEFAULT_VERTEX_SHADER: 'vertex' },
         },
@@ -213,7 +213,7 @@ test('microphone permission resolving after unmount stops the stream without ope
         stops = 0,
         contexts = 0;
     const { createMicrophone } = load(
-        'src/lib/labs/microphone.ts',
+        'src/lib/tools/microphone.ts',
         {},
         {
             navigator: {
@@ -244,7 +244,7 @@ test('microphone initialization failure releases the acquired stream and audio c
     let stops = 0,
         closes = 0;
     const { createMicrophone } = load(
-        'src/lib/labs/microphone.ts',
+        'src/lib/tools/microphone.ts',
         {},
         {
             navigator: {

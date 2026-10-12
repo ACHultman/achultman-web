@@ -34,7 +34,7 @@ import {
 import { motion, useReducedMotion } from 'framer-motion';
 import NextLink from 'next/link';
 import { useEffect, useState, useSyncExternalStore } from 'react';
-import { labPages } from '../../data/labPages';
+import { toolPages } from '../../data/toolPages';
 import { useShaderCanvas } from '../../hooks/useShaderCanvas';
 
 const subscribeHash = (notify: () => void) => {
@@ -189,7 +189,7 @@ export default function ShaderPlayground() {
 
     return (
         <Container maxW="container.xl" py={8}>
-            <PageSeo {...labPages['shader-playground']} />
+            <PageSeo {...toolPages['shader-editor']} />
             <SlideFade in offsetY={20}>
                 <VStack spacing={8} align="stretch">
                     {/* Header */}
@@ -197,7 +197,7 @@ export default function ShaderPlayground() {
                         <HStack spacing={3} mb={4}>
                             <IconButton
                                 as={NextLink}
-                                href="/labs"
+                                href="/tools"
                                 minH="44px"
                                 minW="44px"
                                 aria-label="Go back"
@@ -216,7 +216,7 @@ export default function ShaderPlayground() {
                         </HStack>
 
                         <Heading as="h1" size="xl" mb={3}>
-                            Shader Playground
+                            Shader editor
                         </Heading>
 
                         <Paragraph>

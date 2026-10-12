@@ -1,5 +1,5 @@
 import { PageSeo } from '@components/Editorial';
-import { labPages } from '../../data/labPages';
+import { toolPages } from '../../data/toolPages';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
     Box,
@@ -407,14 +407,14 @@ export default function SortArenaPage() {
 
     return (
         <Container maxW="container.xl" py={8}>
-            <PageSeo {...labPages['sort-arena']} />
+            <PageSeo {...toolPages.sorting} />
             <SlideFade in offsetY={20}>
                 <VStack spacing={6} align="stretch">
                     {/* Header */}
                     <HStack spacing={4}>
                         <IconButton
                             as={NextLink}
-                            href="/labs"
+                            href="/tools"
                             minH="44px"
                             minW="44px"
                             aria-label="Go back"
@@ -435,7 +435,7 @@ export default function SortArenaPage() {
 
                     <Box>
                         <Heading as="h1" size="xl" mb={2}>
-                            {'🏎️ Sorting Algorithm Arena'}
+                            {'Sorting algorithms'}
                         </Heading>
                         <Paragraph>
                             Race sorting algorithms head-to-head. Watch every

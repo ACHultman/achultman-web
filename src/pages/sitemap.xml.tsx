@@ -3,7 +3,7 @@ import { fetchNotions } from '../services/notion';
 import type { BlogPost } from '../types/notion';
 import { getBaseUrl } from '../utils/baseUrl';
 import { escapeXml } from '../utils/xml';
-import { labPages } from '../data/labPages';
+import { toolPages } from '../data/toolPages';
 
 const SITE_URL = getBaseUrl();
 
@@ -18,7 +18,7 @@ function Sitemap() {
 const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
     { path: '', lastmod: '2026-10-11' },
     { path: '/consulting', lastmod: '2026-10-11' },
-    { path: '/work', lastmod: '2026-10-10' },
+    { path: '/work', lastmod: '2026-10-12' },
     { path: '/contact', lastmod: '2026-10-10' },
     { path: '/resume', lastmod: '2026-10-10' },
     {
@@ -30,16 +30,10 @@ const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
     { path: '/blog', lastmod: '2026-10-10' },
     { path: '/books', lastmod: '2026-03-09' },
     { path: '/bookmarks', lastmod: '2026-03-09' },
-    { path: '/labs', lastmod: '2026-10-10' },
-    { path: '/labs/interaction-checker', lastmod: '2026-03-09' },
-    { path: '/labs/token-viz', lastmod: '2026-03-09' },
-    { path: '/labs/prompt-duel', lastmod: '2026-03-09' },
-    { path: '/labs/agent-flow', lastmod: '2026-03-09' },
-    { path: '/labs/evidence-viz', lastmod: '2026-03-09' },
-    { path: '/labs/beatmaker', lastmod: '2026-03-09' },
-    ...Object.values(labPages).map(({ path }) => ({
+    { path: '/tools', lastmod: '2026-10-12' },
+    ...Object.values(toolPages).map(({ path }) => ({
         path,
-        lastmod: '2026-10-11',
+        lastmod: '2026-10-12',
     })),
 ];
 

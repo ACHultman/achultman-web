@@ -4,11 +4,11 @@ import path from 'node:path';
 
 // Discover routes independently of the sitemap/metadata registry so a new
 // tool cannot silently inherit the homepage's canonical URL again.
-const labPaths = readdirSync(path.join(process.cwd(), 'src/pages/labs'))
+const toolPaths = readdirSync(path.join(process.cwd(), 'src/pages/tools'))
     .filter((file) => file.endsWith('.tsx') && file !== 'index.tsx')
-    .map((file) => `/labs/${file.replace(/\.tsx$/, '')}`);
+    .map((file) => `/tools/${file.replace(/\.tsx$/, '')}`);
 
-test('consulting and every lab have page-specific server HTML and correct indexing', async ({
+test('consulting and every tool have page-specific server HTML and correct indexing', async ({
     page,
     request,
 }) => {
@@ -21,7 +21,7 @@ test('consulting and every lab have page-specific server HTML and correct indexi
     for (const route of [
         '/consulting',
         '/workflow-automation-roi-calculator',
-        ...labPaths,
+        ...toolPaths,
     ]) {
         const response = await request.get(route);
         expect(response.status(), route).toBe(200);

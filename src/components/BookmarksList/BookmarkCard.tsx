@@ -7,7 +7,7 @@ import {
     Tag,
     useColorModeValue,
 } from '@chakra-ui/react';
-import posthog from 'posthog-js';
+import { captureEvent } from '../../lib/analytics';
 import { Bookmark } from '../../types/notion';
 import Paragraph from '../Paragraph';
 
@@ -19,7 +19,7 @@ function BookmarkCard({ bookmark }: Props) {
     const borderColor = useColorModeValue('gray.200', 'gray.700');
 
     const handleBookmarkClick = () => {
-        posthog.capture('bookmark_clicked', {
+        captureEvent('bookmark_clicked', {
             bookmark_title: bookmark.title,
             bookmark_link: bookmark.link,
             bookmark_tags: bookmark.tags,

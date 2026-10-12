@@ -54,7 +54,7 @@ test('phone layouts and enlarged text reflow across core pages', async ({
             '/contact',
             '/resume',
             '/privacy',
-            '/labs',
+            '/tools',
         ]) {
             await page.goto(path, { waitUntil: 'networkidle' });
             await page.addStyleTag({

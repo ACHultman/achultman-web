@@ -139,3 +139,17 @@ Other explicit limits:
 6. Recheck CSP in a production build after changing Chakra bootstrap, analytics, or third-party integrations. Do not fix CSP failures by adding broad script wildcards or `unsafe-inline`.
 
 Release status and hosted verification are recorded in the associated pull request. The evidence above describes local audit checks unless explicitly stated otherwise.
+
+## Reviewer follow-up — October 12, 2026
+
+The interactive collection now contains six maintained tools under `/tools`. Nine weaker demonstrations, including the uncited medical interaction and evidence pages, were removed with their data. Retained `/labs` URLs redirect permanently to their replacements; retired URLs return 404 and are excluded from the sitemap.
+
+The regex simulation was replaced after native-engine comparisons exposed incorrect results for backtracking, alternation, counted repeats, character classes, and optional prefixes. The replacement uses the browser's actual JavaScript engine in a disposable worker, bounds input and returned matches/captures, and terminates expensive patterns after one second. The only other dynamic `RegExp` constructor in application code uses a fixed combining-mark pattern in the slug utility; it does not take user patterns. Regression tests cover these matching cases, empty Unicode matches, syntax errors, output bounds, and browser recovery after a catastrophic-backtracking timeout.
+
+Sequencer cells now expose instrument, step number, and pressed state. The route-discovered axe suite covers the retained pages in both themes, plus result/error states, keyboard interaction, and mobile reflow. Theme navigation between native and Chakra pages has a browser regression test. Automated checks remain only one part of accessibility review.
+
+Editorial pages no longer load the interactive Chakra/Motion provider. Client analytics initializes once, after load at idle or on an explicit event; blocked initialization/capture is nonfatal. A `no-transform` cache directive prevents intermediary HTML rewriting without granting another script host access through CSP. Cloudflare documents this directive as disabling automatic Web Analytics beacon injection; the public-domain release check must confirm that behavior.
+
+The GitHub default branch now requires `Lint`, `Production browser journeys`, `analyze` (CodeQL), and `Lighthouse & Accessibility Audit` from GitHub Actions. The status-check ruleset has no bypass actors. Lighthouse uses standard simulated mobile throttling, three runs, and a median-run minimum of 95 in each required category. Preview audits exclude only the intentionally disabled crawlability check; post-merge audits include it on the public domain.
+
+Local production verification: 123 browser cases passed (59 accessibility cases and 64 browser journeys). Unit, formatting, strict TypeScript, zero-warning lint, full dependency audit, and dependency-tree checks pass. Hosted performance, connected-service, and production evidence is recorded in the release PR. Thirteen dependency PRs were closed after verifying that their fixes were already superseded in the main-branch lockfile; an obsolete protobufjs override was removed because that package is no longer installed.

@@ -1,5 +1,4 @@
 import { Fragment, type ReactNode } from 'react';
-import { Image } from '@chakra-ui/react';
 import type {
     BlockObjectResponse,
     RichTextItemResponse,
@@ -141,7 +140,9 @@ function Block({ block }: { block: BlockObjectResponse }) {
                 .join('');
             return (
                 <figure>
-                    <Image
+                    {/* CMS images load directly; the server optimizer must not fetch arbitrary URLs. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                         src={src}
                         alt={caption}
                         loading="lazy"

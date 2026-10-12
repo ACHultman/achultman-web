@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('neural training starts, pauses, and resets when a keyboard-selected preset changes', async ({
     page,
 }) => {
-    await page.goto('/labs/neural-net');
+    await page.goto('/tools/neural-network');
     const counter = page.getByLabel('Training steps', { exact: true });
     await page.getByRole('button', { name: 'Train', exact: true }).click();
     await expect(counter).not.toHaveText('0');
@@ -29,7 +29,7 @@ test('neural training starts, pauses, and resets when a keyboard-selected preset
 test('compression preserves emoji through the final Huffman step', async ({
     page,
 }) => {
-    await page.goto('/labs/compression');
+    await page.goto('/tools/compression');
     await page
         .getByRole('button', { name: /Custom Enter your own text/ })
         .click();
@@ -47,7 +47,7 @@ test('compression preserves emoji through the final Huffman step', async ({
 test('shader pause freezes the displayed clock and resume continues it', async ({
     page,
 }) => {
-    await page.goto('/labs/shader-playground');
+    await page.goto('/tools/shader-editor');
     const clock = page.getByLabel('Shader time', { exact: true });
     await expect(clock).not.toHaveText('0.00s', { timeout: 15000 });
     await page

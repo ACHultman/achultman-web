@@ -1,6 +1,6 @@
 # hultman.dev
 
-Adam Hultman’s personal site: work, writing, consulting, a workflow cost calculator, and interactive programming labs. [Visit the site](https://hultman.dev).
+Adam Hultman’s personal site: work, writing, consulting, a workflow cost calculator, and interactive browser tools. [Visit the site](https://hultman.dev).
 
 Built with Next.js 16 Pages Router, React 19, TypeScript, Chakra UI 2, and Notion. Vercel hosts the site; Upstash Redis protects public APIs; Nodemailer delivers contact messages.
 
@@ -14,7 +14,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. With no Notion credentials, development uses saved public article snapshots. Static pages and labs need no service credentials. Books and bookmarks need their Notion databases. Contact delivery needs email credentials; tests never send real messages.
+Open http://localhost:3000. With no Notion credentials, development uses saved public article snapshots. Static pages and tools need no service credentials. Books and bookmarks need their Notion databases. Contact delivery needs email credentials; tests never send real messages.
 
 For a production build using public fixtures, explicitly enable preview mode for both commands:
 
@@ -52,6 +52,8 @@ Notion is the source of truth for writing. Share the intended database with the 
 - Rich text, code, lists, tables, nested blocks, and HTTPS images render explicitly. Add descriptive image captions. Embeds become links; plain text is never interpreted as HTML or Markdown.
 - Pages, sitemap, and RSS revalidate hourly. New articles can render on their first request. Failed regeneration retains the last successful page; urgent unpublishing needs a cache purge or deployment.
 
+The six maintained tools live at `/tools`, with metadata in `src/data/toolPages.ts`. Old `/labs` links redirect only for retained tools; removed demonstrations return 404 and are absent from the sitemap.
+
 Professional content lives in `src/data/work.ts`; homepage article selections live in `src/data/writing.ts`. The résumé reuses `src/constants/timeline.ts`. Run `node scripts/export-resume.cjs` against a running local site to regenerate its tagged PDF.
 
 `src/data/published-writing/` contains public preview fixtures, not a second CMS. Their source text is preserved; decorative expiring media and some nested material were unavailable in the original public export.
@@ -72,7 +74,7 @@ Without `PLAYWRIGHT_PRODUCTION`, Playwright starts the development server. Set `
 
 Unit tests cover contact validation, publication boundaries, pagination, rendering, rate-limit failures, dependency compatibility, calculator economics, sorting and compression correctness, neural training, and browser-resource teardown. Browser tests cover navigation, forms, articles, SEO, themes, mobile layouts, and accessibility. The same production browser suite runs in CI for every PR, without service credentials.
 
-Hosted Lighthouse and accessibility checks also run against the Vercel preview. Reports and traces can contain deployment-access headers and must stay private. QA Copilot reports failures as a failing check. Require the repository checks in branch protection before merging.
+Hosted Lighthouse and accessibility checks run against the Vercel preview on PRs and the public `hultman.dev` domain after a merge. Lighthouse uses its standard simulated mobile profile and requires at least 95 for performance, accessibility, best practices, and SEO. Preview audits skip only crawlability because Vercel adds `noindex`; production audits include it. Reports and traces can contain deployment-access headers and must stay private. QA Copilot reports failures as a failing check. The default branch requires the lint, production browser, CodeQL, and hosted audit checks; this status-check ruleset has no bypass actors.
 
 ## Design and maintenance
 

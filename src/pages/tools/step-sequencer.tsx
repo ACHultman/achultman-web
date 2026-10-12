@@ -24,6 +24,7 @@ import {
     WrapItem,
     useColorModeValue,
 } from '@chakra-ui/react';
+import { toolPages } from '../../data/toolPages';
 import { PageSeo } from '@components/Editorial';
 import { AnimatePresence, motion } from 'framer-motion';
 import NextLink from 'next/link';
@@ -99,11 +100,13 @@ function createSynths(Tone: typeof import('tone')) {
 
 // ─── Sequencer Grid Cell ─────────────────────────────────────────────────────
 function Cell({
+    label,
     active,
     playing,
     color,
     onClick,
 }: {
+    label: string;
     active: boolean;
     playing: boolean;
     color: string;
@@ -143,7 +146,9 @@ function Cell({
                       ? '0 0 6px rgba(255,255,255,0.3)'
                       : 'none'
             }
-            aria-label={active ? 'Mute step' : 'Activate step'}
+            type="button"
+            aria-label={label}
+            aria-pressed={active}
             /* Prevent touch delay on mobile */
             sx={{ touchAction: 'manipulation' }}
         >
@@ -338,19 +343,15 @@ export default function BeatMaker() {
 
     return (
         <>
-            <PageSeo
-                title="BeatMaker — Labs"
-                description="Describe a beat in plain text and hear it come alive. Interactive browser-based beat sequencer powered by Tone.js."
-                path="/labs/beatmaker"
-            />
+            <PageSeo {...toolPages['step-sequencer']} />
             <Container maxW="container.lg" pb={10}>
                 <SlideFade in={true} offsetY={80}>
                     {/* Header — compact */}
                     <Flex align="center" mb={3} mt={2}>
                         <IconButton
                             as={NextLink}
-                            href="/labs"
-                            aria-label="Back to Labs"
+                            href="/tools"
+                            aria-label="Back to tools"
                             icon={<ArrowBackIcon />}
                             variant="ghost"
                             mr={2}
@@ -361,7 +362,7 @@ export default function BeatMaker() {
                                 as="h1"
                                 fontSize={{ base: '20px', md: '28px' }}
                             >
-                                🎵 BeatMaker
+                                Step sequencer
                             </Heading>
                             <Badge
                                 colorScheme="purple"
@@ -698,6 +699,7 @@ export default function BeatMaker() {
                                                 (_, stepIdx) => (
                                                     <GridItem key={stepIdx}>
                                                         <Cell
+                                                            label={`${inst.name}, step ${stepIdx + 1}`}
                                                             active={
                                                                 pattern[
                                                                     instIdx
@@ -809,10 +811,10 @@ export default function BeatMaker() {
                             {' · '}
                             <Link
                                 as={NextLink}
-                                href="/labs"
+                                href="/tools"
                                 color={accentColor}
                             >
-                                ← Back to Labs
+                                ← Back to tools
                             </Link>
                         </Text>
                         <Link

@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { LogoMark } from '../Logo';
-import { useColorMode } from '@chakra-ui/react';
+import { useSiteColorMode } from '../../hooks/useSiteColorMode';
 import { FiMoon, FiSun } from 'react-icons/fi';
 
 export default function Footer() {
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { colorMode, toggleColorMode } = useSiteColorMode();
     return (
         <footer className="site-footer page-container">
             <div className="footer-main">
@@ -37,7 +37,7 @@ export default function Footer() {
                         LinkedIn ↗
                     </a>
                     <a href="mailto:adam@hultman.dev">Email ↗</a>
-                    <Link href="/labs">Experiments</Link>
+                    <Link href="/tools">Tools</Link>
                     <Link href="/privacy">Privacy</Link>
                 </div>
             </div>

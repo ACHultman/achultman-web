@@ -19,10 +19,10 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { PageSeo } from '@components/Editorial';
-import StatsPanel from '@components/labs/compression/CompressionStats';
-import EncodedBitsDisplay from '@components/labs/compression/EncodedBits';
-import HuffmanTreeSVG from '@components/labs/compression/HuffmanTree';
-import RLEVisualization from '@components/labs/compression/RunLength';
+import StatsPanel from '@components/tools/compression/CompressionStats';
+import EncodedBitsDisplay from '@components/tools/compression/EncodedBits';
+import HuffmanTreeSVG from '@components/tools/compression/HuffmanTree';
+import RLEVisualization from '@components/tools/compression/RunLength';
 import Paragraph from '@components/Paragraph';
 import {
     EXAMPLES,
@@ -34,7 +34,7 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import NextLink from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
-import { labPages } from '../../data/labPages';
+import { toolPages } from '../../data/toolPages';
 
 const MotionBox = motion(Box);
 export default function CompressionPage() {
@@ -88,14 +88,14 @@ export default function CompressionPage() {
 
     return (
         <Container maxW="container.xl" py={8}>
-            <PageSeo {...labPages['compression']} />
+            <PageSeo {...toolPages['compression']} />
             <VStack spacing={8} align="stretch">
                 {/* Header */}
                 <Box>
                     <HStack mb={3}>
                         <IconButton
                             as={NextLink}
-                            href="/labs"
+                            href="/tools"
                             minH="44px"
                             minW="44px"
                             aria-label="Go back"

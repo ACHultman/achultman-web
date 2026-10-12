@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { createShaderRenderer } from '../lib/labs/shader-renderer';
-import { createMicrophone } from '../lib/labs/microphone';
+import { createShaderRenderer } from '../lib/tools/shader-renderer';
+import { createMicrophone } from '../lib/tools/microphone';
 
 export function useShaderCanvas(code: string, paused: boolean) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
