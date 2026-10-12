@@ -19,26 +19,38 @@ export default function Footer() {
                         Vancouver, BC.
                     </p>
                 </div>
-                <div className="footer-links" aria-label="More about Adam">
-                    <Link href="/consulting">Consulting</Link>
-                    <Link href="/resume">Résumé</Link>
-                    <a
-                        href="https://github.com/ACHultman"
-                        target="_blank"
-                        rel="noreferrer"
+                <div className="footer-navigation">
+                    <nav
+                        className="footer-links"
+                        aria-label="More on this site"
                     >
-                        GitHub ↗
-                    </a>
-                    <a
-                        href="https://www.linkedin.com/in/adam-hultman/"
-                        target="_blank"
-                        rel="noreferrer"
+                        <Link href="/consulting">Consulting</Link>
+                        <Link href="/resume">Résumé</Link>
+                        <Link href="/tools" prefetch={false}>
+                            Tools
+                        </Link>
+                        <Link href="/privacy">Privacy</Link>
+                    </nav>
+                    <nav
+                        className="footer-links"
+                        aria-label="Profiles and email"
                     >
-                        LinkedIn ↗
-                    </a>
-                    <a href="mailto:adam@hultman.dev">Email ↗</a>
-                    <Link href="/tools">Tools</Link>
-                    <Link href="/privacy">Privacy</Link>
+                        <a
+                            href="https://github.com/ACHultman"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            GitHub ↗
+                        </a>
+                        <a
+                            href="https://www.linkedin.com/in/adam-hultman/"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            LinkedIn ↗
+                        </a>
+                        <a href="mailto:adam@hultman.dev">Email ↗</a>
+                    </nav>
                 </div>
             </div>
             <div className="footer-bottom">

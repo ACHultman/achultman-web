@@ -38,6 +38,11 @@ module.exports = withBundleAnalyzer({
     skipTrailingSlashRedirect: true,
     async redirects() {
         return [
+            {
+                source: '/security.txt',
+                destination: '/.well-known/security.txt',
+                permanent: true,
+            },
             { source: '/labs', destination: '/tools', permanent: true },
             ...Object.entries({
                 'sort-arena': 'sorting',
@@ -51,6 +56,13 @@ module.exports = withBundleAnalyzer({
                 destination: `/tools/${newPath}`,
                 permanent: true,
             })),
+            // Run after legacy redirects to avoid an extra redirect hop.
+            // Preserve service paths, especially PostHog's /ingest/ requests.
+            {
+                source: '/:path((?!api(?:/|$)|ingest(?:/|$)|_next(?:/|$)|\\.well-known(?:/|$)).+)/',
+                destination: '/:path',
+                permanent: true,
+            },
         ];
     },
     async rewrites() {
@@ -92,6 +104,10 @@ module.exports = withBundleAnalyzer({
                         value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
                     },
                 ],
+            },
+            {
+                source: '/api/v1/:path*',
+                headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
             },
             {
                 source: '/tools/shader-editor',

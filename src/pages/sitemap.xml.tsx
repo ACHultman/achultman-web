@@ -15,7 +15,7 @@ function Sitemap() {
 // These dates represent meaningful content changes, not the time the sitemap
 // happens to be requested. False daily updates waste crawl attention and make
 // the signal less useful to search engines.
-const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
+const STATIC_PATHS: Array<{ path: string; lastmod?: string }> = [
     { path: '', lastmod: '2026-10-11' },
     { path: '/consulting', lastmod: '2026-10-11' },
     { path: '/work', lastmod: '2026-10-12' },
@@ -25,11 +25,13 @@ const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
         path: '/workflow-automation-roi-calculator',
         lastmod: '2026-10-11',
     },
-    { path: '/about', lastmod: '2026-10-10' },
+    { path: '/about', lastmod: '2026-10-12' },
     { path: '/privacy', lastmod: '2026-10-10' },
-    { path: '/blog', lastmod: '2026-10-10' },
-    { path: '/books', lastmod: '2026-03-09' },
-    { path: '/bookmarks', lastmod: '2026-03-09' },
+    // CMS collections can change when entries are added, edited, or removed.
+    // Without a reliable collection modification time, omit this optional field.
+    { path: '/blog' },
+    { path: '/books' },
+    { path: '/bookmarks' },
     { path: '/tools', lastmod: '2026-10-12' },
     ...Object.values(toolPages).map(({ path }) => ({
         path,
@@ -39,7 +41,7 @@ const STATIC_PATHS: Array<{ path: string; lastmod: string }> = [
 
 interface SitemapUrl {
     loc: string;
-    lastmod: string;
+    lastmod?: string;
 }
 
 function buildSitemapXml(urls: SitemapUrl[]): string {
@@ -49,7 +51,7 @@ function buildSitemapXml(urls: SitemapUrl[]): string {
         urls
             .map(
                 ({ loc, lastmod }) =>
-                    `<url><loc>${escapeXml(loc)}</loc><lastmod>${escapeXml(lastmod)}</lastmod></url>`
+                    `<url><loc>${escapeXml(loc)}</loc>${lastmod ? `<lastmod>${escapeXml(lastmod)}</lastmod>` : ''}</url>`
             )
             .join('\n') +
         `\n</urlset>`

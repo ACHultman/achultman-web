@@ -1,0 +1,4 @@
+Contact: mailto:adam@hultman.dev
+Expires: 2027-10-01T00:00:00Z
+Canonical: https://hultman.dev/.well-known/security.txt
+Preferred-Languages: en
