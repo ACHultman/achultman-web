@@ -95,7 +95,7 @@ test('consulting is reachable and leads prospective clients to contact', async (
     await page.getByRole('link', { name: 'Discuss a project' }).first().click();
     await expect(page).toHaveURL('/contact');
     await expect(
-        page.getByRole('link', { name: /adam@hultman.dev/ }).first()
+        page.getByRole('button', { name: 'Send message', exact: true })
     ).toBeVisible();
 });
 

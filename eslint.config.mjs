@@ -14,6 +14,7 @@ export default defineConfig([
         'test-results/**',
         '.lighthouseci/**',
         '.vercel/**',
+        'growth/**', // Private workspace, already excluded from Git.
     ]),
     {
         rules: {

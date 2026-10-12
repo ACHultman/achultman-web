@@ -16,9 +16,6 @@ export default function Contact() {
                         A role, a project, or a useful technical conversation.
                         Send a little context and I’ll take a look.
                     </PageIntro>
-                    <a href="mailto:adam@hultman.dev" className="contact-email">
-                        adam@hultman.dev ↗
-                    </a>
                     <p className="contact-location">Based in Vancouver, BC.</p>
                 </div>
                 <div className="contact-form-wrap">

@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Email [adam@hultman.dev](mailto:adam@hultman.dev) with the affected URL, reproduction steps, and impact. Please send sensitive details privately rather than opening a public issue.
+Use the [contact form](https://hultman.dev/contact) to report an affected URL and a brief summary of the issue. Please avoid posting sensitive details in public issues.
 
 The public contact record is [security.txt](https://hultman.dev/.well-known/security.txt). Review its contact details and renew `public/.well-known/security.txt` before its October 1, 2027 expiry.
 
@@ -141,7 +141,7 @@ Other explicit limits:
 
 1. Keep `NOTION_API_KEY` and the intended database IDs configured. Grant the integration access only to content intended for this site. Leave `NOTION_PREVIEW_MODE=false` on the live deployment.
 2. Set `KV_REST_API_URL` and `KV_REST_API_TOKEN` for production and protected previews that exercise APIs. Verify successful requests, then a 429 with `Retry-After`, against that environment before promotion. The local audit verified failures and mocked success/denial, not the live Redis connection.
-3. Keep `NEXT_PUBLIC_EMAIL` (public address) and `EMAIL_PASS` (server-only Gmail app password) configured for contact delivery. Validate one owner-approved delivery after deployment. Provider credentials remain managed secrets; no credential values are stored in this report.
+3. Keep `CONTACT_EMAIL` (server-only sender/recipient address) and `EMAIL_PASS` (server-only Gmail app password) configured for contact delivery. Provider credentials remain managed secrets; no credential values are stored in this report. The owner-authorized delivery verification is recorded in the October 12 follow-up below.
 4. After deploying the removal, delete/revoke the site's unused OpenAI credential if it is dedicated to this retired feature. No other consumer's key should be revoked.
 5. Require the updated checks before merging. Keep production dependencies and action pins current; rerun both production and full dependency audits.
 6. Recheck CSP in a production build after changing Chakra bootstrap, analytics, or third-party integrations. Do not fix CSP failures by adding broad script wildcards or `unsafe-inline`.
@@ -181,3 +181,9 @@ Books and Bookmarks are linked from About; footer navigation separates site dest
 Public page URLs redirect permanently to their canonical form without trailing slashes. API, framework, well-known, and PostHog proxy paths keep their existing behavior. Versioned JSON APIs send `X-Robots-Tag: noindex`; social images remain indexable. `robots.txt` continues to allow public crawling and advertise the sitemap. The security contact record is available at `/.well-known/security.txt`, with `/security.txt` redirecting there.
 
 Regression checks cover query preservation, redirect origin safety, service-path exclusions, API indexing headers, sitemap dates, the security contact record, and desktop/mobile paths to both reading collections. Existing browser coverage checks footer reflow, enlarged text, keyboard navigation, and automated accessibility.
+
+## Contact privacy follow-up — October 12, 2026
+
+The current site, downloadable résumé, security contact record, and repository documentation direct visitors to `/contact` instead of publishing the owner's email address. The delivery address is configured only as the server-side `CONTACT_EMAIL` setting; the route does not accept a public-prefixed fallback. Existing SMTP credentials, fixed recipient, rate limiting, and message validation remain in place. Public failure messages retain a retry path without disclosing the address.
+
+Regression checks scan published HTML, embedded page data, browser scripts, tracked text, and résumé link annotations for exposure. API tests use a fake SMTP boundary to check private configuration, delivery acceptance, and error responses. Historical Git commits, downloaded copies, and addresses already collected elsewhere are outside the removal performed here.

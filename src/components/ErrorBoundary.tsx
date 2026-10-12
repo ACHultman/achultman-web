@@ -48,9 +48,11 @@ class ErrorBoundary extends Component<Props, State> {
                 <section className="page-container error-fallback" role="alert">
                     <h1>This page could not load.</h1>
                     <p>
-                        Please try again, or email{' '}
-                        <a href="mailto:adam@hultman.dev">adam@hultman.dev</a>{' '}
-                        if the problem continues.
+                        Please try again, or use the{' '}
+                        {/* A full navigation resets the failed React tree. */}
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                        <a href="/contact">contact form</a> if the problem
+                        continues.
                     </p>
                     {process.env.NODE_ENV === 'development' &&
                         this.state.error && (

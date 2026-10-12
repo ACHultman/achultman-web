@@ -203,5 +203,12 @@ test('the resume has a real PDF download', async ({ page, request }) => {
     const response = await request.get(href!);
     expect(response.status()).toBe(200);
     expect(response.headers()['content-type']).toContain('application/pdf');
-    expect((await response.body()).subarray(0, 5).toString()).toBe('%PDF-');
+    const pdf = await response.body();
+    expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
+    expect(pdf.toString('latin1')).toContain(
+        '/URI (https://hultman.dev/contact)'
+    );
+    expect(pdf.toString('latin1')).not.toMatch(
+        /mailto:|[a-z0-9._%+-]+@hultman\.dev\b/i
+    );
 });

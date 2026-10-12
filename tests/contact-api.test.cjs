@@ -22,20 +22,24 @@ function setup({
     telemetryError = false,
     configured = true,
     limitStatus = 200,
+    env,
 } = {}) {
     const mail = [],
-        events = [];
+        events = [],
+        transports = [];
     const testModule = { exports: {} };
     vm.runInNewContext(code, {
         module: testModule,
         exports: testModule.exports,
         process: {
-            env: configured
-                ? {
-                      NEXT_PUBLIC_EMAIL: 'owner@example.com',
-                      EMAIL_PASS: 'test-only',
-                  }
-                : {},
+            env:
+                env ??
+                (configured
+                    ? {
+                          CONTACT_EMAIL: 'owner@example.com',
+                          EMAIL_PASS: 'test-only',
+                      }
+                    : {}),
         },
         console: { error() {} },
         require(name) {
@@ -48,15 +52,21 @@ function setup({
                 };
             if (name === 'nodemailer')
                 return {
-                    createTransport: () => ({
-                        sendMail: async (options) => {
-                            mail.push(options);
-                            if (mailError) throw new Error('Provider failed');
-                            return {
-                                accepted: accepted ? ['owner@example.com'] : [],
-                            };
-                        },
-                    }),
+                    createTransport: (settings) => {
+                        transports.push(settings);
+                        return {
+                            sendMail: async (options) => {
+                                mail.push(options);
+                                if (mailError)
+                                    throw new Error('Provider failed');
+                                return {
+                                    accepted: accepted
+                                        ? ['owner@example.com']
+                                        : [],
+                                };
+                            },
+                        };
+                    },
                 };
             if (name.endsWith('posthog-server'))
                 return {
@@ -94,6 +104,7 @@ function setup({
         response,
         mail,
         events,
+        transports,
     };
 }
 const valid = {
@@ -110,12 +121,46 @@ test('valid message reaches SMTP, is escaped, and confirms acceptance without pe
     assert.equal(s.response.body.success, true);
     assert.equal(s.mail.length, 1);
     assert.equal(s.mail[0].replyTo, valid.email);
+    assert.equal(s.mail[0].to, 'owner@example.com');
+    assert.equal(s.mail[0].from.address, 'owner@example.com');
+    assert.equal(s.transports[0].auth.user, 'owner@example.com');
     assert.ok(s.mail[0].html.includes('&lt;img'));
     assert.ok(!s.mail[0].subject.includes('\n'));
     const analytics = JSON.stringify(s.events);
     for (const value of [valid.name, valid.email, valid.message])
         assert.ok(!analytics.includes(value));
     assert.equal(s.response.headers['Cache-Control'], 'no-store');
+});
+
+test('delivery requires the server-only address and never falls back to public configuration', async () => {
+    const s = setup({
+        env: {
+            NEXT_PUBLIC_EMAIL: 'public@example.com',
+            EMAIL_PASS: 'test-only',
+        },
+    });
+    await s.handler({ method: 'POST', body: valid }, s.response);
+    assert.equal(s.response.code, 503);
+    assert.equal(s.mail.length, 0);
+    assert.equal(s.transports.length, 0);
+});
+
+test('success and every failure response keep delivery configuration private', async () => {
+    for (const options of [
+        {},
+        { configured: false },
+        { mailError: true },
+        { accepted: false },
+        { limitStatus: 429 },
+        { limitStatus: 503 },
+    ]) {
+        const s = setup(options);
+        await s.handler({ method: 'POST', body: valid }, s.response);
+        assert.doesNotMatch(
+            JSON.stringify(s.response.body),
+            /@|mailto:|email directly|email me|test-only/i
+        );
+    }
 });
 
 test('analytics failure cannot reverse a delivered submission', async () => {

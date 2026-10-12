@@ -17,16 +17,16 @@ function Sitemap() {
 // the signal less useful to search engines.
 const STATIC_PATHS: Array<{ path: string; lastmod?: string }> = [
     { path: '', lastmod: '2026-10-11' },
-    { path: '/consulting', lastmod: '2026-10-11' },
+    { path: '/consulting', lastmod: '2026-10-12' },
     { path: '/work', lastmod: '2026-10-12' },
-    { path: '/contact', lastmod: '2026-10-10' },
-    { path: '/resume', lastmod: '2026-10-10' },
+    { path: '/contact', lastmod: '2026-10-12' },
+    { path: '/resume', lastmod: '2026-10-12' },
     {
         path: '/workflow-automation-roi-calculator',
         lastmod: '2026-10-11',
     },
     { path: '/about', lastmod: '2026-10-12' },
-    { path: '/privacy', lastmod: '2026-10-10' },
+    { path: '/privacy', lastmod: '2026-10-12' },
     // CMS collections can change when entries are added, edited, or removed.
     // Without a reliable collection modification time, omit this optional field.
     { path: '/blog' },
