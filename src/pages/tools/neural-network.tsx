@@ -107,7 +107,7 @@ export default function NeuralNetPlayground() {
                             size="sm"
                         />
                         <Badge colorScheme="cyan" fontSize="xs">
-                            ML Experiment
+                            Machine learning
                         </Badge>
                     </HStack>
 
