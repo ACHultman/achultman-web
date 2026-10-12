@@ -19,7 +19,7 @@ export default function Tools() {
                         <article key={tool.path}>
                             <p className="eyebrow">{tool.category}</p>
                             <h2>
-                                <TextLink href={tool.path}>
+                                <TextLink href={tool.path} prefetch={false}>
                                     {tool.title}
                                 </TextLink>
                             </h2>

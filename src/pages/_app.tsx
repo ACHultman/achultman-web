@@ -2,10 +2,9 @@ import '../main.css';
 import React, { useSyncExternalStore } from 'react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
-import { CacheProvider, EmotionCache } from '@emotion/react';
+import type { EmotionCache } from '@emotion/react';
 import { DefaultSeo } from 'next-seo';
 
-import createEmotionCache from '../utils/createEmotionCache';
 import SEO from '../next-seo.config';
 import Layout from '@components/Layout';
 import ErrorBoundary from '@components/ErrorBoundary';
@@ -13,8 +12,6 @@ import ErrorBoundary from '@components/ErrorBoundary';
 const InteractiveProviders = dynamic(
     () => import('../components/InteractiveProviders')
 );
-
-const clientSideEmotionCache = createEmotionCache();
 
 const Analytics = dynamic(
     () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
@@ -52,30 +49,27 @@ function SiteTelemetry() {
     );
 }
 
-function MyApp({
-    Component,
-    pageProps,
-    router,
-    emotionCache = clientSideEmotionCache,
-}: MyAppProps) {
+function MyApp({ Component, pageProps, router, emotionCache }: MyAppProps) {
     const needsInteractiveProviders =
         router.pathname.startsWith('/tools/') &&
         router.pathname !== '/tools/regex-tester';
     const content = <Component {...pageProps} />;
     return (
-        <CacheProvider value={emotionCache}>
+        <>
             <DefaultSeo {...SEO} />
             <SiteTelemetry />
             <Layout>
                 <ErrorBoundary>
                     {needsInteractiveProviders ? (
-                        <InteractiveProviders>{content}</InteractiveProviders>
+                        <InteractiveProviders emotionCache={emotionCache}>
+                            {content}
+                        </InteractiveProviders>
                     ) : (
                         content
                     )}
                 </ErrorBoundary>
             </Layout>
-        </CacheProvider>
+        </>
     );
 }
 

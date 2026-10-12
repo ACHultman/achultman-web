@@ -45,6 +45,7 @@ test('submits only the general-purpose contact fields', async ({ page }) => {
     await expect(page.getByRole('status')).toContainText(
         'Thanks. Your message has been sent.'
     );
+    await expect(page.getByRole('status')).toBeFocused();
     expect(submitted).toEqual({
         name: 'Jordan Lee',
         email: 'jordan@example.com',
@@ -116,5 +117,54 @@ test('validates required fields before a request', async ({ page }) => {
     await expect(page.getByText('Enter your name.')).toBeVisible();
     await expect(page.getByText('Enter a valid email address.')).toBeVisible();
     await expect(page.getByText('Add a short message.')).toBeVisible();
+    await expect(page.getByLabel(/^Name/)).toBeFocused();
+    await expect(page.getByLabel(/^Name/)).toHaveAttribute(
+        'aria-describedby',
+        'contact-name-error'
+    );
+    await page.getByLabel(/^Name/).fill('Jordan Lee');
+    await expect(page.getByLabel(/^Name/)).toHaveAttribute(
+        'aria-invalid',
+        'false'
+    );
+    await page.getByLabel(/^Email/).fill('invalid-email');
+    await page.getByRole('button', { name: 'Send message' }).click();
+    await expect(page.getByLabel(/^Email/)).toBeFocused();
+    await expect(page.getByLabel(/^Email/)).toHaveAttribute(
+        'aria-invalid',
+        'true'
+    );
     expect(requests).toBe(0);
+});
+
+test('one pending submission cannot send duplicate messages', async ({
+    page,
+}) => {
+    let requests = 0;
+    let complete!: () => void;
+    const pending = new Promise<void>((resolve) => {
+        complete = resolve;
+    });
+    await page.route('**/api/v1/contact', async (route) => {
+        requests++;
+        await pending;
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ success: true }),
+        });
+    });
+    await page.goto('/contact');
+    await fillMessage(page);
+    await page.locator('form').evaluate((form: HTMLFormElement) => {
+        form.requestSubmit();
+        form.requestSubmit();
+    });
+    await expect(page.getByRole('button', { name: 'Sending…' })).toBeDisabled();
+    await expect.poll(() => requests).toBe(1);
+    complete();
+    await expect(page.getByRole('status')).toContainText(
+        'Your message has been sent.'
+    );
+    expect(requests).toBe(1);
 });

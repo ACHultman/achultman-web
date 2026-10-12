@@ -5,8 +5,12 @@ import {
     useColorMode,
 } from '@chakra-ui/react';
 import { MotionConfig } from 'framer-motion';
+import { CacheProvider, type EmotionCache } from '@emotion/react';
 import { useSiteColorMode } from '../hooks/useSiteColorMode';
+import createEmotionCache from '../utils/createEmotionCache';
 import theme from '../theme';
+
+const clientSideEmotionCache = createEmotionCache();
 
 function ColorModeSync() {
     const { colorMode } = useSiteColorMode();
@@ -15,11 +19,19 @@ function ColorModeSync() {
     return null;
 }
 
-export default function InteractiveProviders({ children }: PropsWithChildren) {
+export default function InteractiveProviders({
+    children,
+    emotionCache = clientSideEmotionCache,
+}: PropsWithChildren<{ emotionCache?: EmotionCache }>) {
     return (
-        <ChakraProvider theme={theme} colorModeManager={localStorageManager}>
-            <ColorModeSync />
-            <MotionConfig reducedMotion="user">{children}</MotionConfig>
-        </ChakraProvider>
+        <CacheProvider value={emotionCache}>
+            <ChakraProvider
+                theme={theme}
+                colorModeManager={localStorageManager}
+            >
+                <ColorModeSync />
+                <MotionConfig reducedMotion="user">{children}</MotionConfig>
+            </ChakraProvider>
+        </CacheProvider>
     );
 }

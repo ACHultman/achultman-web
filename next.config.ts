@@ -115,7 +115,4 @@ module.exports = withBundleAnalyzer({
             },
         ];
     },
-    compiler: {
-        emotion: true,
-    },
 });

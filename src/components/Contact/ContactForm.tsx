@@ -1,28 +1,75 @@
-import { useForm } from 'react-hook-form';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { captureEvent } from '../../lib/analytics';
 import { ContactFormField } from './ContactFormField';
 
-type FormData = {
+type ContactValues = {
     name: string;
     email: string;
     message: string;
     website: string;
 };
 
+type FieldErrors = Partial<Record<keyof ContactValues, string>>;
+
+function readValues(form: HTMLFormElement): ContactValues {
+    const data = new FormData(form);
+    return {
+        name: String(data.get('name') ?? ''),
+        email: String(data.get('email') ?? ''),
+        message: String(data.get('message') ?? ''),
+        website: String(data.get('website') ?? ''),
+    };
+}
+
+function validate(values: ContactValues): FieldErrors {
+    const errors: FieldErrors = {};
+    if (!values.name.trim()) errors.name = 'Enter your name.';
+    else if (values.name.length > 100)
+        errors.name = 'Keep your name under 100 characters.';
+    if (
+        values.email.length > 254 ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
+    )
+        errors.email = 'Enter a valid email address.';
+    if (!values.message.trim()) errors.message = 'Add a short message.';
+    else if (values.message.length > 4500)
+        errors.message = 'Keep your message under 4,500 characters.';
+    return errors;
+}
+
 export default function ContactForm() {
     const started = useRef(false);
     const feedback = useRef<HTMLDivElement>(null);
-    const {
-        handleSubmit,
-        register,
-        formState: { errors, isSubmitting },
-    } = useForm<FormData>();
+    const form = useRef<HTMLFormElement>(null);
+    const submitting = useRef(false);
+    const validated = useRef(false);
+    const focusInvalid = useRef(false);
+    const [errors, setErrors] = useState<FieldErrors>({});
+    const [isSubmitting, setSubmitting] = useState(false);
     const [status, setStatus] = useState<'idle' | 'error' | 'success'>('idle');
     useEffect(() => {
         if (status === 'success') feedback.current?.focus();
     }, [status]);
-    async function submit(values: FormData) {
+    useEffect(() => {
+        if (focusInvalid.current) {
+            form.current
+                ?.querySelector<HTMLElement>('[aria-invalid="true"]')
+                ?.focus();
+            focusInvalid.current = false;
+        }
+    }, [errors]);
+
+    async function submit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        if (submitting.current) return;
+        const values = readValues(event.currentTarget);
+        const nextErrors = validate(values);
+        validated.current = true;
+        focusInvalid.current = Object.keys(nextErrors).length > 0;
+        setErrors(nextErrors);
+        if (focusInvalid.current) return;
+        submitting.current = true;
+        setSubmitting(true);
         setStatus('idle');
         try {
             const response = await fetch('/api/v1/contact', {
@@ -38,6 +85,9 @@ export default function ContactForm() {
         } catch {
             setStatus('error');
             captureEvent('contact_form_failed');
+        } finally {
+            submitting.current = false;
+            setSubmitting(false);
         }
     }
 
@@ -52,8 +102,15 @@ export default function ContactForm() {
             </div>
             {status !== 'success' && (
                 <form
+                    ref={form}
                     noValidate
-                    onSubmit={handleSubmit(submit)}
+                    onSubmit={submit}
+                    onChange={(event) => {
+                        if (validated.current)
+                            setErrors(
+                                validate(readValues(event.currentTarget))
+                            );
+                    }}
                     onFocusCapture={() => {
                         if (!started.current) {
                             started.current = true;
@@ -65,7 +122,7 @@ export default function ContactForm() {
                         <ContactFormField
                             id="contact-name"
                             label="Name"
-                            error={errors.name?.message}
+                            error={errors.name}
                         >
                             <input
                                 type="text"
@@ -73,6 +130,7 @@ export default function ContactForm() {
                                 enterKeyHint="next"
                                 maxLength={100}
                                 id="contact-name"
+                                name="name"
                                 required
                                 aria-invalid={Boolean(errors.name)}
                                 aria-describedby={
@@ -80,17 +138,12 @@ export default function ContactForm() {
                                         ? 'contact-name-error'
                                         : undefined
                                 }
-                                {...register('name', {
-                                    validate: (value) =>
-                                        !!value?.trim() || 'Enter your name.',
-                                    maxLength: 100,
-                                })}
                             />
                         </ContactFormField>
                         <ContactFormField
                             id="contact-email"
                             label="Email"
-                            error={errors.email?.message}
+                            error={errors.email}
                         >
                             <input
                                 type="email"
@@ -101,6 +154,7 @@ export default function ContactForm() {
                                 enterKeyHint="next"
                                 maxLength={254}
                                 id="contact-email"
+                                name="email"
                                 required
                                 aria-invalid={Boolean(errors.email)}
                                 aria-describedby={
@@ -108,25 +162,18 @@ export default function ContactForm() {
                                         ? 'contact-email-error'
                                         : undefined
                                 }
-                                {...register('email', {
-                                    required: 'Enter a valid email address.',
-                                    pattern: {
-                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                        message: 'Enter a valid email address.',
-                                    },
-                                    maxLength: 254,
-                                })}
                             />
                         </ContactFormField>
                         <ContactFormField
                             id="contact-message"
                             label="Message"
-                            error={errors.message?.message}
+                            error={errors.message}
                         >
                             <textarea
                                 rows={6}
                                 maxLength={4500}
                                 id="contact-message"
+                                name="message"
                                 required
                                 aria-invalid={Boolean(errors.message)}
                                 aria-describedby={
@@ -134,16 +181,6 @@ export default function ContactForm() {
                                         ? 'contact-message-error'
                                         : undefined
                                 }
-                                {...register('message', {
-                                    validate: (value) =>
-                                        !!value?.trim() ||
-                                        'Add a short message.',
-                                    maxLength: {
-                                        value: 4500,
-                                        message:
-                                            'Keep your message under 4,500 characters.',
-                                    },
-                                })}
                             />
                         </ContactFormField>
                         <div hidden aria-hidden="true">
@@ -152,9 +189,9 @@ export default function ContactForm() {
                             </label>
                             <input
                                 id="contact-website"
+                                name="website"
                                 tabIndex={-1}
                                 autoComplete="off"
-                                {...register('website')}
                             />
                         </div>
                         {status === 'error' && (
