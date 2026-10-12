@@ -42,8 +42,10 @@ export default function Resume() {
                         web, mobile, backend systems, and applied AI.
                     </p>
                     <p>
-                        <a href="mailto:adam@hultman.dev">adam@hultman.dev</a> ·{' '}
-                        <a href="https://github.com/ACHultman">GitHub</a> ·{' '}
+                        <a href="https://hultman.dev/contact">
+                            hultman.dev/contact
+                        </a>{' '}
+                        · <a href="https://github.com/ACHultman">GitHub</a> ·{' '}
                         <a href="https://www.linkedin.com/in/adam-hultman/">
                             LinkedIn
                         </a>

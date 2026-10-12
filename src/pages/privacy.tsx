@@ -1,4 +1,5 @@
 import { PageIntro, PageSeo } from '@components/Editorial';
+import Link from 'next/link';
 
 export default function Privacy() {
     return (
@@ -10,7 +11,7 @@ export default function Privacy() {
             />
             <div className="page-container reading-page">
                 <PageIntro label="Site information" title="Privacy.">
-                    Last updated October 10, 2026.
+                    Last updated October 12, 2026.
                 </PageIntro>
                 <div className="prose">
                     <h2>Contact messages</h2>
@@ -51,9 +52,8 @@ export default function Privacy() {
                     <h2>Your choices</h2>
                     <p>
                         To ask about personal information you have sent, request
-                        a correction, or request deletion, email{' '}
-                        <a href="mailto:adam@hultman.dev">adam@hultman.dev</a>.
-                        You can also contact me by email without using the form.
+                        a correction, or request deletion, use the{' '}
+                        <Link href="/contact">contact form</Link>.
                     </p>
                 </div>
             </div>

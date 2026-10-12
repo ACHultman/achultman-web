@@ -93,7 +93,7 @@ test('security contact record is available, current, and canonical', async ({
     expect(response.status()).toBe(200);
     expect(response.headers()['content-type']).toContain('text/plain');
     const body = await response.text();
-    expect(body).toContain('Contact: mailto:adam@hultman.dev\n');
+    expect(body).toContain('Contact: https://hultman.dev/contact\n');
     expect(body).toContain(
         'Canonical: https://hultman.dev/.well-known/security.txt\n'
     );

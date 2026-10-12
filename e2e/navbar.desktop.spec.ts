@@ -34,12 +34,13 @@ test('About exposes reading collections and the footer separates site links from
         'Consulting',
         'Résumé',
         'Tools',
+        'Contact',
         'Privacy',
     ]);
     const profiles = page.getByRole('navigation', {
-        name: 'Profiles and email',
+        name: 'Profiles',
     });
-    await expect(profiles.getByRole('link')).toHaveCount(3);
+    await expect(profiles.getByRole('link')).toHaveCount(2);
     await site.getByRole('link', { name: 'Privacy' }).focus();
     await page.keyboard.press('Enter');
     await expect(page).toHaveURL('/privacy');

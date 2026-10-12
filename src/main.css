@@ -778,14 +778,6 @@ a {
 .contact-page .intro-copy {
     max-width: 440px;
 }
-.contact-email {
-    color: var(--site-accent);
-    font-size: 1.375rem;
-    letter-spacing: -0.025em;
-    display: block;
-    min-height: 44px;
-    align-items: center;
-}
 .contact-location {
     font-size: 0.875rem;
     margin-top: 17px;
@@ -1149,9 +1141,6 @@ a {
     }
     .contact-form-wrap {
         padding-top: 0;
-    }
-    .contact-email {
-        font-size: 1.4375rem;
     }
     .article-row {
         grid-template-columns: 1fr 40px;

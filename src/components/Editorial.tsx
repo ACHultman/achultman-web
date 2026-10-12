@@ -89,7 +89,6 @@ export function ContactClose() {
             </div>
             <div className="contact-close-actions">
                 <TextLink href="/contact">Get in touch</TextLink>
-                <a href="mailto:adam@hultman.dev">adam@hultman.dev</a>
             </div>
         </section>
     );

@@ -61,11 +61,12 @@ export default async function handler(
     const parsed = contactSchema.safeParse(req.body);
     if (!parsed.success)
         return res.status(400).json({ message: 'Invalid form submission' });
-    const emailUser = process.env.NEXT_PUBLIC_EMAIL;
+    const emailUser = process.env.CONTACT_EMAIL;
     const emailPass = process.env.EMAIL_PASS;
     if (!emailUser || !emailPass)
         return res.status(503).json({
-            message: 'Contact form unavailable. Please email adam@hultman.dev.',
+            message:
+                'Contact form temporarily unavailable. Please try again later.',
         });
 
     const forwardedIp = req.headers['x-real-ip'];
@@ -83,7 +84,7 @@ export default async function handler(
             message:
                 limit.status === 429
                     ? 'Too many messages. Please try again later.'
-                    : 'Contact form temporarily unavailable. Please email directly.',
+                    : 'Contact form temporarily unavailable. Please try again later.',
         });
     }
 
@@ -119,8 +120,7 @@ export default async function handler(
         console.error('Contact email delivery failed');
         track('server_contact_failed');
         return res.status(502).json({
-            message:
-                'Your message was not sent. Please try again or email directly.',
+            message: 'Your message was not sent. Please try again later.',
         });
     }
 }

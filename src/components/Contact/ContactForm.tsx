@@ -200,7 +200,7 @@ export default function ContactForm() {
                                 role="alert"
                             >
                                 Your message wasn’t sent. Your text is still
-                                here. Try again or email me directly.
+                                here. Please try again later.
                             </p>
                         )}
                         <button

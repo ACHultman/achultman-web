@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { PageIntro, PageSeo, TextLink } from '@components/Editorial';
 import BreadcrumbJsonLd from '@components/BreadcrumbJsonLd';
 import { getBaseUrl } from '../utils/baseUrl';
@@ -236,9 +235,6 @@ export default function Consulting() {
                             >
                                 Discuss a project
                             </TextLink>
-                            <Link href="mailto:adam@hultman.dev">
-                                adam@hultman.dev
-                            </Link>
                         </div>
                     </div>
                 </section>

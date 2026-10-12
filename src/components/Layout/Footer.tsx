@@ -29,12 +29,10 @@ export default function Footer() {
                         <Link href="/tools" prefetch={false}>
                             Tools
                         </Link>
+                        <Link href="/contact">Contact</Link>
                         <Link href="/privacy">Privacy</Link>
                     </nav>
-                    <nav
-                        className="footer-links"
-                        aria-label="Profiles and email"
-                    >
+                    <nav className="footer-links" aria-label="Profiles">
                         <a
                             href="https://github.com/ACHultman"
                             target="_blank"
@@ -49,7 +47,6 @@ export default function Footer() {
                         >
                             LinkedIn ↗
                         </a>
-                        <a href="mailto:adam@hultman.dev">Email ↗</a>
                     </nav>
                 </div>
             </div>
