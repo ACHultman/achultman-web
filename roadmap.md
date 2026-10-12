@@ -4,7 +4,6 @@ Reviewed October 12, 2026. Completed implementation details belong in the source
 
 ## Operational follow-up
 
-- Restore automatic GitHub deployment records from the Vercel integration. The audit can discover ready deployments directly through the Vercel API using a current team-scoped `VERCEL_TOKEN`, and verifies their exact commit and environment. Never paste credential values into issues or PRs.
 - Remove and revoke any credential dedicated to the retired OpenAI chat feature, after confirming it has no other consumers.
 - Review Vercel firewall, traffic/spending alerts, and alerts for Redis outages. Per-IP limits do not impose a global traffic ceiling.
 
