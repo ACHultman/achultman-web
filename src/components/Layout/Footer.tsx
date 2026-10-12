@@ -9,7 +9,11 @@ export default function Footer() {
         <footer className="site-footer page-container">
             <div className="footer-main">
                 <div>
-                    <Link href="/" className="wordmark footer-wordmark">
+                    <Link
+                        href="/"
+                        prefetch={false}
+                        className="wordmark footer-wordmark"
+                    >
                         <LogoMark />
                         Adam Hultman<span aria-hidden="true">.</span>
                     </Link>
@@ -24,13 +28,21 @@ export default function Footer() {
                         className="footer-links"
                         aria-label="More on this site"
                     >
-                        <Link href="/consulting">Consulting</Link>
-                        <Link href="/resume">Résumé</Link>
+                        <Link href="/consulting" prefetch={false}>
+                            Consulting
+                        </Link>
+                        <Link href="/resume" prefetch={false}>
+                            Résumé
+                        </Link>
                         <Link href="/tools" prefetch={false}>
                             Tools
                         </Link>
-                        <Link href="/contact">Contact</Link>
-                        <Link href="/privacy">Privacy</Link>
+                        <Link href="/contact" prefetch={false}>
+                            Contact
+                        </Link>
+                        <Link href="/privacy" prefetch={false}>
+                            Privacy
+                        </Link>
                     </nav>
                     <nav className="footer-links" aria-label="Profiles">
                         <a

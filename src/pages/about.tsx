@@ -1,4 +1,5 @@
 import { PageSeo, TextLink } from '@components/Editorial';
+import { editorialFont } from '../styles/editorialFont';
 
 const principles = [
     [
@@ -23,7 +24,9 @@ export default function About() {
                 path="/about"
                 description="Adam Hultman is a software developer in Vancouver, working at Kopperfield and developing independent products through Perspective Labs Inc."
             />
-            <div className="page-container about-page">
+            <div
+                className={`page-container about-page ${editorialFont.variable}`}
+            >
                 <header className="page-intro">
                     <p className="eyebrow">About</p>
                     <h1 className="editorial-title">A bit about me.</h1>

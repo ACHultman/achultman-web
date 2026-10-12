@@ -6,6 +6,7 @@ import ArticleList from '@components/ArticleList';
 import { featuredWriting } from '../data/writing';
 import { ContactClose, TextLink } from '@components/Editorial';
 import { independentWork, professionalWork } from '../data/work';
+import { editorialFont } from '../styles/editorialFont';
 
 export default function Index() {
     return (
@@ -17,7 +18,9 @@ export default function Index() {
                 canonical="https://hultman.dev"
             />
             <JsonLd />
-            <section className="hero page-container">
+            <section
+                className={`hero page-container ${editorialFont.variable}`}
+            >
                 <header className="hero-identity">
                     <h1>Adam Hultman</h1>
                     <p className="hero-role">

@@ -1,4 +1,4 @@
-import { Geist, Source_Serif_4 } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -8,17 +8,10 @@ const geist = Geist({
     display: 'swap',
     variable: '--font-body',
 });
-const serif = Source_Serif_4({
-    subsets: ['latin'],
-    display: 'swap',
-    variable: '--font-editorial',
-    weight: ['400'],
-    style: ['normal'],
-});
 
 export default function Layout({ children }: PropsWithChildren) {
     return (
-        <div className={`site-shell ${geist.variable} ${serif.variable}`}>
+        <div className={`site-shell ${geist.variable}`}>
             <a className="skip-link" href="#main">
                 Skip to content
             </a>
