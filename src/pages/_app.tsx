@@ -3,15 +3,16 @@ import React, { useSyncExternalStore } from 'react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
-import { MotionConfig } from 'framer-motion';
 
 import createEmotionCache from '../utils/createEmotionCache';
-import theme from '../theme';
 import SEO from '../next-seo.config';
 import Layout from '@components/Layout';
 import ErrorBoundary from '@components/ErrorBoundary';
+
+const InteractiveProviders = dynamic(
+    () => import('../components/InteractiveProviders')
+);
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -54,23 +55,26 @@ function SiteTelemetry() {
 function MyApp({
     Component,
     pageProps,
+    router,
     emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
-    const colorModeManager = localStorageManager;
-
+    const needsInteractiveProviders =
+        router.pathname.startsWith('/tools/') &&
+        router.pathname !== '/tools/regex-tester';
+    const content = <Component {...pageProps} />;
     return (
         <CacheProvider value={emotionCache}>
             <DefaultSeo {...SEO} />
             <SiteTelemetry />
-            <ChakraProvider theme={theme} colorModeManager={colorModeManager}>
-                <MotionConfig reducedMotion="user">
-                    <ErrorBoundary>
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </ErrorBoundary>
-                </MotionConfig>
-            </ChakraProvider>
+            <Layout>
+                <ErrorBoundary>
+                    {needsInteractiveProviders ? (
+                        <InteractiveProviders>{content}</InteractiveProviders>
+                    ) : (
+                        content
+                    )}
+                </ErrorBoundary>
+            </Layout>
         </CacheProvider>
     );
 }

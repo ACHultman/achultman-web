@@ -1,5 +1,5 @@
 const { chromium } = require('@playwright/test');
-const baseUrl = process.env.VERCEL_PREVIEW_URL || 'http://localhost:3000';
+const baseUrl = process.env.AUDIT_BASE_URL || 'http://localhost:3000';
 
 module.exports = {
     defaults: {
@@ -16,12 +16,6 @@ module.exports = {
         },
         headers: {
             'x-vercel-skip-toolbar': '1',
-            ...(process.env.VERCEL_AUTOMATION_BYPASS_SECRET
-                ? {
-                      'x-vercel-protection-bypass':
-                          process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
-                  }
-                : {}),
         },
         timeout: 30000,
     },

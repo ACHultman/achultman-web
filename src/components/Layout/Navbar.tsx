@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiArrowUpRight, FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
-import { useColorMode } from '@chakra-ui/react';
+import { useSiteColorMode } from '../../hooks/useSiteColorMode';
 import { captureLeadIntent } from '../../lib/analytics';
 
 const links = [
@@ -13,7 +13,7 @@ const links = [
 
 export default function Navbar() {
     const { pathname, events } = useRouter();
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { colorMode, toggleColorMode } = useSiteColorMode();
     const [open, setOpen] = useState(false);
     const toggle = useRef<HTMLButtonElement>(null);
     const menu = useRef<HTMLElement>(null);

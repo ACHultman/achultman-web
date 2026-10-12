@@ -1,4 +1,4 @@
-import posthog from 'posthog-js';
+import type { PostHog } from 'posthog-js';
 
 type LeadIntentSource =
     | 'hero'
@@ -11,19 +11,47 @@ type LeadIntentSource =
 
 type AnalyticsProperties = Record<
     string,
-    string | number | boolean | undefined
+    string | string[] | number | boolean | undefined
 >;
 
-const isAnalyticsEnabled = Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
+let client: Promise<PostHog | null> | undefined;
+
+export function getAnalytics(): Promise<PostHog | null> {
+    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    if (!key || typeof window === 'undefined') return Promise.resolve(null);
+    client ??= import('posthog-js')
+        .then(({ default: posthog }) => {
+            posthog.init(key, {
+                api_host: '/ingest',
+                ui_host: 'https://us.posthog.com',
+                defaults: '2026-01-30',
+                autocapture: false,
+                // Vercel Analytics owns page views; PostHog records explicit events.
+                capture_pageview: false,
+                capture_pageleave: false,
+                disable_session_recording: true,
+                disable_surveys: true,
+                advanced_disable_flags: true,
+                capture_exceptions: true,
+                debug: process.env.NODE_ENV === 'development',
+            });
+            return posthog;
+        })
+        // Telemetry is optional: a blocked download must not break the site.
+        .catch(() => null);
+    return client;
+}
 
 export function captureEvent(event: string, properties?: AnalyticsProperties) {
-    if (!isAnalyticsEnabled) return;
-    posthog.capture(event, properties);
+    void getAnalytics()
+        .then((posthog) => posthog?.capture(event, properties))
+        .catch(() => {});
 }
 
 export function captureClientException(error: unknown) {
-    if (!isAnalyticsEnabled) return;
-    posthog.captureException(error);
+    void getAnalytics()
+        .then((posthog) => posthog?.captureException(error))
+        .catch(() => {});
 }
 
 export function captureLeadIntent(

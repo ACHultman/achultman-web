@@ -1,4 +1,3 @@
-import { Box, Link as ChakraLink } from '@chakra-ui/react';
 import { Geist, Source_Serif_4 } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import Footer from './Footer';
@@ -19,18 +18,15 @@ const serif = Source_Serif_4({
 
 export default function Layout({ children }: PropsWithChildren) {
     return (
-        <Box
-            className={`site-shell ${geist.variable} ${serif.variable}`}
-            minH="100dvh"
-        >
-            <ChakraLink className="skip-link" href="#main">
+        <div className={`site-shell ${geist.variable} ${serif.variable}`}>
+            <a className="skip-link" href="#main">
                 Skip to content
-            </ChakraLink>
+            </a>
             <Navbar />
-            <Box id="main" as="main" tabIndex={-1} flex="1" w="100%">
+            <main id="main" tabIndex={-1}>
                 {children}
-            </Box>
+            </main>
             <Footer />
-        </Box>
+        </div>
     );
 }

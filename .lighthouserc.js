@@ -1,14 +1,29 @@
 const { chromium } = require('@playwright/test');
 const isPreview = process.env.VERCEL_ENV === 'preview';
-const baseUrl = process.env.VERCEL_PREVIEW_URL || 'http://localhost:3000';
+const baseUrl =
+    process.env.AUDIT_BASE_URL ||
+    process.env.VERCEL_PREVIEW_URL ||
+    'http://localhost:3000';
 
 module.exports = {
     ci: {
         collect: {
             chromePath: chromium.executablePath(),
+            puppeteerScript: './scripts/lighthouse-auth.cjs',
+            puppeteerLaunchOptions: {
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                ],
+            },
             url: [
                 baseUrl,
                 ...[
+                    'work',
+                    'contact',
+                    'tools',
                     'workflow-automation-roi-calculator',
                     'about',
                     'blog',
@@ -17,13 +32,13 @@ module.exports = {
                 ].map((path) => `${baseUrl}/${path}`),
             ],
             settings: {
-                chromeFlags:
-                    '--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu',
-                throttlingMethod: 'provided',
+                // Lighthouse's standard simulated mobile network and CPU profile.
+                throttlingMethod: 'simulate',
+                // Vercel intentionally marks previews noindex. Check every other
+                // SEO audit here; the browser suite asserts indexing per environment.
+                skipAudits: isPreview ? ['is-crawlable'] : [],
                 extraHeaders: JSON.stringify({
                     'x-vercel-skip-toolbar': '1',
-                    'x-vercel-protection-bypass':
-                        process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
                 }),
             },
         },
@@ -31,18 +46,24 @@ module.exports = {
             assertions: {
                 'categories:performance': [
                     'error',
-                    { minScore: isPreview ? 0.6 : 0.95 },
+                    { minScore: 0.95, aggregationMethod: 'median-run' },
                 ],
-                'categories:accessibility': ['error', { minScore: 0.95 }],
-                'categories:best-practices': ['error', { minScore: 0.95 }],
+                'categories:accessibility': [
+                    'error',
+                    { minScore: 0.95, aggregationMethod: 'median-run' },
+                ],
+                'categories:best-practices': [
+                    'error',
+                    { minScore: 0.95, aggregationMethod: 'median-run' },
+                ],
                 'categories:seo': [
-                    'warn',
-                    { minScore: isPreview ? 0.6 : 0.95 },
+                    'error',
+                    { minScore: 0.95, aggregationMethod: 'median-run' },
                 ],
             },
         },
         upload: {
-            // Reports may contain the protected-preview request header.
+            // Reports may contain protected-preview authentication state.
             target: 'filesystem',
             outputDir: '.lighthouseci/reports',
         },

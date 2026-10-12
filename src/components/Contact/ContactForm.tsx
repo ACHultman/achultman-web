@@ -1,13 +1,3 @@
-import {
-    Alert,
-    AlertIcon,
-    Box,
-    Button,
-    Input,
-    Textarea,
-    VStack,
-    useColorModeValue,
-} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef, useState } from 'react';
 import { captureEvent } from '../../lib/analytics';
@@ -32,25 +22,6 @@ export default function ContactForm() {
     useEffect(() => {
         if (status === 'success') feedback.current?.focus();
     }, [status]);
-    const background = useColorModeValue('paper.50', 'ink.900');
-    const border = useColorModeValue('ink.500', 'paper.300');
-    const ink = useColorModeValue('ink.900', 'paper.50');
-    const fieldStyles = {
-        bg: background,
-        borderColor: border,
-        color: ink,
-        borderRadius: '4px',
-        fontSize: '1.0625rem',
-        minH: '50px',
-        _hover: { borderColor: ink },
-        _focusVisible: {
-            outline: '2px solid',
-            outlineColor: ink,
-            outlineOffset: '3px',
-            boxShadow: 'none',
-        },
-    };
-
     async function submit(values: FormData) {
         setStatus('idle');
         try {
@@ -71,13 +42,12 @@ export default function ContactForm() {
     }
 
     return (
-        <Box>
+        <div>
             <div ref={feedback} tabIndex={-1} role="status" aria-live="polite">
                 {status === 'success' && (
-                    <Alert status="success" borderRadius="4px">
-                        <AlertIcon />
+                    <p className="form-feedback">
                         Thanks. Your message has been sent.
-                    </Alert>
+                    </p>
                 )}
             </div>
             {status !== 'success' && (
@@ -91,18 +61,25 @@ export default function ContactForm() {
                         }
                     }}
                 >
-                    <VStack align="stretch" spacing={6}>
+                    <div className="contact-fields">
                         <ContactFormField
+                            id="contact-name"
                             label="Name"
-                            isRequired
                             error={errors.name?.message}
                         >
-                            <Input
+                            <input
                                 type="text"
                                 autoComplete="name"
                                 enterKeyHint="next"
                                 maxLength={100}
-                                {...fieldStyles}
+                                id="contact-name"
+                                required
+                                aria-invalid={Boolean(errors.name)}
+                                aria-describedby={
+                                    errors.name
+                                        ? 'contact-name-error'
+                                        : undefined
+                                }
                                 {...register('name', {
                                     validate: (value) =>
                                         !!value?.trim() || 'Enter your name.',
@@ -111,11 +88,11 @@ export default function ContactForm() {
                             />
                         </ContactFormField>
                         <ContactFormField
+                            id="contact-email"
                             label="Email"
-                            isRequired
                             error={errors.email?.message}
                         >
-                            <Input
+                            <input
                                 type="email"
                                 inputMode="email"
                                 autoComplete="email"
@@ -123,7 +100,14 @@ export default function ContactForm() {
                                 spellCheck={false}
                                 enterKeyHint="next"
                                 maxLength={254}
-                                {...fieldStyles}
+                                id="contact-email"
+                                required
+                                aria-invalid={Boolean(errors.email)}
+                                aria-describedby={
+                                    errors.email
+                                        ? 'contact-email-error'
+                                        : undefined
+                                }
                                 {...register('email', {
                                     required: 'Enter a valid email address.',
                                     pattern: {
@@ -135,15 +119,21 @@ export default function ContactForm() {
                             />
                         </ContactFormField>
                         <ContactFormField
+                            id="contact-message"
                             label="Message"
-                            isRequired
                             error={errors.message?.message}
                         >
-                            <Textarea
+                            <textarea
                                 rows={6}
-                                resize="vertical"
                                 maxLength={4500}
-                                {...fieldStyles}
+                                id="contact-message"
+                                required
+                                aria-invalid={Boolean(errors.message)}
+                                aria-describedby={
+                                    errors.message
+                                        ? 'contact-message-error'
+                                        : undefined
+                                }
                                 {...register('message', {
                                     validate: (value) =>
                                         !!value?.trim() ||
@@ -168,43 +158,25 @@ export default function ContactForm() {
                             />
                         </div>
                         {status === 'error' && (
-                            <Alert
-                                status="error"
+                            <p
+                                className="form-feedback form-error"
                                 role="alert"
-                                alignItems="flex-start"
-                                fontSize="15px"
-                                borderRadius="4px"
                             >
-                                <AlertIcon />
                                 Your message wasn’t sent. Your text is still
                                 here. Try again or email me directly.
-                            </Alert>
+                            </p>
                         )}
-                        <Button
+                        <button
                             type="submit"
-                            isLoading={isSubmitting}
-                            loadingText="Sending…"
-                            alignSelf="flex-start"
-                            width={{ base: '100%', md: 'auto' }}
-                            minH="50px"
-                            px={7}
-                            bg={ink}
-                            color={background}
-                            fontWeight="500"
-                            fontSize="15px"
-                            borderRadius="4px"
-                            _hover={{ opacity: 0.85 }}
-                            _focusVisible={{
-                                outline: '2px solid',
-                                outlineColor: ink,
-                                outlineOffset: '4px',
-                            }}
+                            className="button-primary contact-submit"
+                            disabled={isSubmitting}
+                            aria-busy={isSubmitting}
                         >
-                            Send message
-                        </Button>
-                    </VStack>
+                            {isSubmitting ? 'Sending…' : 'Send message'}
+                        </button>
+                    </div>
                 </form>
             )}
-        </Box>
+        </div>
     );
 }

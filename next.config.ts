@@ -36,6 +36,23 @@ module.exports = withBundleAnalyzer({
     serverExternalPackages: ['next-seo'],
     // This is required to support PostHog trailing slash API requests
     skipTrailingSlashRedirect: true,
+    async redirects() {
+        return [
+            { source: '/labs', destination: '/tools', permanent: true },
+            ...Object.entries({
+                'sort-arena': 'sorting',
+                'regex-debugger': 'regex-tester',
+                compression: 'compression',
+                'shader-playground': 'shader-editor',
+                beatmaker: 'step-sequencer',
+                'neural-net': 'neural-network',
+            }).map(([oldPath, newPath]) => ({
+                source: `/labs/${oldPath}`,
+                destination: `/tools/${newPath}`,
+                permanent: true,
+            })),
+        ];
+    },
     async rewrites() {
         return [
             {
@@ -77,7 +94,7 @@ module.exports = withBundleAnalyzer({
                 ],
             },
             {
-                source: '/labs/shader-playground',
+                source: '/tools/shader-editor',
                 headers: [
                     {
                         key: 'Permissions-Policy',
@@ -92,7 +109,7 @@ module.exports = withBundleAnalyzer({
                 headers: [
                     {
                         key: 'Cache-Control',
-                        value: 'public, max-age=0, must-revalidate',
+                        value: 'public, max-age=0, must-revalidate, no-transform',
                     },
                 ],
             },

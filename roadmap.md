@@ -1,17 +1,17 @@
 # Maintenance roadmap
 
-Reviewed October 11, 2026. Completed implementation details belong in the source and [architecture document](ARCHITECTURE.md); audit evidence belongs in [SECURITY.md](SECURITY.md).
+Reviewed October 12, 2026. Completed implementation details belong in the source and [architecture document](ARCHITECTURE.md); audit evidence belongs in [SECURITY.md](SECURITY.md).
 
 ## Operational follow-up
 
-- Merge the remaining PR stack into `main` and require the lint, browser, CodeQL, and hosted audit checks in repository protection.
+- Replace GitHub's stale `VERCEL_TOKEN` with a token scoped to the current Vercel team, and restore automatic GitHub deployment records. The release can use an explicitly verified deployment record, but the API fallback currently returns 403. Never paste credential values into issues or PRs.
 - Confirm one owner-authorized contact message reaches the inbox and supports replying. Automated tests do not send mail.
 - Remove and revoke any credential dedicated to the retired OpenAI chat feature, after confirming it has no other consumers.
 - Review Vercel firewall, traffic/spending alerts, and alerts for Redis outages. Per-IP limits do not impose a global traffic ceiling.
 
 ## Accessibility
 
-- Review the site with VoiceOver or NVDA, including chart alternatives, keyboard focus, and enlarged text in the labs.
+- Review the site with VoiceOver or NVDA, including chart alternatives, keyboard focus, and enlarged text in the tools.
 - Review Notion image captions for descriptive alternatives. Automated tools cannot assess their usefulness.
 - Exercise specialized live Notion blocks beyond the saved preview fixtures before extending the safe renderer.
 

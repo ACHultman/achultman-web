@@ -1,6 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react';
-import posthog from 'posthog-js';
+import { captureClientException, captureEvent } from '../lib/analytics';
 
 interface Props {
     children: ReactNode;
@@ -28,10 +27,8 @@ class ErrorBoundary extends Component<Props, State> {
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         console.error('ErrorBoundary caught an error:', error, errorInfo);
-        posthog.captureException(error, {
-            properties: { componentStack: errorInfo.componentStack },
-        });
-        posthog.capture('error_boundary_triggered', {
+        captureClientException(error);
+        captureEvent('error_boundary_triggered', {
             error_message: error.message,
             error_name: error.name,
         });
@@ -48,45 +45,25 @@ class ErrorBoundary extends Component<Props, State> {
             }
 
             return (
-                <Box
-                    minH="50vh"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    p={8}
-                >
-                    <VStack spacing={4} maxW="600px" textAlign="center">
-                        <Heading size="lg" color="red.500">
-                            Oops! Something went wrong
-                        </Heading>
-                        <Text color="gray.600">
-                            We&apos;re sorry, but something unexpected happened.
-                            Please try refreshing the page or contact support if
-                            the problem persists.
-                        </Text>
-                        {process.env.NODE_ENV === 'development' &&
-                            this.state.error && (
-                                <Box
-                                    p={4}
-                                    bg="red.50"
-                                    borderRadius="md"
-                                    width="100%"
-                                    textAlign="left"
-                                >
-                                    <Text
-                                        fontFamily="mono"
-                                        fontSize="sm"
-                                        color="red.700"
-                                    >
-                                        {this.state.error.message}
-                                    </Text>
-                                </Box>
-                            )}
-                        <Button colorScheme="blue" onClick={this.handleReset}>
-                            Try Again
-                        </Button>
-                    </VStack>
-                </Box>
+                <section className="page-container error-fallback" role="alert">
+                    <h1>This page could not load.</h1>
+                    <p>
+                        Please try again, or email{' '}
+                        <a href="mailto:adam@hultman.dev">adam@hultman.dev</a>{' '}
+                        if the problem continues.
+                    </p>
+                    {process.env.NODE_ENV === 'development' &&
+                        this.state.error && (
+                            <pre>{this.state.error.message}</pre>
+                        )}
+                    <button
+                        type="button"
+                        className="button-primary"
+                        onClick={this.handleReset}
+                    >
+                        Try again
+                    </button>
+                </section>
             );
         }
 

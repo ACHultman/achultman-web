@@ -313,7 +313,7 @@ test('sitemap and RSS expose the full collection, valid XML, and retryable failu
                 },
                 '../utils/baseUrl': { getBaseUrl },
                 '../utils/xml': { escapeXml },
-                '../data/labPages': load('src/data/labPages.ts', {}),
+                '../data/toolPages': load('src/data/toolPages.ts', {}),
             });
             const res = response();
             res.write = (body) => {

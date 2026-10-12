@@ -1,3 +1,80 @@
+/* Native editorial pages do not load the interactive component library. */
+html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ol,
+ul,
+blockquote,
+figure {
+    margin: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+ol,
+ul {
+    list-style: none;
+    padding: 0;
+}
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+button {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+img,
+svg {
+    display: block;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+[hidden] {
+    display: none;
+}
+::selection {
+    background: #bdcbaa;
+    color: #13211d;
+}
+.site-shell {
+    min-height: 100dvh;
+}
+.site-shell main {
+    flex: 1;
+    width: 100%;
+}
+.error-fallback {
+    padding-block: 4rem;
+}
+.error-fallback > * + * {
+    margin-top: 1rem;
+}
 * {
     box-sizing: border-box;
 }
@@ -144,13 +221,13 @@ a {
     }
 }
 
-/* Editorial site surfaces use the existing Chakra palette and color mode. */
+/* Palette matches the interactive theme; fallbacks keep editorial pages independent. */
 .site-shell {
-    --site-bg: var(--chakra-colors-paper-50);
-    --site-ink: var(--chakra-colors-ink-900);
-    --site-muted: var(--chakra-colors-ink-600);
-    --site-rule: var(--chakra-colors-paper-200);
-    --site-accent: var(--chakra-colors-moss-600);
+    --site-bg: var(--chakra-colors-paper-50, #f5f4ef);
+    --site-ink: var(--chakra-colors-ink-900, #182522);
+    --site-muted: var(--chakra-colors-ink-600, #58635e);
+    --site-rule: var(--chakra-colors-paper-200, #d7ddd6);
+    --site-accent: var(--chakra-colors-moss-600, #2d6658);
     display: flex;
     flex-direction: column;
     color: var(--site-ink);
@@ -160,11 +237,11 @@ a {
     line-height: 1.65;
 }
 .chakra-ui-dark .site-shell {
-    --site-bg: var(--chakra-colors-ink-950);
-    --site-ink: var(--chakra-colors-paper-50);
-    --site-muted: var(--chakra-colors-paper-300);
-    --site-rule: var(--chakra-colors-ink-700);
-    --site-accent: var(--chakra-colors-moss-200);
+    --site-bg: var(--chakra-colors-ink-950, #13211d);
+    --site-ink: var(--chakra-colors-paper-50, #f5f4ef);
+    --site-muted: var(--chakra-colors-paper-300, #bbcbc0);
+    --site-rule: var(--chakra-colors-ink-700, #363b32);
+    --site-accent: var(--chakra-colors-moss-200, #bdcbaa);
 }
 .site-shell .chakra-heading {
     font-family: var(--font-body), system-ui, sans-serif;
@@ -178,7 +255,9 @@ a {
 }
 .site-shell a:focus-visible,
 .site-shell button:focus-visible,
-.site-shell pre:focus-visible {
+.site-shell pre:focus-visible,
+.site-shell input:focus-visible,
+.site-shell textarea:focus-visible {
     outline: 2px solid var(--site-accent);
     outline-offset: 5px;
     border-radius: 2px;
@@ -1180,33 +1259,33 @@ a {
         top: 20px;
     }
 }
-.experiment-list {
+.tool-list {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 0 64px;
     padding-bottom: 64px;
 }
-.experiment-list article {
+.tool-list article {
     padding-block: 28px 38px;
     border-top: 1px solid var(--site-rule);
 }
-.experiment-list h2 {
+.tool-list h2 {
     margin-top: 14px;
 }
-.experiment-list .text-link {
+.tool-list .text-link {
     font-size: 1.5rem;
     letter-spacing: -0.025em;
     font-weight: 450;
     color: var(--site-ink);
 }
-.experiment-list article > p:last-child {
+.tool-list article > p:last-child {
     margin-top: 12px;
     color: var(--site-muted);
     font-size: 1.0625rem;
     max-width: 500px;
 }
 @media (max-width: 767px) {
-    .experiment-list {
+    .tool-list {
         grid-template-columns: minmax(0, 1fr);
     }
 }
@@ -1777,4 +1856,205 @@ a {
 .rnr-container figcaption {
     color: var(--site-muted);
     font-size: 0.875rem;
+}
+
+.regex-tool {
+    padding-bottom: 4rem;
+}
+.regex-form {
+    max-width: 48rem;
+    display: grid;
+    gap: 0.75rem;
+}
+.regex-form label {
+    font-weight: 600;
+}
+.regex-form input,
+.regex-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--site-muted);
+    background: var(--site-bg);
+    color: var(--site-ink);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 1rem;
+}
+.regex-form p,
+.regex-matches p {
+    color: var(--site-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+.regex-form button {
+    justify-self: start;
+}
+.regex-form button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+.regex-status {
+    margin-top: 2rem;
+}
+.regex-error {
+    padding: 1rem;
+    border: 2px solid currentColor;
+    margin: 1rem 0;
+}
+.regex-matches {
+    list-style: decimal;
+    margin: 1rem 0 2rem;
+    padding-left: 1.5rem;
+}
+.regex-matches > li {
+    border-top: 1px solid var(--site-rule);
+    padding: 1rem 0;
+}
+.regex-matches ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+}
+.regex-matches pre,
+.regex-matches code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.work-section-content h3 {
+    margin: 1.75rem 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+.regex-tool section {
+    max-width: 48rem;
+}
+
+.collection-page {
+    padding-bottom: 4rem;
+}
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+.collection-card {
+    border: 1px solid var(--site-rule);
+    border-radius: 5px;
+}
+.collection-card-copy {
+    padding: 1.25rem;
+}
+.site-shell .collection-card h2 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+}
+.collection-card p,
+.collection-updated {
+    color: var(--site-muted);
+    font-size: 1rem;
+}
+.collection-updated {
+    margin-bottom: 1.5rem;
+}
+.book-cover {
+    position: relative;
+    height: 260px;
+    margin: 1rem;
+}
+.bookmark-labels,
+.bookmark-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+.bookmark-labels li {
+    font-size: 0.875rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--site-rule);
+    border-radius: 4px;
+}
+.bookmark-filters button {
+    border: 1px solid var(--site-muted);
+    border-radius: 4px;
+    padding: 0.4rem 0.75rem;
+    min-height: 44px;
+    font-size: 1rem;
+}
+.bookmark-filters button[aria-pressed='true'] {
+    background: var(--site-ink);
+    color: var(--site-bg);
+}
+.collection-more {
+    margin-top: 2rem;
+}
+.contact-fields {
+    display: grid;
+    gap: 1.5rem;
+}
+.contact-field label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.contact-field input,
+.contact-field textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.75rem;
+    font-size: 1.0625rem;
+    border: 1px solid var(--site-muted);
+    border-radius: 4px;
+    background: var(--site-bg);
+    color: var(--site-ink);
+}
+.contact-field textarea {
+    resize: vertical;
+}
+.contact-field [aria-invalid='true'] {
+    border-color: #a61b13;
+}
+.form-error,
+.contact-field label span {
+    color: #a61b13;
+}
+.chakra-ui-dark .form-error,
+.chakra-ui-dark .contact-field label span {
+    color: #ff8a80;
+}
+.chakra-ui-dark .contact-field [aria-invalid='true'] {
+    border-color: #ff8a80;
+}
+.form-error {
+    font-size: 0.9375rem;
+    margin-top: 0.5rem;
+}
+.form-feedback {
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    padding: 1rem;
+}
+.contact-submit {
+    justify-self: start;
+    min-height: 50px;
+}
+.contact-submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+@media (max-width: 900px) {
+    .collection-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 600px) {
+    .collection-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-submit {
+        width: 100%;
+    }
 }

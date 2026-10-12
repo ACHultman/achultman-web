@@ -21,13 +21,13 @@ npm run build
 
 Playwright starts the local development server when needed. Install Chromium and WebKit with `npx playwright install chromium webkit`. `PLAYWRIGHT_BASE_URL` selects an existing server. For production-mode checks without Notion, explicitly set `NOTION_PREVIEW_MODE=true` for both build and start. Never enable preview fixtures on the live site.
 
-Run lint and accessibility checks before committing UI changes. The accessibility project covers 79 cases: 29 routes in light and dark modes, keyboard interactions, result panels, and mobile layouts. The supplementary `npx pa11y-ci --config .pa11yci.js` requires a running site and checks 10 routes. Automated checks do not replace keyboard, screen-reader, zoom, or content review.
+Run lint and accessibility checks before committing UI changes. The accessibility project discovers all maintained tools and covers public pages in light and dark modes, keyboard interactions, result panels, and mobile layouts. The supplementary `npx pa11y-ci --config .pa11yci.js` requires a running site and checks 10 routes. Automated checks do not replace keyboard, screen-reader, zoom, or content review.
 
 Use `accessible.gray`, `accessible.green`, and the other semantic foreground tokens instead of fixed pale colors for text. Preserve visible focus indicators, semantic controls, accessible names, reduced motion, and a single primary heading.
 
 ## Architecture
 
-- Pages: home, work, about, contact, résumé, writing (`blog/[slug].tsx`), books, bookmarks, privacy, calculator, and interactive labs.
+- Pages: home, work, about, contact, résumé, writing (`blog/[slug].tsx`), books, bookmarks, privacy, calculator, and interactive tools.
 - Public APIs: `/api/v1/blog`, `/api/v1/post/[id]`, `/api/v1/contact`. There is no chat API or AI integration.
 - `src/services/notion.ts`: configured databases and data-source discovery, publication/membership checks, pagination, bounded nested blocks, and hourly ISR through page callers.
 - `src/data/published-writing/`: public article snapshots for standalone previews only. Never replace live-query failures with fixtures.

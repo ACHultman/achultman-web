@@ -15,7 +15,7 @@ import {
 } from '@data/neuralNetData';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { startFrameLoop } from '../lib/labs/frame-loop';
+import { startFrameLoop } from '../lib/tools/frame-loop';
 export function useNeuralNetwork() {
     const [presetIdx, setPresetIdx] = useState(0);
     const [config, setConfig] = useState<NetworkConfig>(
