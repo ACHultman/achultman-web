@@ -40,12 +40,18 @@ export function TextLink({
     href,
     children,
     className = '',
-}: PropsWithChildren<{ href: string; className?: string }>) {
+    prefetch,
+}: PropsWithChildren<{
+    href: string;
+    className?: string;
+    prefetch?: boolean;
+}>) {
     const external = href.startsWith('https:') || href.startsWith('mailto:');
     const Icon = external ? FiArrowUpRight : FiArrowRight;
     return (
         <Link
             href={href}
+            prefetch={prefetch}
             className={`text-link ${className}`}
             {...(href.startsWith('https:')
                 ? { target: '_blank', rel: 'noreferrer' }

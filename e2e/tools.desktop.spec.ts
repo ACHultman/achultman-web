@@ -2,6 +2,15 @@ import { test, expect } from '@playwright/test';
 import { toolPages } from '../src/data/toolPages';
 
 test('the tools index links to the six maintained tools', async ({ page }) => {
+    const toolBundles: string[] = [];
+    page.on('request', (request) => {
+        if (
+            /_next\/static\/chunks\/pages\/tools\/(?!index-)/.test(
+                new URL(request.url()).pathname
+            )
+        )
+            toolBundles.push(request.url());
+    });
     await page.goto('/tools');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
         'Interactive tools.'
@@ -12,6 +21,9 @@ test('the tools index links to the six maintained tools', async ({ page }) => {
             page.getByRole('link', { name: tool.title, exact: true })
         ).toHaveAttribute('href', tool.path);
     }
+    await page.locator('.tool-list article').last().scrollIntoViewIfNeeded();
+    await page.waitForLoadState('networkidle');
+    expect(toolBundles).toEqual([]);
 });
 
 for (const tool of Object.values(toolPages)) {
