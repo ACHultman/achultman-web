@@ -7,8 +7,8 @@ import { captureLeadIntent } from '../../lib/analytics';
 
 const links = [
     { name: 'Work', href: '/work' },
-    { name: 'About', href: '/about' },
     { name: 'Writing', href: '/blog' },
+    { name: 'About', href: '/about' },
 ];
 
 export default function Navbar() {

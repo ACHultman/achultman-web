@@ -1,5 +1,13 @@
 # Security and accessibility audit
 
+## Reporting a vulnerability
+
+Email [adam@hultman.dev](mailto:adam@hultman.dev) with the affected URL, reproduction steps, and impact. Please send sensitive details privately rather than opening a public issue.
+
+The public contact record is [security.txt](https://hultman.dev/.well-known/security.txt). Review its contact details and renew `public/.well-known/security.txt` before its October 1, 2027 expiry.
+
+## Audit record
+
 Reviewed October 11, 2026. This records the repository changes and local verification, not a certification or a production penetration test.
 
 ## Method and scope
@@ -165,3 +173,11 @@ CodeQL's missing-origin alert on the dedicated regex worker was reviewed and dis
 After PR #142, all 123 production browser checks passed. Public responses retained the restrictive CSP and contained no Cloudflare beacon injection. One owner-authorized contact message returned a confirmed API success and arrived in the configured inbox with the expected reply address; no additional real messages were sent. Production Lighthouse exposed remaining contact/tools performance scores of 94 despite the passing preview gate. Follow-up work removes eager tool-bundle prefetch, the contact form library, and Emotion's cache from native-page startup. Score thresholds and mobile throttling remain unchanged; the follow-up release PR records the resulting hosted measurements.
 
 The owner replaced the stale team-scoped `VERCEL_TOKEN` on October 12. The next preview audit successfully polled for its deployment, and Vercel automatically published a successful GitHub deployment record for the same commit. The previous 403 and manual deployment-record workaround are resolved. Keep credentials in the CI secret store and rotate them before expiry.
+
+## Navigation and crawling follow-up — October 12, 2026
+
+Books and Bookmarks are linked from About; footer navigation separates site destinations from profiles. The CMS collection pages omit `lastmod` because a fixed date cannot represent additions, edits, and removals. Article dates still come from Notion, and sitemap generation still reports an upstream outage instead of returning a partial list.
+
+Public page URLs redirect permanently to their canonical form without trailing slashes. API, framework, well-known, and PostHog proxy paths keep their existing behavior. Versioned JSON APIs send `X-Robots-Tag: noindex`; social images remain indexable. `robots.txt` continues to allow public crawling and advertise the sitemap. The security contact record is available at `/.well-known/security.txt`, with `/security.txt` redirecting there.
+
+Regression checks cover query preservation, redirect origin safety, service-path exclusions, API indexing headers, sitemap dates, the security contact record, and desktop/mobile paths to both reading collections. Existing browser coverage checks footer reflow, enlarged text, keyboard navigation, and automated accessibility.

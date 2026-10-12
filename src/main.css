@@ -583,6 +583,11 @@ a {
     line-height: 1.7;
     margin-top: 12px;
 }
+.footer-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 .footer-links {
     display: flex;
     gap: 24px;

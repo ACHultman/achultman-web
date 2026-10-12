@@ -329,6 +329,21 @@ test('sitemap and RSS expose the full collection, valid XML, and retryable failu
             } else {
                 assert.ok(res.body.includes('/blog/react&amp;type'));
                 assert.ok(!res.body.includes('localhost'));
+                if (file.endsWith('sitemap.xml.tsx')) {
+                    for (const collection of ['blog', 'books', 'bookmarks']) {
+                        assert.ok(
+                            res.body.includes(
+                                `<url><loc>https://hultman.dev/${collection}</loc></url>`
+                            ),
+                            `${collection} must not claim a fixed CMS modification date`
+                        );
+                    }
+                    assert.ok(
+                        res.body.includes(
+                            `<loc>https://hultman.dev/blog/react&amp;type</loc><lastmod>${published.page.last_edited_time.slice(0, 10)}</lastmod>`
+                        )
+                    );
+                }
             }
         }
     }

@@ -93,6 +93,19 @@ export default function About() {
                     </dl>
                 </section>
                 <section className="about-row">
+                    <h2>Reading</h2>
+                    <div className="prose">
+                        <p>
+                            Books I recommend and useful links I’ve saved on
+                            software, design, and building products.
+                        </p>
+                        <div className="inline-actions">
+                            <TextLink href="/books">Books</TextLink>
+                            <TextLink href="/bookmarks">Bookmarks</TextLink>
+                        </div>
+                    </div>
+                </section>
+                <section className="about-row">
                     <p className="eyebrow">Away from the keyboard</p>
                     <div className="prose">
                         <p>
