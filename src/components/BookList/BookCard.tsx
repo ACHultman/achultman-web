@@ -20,6 +20,7 @@ export default function BookCard({
                             fill
                             unoptimized
                             priority={priority}
+                            fetchPriority={priority ? 'high' : undefined}
                             referrerPolicy="no-referrer"
                             style={{ objectFit: 'contain' }}
                         />

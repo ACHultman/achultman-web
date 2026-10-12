@@ -18,6 +18,8 @@ The contact API requires JSON, bounds and validates fields, escapes email HTML, 
 
 Native editorial, books, bookmarks, and contact pages share a small layout and color-mode hook with the existing bootstrap/storage key. Chakra and Motion load only around the five tools that use their components. CSS palette fallbacks keep static pages independent of the provider. The shared layout, editorial components, theme, and CSS define the site's typography, colors, focus indicators, and responsive behavior. Tool-specific components live under `src/components/tools/`.
 
+The current reading-list covers have reviewed WebP snapshots in `public/images/books/`, with their original source URLs recorded in `src/data/bookCovers.ts`. Exact URL matches use these local assets; unfamiliar or changed CMS cover URLs still load directly in the visitor's browser. Build/ISR never fetches arbitrary cover URLs. Refresh snapshots deliberately when editing the reading list.
+
 - Regex evaluation uses the browser’s native engine inside a disposable worker. Inputs and results are bounded; a one-second deadline terminates expensive patterns. Editing input or leaving the page cancels pending work.
 - Compression separates the page controls from the Huffman tree, statistics, encoded-bit display, and run-length view. Its algorithms operate on Unicode code points; UTF-8 byte size is used for the original bit count.
 - Neural-network training and interaction state live in `useNeuralNetwork`; visualization, controls, and metrics are separate components. `startFrameLoop` owns scheduling and cancellation. Changing datasets replaces the active loop, and unmount cancels training and forward-pass animation.

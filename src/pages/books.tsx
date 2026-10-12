@@ -2,6 +2,7 @@ import { PageIntro, PageSeo } from '@components/Editorial';
 import BookList from '@components/BookList';
 import { fetchNotions } from '../services/notion';
 import type { Book } from '../types/notion';
+import { localBookCovers } from '../data/bookCovers';
 
 export default function Books({ books }: { books: Book[] }) {
     return (
@@ -27,5 +28,15 @@ export default function Books({ books }: { books: Book[] }) {
 
 export async function getStaticProps() {
     const books = await fetchNotions('books');
-    return { props: { books }, revalidate: 86400 };
+    return {
+        props: {
+            books: books.map((book) => ({
+                ...book,
+                cover: book.cover
+                    ? (localBookCovers[book.cover] ?? book.cover)
+                    : null,
+            })),
+        },
+        revalidate: 86400,
+    };
 }
