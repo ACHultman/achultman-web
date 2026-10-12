@@ -53,6 +53,6 @@ The lockfile is authoritative; `npm ci`, `npm ls --all`, and the full `npm audit
 
 ## Verification and release
 
-CI runs formatting, lint, TypeScript, unit tests, dependency auditing, CodeQL, and production browser journeys using public fixtures. The browser suite uses local HTTPS to preserve the production CSP in WebKit. Hosted Lighthouse and axe checks additionally exercise connected preview content. QA Copilot is supplementary and fails when it reports an issue.
+CI runs formatting, lint, TypeScript, unit tests, dependency auditing, CodeQL, and production browser journeys using public fixtures. The browser suite uses local HTTPS to preserve the production CSP in WebKit. Hosted Lighthouse and axe checks additionally exercise connected preview content. The maintained browser suite also checks console errors and route journeys; the duplicate third-party QA workflow was removed.
 
 A release needs successful checks for its exact commit, a connected Notion preview, API rate-limit probes, and public production smoke tests. The default-branch status-check ruleset requires lint, browser journeys, CodeQL, and the hosted audit, with no bypass actors. The hosted audit uses simulated mobile throttling and a 95-point minimum. Preview crawlability is deliberately excluded; production is audited through the public domain, including its CDN behavior. Keep production credentials in Vercel; never publish preview bypass headers, cookie state, or secret-bearing reports.

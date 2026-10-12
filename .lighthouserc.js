@@ -9,6 +9,15 @@ module.exports = {
     ci: {
         collect: {
             chromePath: chromium.executablePath(),
+            puppeteerScript: './scripts/lighthouse-auth.cjs',
+            puppeteerLaunchOptions: {
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                ],
+            },
             url: [
                 baseUrl,
                 ...[
@@ -23,8 +32,6 @@ module.exports = {
                 ].map((path) => `${baseUrl}/${path}`),
             ],
             settings: {
-                chromeFlags:
-                    '--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu',
                 // Lighthouse's standard simulated mobile network and CPU profile.
                 throttlingMethod: 'simulate',
                 // Vercel intentionally marks previews noindex. Check every other
@@ -32,8 +39,6 @@ module.exports = {
                 skipAudits: isPreview ? ['is-crawlable'] : [],
                 extraHeaders: JSON.stringify({
                     'x-vercel-skip-toolbar': '1',
-                    'x-vercel-protection-bypass':
-                        process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
                 }),
             },
         },

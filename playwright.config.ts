@@ -1,7 +1,17 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
 import path from 'path';
+import { tmpdir } from 'node:os';
+import { randomUUID } from 'node:crypto';
 const externalURL =
     process.env.PLAYWRIGHT_BASE_URL || process.env.VERCEL_PREVIEW_URL;
+
+const authState =
+    process.env.VERCEL_AUTOMATION_BYPASS_SECRET && externalURL
+        ? (process.env.PLAYWRIGHT_AUTH_STATE ||= path.join(
+              tmpdir(),
+              `hultman-playwright-${randomUUID()}.json`
+          ))
+        : undefined;
 
 const productionPreview = process.env.PLAYWRIGHT_PRODUCTION === 'true';
 const localURL = productionPreview
@@ -9,6 +19,7 @@ const localURL = productionPreview
     : 'http://localhost:3000';
 
 const config: PlaywrightTestConfig = {
+    globalSetup: './e2e/auth-setup.ts',
     timeout: 30 * 1000,
     testDir: path.join(__dirname, 'e2e'),
     retries: 2,
@@ -28,16 +39,11 @@ const config: PlaywrightTestConfig = {
 
     use: {
         trace: 'retry-with-trace',
+        storageState: authState,
         baseURL: externalURL || localURL,
         ignoreHTTPSErrors: productionPreview && !externalURL,
         extraHTTPHeaders: {
             'x-vercel-skip-toolbar': '1',
-            ...(process.env.VERCEL_AUTOMATION_BYPASS_SECRET
-                ? {
-                      'x-vercel-protection-bypass':
-                          process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
-                  }
-                : {}),
         },
     },
 
