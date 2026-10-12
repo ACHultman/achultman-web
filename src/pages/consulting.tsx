@@ -6,29 +6,29 @@ import { getBaseUrl } from '../utils/baseUrl';
 const baseUrl = getBaseUrl();
 const title = 'AI & Software Consulting in Vancouver';
 const description =
-    'Work with Adam Hultman, a Vancouver software engineer, on AI integrations, internal tools, workflow automation, and custom web applications.';
+    'AI integration, workflow automation, and custom software development with Adam Hultman in Vancouver. Work directly with the engineer from scope through release.';
 
 const services = [
     {
         id: 'ai-integration',
         title: 'AI integration',
-        intro: 'Add AI to a workflow your team already uses.',
-        detail: 'Drafting, summarizing, and organizing information can be useful places to start. I can help connect a model to your application, define what it is allowed to do, and build a review step for the people responsible for the result.',
-        scope: 'A first version should have a narrow task, examples to test against, and a way to handle failures. We can check output quality, response time, and model costs before expanding it.',
+        intro: 'Put AI to work inside your existing software.',
+        detail: 'I build AI-assisted features for drafting, summarizing, and organizing information. That includes the application integrations and review controls needed to make them part of your team’s daily work.',
+        scope: 'I test output quality, build in failure handling, and account for response time and model costs before release.',
     },
     {
         id: 'internal-tools',
         title: 'Internal tools and workflow automation',
-        intro: 'Connect the steps that still depend on copying data by hand.',
-        detail: 'That might mean an operations dashboard, an approval queue, a reporting workflow, or an integration between existing systems. I work across the interface, API, and database so the tool fits the people doing the work.',
-        scope: 'We start with one recurring task: where information comes from, who checks it, and what happens when something is missing. Sometimes a small integration is enough.',
+        intro: 'Cut the manual work between your systems.',
+        detail: 'I build internal tools and integrations for operations, reporting, and approvals. That can mean automating document generation, connecting data across existing tools, or replacing a spreadsheet workflow with an application built for the job.',
+        scope: 'I work across the interface, API, and database, following the workflow from the source data to the people who need the result.',
     },
     {
         id: 'custom-software',
         title: 'Custom software development',
-        intro: 'Build a web product, or get an existing one through its next release.',
-        detail: 'I can help with product interfaces, backend features, and integrations using TypeScript, React, Next.js, Python, and PostgreSQL. My work includes implementation, automated tests, and the details needed to run and maintain the feature.',
-        scope: 'For an existing product, I first look at the code and the release process. For a new idea, we define the smallest useful version and the assumptions it needs to test.',
+        intro: 'Launch a web application or move an existing product forward.',
+        detail: 'I take on product interfaces, backend features, and integrations, from technical planning through release. I can work within your existing codebase or establish the foundation for a new application.',
+        scope: 'My stack includes TypeScript, React, Next.js, Python, and PostgreSQL. Automated tests and maintainable code are part of the delivery, so your team can keep building after release.',
     },
 ];
 
@@ -77,10 +77,11 @@ export default function Consulting() {
                     label="Independent consulting / Vancouver, BC"
                     title="AI and software consulting in Vancouver."
                 >
-                    I’m Adam Hultman, a software engineer. I help teams build AI
-                    integrations, internal tools, and web applications. Bring a
-                    specific workflow or product problem, and we can work out
-                    what is worth building.
+                    I’m Adam Hultman. I help businesses automate manual work,
+                    put AI into production, and build custom web applications. I
+                    bring experience delivering software for Canadian media
+                    teams and the trades, with hands-on engineering from the
+                    first technical decisions through release.
                 </PageIntro>
                 <div className="inline-actions consulting-actions">
                     <TextLink href="/contact" className="button-primary">
@@ -114,34 +115,26 @@ export default function Consulting() {
                     </section>
                 ))}
                 <section className="about-row">
-                    <h2>Relevant engineering experience</h2>
+                    <h2>Production experience</h2>
                     <div className="prose">
-                        <p>
-                            At Island Temperature Controls, my co-op and
-                            contract work included a web application for HVAC
-                            inventory and maintenance, and automating document
-                            generation from existing spreadsheets and a
-                            database.
-                        </p>
                         <p>
                             At Assembly Digital, I built an LLM-powered
                             editorial system inside WordPress, used in
-                            production by Canadian media teams. It brought
-                            AI-assisted publishing into the tools editors were
-                            already using.
+                            production by Canadian media teams. Editors could
+                            use AI-assisted publishing within their existing
+                            workflow.
                         </p>
                         <p>
-                            In my role at Kopperfield, I contribute to web,
-                            mobile, and backend software for electrical
-                            contractors. Recent work includes calculator
-                            integrations and mobile job and photo workflows.
+                            At Island Temperature Controls, I developed a web
+                            application for HVAC inventory and maintenance and
+                            automated document generation from spreadsheet and
+                            database records.
                         </p>
                         <p>
-                            My experience with Island Temperature Controls,
-                            Assembly/Redbrick, and Kopperfield includes contract
-                            work before or after co-op and full-time roles.
-                            Independent consulting is separate from my current
-                            role at Kopperfield.
+                            At Kopperfield, I work across web, mobile, and
+                            backend software for electrical contractors. My
+                            contributions include calculator integrations and
+                            mobile job and photo workflows.
                         </p>
                         <div className="inline-actions">
                             <TextLink href="/work">Selected work</TextLink>
@@ -152,33 +145,34 @@ export default function Consulting() {
                     </div>
                 </section>
                 <section className="about-row">
-                    <h2>Before we scope a project</h2>
+                    <h2>Working together</h2>
                     <div className="principles">
                         <div>
-                            <h3>Describe the work as it happens today.</h3>
+                            <h3>A clear scope before development.</h3>
                             <p>
-                                Tell me who does it, which tools they use, where
-                                they lose time, and what a better result would
-                                look like. An example is more useful than a long
-                                feature list.
+                                We agree on the outcome, deliverables, budget,
+                                and timing. I assess your existing systems and
+                                identify the dependencies that could affect the
+                                build.
                             </p>
                         </div>
                         <div>
-                            <h3>Agree on a useful first release.</h3>
+                            <h3>Work directly with me.</h3>
                             <p>
-                                We can discuss scope, dependencies, budget, and
-                                availability before committing to a build.
-                                Access to existing systems and the quality of
-                                the data often shape the effort.
+                                I stay involved in both the product decisions
+                                and the implementation. You have a direct line
+                                to the person who understands the requirements
+                                and the code.
                             </p>
                         </div>
                         <div>
-                            <h3>Decide how to judge the result.</h3>
+                            <h3>Measure the result against the goal.</h3>
                             <p>
-                                That could be less manual entry, a shorter
-                                review queue, or a feature people can use. For
-                                AI features, include examples of wrong answers
-                                and how the application should respond.
+                                We evaluate the software against the outcome we
+                                set out to achieve, whether that’s less manual
+                                entry, faster reviews, or a new product feature.
+                                AI integrations also get checks for output
+                                quality and failure handling.
                             </p>
                             <div className="inline-actions">
                                 <TextLink href="/workflow-automation-roi-calculator">
@@ -194,39 +188,45 @@ export default function Consulting() {
                         <div>
                             <h3>Can you work with our existing software?</h3>
                             <p>
-                                Yes. An integration or a change to an existing
-                                application may be a better fit than a new
-                                product. Share your stack and the part that
-                                needs attention.
+                                Yes. I build on existing applications and
+                                connect the tools you already use. I’ll review
+                                your stack and recommend where an integration,
+                                targeted change, or custom application makes
+                                sense.
                             </p>
                         </div>
                         <div>
                             <h3>Does the project need AI?</h3>
                             <p>
-                                Often it doesn’t. Rules, database queries, or a
-                                clearer interface can solve a workflow problem.
-                                I use AI where its output can be tested and its
-                                limitations handled.
+                                AI is useful for tasks involving language and
+                                unstructured information. For predictable,
+                                rules-based work, conventional automation can be
+                                simpler to run and maintain. I’ll help you
+                                choose an approach that fits the task.
                             </p>
                         </div>
                         <div>
                             <h3>How much will it cost?</h3>
                             <p>
-                                Cost depends on the scope, integrations, and
-                                ongoing support. Send the problem and any budget
-                                or timing constraints so we can discuss a
-                                realistic first step.
+                                Pricing depends on the scope, integrations, and
+                                support required. Share your project, budget
+                                range, and timeline, and we can define an
+                                engagement around those constraints.
                             </p>
                         </div>
                     </div>
                 </section>
                 <section className="about-row">
-                    <h2>Tell me what needs building.</h2>
+                    <h2>Let’s discuss your project.</h2>
                     <div className="prose">
                         <p>
-                            Send a short description of your project, the tools
-                            involved, and any deadline. I’m based in Vancouver,
-                            BC.
+                            Tell me what you want to improve or build, the
+                            systems involved, and your target timeline. I’ll
+                            help define the technical approach and scope.
+                        </p>
+                        <p>
+                            Based in Vancouver, BC. Consulting engagements are
+                            independent of my role at Kopperfield.
                         </p>
                         <div className="inline-actions">
                             <TextLink
