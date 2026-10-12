@@ -58,6 +58,7 @@ export default function Navbar() {
                 <Link
                     key={href}
                     href={href}
+                    prefetch={false}
                     aria-current={
                         pathname === href || pathname.startsWith(`${href}/`)
                             ? 'page'
@@ -71,6 +72,7 @@ export default function Navbar() {
             ))}
             <Link
                 href="/contact"
+                prefetch={false}
                 className="nav-contact"
                 aria-current={pathname === '/contact' ? 'page' : undefined}
                 onClick={() => {
@@ -90,6 +92,7 @@ export default function Navbar() {
             <div className="page-container header-inner">
                 <Link
                     href="/"
+                    prefetch={false}
                     className="wordmark"
                     aria-label="Adam Hultman home"
                 >

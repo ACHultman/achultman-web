@@ -31,6 +31,7 @@ export default function ArticleList({
                         <Heading>
                             <Link
                                 href={`/blog/${post.slug}`}
+                                prefetch={false}
                                 onClick={() =>
                                     captureEvent('blog_post_clicked', {
                                         post_slug: post.slug,

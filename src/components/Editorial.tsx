@@ -40,7 +40,7 @@ export function TextLink({
     href,
     children,
     className = '',
-    prefetch,
+    prefetch = false,
 }: PropsWithChildren<{
     href: string;
     className?: string;
