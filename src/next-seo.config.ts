@@ -38,6 +38,7 @@ const config: NextSeoProps = {
         {
             rel: 'manifest',
             href: '/site.webmanifest',
+            crossOrigin: 'use-credentials',
         },
         {
             rel: 'apple-touch-icon',

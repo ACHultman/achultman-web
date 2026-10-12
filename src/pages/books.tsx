@@ -1,67 +1,31 @@
-import { Box, Container, Heading, Divider, SlideFade } from '@chakra-ui/react';
-import { NextSeo } from 'next-seo';
-
-import Paragraph from '@components/Paragraph';
-import Message from '@components/Message';
+import { PageIntro, PageSeo } from '@components/Editorial';
 import BookList from '@components/BookList';
 import { fetchNotions } from '../services/notion';
-import { Book } from '../types/notion';
+import type { Book } from '../types/notion';
 
-/** number of seconds in one day (used for ISR revalidation) */
-const SECONDS_IN_A_DAY = 86400;
-
-interface Props {
-    books: Book[];
-}
-
-function Books({ books }: Props) {
+export default function Books({ books }: { books: Book[] }) {
     return (
         <>
-            <NextSeo
+            <PageSeo
                 title="Books"
-                description="A list of my favorite tech books."
-                openGraph={{
-                    title: 'Adam Hultman | Books',
-                    description: 'A list of my favorite tech books.',
-                    url: 'https://hultman.dev/books',
-                }}
-                canonical="https://hultman.dev/books"
+                path="/books"
+                description="Books on software, technology, and product development from Adam Hultman’s reading list."
             />
-            <Container maxW="container.lg">
-                <SlideFade in={true} offsetY={80}>
-                    <Box>
-                        <Heading
-                            as="h1"
-                            fontSize={{ base: '24px', md: '30px', lg: '36px' }}
-                            mb={4}
-                        >
-                            Books
-                        </Heading>
-                        <Paragraph fontSize="xl" lineHeight={1.6}>
-                            A list of my favourite tech books.
-                        </Paragraph>
-                    </Box>
-                    <Divider my={10} />
-                </SlideFade>
-                <SlideFade in={true} offsetY={80} delay={0.2}>
-                    {!books || books.length === 0 ? (
-                        <Message />
-                    ) : (
-                        <BookList books={books} />
-                    )}
-                </SlideFade>
-            </Container>
+            <div className="page-container collection-page">
+                <PageIntro label="Reading" title="Books">
+                    A list of my favourite tech books.
+                </PageIntro>
+                {books.length ? (
+                    <BookList books={books} />
+                ) : (
+                    <p>No books published yet.</p>
+                )}
+            </div>
         </>
     );
 }
 
 export async function getStaticProps() {
     const books = await fetchNotions('books');
-
-    return {
-        props: { books },
-        revalidate: SECONDS_IN_A_DAY,
-    };
+    return { props: { books }, revalidate: 86400 };
 }
-
-export default Books;

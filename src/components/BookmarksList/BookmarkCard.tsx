@@ -1,81 +1,33 @@
-import {
-    Box,
-    Flex,
-    Heading,
-    LinkBox,
-    LinkOverlay,
-    Tag,
-    useColorModeValue,
-} from '@chakra-ui/react';
 import { captureEvent } from '../../lib/analytics';
-import { Bookmark } from '../../types/notion';
-import Paragraph from '../Paragraph';
+import type { Bookmark } from '../../types/notion';
 
-interface Props {
-    bookmark: Bookmark;
-}
-
-function BookmarkCard({ bookmark }: Props) {
-    const borderColor = useColorModeValue('gray.200', 'gray.700');
-
-    const handleBookmarkClick = () => {
-        captureEvent('bookmark_clicked', {
-            bookmark_title: bookmark.title,
-            bookmark_link: bookmark.link,
-            bookmark_tags: bookmark.tags,
-        });
-    };
-
+export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
     return (
-        <LinkBox as="article" onClick={handleBookmarkClick}>
-            <Box
-                h="100%"
-                borderWidth="1px"
-                borderColor={borderColor}
-                borderRadius={10}
-                cursor="pointer"
-                role="group"
-                style={{ transition: '.5s' }}
-                _hover={{ borderColor: 'green.300' }}
-            >
-                <Flex
-                    direction="column"
-                    justify="space-between"
-                    align="start"
-                    h="100%"
-                    p={4}
-                    gap={3}
+        <article className="collection-card collection-card-copy">
+            <h2>
+                <a
+                    href={bookmark.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() =>
+                        captureEvent('bookmark_clicked', {
+                            bookmark_title: bookmark.title,
+                            bookmark_link: bookmark.link,
+                            bookmark_tags: bookmark.tags,
+                        })
+                    }
                 >
-                    <LinkOverlay
-                        href={bookmark.link}
-                        isExternal
-                        textDecoration="none"
-                        _hover={{ textDecoration: 'none' }}
-                    >
-                        <Heading as="h2" size="md" mb={2}>
-                            {bookmark.title}
-                        </Heading>
-                        <Paragraph fontSize="sm">
-                            {bookmark.description}
-                        </Paragraph>
-                    </LinkOverlay>
-                    {bookmark.tags.length > 0 && (
-                        <Flex wrap="wrap" gap={2}>
-                            {bookmark.tags.map((tag) => (
-                                <Tag
-                                    key={`${bookmark.id}-${tag}`}
-                                    textTransform="capitalize"
-                                    p={2}
-                                >
-                                    {tag}
-                                </Tag>
-                            ))}
-                        </Flex>
-                    )}
-                </Flex>
-            </Box>
-        </LinkBox>
+                    {bookmark.title}
+                </a>
+            </h2>
+            <p>{bookmark.description}</p>
+            {bookmark.tags.length > 0 && (
+                <ul className="bookmark-labels" aria-label="Topics">
+                    {bookmark.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
+                    ))}
+                </ul>
+            )}
+        </article>
     );
 }
-
-export default BookmarkCard;

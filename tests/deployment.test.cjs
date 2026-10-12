@@ -49,7 +49,7 @@ test('deployment discovery prefers the exact GitHub commit and rejects stale or 
 
 test('missing GitHub records fall back to Vercel without accepting another commit or environment', async () => {
     const request = async (url, options) => {
-        if (url.startsWith('https://api.github.com/')) return response([]);
+        if (new URL(url).hostname === 'api.github.com') return response([]);
         assert.equal(options.headers.Authorization, 'Bearer vercel-test');
         assert.equal(new URL(url).searchParams.get('sha'), input.sha);
         return response({
@@ -95,7 +95,7 @@ test('deployment API failures stop the audit instead of selecting an unrelated U
     );
     await assert.rejects(
         findDeployment(input, async (url) =>
-            url.includes('api.github.com')
+            new URL(url).hostname === 'api.github.com'
                 ? response([])
                 : { ok: false, status: 401 }
         ),

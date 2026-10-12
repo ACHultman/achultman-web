@@ -1929,3 +1929,132 @@ a {
 .regex-tool section {
     max-width: 48rem;
 }
+
+.collection-page {
+    padding-bottom: 4rem;
+}
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+.collection-card {
+    border: 1px solid var(--site-rule);
+    border-radius: 5px;
+}
+.collection-card-copy {
+    padding: 1.25rem;
+}
+.site-shell .collection-card h2 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+}
+.collection-card p,
+.collection-updated {
+    color: var(--site-muted);
+    font-size: 1rem;
+}
+.collection-updated {
+    margin-bottom: 1.5rem;
+}
+.book-cover {
+    position: relative;
+    height: 260px;
+    margin: 1rem;
+}
+.bookmark-labels,
+.bookmark-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+.bookmark-labels li {
+    font-size: 0.875rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--site-rule);
+    border-radius: 4px;
+}
+.bookmark-filters button {
+    border: 1px solid var(--site-muted);
+    border-radius: 4px;
+    padding: 0.4rem 0.75rem;
+    min-height: 44px;
+    font-size: 1rem;
+}
+.bookmark-filters button[aria-pressed='true'] {
+    background: var(--site-ink);
+    color: var(--site-bg);
+}
+.collection-more {
+    margin-top: 2rem;
+}
+.contact-fields {
+    display: grid;
+    gap: 1.5rem;
+}
+.contact-field label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.contact-field input,
+.contact-field textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.75rem;
+    font-size: 1.0625rem;
+    border: 1px solid var(--site-muted);
+    border-radius: 4px;
+    background: var(--site-bg);
+    color: var(--site-ink);
+}
+.contact-field textarea {
+    resize: vertical;
+}
+.contact-field [aria-invalid='true'] {
+    border-color: #a61b13;
+}
+.form-error,
+.contact-field label span {
+    color: #a61b13;
+}
+.chakra-ui-dark .form-error,
+.chakra-ui-dark .contact-field label span {
+    color: #ff8a80;
+}
+.chakra-ui-dark .contact-field [aria-invalid='true'] {
+    border-color: #ff8a80;
+}
+.form-error {
+    font-size: 0.9375rem;
+    margin-top: 0.5rem;
+}
+.form-feedback {
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    padding: 1rem;
+}
+.contact-submit {
+    justify-self: start;
+    min-height: 50px;
+}
+.contact-submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+@media (max-width: 900px) {
+    .collection-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 600px) {
+    .collection-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-submit {
+        width: 100%;
+    }
+}

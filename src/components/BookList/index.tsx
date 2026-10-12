@@ -1,31 +1,12 @@
-import { Box, Flex } from '@chakra-ui/react';
-
 import BookCard from './BookCard';
-import { Book } from '../../types/notion';
+import type { Book } from '../../types/notion';
 
-interface Props {
-    books: Book[];
-}
-
-function BookList({ books }: Props) {
+export default function BookList({ books }: { books: Book[] }) {
     return (
-        <Flex w="100%" wrap="wrap" justify="center" gap={4}>
-            {books.map((book) => (
-                <Box
-                    key={`book-${book.title}`}
-                    flexBasis={[
-                        '100%',
-                        'calc(50% - 20px)',
-                        'calc(33.33% - 20px)',
-                    ]}
-                    maxW={['100%', 'calc(50% - 20px)', 'calc(33.33% - 20px)']}
-                    maxH="fit-content"
-                >
-                    <BookCard book={book} />
-                </Box>
+        <div className="collection-grid">
+            {books.map((book, index) => (
+                <BookCard key={book.id} book={book} priority={index === 0} />
             ))}
-        </Flex>
+        </div>
     );
 }
-
-export default BookList;

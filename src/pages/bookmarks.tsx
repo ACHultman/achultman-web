@@ -1,76 +1,44 @@
-import { NextSeo } from 'next-seo';
-import { Box, Container, Heading, Divider, VStack } from '@chakra-ui/react';
-import { useMemo } from 'react';
-
-import Paragraph from '@components/Paragraph';
+import { PageIntro, PageSeo } from '@components/Editorial';
 import BookmarksList from '@components/BookmarksList';
 import { fetchNotions } from '../services/notion';
-import { Bookmark } from '../types/notion';
+import type { Bookmark } from '../types/notion';
 
-interface Props {
-    bookmarks: Bookmark[];
-}
-
-function findMostRecentUpdate(bookmarks: Bookmark[]) {
-    // lastEditedTime is a string in the format of '2024-10-21T21:07:00.000Z'
-    return bookmarks.reduce((acc, bookmark) => {
-        const bookmarkDate = new Date(bookmark.lastEditedTime);
-        if (bookmarkDate > acc) {
-            return bookmarkDate;
-        }
-        return acc;
-    }, new Date(0));
-}
-
-function Bookmarks({ bookmarks }: Props) {
-    const mostRecentUpdate = useMemo(
-        () => findMostRecentUpdate(bookmarks),
-        [bookmarks]
+export default function Bookmarks({ bookmarks }: { bookmarks: Bookmark[] }) {
+    const updated = Math.max(
+        0,
+        ...bookmarks
+            .map((bookmark) => Date.parse(bookmark.lastEditedTime))
+            .filter(Number.isFinite)
     );
-    const formattedDate = mostRecentUpdate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
-
+    const formattedDate = updated
+        ? new Date(updated).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              timeZone: 'UTC',
+          })
+        : 'No bookmarks published yet.';
     return (
         <>
-            <NextSeo
+            <PageSeo
                 title="Bookmarks"
-                description="My favorite articles, websites, and tools."
-                canonical="https://hultman.dev/bookmarks"
+                path="/bookmarks"
+                description="Saved articles, websites, and tools on software and technology, collected by Adam Hultman."
             />
-            <Container maxW="container.lg">
-                <Box>
-                    <Heading
-                        as="h1"
-                        fontSize={{ base: '24px', md: '30px', lg: '36px' }}
-                        mb={4}
-                    >
-                        Bookmarks
-                    </Heading>
-                    <Paragraph fontSize="xl" lineHeight={1.6}>
-                        My favorite articles, websites, and tools.
-                    </Paragraph>
-                    <Paragraph fontSize="xs" mt={4}>
-                        Last updated: {formattedDate}
-                    </Paragraph>
-                </Box>
-                <Divider my={10} />
-                <VStack spacing={4} align="start">
-                    <BookmarksList bookmarks={bookmarks} />
-                </VStack>
-            </Container>
+            <div className="page-container collection-page">
+                <PageIntro label="Reading" title="Bookmarks">
+                    My favourite articles, websites, and tools.
+                </PageIntro>
+                <p className="collection-updated">
+                    Last updated: {formattedDate}
+                </p>
+                <BookmarksList bookmarks={bookmarks} />
+            </div>
         </>
     );
 }
 
 export async function getStaticProps() {
     const bookmarks = await fetchNotions('bookmarks');
-    return {
-        props: { bookmarks },
-        revalidate: 86400, // 24 hours
-    };
+    return { props: { bookmarks }, revalidate: 86400 };
 }
-
-export default Bookmarks;

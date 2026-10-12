@@ -63,7 +63,7 @@ module.exports = {
             },
         },
         upload: {
-            // Reports may contain the protected-preview request header.
+            // Reports may contain protected-preview authentication state.
             target: 'filesystem',
             outputDir: '.lighthouseci/reports',
         },

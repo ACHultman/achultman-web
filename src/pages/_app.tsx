@@ -59,9 +59,8 @@ function MyApp({
     emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
     const needsInteractiveProviders =
-        ['/books', '/bookmarks', '/contact'].includes(router.pathname) ||
-        (router.pathname.startsWith('/tools/') &&
-            router.pathname !== '/tools/regex-tester');
+        router.pathname.startsWith('/tools/') &&
+        router.pathname !== '/tools/regex-tester';
     const content = <Component {...pageProps} />;
     return (
         <CacheProvider value={emotionCache}>

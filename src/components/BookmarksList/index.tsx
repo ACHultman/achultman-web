@@ -1,71 +1,54 @@
-import { Box, Button, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Bookmark } from '../../types/notion';
+import type { Bookmark } from '../../types/notion';
 import BookmarkCard from './BookmarkCard';
 import BookmarkTags from './BookmarkTags';
 
-const MAX_TAGS = 8;
-
-interface Props {
+export default function BookmarksList({
+    bookmarks,
+}: {
     bookmarks: Bookmark[];
-}
-
-function BookmarksList({ bookmarks }: Props) {
+}) {
     const [selectedTag, setSelectedTag] = useState<string | null>(null);
     const [limit, setLimit] = useState(12);
-
-    // Sort tags by frequency, cap at MAX_TAGS
-    const tagCounts = bookmarks
-        .flatMap((bm) => bm.tags)
-        .reduce<Record<string, number>>((acc, tag) => {
-            acc[tag] = (acc[tag] ?? 0) + 1;
-            return acc;
-        }, {});
-    const tags = Object.entries(tagCounts)
-        .sort(([, a], [, b]) => b - a)
-        .slice(0, MAX_TAGS)
+    const counts = new Map<string, number>();
+    for (const bookmark of bookmarks)
+        for (const tag of bookmark.tags)
+            counts.set(tag, (counts.get(tag) ?? 0) + 1);
+    const tags = [...counts]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
         .map(([tag]) => tag);
-
-    const filteredBookmarks = selectedTag
-        ? bookmarks.filter((bm) => bm.tags.includes(selectedTag))
+    const filtered = selectedTag
+        ? bookmarks.filter((bookmark) => bookmark.tags.includes(selectedTag))
         : bookmarks;
-
-    const loadMore = () => {
-        setLimit((prev) => prev + 12);
-    };
-
     return (
-        <Box w="100%">
-            <Box display={['none', 'none', 'flex']}>
-                <BookmarkTags
-                    tags={tags}
-                    selectedTag={selectedTag}
-                    setSelectedTag={setSelectedTag}
-                />
-            </Box>
-            <SimpleGrid
-                columns={{ base: 1, md: 2, lg: 3 }}
-                spacing={4}
-                mt={[0, 8]}
-            >
-                {filteredBookmarks.slice(0, limit).map((bm) => (
-                    <BookmarkCard key={bm.id} bookmark={bm} />
+        <>
+            <BookmarkTags
+                tags={tags}
+                selectedTag={selectedTag}
+                setSelectedTag={(tag) => {
+                    setSelectedTag(tag);
+                    setLimit(12);
+                }}
+            />
+            <p role="status" className="collection-updated">
+                {filtered.length} bookmarks
+                {selectedTag ? ` tagged ${selectedTag}` : ''}.
+            </p>
+            <div className="collection-grid">
+                {filtered.slice(0, limit).map((bookmark) => (
+                    <BookmarkCard key={bookmark.id} bookmark={bookmark} />
                 ))}
-            </SimpleGrid>
-            {limit < filteredBookmarks.length && (
-                <Flex justify="center" mt={8}>
-                    <Button
-                        onClick={loadMore}
-                        variant="outline"
-                        colorScheme="green"
-                        style={{ transition: '.5s' }}
-                    >
-                        Load More
-                    </Button>
-                </Flex>
+            </div>
+            {limit < filtered.length && (
+                <button
+                    type="button"
+                    className="button-primary collection-more"
+                    onClick={() => setLimit((value) => value + 12)}
+                >
+                    Load More
+                </button>
             )}
-        </Box>
+        </>
     );
 }
-
-export default BookmarksList;
