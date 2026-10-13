@@ -145,7 +145,15 @@ test('printing a dark-mode resume uses legible paper colors', async ({
     await page.emulateMedia({ media: 'print' });
     await expect(page.locator('.prose h2').first()).toHaveCSS(
         'color',
-        'rgb(24, 37, 34)'
+        'rgb(17, 17, 17)'
+    );
+    await expect(page.locator('.resume-bullets')).toHaveCSS(
+        'color',
+        'rgb(17, 17, 17)'
+    );
+    await expect(page.locator('.resume-meta').first()).toHaveCSS(
+        'color',
+        'rgb(17, 17, 17)'
     );
     await expect(page.locator('body')).toHaveCSS(
         'background-color',
