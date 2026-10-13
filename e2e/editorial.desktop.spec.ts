@@ -147,7 +147,7 @@ test('printing a dark-mode resume uses legible paper colors', async ({
         'color',
         'rgb(17, 17, 17)'
     );
-    await expect(page.locator('.resume-bullets')).toHaveCSS(
+    await expect(page.locator('.resume-bullets').first()).toHaveCSS(
         'color',
         'rgb(17, 17, 17)'
     );

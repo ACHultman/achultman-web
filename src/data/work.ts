@@ -23,28 +23,33 @@ export const kopperfieldAccomplishments = [
     {
         title: 'Taking products through release',
         body: 'I lead product initiatives from an initial problem through design, implementation, and launch. My work spans web features and mobile experiences released on Android and iOS.',
-        resume: 'Led web and mobile initiatives from problem definition through launch, including Android and iOS releases.',
     },
     {
         title: 'Making everyday work more dependable',
         body: 'I improve reliability and testing for software contractors use in their daily work. That includes investigating problems, coordinating changes across the application, and following up after release.',
-        resume: 'Built automated regression checks to validate calculation correctness before release.',
     },
     {
         title: 'Improving application performance',
         body: 'I work on application responsiveness and backend performance, using measurement to identify bottlenecks and check whether a change improves the experience.',
-        resume: 'Reduced a core dashboard API’s p75 response time by 88%.',
     },
     {
         title: 'Owning core business workflows',
         body: 'I own subscription and billing workflows, balancing the customer experience with the reliability of the systems behind it.',
-        resume: 'Owned subscription and billing workflows, improving reliability and customer experience.',
     },
     {
         title: 'Choosing tools and negotiating contracts',
         body: 'I evaluate software vendors against product needs, test alternatives, and negotiate pricing and renewal terms.',
-        resume: 'Evaluated software vendors and negotiated pricing and renewal terms.',
     },
+];
+
+// Résumé order prioritizes evidence and delivery over the website's narrative.
+export const kopperfieldResumeHighlights = [
+    'Reduced a core dashboard API’s p75 response time by 88%.',
+    'Led development and launch of job-site photo capture and annotation for Android and iOS.',
+    'Built automated regression tooling to validate electrical calculations before release.',
+    'Led reliability work to preserve field edits during connection loss and interrupted sessions.',
+    'Brought subscription plan changes into the app and owned billing and renewal workflows.',
+    'Evaluated software vendors and negotiated pricing and renewal terms.',
 ];
 
 export const independentWork = {

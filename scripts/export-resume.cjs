@@ -19,7 +19,7 @@ async function exportResume() {
         await page.addStyleTag({ content: 'nextjs-portal { display: none; }' });
         await page.pdf({
             path: path.join(__dirname, '../public/adam-hultman-resume.pdf'),
-            format: 'A4',
+            format: 'Letter',
             printBackground: true,
             tagged: true,
             outline: true,

@@ -1,7 +1,7 @@
 import { PageIntro, PageSeo, TextLink } from '@components/Editorial';
 import { TIMELINE } from '../constants/timeline';
 import { FiDownload } from 'react-icons/fi';
-import { kopperfieldAccomplishments } from '../data/work';
+import { kopperfieldResumeHighlights } from '../data/work';
 import { projects } from '../data/projects';
 import Link from 'next/link';
 
@@ -13,10 +13,6 @@ const currentRole = roles.find((role) => role.org.title === 'Kopperfield')!;
 const assemblyRole = roles.find(
     (role) => role.org.title === 'Assembly Digital Media'
 )!;
-const earlierRoles = roles.filter(
-    (role) =>
-        !['Kopperfield', 'Assembly Digital Media'].includes(role.org.title)
-);
 
 export default function Resume() {
     return (
@@ -47,7 +43,7 @@ export default function Resume() {
                     </button>
                 </div>
                 <div className="prose">
-                    <p>
+                    <p className="resume-contact">
                         <a href="https://hultman.dev/contact">
                             hultman.dev/contact
                         </a>{' '}
@@ -67,9 +63,12 @@ export default function Resume() {
                             <span>{currentRole.subtitle}</span>
                             <span>{currentRole.dateRange}</span>
                         </p>
+                        <p className="resume-context">
+                            Web and mobile software for electrical contractors.
+                        </p>
                         <ul className="resume-bullets">
-                            {kopperfieldAccomplishments.map((item) => (
-                                <li key={item.title}>{item.resume}</li>
+                            {kopperfieldResumeHighlights.map((highlight) => (
+                                <li key={highlight}>{highlight}</li>
                             ))}
                         </ul>
                     </section>
@@ -79,31 +78,35 @@ export default function Resume() {
                             <span>{assemblyRole.subtitle}</span>
                             <span>{assemblyRole.dateRange}</span>
                         </p>
-                        <p>
-                            Built publishing tools and automation across
-                            WordPress, AWS, and AI-assisted editorial workflows.
-                        </p>
-                        <p className="resume-earlier">
-                            Earlier at Assembly: part-time developer, May–August
-                            2022; full-stack co-op, September–December 2021.
-                        </p>
-                    </section>
-                    <section className="resume-item">
-                        <h3>Earlier experience</h3>
-                        {earlierRoles.map((role) => (
-                            <p className="resume-earlier" key={role.org.title}>
-                                <strong>{role.org.title}</strong> ·{' '}
-                                {role.subtitle} ·{' '}
-                                {role.dateRange.match(/\d{4}/)?.[0]}
-                            </p>
-                        ))}
+                        <ul className="resume-bullets">
+                            <li>
+                                Built a distributed link validation and repair
+                                system on AWS Lambda, SQS, and DynamoDB that
+                                processed 50K+ links.
+                            </li>
+                            <li>
+                                Led development of an LLM-powered WordPress
+                                editorial system used by Canadian media teams;
+                                mentored co-op developers in TypeScript, React,
+                                and backend design.
+                            </li>
+                            <li>
+                                Automated product-recall ingestion and
+                                publishing to WordPress with AWS CDK and
+                                EventBridge.
+                            </li>
+                            <li>
+                                Replaced engineer-managed URL redirects with a
+                                self-service workflow across WordPress, a Go
+                                API, and Express.
+                            </li>
+                        </ul>
                     </section>
                     <section className="resume-projects">
                         <h2>Projects</h2>
-                        <h3>Perspective Labs Inc.</h3>
-                        <p>
-                            Independent products in development or at prototype
-                            stage.
+                        <p className="resume-projects-context">
+                            Perspective Labs Inc. · Independent products in
+                            development
                         </p>
                         {projects.map((project) => (
                             <section
@@ -115,20 +118,24 @@ export default function Resume() {
                                         href={`https://hultman.dev/work/${project.slug}`}
                                     >
                                         {project.name}
-                                        {project.slug ===
-                                            'property-intelligence' &&
-                                            ' (working name)'}
                                     </Link>
+                                    <span className="resume-project-discipline">
+                                        {' '}
+                                        · {project.discipline}
+                                    </span>
                                 </h3>
                                 <p>{project.resume}</p>
                             </section>
                         ))}
                     </section>
                     <h2>Technical skills</h2>
-                    <p>
-                        TypeScript, React, Next.js, Python, Django, React
-                        Native, PostgreSQL, AWS, C++, JUCE, automated testing,
-                        AI integrations, asynchronous job processing.
+                    <p className="resume-skills">
+                        <strong>Languages:</strong> TypeScript, Python, Go, C++.{' '}
+                        <strong>Web &amp; mobile:</strong> React, Next.js,
+                        Django, React Native.
+                        <br />
+                        <strong>Data &amp; systems:</strong> PostgreSQL, AWS,
+                        OpenAI API, asynchronous jobs, automated testing, JUCE.
                     </p>
                     <h2>Education</h2>
                     <p>
