@@ -5,9 +5,9 @@ export const professionalWork = {
     name: 'Kopperfield',
     role: 'Full Stack Engineer · July 2025–present',
     summary:
-        'I take web and mobile product work from investigation through release, with ownership across application reliability, performance, and billing.',
+        'I’m Kopperfield’s sole full-time engineer, responsible for product delivery and the health of engineering operations, infrastructure, reliability, and performance.',
     description:
-        'I build software for electrical contractors on a small engineering team. I work across the product and its underlying systems, shaping solutions, implementing them, and following through after release.',
+        'I’m Kopperfield’s sole full-time engineer. I build software for electrical contractors and take hands-on responsibility for engineering operations, infrastructure, reliability, and performance.',
     technologies: [
         'TypeScript',
         'React',
@@ -21,8 +21,12 @@ export const professionalWork = {
 
 export const kopperfieldAccomplishments = [
     {
+        title: 'Owning engineering health',
+        body: 'I look after day-to-day engineering operations, keep infrastructure and applications running reliably, and investigate performance issues. I bring engineering progress and priorities to company meetings.',
+    },
+    {
         title: 'Taking products through release',
-        body: 'I lead product initiatives from an initial problem through design, implementation, and launch. My work spans web features and mobile experiences released on Android and iOS.',
+        body: 'I take product initiatives from an initial problem through design, implementation, and launch. My work spans web features and mobile experiences released on Android and iOS.',
     },
     {
         title: 'Making everyday work more dependable',
@@ -33,8 +37,8 @@ export const kopperfieldAccomplishments = [
         body: 'I work on application responsiveness and backend performance, using measurement to identify bottlenecks and check whether a change improves the experience.',
     },
     {
-        title: 'Owning core business workflows',
-        body: 'I own subscription and billing workflows, balancing the customer experience with the reliability of the systems behind it.',
+        title: 'Automating operations and owning billing',
+        body: 'I automate operational workflows and own subscriptions and billing, balancing the customer experience with the reliability of the systems behind it.',
     },
     {
         title: 'Choosing tools and negotiating contracts',
@@ -45,10 +49,10 @@ export const kopperfieldAccomplishments = [
 // Résumé order prioritizes evidence and delivery over the website's narrative.
 export const kopperfieldResumeHighlights = [
     'Reduced a core dashboard API’s p75 response time by 88%.',
-    'Led development and launch of job-site photo capture and annotation for Android and iOS.',
+    'Built and launched job-site photo capture and annotation for Android and iOS.',
     'Built automated regression tooling to validate electrical calculations before release.',
-    'Led reliability work to preserve field edits during connection loss and interrupted sessions.',
-    'Brought subscription plan changes into the app and owned billing and renewal workflows.',
+    'Improved reliability to preserve field edits during connection loss and interrupted sessions.',
+    'Automated operations and brought subscription plan changes into the app; owned billing and renewals.',
     'Evaluated software vendors and negotiated pricing and renewal terms.',
 ];
 
