@@ -54,7 +54,7 @@ export default function About() {
                         <p>
                             Through Perspective Labs Inc., I’m developing{' '}
                             <Link href="/work/property-intelligence">
-                                Delve
+                                Before Offer
                             </Link>
                             , a property intelligence product;{' '}
                             <Link href="/work/parallax-studio">
