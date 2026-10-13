@@ -2103,6 +2103,14 @@ a {
 .resume-page :is(h2, h3) {
     font-weight: 650;
 }
+.resume-context,
+.resume-projects-context {
+    font-size: 0.9375rem;
+}
+.resume-project-discipline {
+    font-size: 0.85em;
+    font-weight: 400;
+}
 .resume-bullets li + li {
     margin-top: 14px;
 }
@@ -2118,9 +2126,6 @@ a {
     color: var(--site-muted);
     font-size: 0.875rem;
     margin-top: 6px;
-}
-.resume-earlier {
-    font-size: 0.9375rem;
 }
 @media (max-width: 767px) {
     .work-stories {
@@ -2161,29 +2166,34 @@ a {
         --site-muted: #111;
         --site-rule: #b8b8b8;
         color: var(--site-ink);
-        font-size: 10.5pt;
-        line-height: 1.38;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+        line-height: 1.32;
     }
     .resume-page .page-intro {
-        padding-bottom: 8px;
+        padding-bottom: 5px;
     }
     .resume-page .page-intro h1 {
-        font-size: 28pt;
-        font-weight: 600;
+        font-size: 24pt;
+        font-weight: 700;
+        letter-spacing: -0.025em;
     }
     .resume-page .intro-copy {
         margin-top: 6px;
     }
     .site-shell .resume-page h2 {
-        font-size: 12pt;
+        font-size: 11.5pt;
         font-weight: 700;
-        margin-block: 13px 5px;
+        margin-block: 10px 6px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--site-rule);
     }
     .site-shell .resume-page h3 {
         font-size: 11pt;
     }
     .resume-page .resume-item {
-        padding-block: 6px;
+        padding-block: 4px;
+        border-bottom: 0;
     }
     .resume-page .resume-item p {
         margin-top: 4px;
@@ -2192,10 +2202,16 @@ a {
         margin-top: 6px;
     }
     .resume-bullets li + li {
-        margin-top: 3px;
+        margin-top: 2px;
     }
-    .resume-page .resume-earlier {
-        font-size: 9.5pt;
+    .resume-page .resume-contact,
+    .resume-page .resume-context,
+    .resume-page .resume-projects-context,
+    .resume-page .resume-meta {
+        font-size: 10pt;
+    }
+    .resume-page .resume-skills {
+        font-size: 10.5pt;
     }
     .resume-project {
         break-inside: avoid;

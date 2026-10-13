@@ -59,7 +59,7 @@ export const projects: Project[] = [
             'A prototype with listing extraction, scoring, report storage, and AI-assisted document analysis. I’m developing and evaluating the reporting workflow. Delve is a working name.',
         nextStep:
             'Evaluate representative listings and full document sets against manually reviewed findings, then test a focused reporting workflow with prospective users.',
-        resume: 'Built a property-analysis prototype combining listing extraction, financial calculations, and AI-assisted document analysis with supporting evidence.',
+        resume: 'Built listing and strata-PDF analysis with Next.js and PostgreSQL, combining deterministic risk scoring and financial calculations with AI summaries and source evidence.',
     },
     {
         slug: 'parallax-studio',
@@ -100,7 +100,7 @@ export const projects: Project[] = [
             'In development, with job orchestration, media storage, and provider integrations implemented. I’m working toward a repeatable generation-to-export workflow with measured processing time and operating costs.',
         nextStep:
             'Verify one complete creator workflow, measure processing time and cost per output, and use those results to choose the next integration.',
-        resume: 'Built AI video workflows with asynchronous GPU jobs, media processing, progress and failure handling, and usage accounting.',
+        resume: 'Implemented GPU video-generation jobs with Inngest and RunPod, including persisted progress, completion timeouts, failure handling, media storage, and usage accounting.',
     },
     {
         slug: 'earbud',
@@ -137,6 +137,6 @@ export const projects: Project[] = [
             'A native plugin prototype with metering, calibration, and exposure tracking implemented. Calibration accuracy and behavior across hardware and hosts are the next validation milestones.',
         nextStep:
             'Validate the calibration method against reference measurements and test host behavior before making measurement or protective claims.',
-        resume: 'Developed a C++/JUCE audio-plugin prototype with calibrated metering, exposure estimates, configurable muting, and DSP tests.',
+        resume: 'Built a C++/JUCE plugin with A-weighted metering, calibration profiles, and exposure estimates. Added DSP component tests and VST3/Audio Unit build targets.',
     },
 ];
