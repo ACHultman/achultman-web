@@ -2114,9 +2114,6 @@ a {
 .resume-earlier {
     font-size: 0.9375rem;
 }
-.resume-continuation {
-    display: none;
-}
 @media (max-width: 767px) {
     .work-stories {
         grid-template-columns: 1fr;
@@ -2151,48 +2148,49 @@ a {
     }
 }
 @media print {
+    .resume-page {
+        font-size: 10.5pt;
+        line-height: 1.38;
+    }
     .resume-page .page-intro {
-        padding-bottom: 12px;
+        padding-bottom: 8px;
+    }
+    .resume-page .page-intro h1 {
+        font-size: 28pt;
+    }
+    .resume-page .intro-copy {
+        margin-top: 6px;
     }
     .site-shell .resume-page h2 {
-        font-size: 14pt;
-        margin-block: 18px 8px;
+        font-size: 12pt;
+        margin-block: 13px 5px;
     }
     .site-shell .resume-page h3 {
         font-size: 11pt;
     }
     .resume-page .resume-item {
-        padding-block: 10px;
+        padding-block: 6px;
     }
     .resume-page .resume-item p {
-        margin-top: 6px;
+        margin-top: 4px;
     }
     .resume-bullets {
-        margin-top: 10px;
+        margin-top: 6px;
     }
     .resume-bullets li + li {
-        margin-top: 7px;
+        margin-top: 3px;
     }
-    .resume-page .resume-earlier,
-    .resume-project .resume-meta,
-    .resume-project .technology-line {
-        font-size: 9pt;
-    }
-    .resume-projects {
-        break-before: page;
-    }
-    .resume-continuation {
-        display: block;
-        font-size: 9pt;
-        color: var(--site-muted);
+    .resume-page .resume-earlier {
+        font-size: 9.5pt;
     }
     .resume-project {
         break-inside: avoid;
-        margin-top: 16px;
-        padding-top: 12px;
+        margin-top: 8px;
+        padding-top: 0;
+        border-top: 0;
     }
     .resume-project p {
-        margin-top: 6px;
+        margin-top: 2px;
     }
 }
 .regex-tool section {

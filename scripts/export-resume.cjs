@@ -1,7 +1,7 @@
 const { chromium } = require('@playwright/test');
 const path = require('node:path');
 
-// Run against the current local site after changing resume.tsx or the timeline.
+// Run against the current local site after changing resume copy or print styles.
 async function exportResume() {
     const browser = await chromium.launch();
     try {
