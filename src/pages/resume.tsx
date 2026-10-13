@@ -48,12 +48,6 @@ export default function Resume() {
                 </div>
                 <div className="prose">
                     <p>
-                        Product engineering across web, mobile, and backend
-                        systems, with ownership of reliability, performance,
-                        calculation correctness, and billing. Independent work
-                        in applied AI and C++ audio software.
-                    </p>
-                    <p>
                         <a href="https://hultman.dev/contact">
                             hultman.dev/contact
                         </a>{' '}
@@ -91,27 +85,21 @@ export default function Resume() {
                         </p>
                     </section>
                     <section className="resume-item">
-                        <h3>Earlier engineering experience</h3>
+                        <h3>Earlier experience</h3>
                         {earlierRoles.map((role) => (
                             <p className="resume-earlier" key={role.org.title}>
                                 <strong>{role.org.title}</strong> ·{' '}
-                                {role.subtitle}
-                                <br />
-                                {role.dateRange}
+                                {role.subtitle} ·{' '}
+                                {role.dateRange.match(/\d{4}/)?.[0]}
                             </p>
                         ))}
                     </section>
                     <section className="resume-projects">
-                        <p className="resume-continuation" aria-hidden="true">
-                            Adam Hultman · Selected projects & technical
-                            background
-                        </p>
                         <h2>Independent products</h2>
                         <h3>Perspective Labs Inc.</h3>
                         <p>
-                            Product development across applied AI, property
-                            intelligence, and audio. These projects are in
-                            development or at prototype stage.
+                            Independent products in development or at prototype
+                            stage.
                         </p>
                         {projects.map((project) => (
                             <section
@@ -123,27 +111,25 @@ export default function Resume() {
                                         href={`https://hultman.dev/work/${project.slug}`}
                                     >
                                         {project.name}
+                                        {project.slug ===
+                                            'property-intelligence' &&
+                                            ' (working name)'}
                                     </Link>
                                 </h3>
-                                <p className="resume-meta">{project.status}</p>
                                 <p>{project.resume}</p>
-                                <p className="technology-line">
-                                    {project.technologies.join(' · ')}
-                                </p>
                             </section>
                         ))}
                     </section>
                     <h2>Technical skills</h2>
                     <p>
                         TypeScript, React, Next.js, Python, Django, React
-                        Native, GraphQL, PostgreSQL, AWS, Stripe, automated
-                        testing, AI integrations, asynchronous job processing,
-                        C++, JUCE.
+                        Native, PostgreSQL, AWS, C++, JUCE, automated testing,
+                        AI integrations, asynchronous job processing.
                     </p>
                     <h2>Education</h2>
-                    <h3>University of Victoria</h3>
                     <p>
-                        Bachelor of Software Engineering · August 2022
+                        <strong>University of Victoria</strong> · Bachelor of
+                        Software Engineering, 2022
                         <br />
                         Specialization in cybersecurity and privacy.
                     </p>
