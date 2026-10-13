@@ -1,5 +1,6 @@
 import { PageSeo, TextLink } from '@components/Editorial';
 import { editorialFont } from '../styles/editorialFont';
+import Link from 'next/link';
 
 const principles = [
     [
@@ -22,7 +23,7 @@ export default function About() {
             <PageSeo
                 title="About"
                 path="/about"
-                description="Adam Hultman is a software developer in Vancouver, working at Kopperfield and developing independent products through Perspective Labs Inc."
+                description="Adam Hultman is a Vancouver software engineer working across product development, applied AI, mobile, and audio software at Kopperfield and Perspective Labs."
             />
             <div
                 className={`page-container about-page ${editorialFont.variable}`}
@@ -35,20 +36,36 @@ export default function About() {
                     <p className="eyebrow">A little context</p>
                     <div className="prose">
                         <p className="lead">
-                            I’m Adam Hultman, a software developer based in
+                            I’m Adam Hultman, a software engineer based in
                             Vancouver.
                         </p>
                         <p>
-                            I like being involved in both what a product does
-                            and how it’s built. That usually means talking
-                            through the problem, writing code, and following up
-                            when people start using it.
+                            I take product problems from investigation through
+                            design, implementation, and release. I’m drawn to
+                            work where the interface and the underlying system
+                            both need careful thought.
                         </p>
                         <p>
-                            At Kopperfield, I work across web, mobile, and
-                            backend development. Outside that role, I run
-                            Perspective Labs Inc. and develop early-stage
-                            software products.
+                            At Kopperfield, I’ve led work on preserving offline
+                            field data, improved production API performance,
+                            built regression tools for electrical calculations,
+                            and helped take a mobile photo product through
+                            launch. I also own subscription and billing
+                            workflows.
+                        </p>
+                        <p>
+                            Through Perspective Labs Inc., I’m developing{' '}
+                            <Link href="/work/property-intelligence">
+                                Delve
+                            </Link>
+                            , a property intelligence product;{' '}
+                            <Link href="/work/parallax-studio">
+                                Parallax Studio
+                            </Link>
+                            , an AI video application; and{' '}
+                            <Link href="/work/earbud">Earbud</Link>, a C++ audio
+                            plugin. They give me room to work on data analysis,
+                            creative workflows, and signal processing.
                         </p>
                         <p>
                             Previously, I built publishing tools and automation
@@ -86,6 +103,10 @@ export default function About() {
                         <div>
                             <dt>Mobile</dt>
                             <dd>React Native</dd>
+                        </div>
+                        <div>
+                            <dt>Audio</dt>
+                            <dd>C++, JUCE, digital signal processing</dd>
                         </div>
                         <div>
                             <dt>Also</dt>

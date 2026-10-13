@@ -4,7 +4,13 @@ import {
     PageSeo,
     TextLink,
 } from '@components/Editorial';
-import { professionalWork } from '../data/work';
+import {
+    independentWork,
+    kopperfieldAccomplishments,
+    professionalWork,
+} from '../data/work';
+import ProjectList from '@components/ProjectList';
+import WorkMetrics from '@components/WorkMetrics';
 
 export default function Work() {
     return (
@@ -12,13 +18,13 @@ export default function Work() {
             <PageSeo
                 title="Selected work"
                 path="/work"
-                description="Software development at Kopperfield, an open-source website case study, and independent products through Perspective Labs Inc."
+                description="Selected engineering work by Adam Hultman: reliability, performance, and mobile at Kopperfield; Delve, Parallax Studio, and Earbud at Perspective Labs."
             />
             <div className="page-container">
                 <PageIntro label="Work" title="Selected work.">
-                    My work at Kopperfield, independent products through
-                    Perspective Labs, a closer look at this site, and earlier
-                    experience.
+                    From software used in the field to independent AI products
+                    and audio tools. A closer look at what I build and the
+                    engineering decisions behind it.
                 </PageIntro>
                 <nav className="section-nav" aria-label="Work sections">
                     <a href="#kopperfield">Kopperfield</a>
@@ -34,12 +40,6 @@ export default function Work() {
                     </div>
                     <div className="work-section-content">
                         <p>{professionalWork.description}</p>
-                        <p>
-                            Recent contributions include the backend and
-                            integration for a fault current calculator, mobile
-                            job and photo workflows, and practices for reviewing
-                            AI-assisted changes.
-                        </p>
                         <p className="technology-line">
                             {professionalWork.technologies.join(' · ')}
                         </p>
@@ -49,6 +49,15 @@ export default function Work() {
                         <TextLink href="/blog/ai-assisted-development-at-kopperfield">
                             Read about our development process
                         </TextLink>
+                    </div>
+                    <WorkMetrics />
+                    <div className="work-stories">
+                        {kopperfieldAccomplishments.map((item) => (
+                            <article key={item.title}>
+                                <h3>{item.title}</h3>
+                                <p>{item.body}</p>
+                            </article>
+                        ))}
                     </div>
                 </section>
                 <section id="perspective-labs" className="work-section">
@@ -61,15 +70,9 @@ export default function Work() {
                         <p>Products in development</p>
                     </div>
                     <div className="work-section-content">
-                        <p>
-                            Perspective Labs Inc. is my company for developing
-                            software products of my own.
-                        </p>
-                        <p>
-                            I’m exploring a small set of ideas. The products are
-                            still in development.
-                        </p>
+                        <p>{independentWork.summary}</p>
                     </div>
+                    <ProjectList />
                 </section>
                 <section id="this-site" className="work-section">
                     <div className="work-section-title">

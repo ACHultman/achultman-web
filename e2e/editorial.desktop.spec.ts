@@ -9,7 +9,11 @@ test('primary navigation and work anchors lead to complete pages', async ({
     for (const id of ['kopperfield', 'perspective-labs', 'earlier-work']) {
         await expect(page.locator(`#${id}`)).toBeAttached();
     }
-    await expect(page.getByText('Delve', { exact: true })).toHaveCount(0);
+    for (const name of ['Delve', 'Parallax Studio', 'Earbud']) {
+        await expect(
+            page.getByRole('heading', { name, exact: true })
+        ).toBeVisible();
+    }
     await page
         .getByRole('navigation', { name: 'Main navigation' })
         .getByRole('link', { name: 'About' })
@@ -41,11 +45,15 @@ test('appearance choice persists across navigation and reload', async ({
 test('core routes have no horizontal overflow at narrow widths or enlarged text', async ({
     page,
 }) => {
+    test.setTimeout(60000);
     for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         for (const path of [
             '/',
             '/work',
+            '/work/property-intelligence',
+            '/work/parallax-studio',
+            '/work/earbud',
             '/about',
             '/blog',
             '/contact',
@@ -70,6 +78,30 @@ test('core routes have no horizontal overflow at narrow widths or enlarged text'
             () => document.documentElement.scrollWidth <= window.innerWidth
         )
     ).toBe(true);
+});
+
+test('featured projects lead to complete case studies and back to selected work', async ({
+    page,
+}) => {
+    for (const [name, slug] of [
+        ['Delve', 'property-intelligence'],
+        ['Parallax Studio', 'parallax-studio'],
+        ['Earbud', 'earbud'],
+    ] as const) {
+        await page.goto('/');
+        await page
+            .getByRole('link', { name: `Explore ${name}`, exact: true })
+            .click();
+        await expect(page).toHaveURL(`/work/${slug}`);
+        await expect(page.getByRole('heading', { level: 1 })).toHaveText(name);
+        await expect(
+            page.getByRole('heading', { name: 'Current stage' })
+        ).toBeVisible();
+        await page.getByRole('link', { name: 'All independent work' }).click();
+        await expect(page).toHaveURL('/work#perspective-labs');
+    }
+    const missing = await page.goto('/work/unknown-project');
+    expect(missing?.status()).toBe(404);
 });
 
 test('reduced motion keeps the introduction immediately readable', async ({

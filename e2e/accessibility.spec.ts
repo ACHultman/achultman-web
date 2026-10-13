@@ -7,6 +7,9 @@ test.describe.configure({ mode: 'parallel' });
 const routes = [
     '/',
     '/work',
+    '/work/property-intelligence',
+    '/work/parallax-studio',
+    '/work/earbud',
     '/about',
     '/contact',
     '/consulting',
