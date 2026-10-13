@@ -39,6 +39,11 @@ export const kopperfieldAccomplishments = [
         body: 'I own subscription and billing workflows, balancing the customer experience with the reliability of the systems behind it.',
         resume: 'Owned subscription and billing workflows, improving the customer experience and reliability of core business systems.',
     },
+    {
+        title: 'Choosing tools and negotiating contracts',
+        body: 'I evaluate software vendors against product needs, test alternatives, and negotiate pricing and renewal terms.',
+        resume: 'Evaluated software vendors and negotiated pricing and renewal terms, balancing product requirements and cost.',
+    },
 ];
 
 export const independentWork = {
