@@ -96,9 +96,9 @@ export default function Resume() {
                                 EventBridge.
                             </li>
                             <li>
-                                Replaced engineer-managed URL redirects with a
-                                self-service workflow across WordPress, a Go
-                                API, and Express.
+                                Built URL redirect tools for content managers
+                                and engineers across WordPress, a Go API, and
+                                Express.
                             </li>
                         </ul>
                     </section>
