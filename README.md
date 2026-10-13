@@ -27,6 +27,16 @@ Never enable `NOTION_PREVIEW_MODE` on the live site. A partial Notion configurat
 
 ## Configuration
 
+### About page activity
+
+The “Lately” section reads `ACHultman`’s public GitHub contribution calendar on the server. No GitHub token, cron job, or browser request to GitHub is needed. Next.js regenerates `/about` on the first visit after six hours; subsequent visitors receive the refreshed page. A failed refresh retains the last successful page and its original dates. If GitHub is unavailable during the initial build, About still renders with a profile link and retries regeneration after five minutes.
+
+The headline compares the last 30 complete calendar days with the preceding 30, using Vancouver’s date to exclude today. The chart defaults to 12 complete months, with ranges reaching back to 2022 to cover the Assembly and Kopperfield years. Readers can inspect months by hovering, tapping, using a keyboard-accessible slider, or opening the data table. A second view compares July 2024–June 2025 with September 2025–August 2026: equal 12-month windows around the approximate July–August 2025 move to Claude CLI. The transition months are excluded, and the comparison describes recorded activity without attributing the difference to AI or treating contribution counts as quality.
+
+Only dates and aggregate counts reach the browser. Private activity appears only to the extent GitHub includes it in the public profile’s private-contribution setting; this is not a complete employer-specific activity report. GitHub’s calendar markup is validated for every expected day so upstream changes or missing data fail rather than display misleading zeroes.
+
+### Service variables
+
 Copy the variable names from `.env.example`; keep values out of source control.
 
 | Variables                                                                                      | Purpose                                                                                                                                                   |

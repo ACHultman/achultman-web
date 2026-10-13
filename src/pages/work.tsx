@@ -17,7 +17,7 @@ export default function Work() {
             <PageSeo
                 title="Selected work"
                 path="/work"
-                description="Selected engineering work by Adam Hultman: reliability, performance, and mobile at Kopperfield; Delve, Parallax Studio, and Earbud at Perspective Labs."
+                description="Adam Hultman’s engineering ownership at Kopperfield spans product delivery, operations, infrastructure, reliability, and performance. Explore his work and independent projects."
             />
             <div className="page-container">
                 <PageIntro label="Work" title="Selected work.">

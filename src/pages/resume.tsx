@@ -20,7 +20,7 @@ export default function Resume() {
             <PageSeo
                 title="Résumé"
                 path="/resume"
-                description="Adam Hultman’s engineering experience in product development, applied AI, mobile, performance, and billing, with selected independent projects."
+                description="Adam Hultman’s experience as Kopperfield’s sole full-time engineer, with ownership of product delivery, engineering operations, infrastructure, and performance."
             />
             <div className="page-container reading-page resume-page">
                 <PageIntro label="Résumé" title="Adam Hultman">
@@ -64,7 +64,10 @@ export default function Resume() {
                             <span>{currentRole.dateRange}</span>
                         </p>
                         <p className="resume-context">
-                            Web and mobile software for electrical contractors.
+                            Sole full-time engineer, owning engineering
+                            operations, infrastructure, reliability, and
+                            performance. Report engineering progress and
+                            priorities in company meetings.
                         </p>
                         <ul className="resume-bullets">
                             {kopperfieldResumeHighlights.map((highlight) => (
@@ -96,9 +99,9 @@ export default function Resume() {
                                 EventBridge.
                             </li>
                             <li>
-                                Replaced engineer-managed URL redirects with a
-                                self-service workflow across WordPress, a Go
-                                API, and Express.
+                                Built URL redirect tools for content managers
+                                and engineers across WordPress, a Go API, and
+                                Express.
                             </li>
                         </ul>
                     </section>

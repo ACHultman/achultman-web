@@ -1,6 +1,10 @@
 import { PageSeo, TextLink } from '@components/Editorial';
 import { editorialFont } from '../styles/editorialFont';
 import Link from 'next/link';
+import type { GetStaticProps } from 'next';
+import GitHubActivity from '../components/GitHubActivity';
+import { fetchGitHubActivity } from '../services/github-activity';
+import type { GitHubActivity as Activity } from '../types/github-activity';
 
 const principles = [
     [
@@ -17,13 +21,13 @@ const principles = [
     ],
 ];
 
-export default function About() {
+export default function About({ activity }: { activity: Activity | null }) {
     return (
         <>
             <PageSeo
                 title="About"
                 path="/about"
-                description="Adam Hultman is a Vancouver software engineer working across product development, applied AI, mobile, and audio software at Kopperfield and Perspective Labs."
+                description="Adam Hultman is a Vancouver software engineer responsible for engineering operations and product delivery at Kopperfield, with independent work in AI and audio."
             />
             <div
                 className={`page-container about-page ${editorialFont.variable}`}
@@ -46,10 +50,18 @@ export default function About() {
                             both need careful thought.
                         </p>
                         <p>
-                            At Kopperfield, I lead web and mobile product work
-                            from investigation through release. My
-                            responsibilities span application reliability,
-                            performance, and subscription and billing workflows.
+                            I’m Kopperfield’s sole full-time engineer,
+                            responsible for the day-to-day health of
+                            engineering. That includes engineering operations,
+                            infrastructure, application reliability, and
+                            performance. I also build and ship web and mobile
+                            products, automate operational workflows, and own
+                            subscription and billing systems.
+                        </p>
+                        <p>
+                            I bring engineering updates and priorities into
+                            company meetings, connecting the technical work to
+                            what the business needs.
                         </p>
                         <p>
                             Through Perspective Labs Inc., I’m developing{' '}
@@ -73,6 +85,7 @@ export default function About() {
                         </p>
                     </div>
                 </section>
+                <GitHubActivity activity={activity} />
                 <section className="about-row" id="fit">
                     <h2>
                         How I approach
@@ -144,3 +157,22 @@ export default function About() {
         </>
     );
 }
+
+export const getStaticProps: GetStaticProps<{
+    activity: Activity | null;
+}> = async ({ revalidateReason }) => {
+    try {
+        return {
+            props: { activity: await fetchGitHubActivity() },
+            revalidate: 21_600,
+        };
+    } catch (error) {
+        // Failed regeneration keeps the last successful page and its real dates.
+        // A first build can still publish About, then retry after five minutes.
+        if (revalidateReason !== 'build') throw error;
+        console.warn(
+            'GitHub activity unavailable during the About page build.'
+        );
+        return { props: { activity: null }, revalidate: 300 };
+    }
+};
