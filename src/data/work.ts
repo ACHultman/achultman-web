@@ -1,5 +1,6 @@
 // Public employer copy stays at the level of role, ownership, and outcomes.
-// Keep internal metrics, incident details, program names, and architecture private.
+// Only explicitly approved aggregate metrics may be public; keep other internal
+// metrics, incident details, program names, and architecture private.
 export const professionalWork = {
     name: 'Kopperfield',
     role: 'Full Stack Engineer · July 2025–present',
@@ -32,7 +33,7 @@ export const kopperfieldAccomplishments = [
     {
         title: 'Improving application performance',
         body: 'I work on application responsiveness and backend performance, using measurement to identify bottlenecks and check whether a change improves the experience.',
-        resume: 'Optimized application responsiveness using measured frontend and backend performance.',
+        resume: 'Reduced a core dashboard API’s p75 response time by 88%.',
     },
     {
         title: 'Owning core business workflows',
