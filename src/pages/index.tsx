@@ -8,7 +8,6 @@ import { ContactClose, TextLink } from '@components/Editorial';
 import { independentWork, professionalWork } from '../data/work';
 import { editorialFont } from '../styles/editorialFont';
 import ProjectList from '@components/ProjectList';
-import WorkMetrics from '@components/WorkMetrics';
 
 export default function Index() {
     return (
@@ -79,7 +78,6 @@ export default function Index() {
                     Web <span aria-hidden="true">/</span> Mobile{' '}
                     <span aria-hidden="true">/</span> Backend
                 </p>
-                <WorkMetrics />
             </section>
             <section className="perspective-panel">
                 <div className="page-container perspective-inner">

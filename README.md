@@ -56,7 +56,7 @@ The six maintained tools live at `/tools`, with metadata in `src/data/toolPages.
 
 Professional content lives in `src/data/work.ts`; homepage article selections live in `src/data/writing.ts`. The résumé reuses `src/constants/timeline.ts`. Run `node scripts/export-resume.cjs` against a running local site to regenerate its tagged PDF.
 
-Independent project summaries and case studies live in `src/data/projects.ts` and render at `/work/[slug]`. The homepage, work page, résumé, and sitemap share that catalog. Keep implementation, prototype status, and measured results distinct. Career metrics use Adam’s supplied October 2026 audit; do not add internal tickets, customer details, or private source material to public copy. The résumé’s print layout uses two pages, with independent products and technical background on the second page.
+Independent project summaries and case studies live in `src/data/projects.ts` and render at `/work/[slug]`. The homepage, work page, résumé, and sitemap share that catalog. Keep implementation, prototype status, and measured results distinct. Keep employer copy at the level of role, ownership, and outcomes. Do not publish internal metrics, program names, incident details, architecture, or customer information. The résumé’s print layout uses two pages, with independent products and technical background on the second page.
 
 `src/data/published-writing/` contains public preview fixtures, not a second CMS. Their source text is preserved; decorative expiring media and some nested material were unavailable in the original public export.
 

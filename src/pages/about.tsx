@@ -46,12 +46,10 @@ export default function About() {
                             both need careful thought.
                         </p>
                         <p>
-                            At Kopperfield, I’ve led work on preserving offline
-                            field data, improved production API performance,
-                            built regression tools for electrical calculations,
-                            and helped take a mobile photo product through
-                            launch. I also own subscription and billing
-                            workflows.
+                            At Kopperfield, I lead web and mobile product work
+                            from investigation through release. My
+                            responsibilities span application reliability,
+                            performance, and subscription and billing workflows.
                         </p>
                         <p>
                             Through Perspective Labs Inc., I’m developing{' '}

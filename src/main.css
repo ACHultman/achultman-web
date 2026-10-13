@@ -1921,37 +1921,7 @@ a {
     line-height: 1.35;
 }
 
-/* Portfolio: measured work and independent products share a quiet editorial grid. */
-.work-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px;
-    margin-top: 36px;
-    padding-top: 28px;
-    border-top: 1px solid var(--site-rule);
-    font-variant-numeric: tabular-nums;
-}
-.work-metrics dt {
-    color: var(--site-muted);
-    font-size: 0.8125rem;
-}
-.work-metrics dd strong {
-    display: block;
-    margin-block: 10px;
-    color: var(--site-ink);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 500;
-    letter-spacing: -0.045em;
-    line-height: 1.3;
-}
-.work-metrics dd > span {
-    display: block;
-    max-width: 30ch;
-    color: var(--site-muted);
-    font-size: 0.8125rem;
-    line-height: 1.6;
-}
-.work-section > .work-metrics,
+/* Portfolio: professional work and independent products. */
 .work-section > .work-stories,
 .work-section > .project-list {
     grid-column: 1 / -1;
@@ -2148,13 +2118,9 @@ a {
     display: none;
 }
 @media (max-width: 767px) {
-    .work-metrics,
     .work-stories {
         grid-template-columns: 1fr;
         gap: 26px;
-    }
-    .work-metrics dd > span {
-        max-width: 50ch;
     }
     .project-row {
         grid-template-columns: 24px minmax(0, 1fr);

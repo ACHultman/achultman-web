@@ -10,7 +10,6 @@ import {
     professionalWork,
 } from '../data/work';
 import ProjectList from '@components/ProjectList';
-import WorkMetrics from '@components/WorkMetrics';
 
 export default function Work() {
     return (
@@ -50,7 +49,6 @@ export default function Work() {
                             Read about our development process
                         </TextLink>
                     </div>
-                    <WorkMetrics />
                     <div className="work-stories">
                         {kopperfieldAccomplishments.map((item) => (
                             <article key={item.title}>
