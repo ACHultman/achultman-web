@@ -9,7 +9,7 @@ test('primary navigation and work anchors lead to complete pages', async ({
     for (const id of ['kopperfield', 'perspective-labs', 'earlier-work']) {
         await expect(page.locator(`#${id}`)).toBeAttached();
     }
-    for (const name of ['Delve', 'Parallax Studio', 'Earbud']) {
+    for (const name of ['Before Offer', 'Parallax Studio', 'Earbud']) {
         await expect(
             page.getByRole('heading', { name, exact: true })
         ).toBeVisible();
@@ -84,7 +84,7 @@ test('featured projects lead to complete case studies and back to selected work'
     page,
 }) => {
     for (const [name, slug] of [
-        ['Delve', 'property-intelligence'],
+        ['Before Offer', 'property-intelligence'],
         ['Parallax Studio', 'parallax-studio'],
         ['Earbud', 'earbud'],
     ] as const) {

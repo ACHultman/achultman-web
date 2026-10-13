@@ -20,9 +20,9 @@ export interface Project {
 export const projects: Project[] = [
     {
         slug: 'property-intelligence',
-        name: 'Delve',
+        name: 'Before Offer',
         discipline: 'Property intelligence',
-        status: 'In development · working name',
+        status: 'In development',
         description:
             'Making property listings and strata documents easier to investigate, with structured reports, calculations, and evidence behind the findings.',
         role: 'Independent product development',
@@ -56,7 +56,7 @@ export const projects: Project[] = [
             },
         ],
         currentState:
-            'A prototype with listing extraction, scoring, report storage, and AI-assisted document analysis. I’m developing and evaluating the reporting workflow. Delve is a working name.',
+            'A prototype with listing extraction, scoring, report storage, and AI-assisted document analysis. I’m developing and evaluating the reporting workflow.',
         nextStep:
             'Evaluate representative listings and full document sets against manually reviewed findings, then test a focused reporting workflow with prospective users.',
         resume: 'Built listing and strata-PDF analysis with Next.js and PostgreSQL, combining deterministic risk scoring and financial calculations with AI summaries and source evidence.',
