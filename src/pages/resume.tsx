@@ -51,9 +51,13 @@ export default function Resume() {
                         <a href="https://hultman.dev/contact">
                             hultman.dev/contact
                         </a>{' '}
-                        · <a href="https://github.com/ACHultman">GitHub</a> ·{' '}
+                        ·{' '}
+                        <a href="https://github.com/ACHultman">
+                            github.com/ACHultman
+                        </a>{' '}
+                        ·{' '}
                         <a href="https://www.linkedin.com/in/adam-hultman/">
-                            LinkedIn
+                            linkedin.com/in/adam-hultman
                         </a>
                     </p>
                     <h2>Experience</h2>
@@ -95,7 +99,7 @@ export default function Resume() {
                         ))}
                     </section>
                     <section className="resume-projects">
-                        <h2>Independent products</h2>
+                        <h2>Projects</h2>
                         <h3>Perspective Labs Inc.</h3>
                         <p>
                             Independent products in development or at prototype

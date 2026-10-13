@@ -2095,6 +2095,14 @@ a {
     padding-left: 1.25em;
     margin-top: 20px;
 }
+.resume-page .prose,
+.resume-page .intro-copy,
+.resume-page .resume-meta {
+    color: var(--site-ink);
+}
+.resume-page :is(h2, h3) {
+    font-weight: 650;
+}
 .resume-bullets li + li {
     margin-top: 14px;
 }
@@ -2149,6 +2157,10 @@ a {
 }
 @media print {
     .resume-page {
+        --site-ink: #111;
+        --site-muted: #111;
+        --site-rule: #b8b8b8;
+        color: var(--site-ink);
         font-size: 10.5pt;
         line-height: 1.38;
     }
@@ -2157,12 +2169,14 @@ a {
     }
     .resume-page .page-intro h1 {
         font-size: 28pt;
+        font-weight: 600;
     }
     .resume-page .intro-copy {
         margin-top: 6px;
     }
     .site-shell .resume-page h2 {
         font-size: 12pt;
+        font-weight: 700;
         margin-block: 13px 5px;
     }
     .site-shell .resume-page h3 {
