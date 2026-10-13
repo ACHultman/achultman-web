@@ -7,13 +7,13 @@ const config: NextSeoProps = {
     titleTemplate: '%s | Adam Hultman',
     defaultTitle: 'Adam Hultman | Software Engineer in Vancouver',
     description:
-        'Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI.',
+        'Adam Hultman builds web and mobile software at Kopperfield, and independent products in property intelligence, AI video, and audio through Perspective Labs.',
     canonical: baseUrl,
     openGraph: {
         url: baseUrl,
         title: 'Adam Hultman | Software Engineer in Vancouver',
         description:
-            'Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI.',
+            'Adam Hultman builds web and mobile software at Kopperfield, and independent products in property intelligence, AI video, and audio through Perspective Labs.',
         siteName: 'Adam Hultman',
         images: [
             {

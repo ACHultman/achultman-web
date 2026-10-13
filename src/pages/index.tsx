@@ -7,6 +7,7 @@ import { featuredWriting } from '../data/writing';
 import { ContactClose, TextLink } from '@components/Editorial';
 import { independentWork, professionalWork } from '../data/work';
 import { editorialFont } from '../styles/editorialFont';
+import ProjectList from '@components/ProjectList';
 
 export default function Index() {
     return (
@@ -14,7 +15,7 @@ export default function Index() {
             <NextSeo
                 title="Adam Hultman | Software Engineer in Vancouver"
                 titleTemplate="%s"
-                description="Adam Hultman is a software engineer in Vancouver. Explore his work, independent products, and articles on React, Next.js, performance, and applied AI."
+                description="Adam Hultman builds web and mobile software at Kopperfield, and independent products in property intelligence, AI video, and audio through Perspective Labs."
                 canonical="https://hultman.dev"
             />
             <JsonLd />
@@ -29,13 +30,14 @@ export default function Index() {
                 </header>
                 <div className="hero-copy">
                     <p className="hero-description">
-                        I build web and mobile tools for electrical contractors
-                        at <Link href="/work#kopperfield">Kopperfield</Link>. I
-                        also run{' '}
+                        I build dependable products and creative tools. At{' '}
+                        <Link href="/work#kopperfield">Kopperfield</Link>, I
+                        work across web, mobile, and backend systems. Through{' '}
                         <Link href="/work#perspective-labs">
                             Perspective Labs Inc.
                         </Link>
-                        , where I’m developing independent software products.
+                        , I’m developing property intelligence, AI video, and
+                        audio software.
                     </p>
                     <div className="hero-actions">
                         <TextLink href="/work" className="button-primary">
@@ -98,6 +100,7 @@ export default function Index() {
                             </TextLink>
                         </div>
                     </div>
+                    <ProjectList />
                 </div>
             </section>
             <section className="page-container">

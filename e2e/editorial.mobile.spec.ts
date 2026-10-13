@@ -38,7 +38,7 @@ test('navigation stays reachable without moving the page and closes on outside t
 test('phone layouts and enlarged text reflow across core pages', async ({
     page,
 }) => {
-    test.setTimeout(60000);
+    test.setTimeout(90000);
     for (const [width, height, scale] of [
         [320, 740, 100],
         [430, 932, 100],
@@ -49,6 +49,9 @@ test('phone layouts and enlarged text reflow across core pages', async ({
         for (const path of [
             '/',
             '/work',
+            '/work/property-intelligence',
+            '/work/parallax-studio',
+            '/work/earbud',
             '/about',
             '/blog',
             '/contact',

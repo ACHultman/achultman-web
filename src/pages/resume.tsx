@@ -1,11 +1,22 @@
 import { PageIntro, PageSeo, TextLink } from '@components/Editorial';
 import { TIMELINE } from '../constants/timeline';
 import { FiDownload } from 'react-icons/fi';
+import { kopperfieldAccomplishments } from '../data/work';
+import { projects } from '../data/projects';
+import Link from 'next/link';
 
 const roles = Object.entries(TIMELINE)
     .sort(([a], [b]) => Number(b) - Number(a))
     .flatMap(([, entries]) => entries)
     .filter((entry) => !entry.subtitle.includes('degree'));
+const currentRole = roles.find((role) => role.org.title === 'Kopperfield')!;
+const assemblyRole = roles.find(
+    (role) => role.org.title === 'Assembly Digital Media'
+)!;
+const earlierRoles = roles.filter(
+    (role) =>
+        !['Kopperfield', 'Assembly Digital Media'].includes(role.org.title)
+);
 
 export default function Resume() {
     return (
@@ -13,11 +24,11 @@ export default function Resume() {
             <PageSeo
                 title="Résumé"
                 path="/resume"
-                description="Adam Hultman’s software development experience, education, and technical background."
+                description="Adam Hultman’s engineering experience in product development, applied AI, mobile, performance, and billing, with selected independent projects."
             />
             <div className="page-container reading-page resume-page">
                 <PageIntro label="Résumé" title="Adam Hultman">
-                    Software developer · Vancouver, BC
+                    Full-stack software engineer · Vancouver, BC
                 </PageIntro>
                 <div className="resume-toolbar">
                     <a
@@ -37,9 +48,10 @@ export default function Resume() {
                 </div>
                 <div className="prose">
                     <p>
-                        I build software at Kopperfield and develop independent
-                        products through Perspective Labs Inc. My work spans
-                        web, mobile, backend systems, and applied AI.
+                        Product engineering across web, mobile, and backend
+                        systems, with ownership of reliability, performance,
+                        calculation correctness, and billing. Independent work
+                        in applied AI and C++ audio software.
                     </p>
                     <p>
                         <a href="https://hultman.dev/contact">
@@ -51,41 +63,82 @@ export default function Resume() {
                         </a>
                     </p>
                     <h2>Experience</h2>
-                    <div className="career-timeline">
-                        {roles.map((role) => (
+                    <section className="resume-item resume-current-role">
+                        <h3>{currentRole.org.title}</h3>
+                        <p className="resume-meta">
+                            <span>{currentRole.subtitle}</span>
+                            <span>{currentRole.dateRange}</span>
+                        </p>
+                        <ul className="resume-bullets">
+                            {kopperfieldAccomplishments.map((item) => (
+                                <li key={item.title}>{item.resume}</li>
+                            ))}
+                        </ul>
+                    </section>
+                    <section className="resume-item">
+                        <h3>{assemblyRole.org.title}</h3>
+                        <p className="resume-meta">
+                            <span>{assemblyRole.subtitle}</span>
+                            <span>{assemblyRole.dateRange}</span>
+                        </p>
+                        <p>
+                            Built publishing tools and automation across
+                            WordPress, AWS, and AI-assisted editorial workflows.
+                        </p>
+                        <p className="resume-earlier">
+                            Earlier at Assembly: part-time developer, May–August
+                            2022; full-stack co-op, September–December 2021.
+                        </p>
+                    </section>
+                    <section className="resume-item">
+                        <h3>Earlier engineering experience</h3>
+                        {earlierRoles.map((role) => (
+                            <p className="resume-earlier" key={role.org.title}>
+                                <strong>{role.org.title}</strong> ·{' '}
+                                {role.subtitle}
+                                <br />
+                                {role.dateRange}
+                            </p>
+                        ))}
+                    </section>
+                    <section className="resume-projects">
+                        <p className="resume-continuation" aria-hidden="true">
+                            Adam Hultman · Selected projects & technical
+                            background
+                        </p>
+                        <h2>Independent products</h2>
+                        <h3>Perspective Labs Inc.</h3>
+                        <p>
+                            Product development across applied AI, property
+                            intelligence, and audio. These projects are in
+                            development or at prototype stage.
+                        </p>
+                        {projects.map((project) => (
                             <section
-                                className="resume-item"
-                                key={role.dateRange}
+                                className="resume-project"
+                                key={project.slug}
                             >
-                                <h3>{role.org.title}</h3>
-                                <p className="resume-meta">
-                                    <span>{role.subtitle}</span>
-                                    <span>{role.dateRange}</span>
+                                <h3>
+                                    <Link
+                                        href={`https://hultman.dev/work/${project.slug}`}
+                                    >
+                                        {project.name}
+                                    </Link>
+                                </h3>
+                                <p className="resume-meta">{project.status}</p>
+                                <p>{project.resume}</p>
+                                <p className="technology-line">
+                                    {project.technologies.join(' · ')}
                                 </p>
-                                {role.org.title === 'Kopperfield' && (
-                                    <p>
-                                        Web, mobile, and backend product
-                                        development for electrical contractors.
-                                    </p>
-                                )}
-                                {role.org.title === 'Assembly Digital Media' &&
-                                    role.dateRange.startsWith(
-                                        'September 2022'
-                                    ) && (
-                                        <p>
-                                            Publishing tools and automation
-                                            across WordPress, AWS, and
-                                            AI-assisted editorial workflows.
-                                        </p>
-                                    )}
                             </section>
                         ))}
-                    </div>
-                    <h2>Independent work</h2>
-                    <h3>Perspective Labs Inc.</h3>
+                    </section>
+                    <h2>Technical skills</h2>
                     <p>
-                        Developing early-stage independent software products and
-                        exploring new business ideas.
+                        TypeScript, React, Next.js, Python, Django, React
+                        Native, GraphQL, PostgreSQL, AWS, Stripe, automated
+                        testing, AI integrations, asynchronous job processing,
+                        C++, JUCE.
                     </p>
                     <h2>Education</h2>
                     <h3>University of Victoria</h3>
@@ -93,12 +146,6 @@ export default function Resume() {
                         Bachelor of Software Engineering · August 2022
                         <br />
                         Specialization in cybersecurity and privacy.
-                    </p>
-                    <h2>Technical work</h2>
-                    <p>
-                        TypeScript, React, Next.js, Python, Django, React
-                        Native, GraphQL, PostgreSQL, AWS, automated testing, and
-                        applied AI workflows.
                     </p>
                     <div className="inline-actions">
                         <TextLink href="/work">Selected work</TextLink>

@@ -35,13 +35,17 @@ const personSchema = {
         'Cybersecurity',
         'AWS',
         'Golang',
+        'React Native',
+        'Python',
+        'C++',
+        'Digital Signal Processing',
     ],
     alumniOf: {
         '@type': 'EducationalOrganization',
         name: 'University of Victoria',
     },
     description:
-        'Adam Hultman builds software at Kopperfield and develops independent products through Perspective Labs Inc.',
+        'Adam Hultman builds web, mobile, and backend software at Kopperfield, and independent products in property intelligence, AI video, and audio through Perspective Labs Inc.',
 };
 
 const websiteSchema = {
@@ -50,7 +54,7 @@ const websiteSchema = {
     name: 'Adam Hultman',
     url: SITE_URL,
     description:
-        'The portfolio of Adam Hultman, a software engineer in Vancouver building web products and AI features.',
+        'The portfolio of Adam Hultman, a Vancouver software engineer working across product development, applied AI, mobile, and audio software.',
     author: {
         '@type': 'Person',
         '@id': `${SITE_URL}/#person`,

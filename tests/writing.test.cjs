@@ -314,6 +314,7 @@ test('sitemap and RSS expose the full collection, valid XML, and retryable failu
                 '../utils/baseUrl': { getBaseUrl },
                 '../utils/xml': { escapeXml },
                 '../data/toolPages': load('src/data/toolPages.ts', {}),
+                '../data/projects': load('src/data/projects.ts', {}),
             });
             const res = response();
             res.write = (body) => {
@@ -330,6 +331,17 @@ test('sitemap and RSS expose the full collection, valid XML, and retryable failu
                 assert.ok(res.body.includes('/blog/react&amp;type'));
                 assert.ok(!res.body.includes('localhost'));
                 if (file.endsWith('sitemap.xml.tsx')) {
+                    for (const slug of [
+                        'property-intelligence',
+                        'parallax-studio',
+                        'earbud',
+                    ]) {
+                        assert.ok(
+                            res.body.includes(
+                                `https://hultman.dev/work/${slug}`
+                            )
+                        );
+                    }
                     for (const collection of ['blog', 'books', 'bookmarks']) {
                         assert.ok(
                             res.body.includes(

@@ -1920,6 +1920,281 @@ a {
     font-weight: 600;
     line-height: 1.35;
 }
+
+/* Portfolio: professional work and independent products. */
+.work-section > .work-stories,
+.work-section > .project-list {
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+.work-section:has(.work-stories),
+.work-section:has(.project-list) {
+    row-gap: 36px;
+}
+.work-stories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 64px;
+}
+.work-stories h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+.work-stories p {
+    color: var(--site-muted);
+    line-height: 1.75;
+}
+.project-list {
+    margin-top: 48px;
+}
+.project-row {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
+    padding-block: 34px;
+    border-top: 1px solid var(--site-rule);
+}
+.project-index {
+    color: var(--site-muted);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    padding-top: 4px;
+}
+.project-row h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 450;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    margin-top: 12px;
+}
+.project-status {
+    color: var(--site-muted);
+    font-size: 0.8125rem;
+    margin-top: 16px;
+    line-height: 1.6;
+}
+.project-row-copy p {
+    color: var(--site-muted);
+    max-width: 55ch;
+}
+.project-row-copy .text-link {
+    margin-top: 18px;
+}
+.perspective-panel {
+    --site-ink: #f5f4ef;
+    --site-muted: #bbcbc0;
+    --site-accent: #bdcbaa;
+    --site-rule: #52675d;
+}
+.project-page .page-intro > .text-link {
+    margin-bottom: 32px;
+}
+.project-page .page-intro .intro-copy {
+    max-width: 740px;
+}
+.project-flow {
+    border: 1px solid var(--site-rule);
+    padding: 32px;
+    background: color-mix(in srgb, var(--site-accent) 5%, var(--site-bg));
+}
+.project-flow figcaption {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--site-muted);
+    font-size: 0.8125rem;
+}
+.project-flow ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 48px;
+}
+.project-flow li {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-top: 2px solid var(--site-accent);
+    padding-top: 18px;
+}
+.flow-number {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--site-muted);
+}
+.project-flow strong {
+    font-family: var(--font-editorial), Georgia, serif;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+    margin-block: 20px 10px;
+}
+.project-flow li > span:last-child {
+    color: var(--site-muted);
+    font-size: 0.9375rem;
+}
+.project-story {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.5fr);
+    gap: 100px;
+    padding-block: 64px;
+}
+.project-facts dl > div + div {
+    margin-top: 28px;
+}
+.project-facts dt {
+    color: var(--site-muted);
+    font-size: 0.8125rem;
+    margin-bottom: 8px;
+}
+.project-facts dd {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+}
+.project-facts > .text-link {
+    margin-top: 24px;
+}
+.project-narrative section + section {
+    margin-top: 36px;
+}
+.site-shell .project-narrative h2 {
+    font-size: 1.625rem;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+    margin-bottom: 16px;
+}
+.project-narrative p {
+    color: var(--site-muted);
+    line-height: 1.8;
+    max-width: 65ch;
+}
+.project-stage {
+    border-top: 1px solid var(--site-rule);
+    padding-top: 32px;
+}
+.project-stage h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-block: 24px 8px;
+}
+.related-projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px 40px;
+    border-top: 1px solid var(--site-rule);
+    padding-block: 24px;
+}
+.resume-bullets {
+    list-style: disc;
+    padding-left: 1.25em;
+    margin-top: 20px;
+}
+.resume-bullets li + li {
+    margin-top: 14px;
+}
+.resume-project {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--site-rule);
+}
+.resume-project p {
+    margin-top: 12px;
+}
+.resume-project .resume-meta {
+    color: var(--site-muted);
+    font-size: 0.875rem;
+    margin-top: 6px;
+}
+.resume-earlier {
+    font-size: 0.9375rem;
+}
+.resume-continuation {
+    display: none;
+}
+@media (max-width: 767px) {
+    .work-stories {
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
+    .project-row {
+        grid-template-columns: 24px minmax(0, 1fr);
+        gap: 16px;
+        padding-block: 28px;
+    }
+    .project-row-copy {
+        grid-column: 2;
+    }
+    .project-list {
+        margin-top: 32px;
+    }
+    .project-flow {
+        padding: 24px;
+    }
+    .project-flow ol {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 28px;
+    }
+    .project-flow strong {
+        margin-top: 12px;
+    }
+    .project-story {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding-block: 40px;
+    }
+}
+@media print {
+    .resume-page .page-intro {
+        padding-bottom: 12px;
+    }
+    .site-shell .resume-page h2 {
+        font-size: 14pt;
+        margin-block: 18px 8px;
+    }
+    .site-shell .resume-page h3 {
+        font-size: 11pt;
+    }
+    .resume-page .resume-item {
+        padding-block: 10px;
+    }
+    .resume-page .resume-item p {
+        margin-top: 6px;
+    }
+    .resume-bullets {
+        margin-top: 10px;
+    }
+    .resume-bullets li + li {
+        margin-top: 7px;
+    }
+    .resume-page .resume-earlier,
+    .resume-project .resume-meta,
+    .resume-project .technology-line {
+        font-size: 9pt;
+    }
+    .resume-projects {
+        break-before: page;
+    }
+    .resume-continuation {
+        display: block;
+        font-size: 9pt;
+        color: var(--site-muted);
+    }
+    .resume-project {
+        break-inside: avoid;
+        margin-top: 16px;
+        padding-top: 12px;
+    }
+    .resume-project p {
+        margin-top: 6px;
+    }
+}
 .regex-tool section {
     max-width: 48rem;
 }

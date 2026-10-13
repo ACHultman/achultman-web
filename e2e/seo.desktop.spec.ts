@@ -8,7 +8,7 @@ const toolPaths = readdirSync(path.join(process.cwd(), 'src/pages/tools'))
     .filter((file) => file.endsWith('.tsx') && file !== 'index.tsx')
     .map((file) => `/tools/${file.replace(/\.tsx$/, '')}`);
 
-test('consulting and every tool have page-specific server HTML and correct indexing', async ({
+test('projects, consulting, and every tool have page-specific server HTML and correct indexing', async ({
     page,
     request,
 }) => {
@@ -19,6 +19,9 @@ test('consulting and every tool have page-specific server HTML and correct index
     const titles = new Set<string>();
 
     for (const route of [
+        '/work/property-intelligence',
+        '/work/parallax-studio',
+        '/work/earbud',
         '/consulting',
         '/workflow-automation-roi-calculator',
         ...toolPaths,
