@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { FiArrowUpRight, FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
 import { useSiteColorMode } from '../../hooks/useSiteColorMode';
 import { captureLeadIntent } from '../../lib/analytics';
+import { LogoMark } from '../Logo';
 
 const links = [
     { name: 'Work', href: '/work' },
@@ -96,6 +97,7 @@ export default function Navbar() {
                     className="wordmark"
                     aria-label="Adam Hultman home"
                 >
+                    <LogoMark />
                     Adam Hultman<span aria-hidden="true">.</span>
                 </Link>
                 <nav className="desktop-nav" aria-label="Main navigation">

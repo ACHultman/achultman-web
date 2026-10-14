@@ -20,7 +20,7 @@ export interface Project {
 export const projects: Project[] = [
     {
         slug: 'property-intelligence',
-        name: 'Before Offer',
+        name: 'Tenurel',
         discipline: 'Property intelligence',
         status: 'In development',
         description:

@@ -1,0 +1,122 @@
+.preview {
+    overflow: hidden;
+    border: 1px solid var(--site-rule);
+    border-radius: 4px;
+}
+.preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.preview figcaption {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    padding: 12px 16px;
+    color: var(--site-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+.performance {
+    padding: 28px 36px;
+    border-left: 1px solid var(--site-rule);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+}
+.metric {
+    color: var(--site-accent);
+    font-size: clamp(4rem, 6.5vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-variant-numeric: tabular-nums;
+}
+.metric span {
+    font-size: 0.5em;
+    margin-left: 4px;
+}
+.performance figcaption {
+    color: var(--site-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+.comparison {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 12px;
+}
+.comparison > div {
+    display: grid;
+    grid-template-columns: 50px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    color: var(--site-muted);
+    font-size: 0.75rem;
+}
+.comparison i {
+    display: block;
+    height: 7px;
+    background: var(--site-rule);
+}
+.comparison > div:last-child i {
+    width: 12%;
+    background: var(--site-accent);
+}
+.publishing {
+    grid-column: 1 / -1;
+    border: 1px solid var(--site-rule);
+    padding: 32px;
+}
+.publishing ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 28px;
+}
+.publishing li {
+    position: relative;
+    border-top: 1px solid var(--site-accent);
+    padding-top: 14px;
+}
+.publishing li:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -24px;
+    top: -16px;
+    color: var(--site-accent);
+}
+.publishing li > span {
+    color: var(--site-muted);
+    font-size: 0.75rem;
+}
+.publishing strong {
+    display: block;
+    margin-top: 12px;
+    font-size: 1.75rem;
+    font-weight: 450;
+    letter-spacing: -0.04em;
+}
+.publishing p {
+    margin-top: 4px;
+    color: var(--site-muted);
+    font-size: 0.875rem;
+}
+@media (max-width: 767px) {
+    .performance {
+        border-left: 0;
+        border-top: 1px solid var(--site-rule);
+        padding: 28px 0 0;
+    }
+    .publishing {
+        padding: 24px;
+    }
+    .publishing ol {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .publishing li:not(:last-child)::after {
+        content: none;
+    }
+}

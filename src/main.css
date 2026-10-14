@@ -303,8 +303,20 @@ a {
     letter-spacing: -0.065em;
     white-space: nowrap;
 }
+.personal-mark {
+    display: block;
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    border-radius: 3px;
+}
 .wordmark span {
     color: var(--site-accent);
+}
+.site-header .wordmark {
+    max-width: 100%;
+    white-space: normal;
 }
 .desktop-nav {
     display: flex;
@@ -462,6 +474,7 @@ a {
     grid-template-columns: 1fr 1fr;
     gap: 80px;
     margin-top: 25px;
+    align-items: start;
 }
 .professional-body h2 {
     font-size: 2.5rem;
@@ -472,15 +485,6 @@ a {
 }
 .professional-body .text-link {
     margin-top: 19px;
-}
-.work-disciplines {
-    margin-top: 28px;
-    font-size: 0.875rem;
-    color: var(--site-muted);
-}
-.work-disciplines span {
-    margin-inline: 18px;
-    color: var(--site-muted);
 }
 .perspective-panel {
     background: #182d28;
@@ -511,15 +515,6 @@ a {
 .perspective-heading > div > p:first-child {
     color: #bbcbc0;
     max-width: 510px;
-}
-.perspective-heading .stage-label {
-    margin-top: 24px;
-    font-size: 0.875rem;
-    color: #bbcbc0;
-}
-.perspective-heading .text-link {
-    margin-top: 17px;
-    color: #f5f4ef;
 }
 .perspective-panel a:focus-visible {
     outline-color: #bbcbc0;
@@ -1033,9 +1028,6 @@ a {
     .professional-body h2 br {
         display: none;
     }
-    .work-disciplines {
-        margin-top: 24px;
-    }
     .perspective-inner {
         padding-block: 42px 46px;
     }
@@ -1044,9 +1036,6 @@ a {
     }
     .site-shell .perspective-heading h2 {
         font-size: clamp(2.75rem, 10vw + 0.5rem, 4rem);
-    }
-    .perspective-heading .stage-label {
-        margin-top: 22px;
     }
 
     .writing-preview {
@@ -1310,6 +1299,12 @@ a {
         min-height: 72px;
         height: auto;
         padding-block: 12px;
+        gap: 16px;
+    }
+    .site-header .personal-mark {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
     }
     .wordmark {
         font-size: 1.25rem;
@@ -1392,14 +1387,9 @@ a {
     white-space: normal;
 }
 .footer-wordmark .personal-mark {
+    width: 28px;
+    height: 28px;
     margin-right: 14px;
-    flex-shrink: 0;
-    color: var(--site-accent);
-    transition: transform 240ms ease;
-}
-.footer-wordmark:hover .personal-mark,
-.footer-wordmark:focus-visible .personal-mark {
-    transform: rotate(60deg);
 }
 .nav-appearance {
     align-self: flex-end;
@@ -1922,45 +1912,59 @@ a {
 }
 
 /* Portfolio: professional work and independent products. */
-.work-section > .work-stories,
+.work-section > .work-highlights,
 .work-section > .project-list {
     grid-column: 1 / -1;
     margin-top: 0;
 }
-.work-section:has(.work-stories),
-.work-section:has(.project-list) {
+.work-section:has(.work-highlights),
+.work-section:has(.project-list),
+.work-section:has(> figure) {
     row-gap: 36px;
 }
-.work-stories {
+.work-highlights {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 36px 64px;
+    align-items: center;
 }
-.work-stories h3 {
+.work-highlights > figure {
+    border-left: 0;
+    padding-left: 0;
+}
+.work-outcomes {
+    border-left: 1px solid var(--site-rule);
+    padding-left: 36px;
+}
+.work-outcomes article + article {
+    margin-top: 26px;
+}
+.work-outcomes h3 {
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.4;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
-.work-stories p {
+.work-outcomes p {
     color: var(--site-muted);
-    line-height: 1.75;
+    font-size: 1.0625rem;
 }
 .project-list {
     margin-top: 48px;
 }
 .project-row {
     display: grid;
-    grid-template-columns: 40px minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 28px;
-    padding-block: 34px;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    align-items: center;
+    gap: 64px;
+    padding-block: 36px;
     border-top: 1px solid var(--site-rule);
 }
 .project-index {
     color: var(--site-muted);
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
-    padding-top: 4px;
+    margin-right: 8px;
 }
 .project-row h3 {
     font-size: clamp(1.5rem, 3vw, 2rem);
@@ -1979,8 +1983,16 @@ a {
     color: var(--site-muted);
     max-width: 55ch;
 }
-.project-row-copy .text-link {
+.project-row-copy .project-summary {
     margin-top: 18px;
+    max-width: 36ch;
+    font-size: 1.0625rem;
+}
+.project-row .project-status {
+    margin-top: 14px;
+}
+.project-row-copy .text-link {
+    margin-top: 14px;
 }
 .perspective-panel {
     --site-ink: #f5f4ef;
@@ -2128,17 +2140,18 @@ a {
     margin-top: 6px;
 }
 @media (max-width: 767px) {
-    .work-stories {
+    .work-highlights {
         grid-template-columns: 1fr;
         gap: 26px;
     }
-    .project-row {
-        grid-template-columns: 24px minmax(0, 1fr);
-        gap: 16px;
-        padding-block: 28px;
+    .work-outcomes {
+        border-left: 0;
+        padding-left: 0;
     }
-    .project-row-copy {
-        grid-column: 2;
+    .project-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        padding-block: 28px;
     }
     .project-list {
         margin-top: 32px;

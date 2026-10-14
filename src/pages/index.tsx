@@ -5,7 +5,6 @@ import JsonLd from '@components/JsonLd';
 import ArticleList from '@components/ArticleList';
 import { featuredWriting } from '../data/writing';
 import { ContactClose, TextLink } from '@components/Editorial';
-import { independentWork, professionalWork } from '../data/work';
 import { editorialFont } from '../styles/editorialFont';
 import ProjectList from '@components/ProjectList';
 
@@ -30,14 +29,9 @@ export default function Index() {
                 </header>
                 <div className="hero-copy">
                     <p className="hero-description">
-                        I build dependable products and creative tools. At{' '}
-                        <Link href="/work#kopperfield">Kopperfield</Link>, I
-                        work across web, mobile, and backend systems. Through{' '}
-                        <Link href="/work#perspective-labs">
-                            Perspective Labs Inc.
-                        </Link>
-                        , I’m developing property intelligence, AI video, and
-                        audio software.
+                        I build dependable software and creative tools, from the
+                        first working prototype to the details that make a
+                        product worth using.
                     </p>
                     <div className="hero-actions">
                         <TextLink href="/work" className="button-primary">
@@ -63,21 +57,18 @@ export default function Index() {
             <section id="work" className="professional-preview page-container">
                 <p className="eyebrow">Professional work</p>
                 <div className="professional-body">
-                    <h2>
-                        Building at <br />
-                        Kopperfield
-                    </h2>
+                    <h2>Building at Kopperfield</h2>
                     <div>
-                        <p>{professionalWork.summary}</p>
+                        <p>
+                            I build web and mobile software for electrical
+                            contractors as Kopperfield’s sole full-time
+                            engineer.
+                        </p>
                         <TextLink href="/work#kopperfield">
                             A look at my work
                         </TextLink>
                     </div>
                 </div>
-                <p className="work-disciplines">
-                    Web <span aria-hidden="true">/</span> Mobile{' '}
-                    <span aria-hidden="true">/</span> Backend
-                </p>
             </section>
             <section className="perspective-panel">
                 <div className="page-container perspective-inner">
@@ -91,13 +82,7 @@ export default function Index() {
                             </h2>
                         </div>
                         <div>
-                            <p>{independentWork.summary}</p>
-                            <p className="stage-label">
-                                Products in development
-                            </p>
-                            <TextLink href="/work#perspective-labs">
-                                Explore the current work
-                            </TextLink>
+                            <p>Independent products, taking shape.</p>
                         </div>
                     </div>
                     <ProjectList />
@@ -109,20 +94,17 @@ export default function Index() {
                         <p className="eyebrow">Writing</p>
                         <h2>Working notes</h2>
                         <p>
-                            Notes on{' '}
                             <Link href="/blog#ai-development">
                                 AI-assisted development
                             </Link>
-                            ,{' '}
+                            {' · '}
                             <Link href="/blog#react-nextjs">
                                 React and Next.js
                             </Link>
-                            ,
-                            <br className="desktop-break" /> and{' '}
+                            {' · '}
                             <Link href="/blog#performance-and-systems">
-                                performance, architecture, and security
+                                Systems
                             </Link>
-                            .
                         </p>
                     </div>
                     <TextLink href="/blog">All writing</TextLink>
