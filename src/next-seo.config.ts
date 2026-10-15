@@ -37,34 +37,34 @@ const config: NextSeoProps = {
     additionalLinkTags: [
         {
             rel: 'manifest',
-            href: '/site.webmanifest',
+            href: '/site.webmanifest?v=ah-monogram',
             crossOrigin: 'use-credentials',
         },
         {
             rel: 'apple-touch-icon',
             sizes: '180x180',
-            href: '/apple-touch-icon.png',
+            href: '/apple-touch-icon.png?v=ah-monogram',
         },
         {
             rel: 'mask-icon',
-            href: '/safari-pinned-tab.svg',
+            href: '/safari-pinned-tab.svg?v=ah-monogram',
             color: '#182D28',
         },
         {
             rel: 'icon',
-            href: '/favicon-32x32.png',
+            href: '/favicon-32x32.png?v=ah-monogram',
             type: 'image/png',
             sizes: '32x32',
         },
         {
             rel: 'icon',
-            href: '/favicon-16x16.png',
+            href: '/favicon-16x16.png?v=ah-monogram',
             type: 'image/png',
             sizes: '16x16',
         },
         {
             rel: 'icon',
-            href: '/favicon.svg',
+            href: '/favicon.svg?v=ah-monogram',
             type: 'image/svg+xml',
             sizes: 'any',
         },
