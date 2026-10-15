@@ -4,12 +4,12 @@ import {
     PageSeo,
     TextLink,
 } from '@components/Editorial';
-import {
-    independentWork,
-    kopperfieldAccomplishments,
-    professionalWork,
-} from '../data/work';
+import { professionalWork } from '../data/work';
 import ProjectList from '@components/ProjectList';
+import {
+    PerformanceFigure,
+    PublishingFlow,
+} from '@components/PortfolioVisuals';
 
 export default function Work() {
     return (
@@ -17,13 +17,12 @@ export default function Work() {
             <PageSeo
                 title="Selected work"
                 path="/work"
-                description="Adam Hultman’s hands-on engineering ownership at Kopperfield, plus Before Offer, Parallax Studio, and Earbud at Perspective Labs."
+                description="Adam Hultman’s engineering ownership at Kopperfield spans product delivery, operations, infrastructure, reliability, and performance. Explore his work and independent projects."
             />
             <div className="page-container">
                 <PageIntro label="Work" title="Selected work.">
-                    From software used in the field to independent AI products
-                    and audio tools. A closer look at what I build and the
-                    engineering decisions behind it.
+                    Software for the working day. Tools for the creative
+                    process.
                 </PageIntro>
                 <nav className="section-nav" aria-label="Work sections">
                     <a href="#kopperfield">Kopperfield</a>
@@ -38,7 +37,12 @@ export default function Work() {
                         <p>{professionalWork.role}</p>
                     </div>
                     <div className="work-section-content">
-                        <p>{professionalWork.description}</p>
+                        <p>
+                            I’m Kopperfield’s sole full-time engineer, building
+                            software for electrical contractors and owning
+                            engineering operations, infrastructure, and
+                            reliability.
+                        </p>
                         <p className="technology-line">
                             {professionalWork.technologies.join(' · ')}
                         </p>
@@ -49,13 +53,24 @@ export default function Work() {
                             Read about our development process
                         </TextLink>
                     </div>
-                    <div className="work-stories">
-                        {kopperfieldAccomplishments.map((item) => (
-                            <article key={item.title}>
-                                <h3>{item.title}</h3>
-                                <p>{item.body}</p>
+                    <div className="work-highlights">
+                        <PerformanceFigure />
+                        <div className="work-outcomes">
+                            <article>
+                                <h3>From idea to release</h3>
+                                <p>
+                                    Web features and mobile experiences shipped
+                                    on Android and iOS.
+                                </p>
                             </article>
-                        ))}
+                            <article>
+                                <h3>Keeping the business running</h3>
+                                <p>
+                                    Reliable billing, automated operations, and
+                                    regression checks before release.
+                                </p>
+                            </article>
+                        </div>
                     </div>
                 </section>
                 <section id="perspective-labs" className="work-section">
@@ -65,10 +80,12 @@ export default function Work() {
                             Perspective Labs
                             <span className="company-suffix"> Inc.</span>
                         </h2>
-                        <p>Products in development</p>
                     </div>
                     <div className="work-section-content">
-                        <p>{independentWork.summary}</p>
+                        <p>
+                            Three independent products in development, from
+                            property research to creative tools.
+                        </p>
                     </div>
                     <ProjectList />
                 </section>
@@ -83,37 +100,11 @@ export default function Work() {
                     </div>
                     <div className="work-section-content">
                         <p>
-                            This site uses Notion for writing and Next.js for
-                            the public pages. The constraint is keeping
-                            published articles current without exposing drafts
-                            or turning a Notion outage into a missing article.
-                        </p>
-                        <h3>Publishing and failure handling</h3>
-                        <p>
-                            The server verifies that each article belongs to the
-                            configured collection and is published before
-                            reading its content. Pages revalidate hourly; a
-                            failed refresh preserves the last successful page.
-                            Snapshot content is available only in explicitly
-                            configured previews.
-                        </p>
-                        <h3>Security at the boundaries</h3>
-                        <p>
-                            Notion blocks render as escaped React elements with
-                            checked URLs. The contact endpoint validates and
-                            escapes input, sends to a fixed recipient, and stops
-                            accepting requests when its shared rate limiter is
-                            unavailable. The unused AI chat endpoint was
-                            removed.
-                        </p>
-                        <h3>What the checks establish</h3>
-                        <p>
-                            Regression tests exercise draft access, upstream
-                            failures, hostile content, and contact delivery
-                            errors. Browser tests cover keyboard controls,
-                            mobile layouts, and automated accessibility rules in
-                            both themes. These checks support maintenance; they
-                            do not replace a screen-reader review.
+                            Write in Notion, publish with Next.js. Drafts stay
+                            private, and a failed refresh keeps the last
+                            successful page online. Regression and browser tests
+                            cover those boundaries, keyboard access, and mobile
+                            layouts.
                         </p>
                         <TextLink href="https://github.com/ACHultman/achultman-web">
                             Read the source and tests
@@ -122,6 +113,7 @@ export default function Work() {
                             Review the security changes
                         </TextLink>
                     </div>
+                    <PublishingFlow />
                 </section>
                 <section id="earlier-work" className="work-section">
                     <div className="work-section-title">
@@ -133,10 +125,6 @@ export default function Work() {
                             Previously, at Assembly Digital, I built publishing
                             tools and automation across WordPress, AWS, and
                             AI-assisted editorial workflows.
-                        </p>
-                        <p>
-                            Earlier roles included work on data products, cloud
-                            applications, and internal tools.
                         </p>
                         <TextLink href="/resume">View résumé</TextLink>
                     </div>

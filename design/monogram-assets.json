@@ -1,0 +1,13 @@
+{
+    "source": "User-supplied Ivory AH Monogram on Forest Green.png",
+    "generator": "Built-in image_gen",
+    "header": {
+        "asset": "public/images/ah-monogram.png",
+        "prompt": "Use case: precise-object-edit\nAsset type: production logo asset for a website header.\nEdit the attached AH monogram. Preserve the existing mark EXACTLY: the geometric A, triangular counter, shared diagonal and H structure, the small diagonal separation at the central crossbar, the proportions, stroke widths and letter spacing. Do not reinterpret or redesign it.\nRemove all texture and lighting variation. Use completely flat ivory #F5F4EF for the monogram and completely flat forest green #12382F for the background. Square canvas, no rounded corners in the image. Crop out the excessive surrounding space: the complete monogram should occupy 84% of the canvas width, centered horizontally and vertically, with its original width-to-height proportions intact. Every edge should be perfectly straight and sharp, with clean antialiasing.\nOne isolated logo, no added text, shadows, glow, border, mockup or additional marks."
+    },
+    "favicon": {
+        "asset": "public/favicon.svg",
+        "prompt": "Use case: precise-object-edit\nAsset type: simplified production favicon based on the attached AH logo.\nCreate one small-size variant of this exact geometric AH monogram, preserving its overall silhouette, the shared diagonal and the recognizable A/H construction. Simplify ONLY the tiny diagonal cut where the H crossbar almost meets the A: close that hairline gap so the crossbar forms a continuous sturdy join into the shared diagonal. Keep the triangular opening in the A clear and open. Keep all strokes bold and straight; do not add any fine detail or serifs, or introduce a different typeface.\nCompletely flat ivory #F5F4EF monogram on completely flat forest green #12382F. Square canvas, no rounded corners baked into the image. Enlarge the mark to occupy 88% of the canvas width, centered horizontally and vertically with its original 3:2 width-to-height proportions intact. It must remain legible when downscaled to 16 and 32 pixels. Sharp straight edges and flat colors only.\nNo texture, gradients, shadows, glow, presentation framing, extra text, or other variations. Produce a single icon.",
+        "production": "Simplified concept reconstructed as two geometric vector paths, with the narrow crossbar gap closed and the mark enlarged for small sizes. PNG and ICO exports derive from this SVG."
+    }
+}

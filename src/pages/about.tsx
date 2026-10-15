@@ -66,7 +66,7 @@ export default function About({ activity }: { activity: Activity | null }) {
                         <p>
                             Through Perspective Labs Inc., I’m developing{' '}
                             <Link href="/work/property-intelligence">
-                                Before Offer
+                                Tenurel
                             </Link>
                             , a property intelligence product;{' '}
                             <Link href="/work/parallax-studio">
